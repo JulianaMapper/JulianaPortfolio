@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="15 years. Five domains. One approach. The career arc of Juliana McMillan-Wilhoit — product leader, Fulbright Scholar, tools builder, keynote speaker." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      color: #3D3D3D; background: #FEFEFE;
+      min-height: 100vh; line-height: 1.6; font-weight: 400;
+    }
+    .will-animate {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .will-animate.visible { opacity: 1; transform: translateY(0); }
+    .will-animate[data-delay="0.1"] { transition-delay: 0.1s; }
+    .will-animate[data-delay="0.2"] { transition-delay: 0.2s; }
+    .will-animate[data-delay="0.3"] { transition-delay: 0.3s; }
+
+    /* Header */
+    .header-band {
+      background: #1A4220; padding: 0 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    }
+    .header-name {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-weight: 700; font-size: 1.125rem;
+      color: #FEFEFE; letter-spacing: -0.01em; text-decoration: none;
+    }
+    .header-tagline {
+      font-size: 0.7rem; font-weight: 400; color: rgba(254,254,254,0.45);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-left: 1rem; display: none;
+    }
+    @media (min-width: 860px) { .header-tagline { display: inline; } }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link {
+      color: rgba(254,254,254,0.65); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s ease;
+    }
+    .nav-link:hover { color: #FEFEFE; }
+    .nav-link.active { color: #FEFEFE; border-bottom: 1px solid rgba(254,254,254,0.5); padding-bottom: 1px; }
+
+    /* Page header */
+    .page-header {
+      padding: 7rem 2.5rem 4rem; background: #1A4220; position: relative; overflow: hidden;
+    }
+    .page-header-orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15;
+      width: 500px; height: 500px; background: #4A7C54;
+      top: -100px; right: -100px; pointer-events: none;
+    }
+    .page-header-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; }
+    .section-tag {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(254,254,254,0.5); margin-bottom: 0.5rem;
+    }
+    .page-h1 {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 900;
+      color: #FEFEFE; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem;
+    }
+    .page-desc {
+      font-size: 1.0625rem; color: rgba(254,254,254,0.7);
+      max-width: 560px; line-height: 1.75; font-weight: 300;
+    }
+
+    /* Content */
+    .content-section { padding: 5rem 2.5rem; max-width: 960px; margin: 0 auto; }
+    .content-section.alt { background: #F7F5F2; max-width: 100%; padding: 5rem 2.5rem; }
+    .content-section.alt .content-inner { max-width: 960px; margin: 0 auto; }
+
+    .section-h2 {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 900; color: #1A4220;
+      letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 0.75rem;
+    }
+    .section-label {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #255B2C; margin-bottom: 0.5rem;
+    }
+    .body-p {
+      font-size: 1rem; color: #3D3D3D; line-height: 1.8; font-weight: 300; margin-bottom: 1rem;
+      max-width: 680px;
+    }
+    .body-p strong { font-weight: 600; color: #1A4220; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 2rem; margin-top: 1.5rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
+      width: 2px; background: linear-gradient(to bottom, #255B2C, #A8C5AD);
+    }
+    .timeline-item { position: relative; margin-bottom: 2.75rem; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute; left: -2.375rem; top: 5px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #255B2C; border: 2px solid #FEFEFE;
+      box-shadow: 0 0 0 2px #255B2C;
+    }
+    .timeline-date {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #4A7C54; margin-bottom: 0.3rem;
+    }
+    .timeline-org {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.25rem; font-weight: 700; color: #1A4220; line-height: 1.2; margin-bottom: 0.25rem;
+    }
+    .timeline-role { font-size: 0.9rem; color: #5A5A5A; font-weight: 400; margin-bottom: 0.5rem; }
+    .timeline-p { font-size: 0.9rem; color: #3D3D3D; line-height: 1.7; font-weight: 300; max-width: 580px; }
+
+    /* Two-col */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; gap: 2rem; } }
+
+    /* Recognition grid */
+    .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    @media (max-width: 720px) { .rec-grid { grid-template-columns: 1fr 1fr; } }
+    .rec-card {
+      padding: 1.25rem; background: #FEFEFE; border-radius: 10px;
+      border: 1px solid #e8e8e8;
+    }
+    .rec-num {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.5rem; font-weight: 900; color: #255B2C; line-height: 1; margin-bottom: 0.3rem;
+    }
+    .rec-label { font-size: 0.8rem; color: #5A5A5A; font-weight: 300; line-height: 1.4; }
+
+    /* Strengths */
+    .strength-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+    .strength-pill {
+      padding: 0.5rem 1.1rem; border-radius: 100px;
+      border: 1px solid #C8D9CB; font-size: 0.875rem;
+      font-weight: 400; color: #3D3D3D;
+    }
+
+    /* Pull quote */
+    .pullquote {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1.1rem, 1.8vw, 1.375rem); font-style: italic;
+      color: #3D3D3D; line-height: 1.7;
+      border-left: 4px solid #255B2C; padding: 1rem 1.5rem;
+      background: rgba(37,91,44,0.04); border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+    }
+    .pullquote cite {
+      display: block; margin-top: 0.75rem; font-size: 0.8rem;
+      font-style: normal; font-weight: 600; color: #255B2C;
+    }
+
+    /* CTA strip */
+    .cta-strip {
+      background: #1A4220; padding: 4rem 2.5rem; text-align: center;
+    }
+    .cta-strip-inner { max-width: 600px; margin: 0 auto; }
+    .cta-h { font-family: 'Crimson Pro', Georgia, serif; font-size: 2rem; font-weight: 900; color: #FEFEFE; margin-bottom: 0.75rem; }
+    .cta-p { font-size: 1rem; color: rgba(254,254,254,0.7); font-weight: 300; line-height: 1.7; margin-bottom: 1.75rem; }
+    .btn-primary {
+      display: inline-block; background: #FEFEFE; color: #1A4220;
+      font-family: 'Outfit', sans-serif; font-size: 0.9375rem;
+      font-weight: 600; padding: 0.875rem 2rem; border-radius: 8px;
+      text-decoration: none; letter-spacing: 0.02em; transition: background 0.2s ease; margin: 0.4rem;
+    }
+    .btn-primary:hover { background: #F7F5F2; }
+    .btn-ghost-light {
+      display: inline-block; color: rgba(254,254,254,0.8); font-family: 'Outfit', sans-serif;
+      font-size: 0.875rem; font-weight: 400; text-decoration: none;
+      border-bottom: 1px solid rgba(254,254,254,0.35); padding-bottom: 1px; margin: 0.4rem 1rem;
+      transition: color 0.2s ease;
+    }
+    .btn-ghost-light:hover { color: #FEFEFE; }
+
+    /* Footer */
+    .site-footer {
+      background: #F7F5F2; border-top: 1px solid #e8e8e8;
+      padding: 2rem 2.5rem; text-align: center;
+    }
+    .footer-tagline { font-family: 'Crimson Pro', Georgia, serif; font-size: 0.9375rem; font-style: italic; color: #5A5A5A; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; }
+    .footer-link {
+      color: #5A5A5A; text-decoration: none; font-size: 0.8rem;
+      font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: #255B2C; }
+
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      .nav-link { font-size: 0.7rem; }
+      .page-header { padding: 6rem 1.5rem 3rem; }
+      .content-section { padding: 3.5rem 1.5rem; }
+      .content-section.alt { padding: 3.5rem 1.5rem; }
+      .rec-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-band" role="banner">
+    <div style="display:flex;align-items:baseline;">
+      <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <span class="header-tagline">— The domain changes. The approach doesn't.</span>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index-ai.html" class="nav-link">Home</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="thinking.html" class="nav-link">How I Think</a>
+      <a href="about.html" class="nav-link active">About</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
+    </nav>
+  </header>
+
+  <div class="page-header">
+    <div class="page-header-orb"></div>
+    <div class="page-header-inner">
+      <div class="section-tag anim">About</div>
+      <h1 class="page-h1 anim" data-delay="0.1">15 years. Five domains.<br />One approach.</h1>
+      <p class="page-desc anim" data-delay="0.2">The career arc isn't random. Every stop was another room with a problem nobody had fully solved. I went in, listened, and built the fix.</p>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <section class="content-section">
+    <div class="two-col">
+      <div>
+        <div class="section-label anim">Who I am</div>
+        <h2 class="section-h2 anim" data-delay="0.1">I go toward the hard rooms.</h2>
+        <p class="body-p anim" data-delay="0.2">
+          I'm a product leader with deep roots in geospatial analytics, supply chain, and public health. I've spent 15 years in rooms where people had problems they couldn't fully articulate yet — and I've learned that the right tool for the problem is rarely the first one anyone suggests.
+        </p>
+        <p class="body-p anim" data-delay="0.2">
+          <strong>My superpower isn't technology</strong> — it's the combination of genuine curiosity, deep listening, and the ability to translate what I hear into something that actually gets built. I ask better questions than most. I stay until I understand what's actually broken. Then I build the fix.
+        </p>
+        <p class="body-p anim" data-delay="0.3">
+          I'm Chief Product Officer and Co-Founder of Flourish &amp; Thrive Labs — a WBE and SBA 8(a) certified public health technology company. I'm also a Fulbright Scholar, three-time national keynote speaker, and the person who built a library automation system for her own family because she couldn't walk past a broken process.
+        </p>
+        <p class="body-p anim" data-delay="0.3">
+          I'm based in Grayslake, IL. I homeschool my daughter, co-run a company with my husband, and genuinely believe that the best product work starts with a real conversation.
+        </p>
+      </div>
+      <div class="anim" data-delay="0.2">
+        <div class="pullquote">
+          "A few people in every work environment provide that combination of passion, positiveness, and genius that makes coming to work fun for others."
+          <cite>— Dr. Jim Westervelt, Creator of GRASS GIS, U.S. Army Corps of Engineers</cite>
+        </div>
+        <div class="pullquote" style="margin-top:1.25rem;">
+          "She is able to meet people where they are rather than where she is."
+          <cite>— Anna Fuselier, Vice Chair, BEST Foundation</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career timeline -->
+  <section class="content-section alt">
+    <div class="content-inner">
+      <div class="section-label anim">Career Arc</div>
+      <h2 class="section-h2 anim" data-delay="0.1">The path that made the approach</h2>
+      <p class="body-p anim" data-delay="0.2" style="margin-bottom:2.5rem;">Every role added a new domain. The instinct — go toward the people first — was there from day one.</p>
+
+      <div class="timeline anim" data-delay="0.2">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2011 – 2012</div>
+          <div class="timeline-org">Esri — Redlands, CA</div>
+          <div class="timeline-role">Desktop Support Analyst</div>
+          <div class="timeline-p">Technical support for ArcGIS products. Talked to users every day. Surpassed incident quota by 150% with one of the highest customer satisfaction rates on the team. This is where I learned that understanding how people actually use tools is a skill — and mine.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2012 – 2013</div>
+          <div class="timeline-org">Fulbright ETA — Bulgaria</div>
+          <div class="timeline-role">English Teaching Assistant + Co-Founded BEST Foundation</div>
+          <div class="timeline-p">Taught English at a foreign language school in Varna. Volunteered with the Roma community. Co-founded the Bulgarian English Speech Tournament Foundation — grew from 6 schools to 35+ schools and 1,000+ students. Learned what it means to build something in a context where everything is unfamiliar.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2013 – 2019</div>
+          <div class="timeline-org">U.S. Army Corps of Engineers (CERL/ERDC)</div>
+          <div class="timeline-role">Community Planner → Product Manager, ENSITE</div>
+          <div class="timeline-p">Built the military's first global site location tool. Deployed to Puerto Rico as GIS Team Lead after Hurricane Maria. Mentored by GRASS GIS creator Jim Westervelt, who gave me the advice I've carried ever since: go talk to the people who will use it before you build anything. Received the Department of the Army Medal for Civilian Service.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2019 – 2020</div>
+          <div class="timeline-org">KPMG</div>
+          <div class="timeline-role">Senior Geospatial Data Scientist</div>
+          <div class="timeline-p">Built and commercialized three data and analytical products for M&amp;A, real estate, and telecom clients — Synthetic Routes, the Qualified Opportunity Zone Viewer, and TeleGIS. First time in a pure commercial product context. Learned how to take a product to market.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2020 – 2023</div>
+          <div class="timeline-org">Peapod Digital Labs (ADUSA Supply Chain Services)</div>
+          <div class="timeline-role">Product Manager / Senior Network Strategy Analyst</div>
+          <div class="timeline-p">PM for the demand model driving multi-million dollar e-commerce facility decisions. Ran the first validation the model had ever received. Built a systematic dashboard process that reduced reporting time by 1000%. Ran this concurrently with Tabulae Spatial consulting work.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2020 – Present</div>
+          <div class="timeline-org">Flourish &amp; Thrive Labs (formerly Tabulae Spatial)</div>
+          <div class="timeline-role">Chief Product Officer &amp; Co-Founder</div>
+          <div class="timeline-p">Built PH360 — a HIPAA-compliant, Sunshine Law-ready AI platform for local public health departments on AWS Bedrock. Interviewed 50+ public health professionals before writing a line of code. Achieved 83% workload reduction for Sauk County. WBE and SBA 8(a) certified. Three-time national keynote speaker on AI in public health.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recognition -->
+  <section class="content-section">
+    <div class="section-label anim">Recognition</div>
+    <h2 class="section-h2 anim" data-delay="0.1">A few highlights</h2>
+    <div class="rec-grid anim" data-delay="0.2">
+      <div class="rec-card">
+        <div class="rec-num">Fulbright</div>
+        <div class="rec-label">Scholar — English Teaching Assistantship, Bulgaria 2012–2013</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-num">DA Medal</div>
+        <div class="rec-label">Department of the Army Medal for Civilian Service, 2017</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-num">3×</div>
+        <div class="rec-label">National keynote speaker — AI in public health, geospatial</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-num">Rising Star</div>
+        <div class="rec-label">Geospatial Rising Star — Geospatial World Magazine, 2022</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-num">4.0</div>
+        <div class="rec-label">Master of Urban Planning, University of Illinois Urbana-Champaign</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-num">Summa</div>
+        <div class="rec-label">Summa Cum Laude, Wheaton College — 3.85 GPA, top 5% of class</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How I work -->
+  <section class="content-section alt">
+    <div class="content-inner">
+      <div class="two-col">
+        <div>
+          <div class="section-label anim">How I work</div>
+          <h2 class="section-h2 anim" data-delay="0.1">The instincts behind the approach</h2>
+          <p class="body-p anim" data-delay="0.2">I'm a verbal processor — I think out loud, I use voice memos constantly, I work through problems in conversation. My best insights come from talking through a problem with a real person, not staring at a document.</p>
+          <p class="body-p anim" data-delay="0.2">I'm diagnosed with ADHD and dyslexia. I didn't read at grade level until fourth grade. My career has been defined by having big ideas and thinking well — and having to work very hard to build the systems that help me execute on them. That's made me excellent at building systems. For myself, and for the organizations I work with.</p>
+          <p class="body-p anim" data-delay="0.3">I categorize tasks by focus level. I built an automation for my family's library holds because I couldn't tolerate a broken process at home any more than at work. I apply the same problem-solving instinct to my own kitchen table that I bring to enterprise-scale work. The scale changes. The instinct doesn't.</p>
+        </div>
+        <div>
+          <div class="section-label anim" data-delay="0.1">Strengths</div>
+          <div class="strength-row anim" data-delay="0.2">
+            <span class="strength-pill">Listening</span>
+            <span class="strength-pill">Root cause diagnosis</span>
+            <span class="strength-pill">User research</span>
+            <span class="strength-pill">Process mapping</span>
+            <span class="strength-pill">Stakeholder translation</span>
+            <span class="strength-pill">Building in AWS</span>
+            <span class="strength-pill">AI architecture</span>
+            <span class="strength-pill">Geospatial analytics</span>
+            <span class="strength-pill">Product roadmapping</span>
+            <span class="strength-pill">Keynote speaking</span>
+            <span class="strength-pill">Community building</span>
+            <span class="strength-pill">Strategic planning</span>
+          </div>
+          <div class="section-label anim" data-delay="0.2" style="margin-top:1.75rem;">StrengthsFinder</div>
+          <div class="strength-row anim" data-delay="0.3">
+            <span class="strength-pill">Achiever</span>
+            <span class="strength-pill">Input</span>
+            <span class="strength-pill">Maximizer</span>
+            <span class="strength-pill">Learner</span>
+            <span class="strength-pill">Belief</span>
+          </div>
+          <div class="section-label anim" data-delay="0.2" style="margin-top:1.75rem;">VIA Character Strengths</div>
+          <div class="strength-row anim" data-delay="0.3">
+            <span class="strength-pill">Bravery</span>
+            <span class="strength-pill">Perseverance</span>
+            <span class="strength-pill">Zest</span>
+            <span class="strength-pill">Creativity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-strip">
+    <div class="cta-strip-inner anim">
+      <h2 class="cta-h">Let's work together</h2>
+      <p class="cta-p">Open to product leadership roles — W2, fractional CPO, or advisory.<br />Grayslake, IL · JulianaMcMillanWilhoit@Gmail.com</p>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="btn-primary">Email me →</a>
+      <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="btn-ghost-light">LinkedIn</a>
+      <a href="work.html" class="btn-ghost-light">See the work</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+    <div class="footer-links">
+      <a href="index-ai.html" class="footer-link">Home</a>
+      <a href="work.html" class="footer-link">Work</a>
+      <a href="thinking.html" class="footer-link">How I Think</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-link">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    function initFadeIns() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.06 });
+      document.querySelectorAll('.anim').forEach(el => {
+        el.classList.add('will-animate');
+        observer.observe(el);
+      });
+    }
+    initFadeIns();
+  </script>
+</body>
+</html>

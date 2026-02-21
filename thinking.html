@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How I Think — Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="Juliana McMillan-Wilhoit's approach to AI, process mapping, and problem-solving. The framework behind 15 years of product work." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      color: #3D3D3D; background: #FEFEFE;
+      min-height: 100vh; line-height: 1.6; font-weight: 400;
+    }
+    .will-animate {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .will-animate.visible { opacity: 1; transform: translateY(0); }
+    .will-animate[data-delay="0.1"] { transition-delay: 0.1s; }
+    .will-animate[data-delay="0.2"] { transition-delay: 0.2s; }
+    .will-animate[data-delay="0.3"] { transition-delay: 0.3s; }
+    .will-animate[data-delay="0.4"] { transition-delay: 0.4s; }
+
+    /* Header */
+    .header-band {
+      background: #1A4220; padding: 0 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    }
+    .header-name {
+      font-family: 'Crimson Pro', Georgia, serif; font-weight: 700;
+      font-size: 1.125rem; color: #FEFEFE; letter-spacing: -0.01em; text-decoration: none;
+    }
+    .header-tagline {
+      font-size: 0.7rem; font-weight: 400; color: rgba(254,254,254,0.45);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-left: 1rem; display: none;
+    }
+    @media (min-width: 860px) { .header-tagline { display: inline; } }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link {
+      color: rgba(254,254,254,0.65); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; transition: color 0.2s ease;
+    }
+    .nav-link:hover { color: #FEFEFE; }
+    .nav-link.active { color: #FEFEFE; border-bottom: 1px solid rgba(254,254,254,0.5); padding-bottom: 1px; }
+
+    /* Page hero */
+    .page-hero {
+      padding: 8rem 2.5rem 5rem; position: relative; overflow: hidden;
+      background: linear-gradient(160deg, #F7F5F2 0%, #FEFEFE 60%);
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .page-hero-inner { max-width: 860px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #255B2C; margin-bottom: 0.5rem;
+    }
+    .page-h1 {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 900;
+      color: #1A4220; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;
+    }
+    .page-desc {
+      font-size: 1.1rem; color: #5A5A5A; max-width: 620px; line-height: 1.8; font-weight: 300;
+    }
+
+    /* Shared section */
+    .section { padding: 5rem 2.5rem; }
+    .section.alt { background: #F7F5F2; }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #255B2C; margin-bottom: 0.5rem;
+    }
+    .section-h2 {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 900; color: #1A4220;
+      letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 0.875rem;
+    }
+    .section-desc {
+      font-size: 1rem; color: #5A5A5A; max-width: 620px; line-height: 1.75; font-weight: 300; margin-bottom: 2.5rem;
+    }
+    .body-p {
+      font-size: 1rem; color: #3D3D3D; line-height: 1.8; font-weight: 300;
+      margin-bottom: 1rem; max-width: 680px;
+    }
+    .body-p strong { font-weight: 600; color: #1A4220; }
+
+    /* AI POV section */
+    .aipov-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    @media (max-width: 720px) { .aipov-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .aipov-quote {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1.2rem, 2vw, 1.5rem); font-style: italic; font-weight: 400;
+      color: #1A4220; line-height: 1.65;
+      border-left: 4px solid #255B2C; padding: 1.25rem 1.5rem;
+      background: rgba(37,91,44,0.05); border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Framework steps */
+    .framework-steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem;
+      padding: 2rem 0; border-bottom: 1px solid #e8e8e8; align-items: start;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 2.5rem; font-weight: 900; color: #e8e8e8; line-height: 1; padding-top: 0.1rem;
+    }
+    .step-body {}
+    .step-title {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.3rem; font-weight: 700; color: #1A4220; margin-bottom: 0.4rem; line-height: 1.2;
+    }
+    .step-desc { font-size: 0.9375rem; color: #3D3D3D; line-height: 1.75; font-weight: 300; margin-bottom: 0.75rem; }
+    .step-proof {
+      font-size: 0.875rem; color: #5A5A5A; line-height: 1.65;
+      padding: 0.65rem 0.875rem; background: rgba(37,91,44,0.06);
+      border-radius: 6px; border-left: 3px solid #4A7C54; font-weight: 400;
+    }
+    .step-proof strong { color: #255B2C; font-weight: 600; }
+
+    /* Process mapping section */
+    .pm-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    @media (max-width: 720px) { .pm-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    /* Head/Heart filter */
+    .hh-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.5rem 0; }
+    @media (max-width: 600px) { .hh-grid { grid-template-columns: 1fr; } }
+    .hh-card {
+      padding: 1.5rem; border-radius: 12px; border: 1px solid #e8e8e8;
+    }
+    .hh-card.head { border-color: #C8D9CB; background: rgba(37,91,44,0.04); }
+    .hh-card.heart { border-color: #e8e8e8; background: #FEFEFE; }
+    .hh-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .hh-title {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.1rem; font-weight: 700; color: #1A4220; margin-bottom: 0.4rem;
+    }
+    .hh-desc { font-size: 0.875rem; color: #5A5A5A; line-height: 1.6; font-weight: 300; }
+
+    /* 6-step framework */
+    .six-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    @media (max-width: 720px) { .six-steps { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .six-steps { grid-template-columns: 1fr; } }
+    .six-step {
+      padding: 1.25rem; background: #FEFEFE; border-radius: 10px;
+      border: 1px solid #e8e8e8; position: relative;
+    }
+    .six-step-num {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 2rem; font-weight: 900; color: #e8e8e8;
+      line-height: 1; margin-bottom: 0.5rem;
+    }
+    .six-step-title {
+      font-size: 0.875rem; font-weight: 600; color: #1A4220; margin-bottom: 0.3rem;
+    }
+    .six-step-desc { font-size: 0.8125rem; color: #5A5A5A; line-height: 1.55; font-weight: 300; }
+
+    /* Pull quote */
+    .pullquote {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1.1rem, 1.8vw, 1.375rem); font-style: italic; font-weight: 400;
+      color: #3D3D3D; line-height: 1.7; border-left: 4px solid #255B2C;
+      padding: 1rem 1.5rem; background: rgba(37,91,44,0.04);
+      border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+    }
+    .pullquote cite {
+      display: block; margin-top: 0.75rem; font-size: 0.8rem;
+      font-style: normal; font-weight: 600; color: #255B2C;
+    }
+
+    /* Big stat */
+    .stat-callout {
+      background: #255B2C; border-radius: 12px; padding: 2rem;
+      text-align: center; margin: 1.5rem 0;
+    }
+    .stat-callout-num {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 3rem; font-weight: 900; color: #FEFEFE; line-height: 1;
+    }
+    .stat-callout-label { font-size: 0.875rem; color: rgba(254,254,254,0.75); margin-top: 0.5rem; font-weight: 300; line-height: 1.5; }
+
+    /* Writing/content strip */
+    .content-links { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+    @media (max-width: 600px) { .content-links { grid-template-columns: 1fr; } }
+    .content-link-card {
+      display: block; padding: 1.5rem; background: #FEFEFE; border-radius: 12px;
+      border: 1px solid #e8e8e8; text-decoration: none; color: inherit;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .content-link-card:hover {
+      border-color: #A8C5AD; box-shadow: 0 6px 20px rgba(37,91,44,0.08); transform: translateY(-2px);
+    }
+    .content-type {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #4A7C54; margin-bottom: 0.4rem;
+    }
+    .content-title {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.15rem; font-weight: 700; color: #1A4220; line-height: 1.25; margin-bottom: 0.4rem;
+    }
+    .content-desc { font-size: 0.875rem; color: #5A5A5A; font-weight: 300; line-height: 1.55; }
+    .content-arrow { margin-top: 0.75rem; font-size: 0.8125rem; font-weight: 600; color: #255B2C; }
+
+    /* CTA */
+    .cta-strip { background: #1A4220; padding: 4rem 2.5rem; text-align: center; }
+    .cta-strip-inner { max-width: 600px; margin: 0 auto; }
+    .cta-h { font-family: 'Crimson Pro', Georgia, serif; font-size: 2rem; font-weight: 900; color: #FEFEFE; margin-bottom: 0.75rem; }
+    .cta-p { font-size: 1rem; color: rgba(254,254,254,0.7); font-weight: 300; line-height: 1.7; margin-bottom: 1.75rem; }
+    .btn-primary {
+      display: inline-block; background: #FEFEFE; color: #1A4220;
+      font-family: 'Outfit', sans-serif; font-size: 0.9375rem; font-weight: 600;
+      padding: 0.875rem 2rem; border-radius: 8px; text-decoration: none;
+      letter-spacing: 0.02em; transition: background 0.2s ease; margin: 0.4rem;
+    }
+    .btn-primary:hover { background: #F7F5F2; }
+    .btn-ghost-light {
+      display: inline-block; color: rgba(254,254,254,0.8); font-family: 'Outfit', sans-serif;
+      font-size: 0.875rem; font-weight: 400; text-decoration: none;
+      border-bottom: 1px solid rgba(254,254,254,0.35); padding-bottom: 1px;
+      margin: 0.4rem 1rem; transition: color 0.2s ease;
+    }
+    .btn-ghost-light:hover { color: #FEFEFE; }
+
+    /* Footer */
+    .site-footer {
+      background: #F7F5F2; border-top: 1px solid #e8e8e8;
+      padding: 2rem 2.5rem; text-align: center;
+    }
+    .footer-tagline { font-family: 'Crimson Pro', Georgia, serif; font-size: 0.9375rem; font-style: italic; color: #5A5A5A; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; }
+    .footer-link {
+      color: #5A5A5A; text-decoration: none; font-size: 0.8rem;
+      font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: #255B2C; }
+
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      .nav-link { font-size: 0.7rem; }
+      .page-hero { padding: 6.5rem 1.5rem 3.5rem; }
+      .section { padding: 3.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-band" role="banner">
+    <div style="display:flex;align-items:baseline;">
+      <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <span class="header-tagline">— The domain changes. The approach doesn't.</span>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index-ai.html" class="nav-link">Home</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="thinking.html" class="nav-link active">How I Think</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="section-tag anim">How I Think</div>
+      <h1 class="page-h1 anim" data-delay="0.1">
+        You can't automate<br />what you can't articulate.
+      </h1>
+      <p class="page-desc anim" data-delay="0.2">
+        My approach to AI, problem-solving, and why process mapping is the work that happens before any technology decision. These aren't theories — they're patterns I've tested across 15 years and five domains.
+      </p>
+    </div>
+  </section>
+
+  <!-- AI POV -->
+  <section class="section" id="ai-pov">
+    <div class="section-inner">
+      <div class="section-label anim">My Point of View on Tools</div>
+      <h2 class="section-h2 anim" data-delay="0.1">I'm not an AI evangelist.<br />I'm a problem-solving realist.</h2>
+      <div class="aipov-grid">
+        <div>
+          <div class="aipov-quote anim" data-delay="0.1">
+            "I'm not interested in AI for AI's sake. I'm interested in where it actually fits — and where organizations aren't ready for it yet. That gap between what the tool can do and what the team can absorb is where I do my best work."
+          </div>
+          <p class="body-p anim" data-delay="0.2">
+            I stay deeply current on model releases — Claude, image gen, video gen, what's coming next. I think at the architecture level: RAG, knowledge bases, enterprise AI systems, where the field is actually heading. I build on AWS at enterprise scale and apply the same thinking to my own kitchen table.
+          </p>
+          <p class="body-p anim" data-delay="0.2">
+            But here's what I've learned from building AI products for public health departments: <strong>most AI failures aren't technology failures.</strong> They're process failures. Organizations jump to solutions before they've understood their problems. They automate broken workflows and wonder why it didn't help.
+          </p>
+          <p class="body-p anim" data-delay="0.3">
+            My job is to slow that down. Map the process. Find what's actually broken. Then — and only then — figure out where AI fits.
+          </p>
+        </div>
+        <div>
+          <div class="anim" data-delay="0.2">
+            <div class="stat-callout">
+              <div class="stat-callout-num">80%</div>
+              <div class="stat-callout-label">of AI projects fail — most because organizations focus on the technology instead of the actual problem<br/><em style="font-size:0.75rem;opacity:0.6;">— RAND Corporation, based on 65 interviews with AI practitioners</em></div>
+            </div>
+            <div class="stat-callout" style="background:#4A7C54;margin-top:1rem;">
+              <div class="stat-callout-num">83%</div>
+              <div class="stat-callout-label">Workload reduction Sauk County achieved — by mapping processes first, then implementing AI<br/><em style="font-size:0.75rem;opacity:0.6;">— F&amp;T Labs / PH360 case study</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The approach: 4 steps -->
+  <section class="section alt" id="approach">
+    <div class="section-inner">
+      <div class="section-label anim">The Approach</div>
+      <h2 class="section-h2 anim" data-delay="0.1">Same pattern. Every project. Every domain.</h2>
+      <p class="section-desc anim" data-delay="0.2">This isn't a framework I invented and named. It's what I noticed I was already doing, after 15 years of doing it.</p>
+      <div class="framework-steps">
+        <div class="step anim">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Go toward the people</div>
+            <div class="step-desc">Before I touch a product, I talk to the people who will use it. Not surveys — real conversations. I listen for the gap between what they say they need and what they actually do. Most people have never had someone sit with them long enough to find that gap.</div>
+            <div class="step-proof"><strong>In practice:</strong> Interviewed 50+ public health professionals before building PH360. Mentored by GRASS GIS creator Jim Westervelt on day one at the Army Corps: "Go talk to the users first." I've done that ever since.</div>
+          </div>
+        </div>
+        <div class="step anim" data-delay="0.1">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Find the real problem</div>
+            <div class="step-desc">The presenting problem is rarely the actual problem. I trace pain points to root causes — which are usually organizational, not technical. "Everything is slow" is not a problem. "Our complaint categorization system hasn't been updated in 15 years and routes cases to the wrong department" is a problem.</div>
+            <div class="step-proof"><strong>In practice:</strong> Public health wasn't adopting AI because of policy ambiguity, not tech gaps. Peapod's demand model had never been validated — nobody had asked. Cemetery mapping took days because of a CAD conversion nobody had questioned.</div>
+          </div>
+        </div>
+        <div class="step anim" data-delay="0.1">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Build the fix — and ship it</div>
+            <div class="step-desc">I don't just recommend. I build. Whether it's an AI platform, a data governance framework, an automation workflow, or a strategic plan — I ship things that actually work. The library automation I built for my own family wasn't a prototype. It runs every week.</div>
+            <div class="step-proof"><strong>In practice:</strong> Built PH360 on AWS Bedrock. Automated Puerto Rico power data from 8 hours to 30 minutes. Built ENSITE, the military's first global site location tool — then watched it deploy to Iraq, Afghanistan, and Poland.</div>
+          </div>
+        </div>
+        <div class="step anim" data-delay="0.1">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Validate and iterate</div>
+            <div class="step-desc">I bring solutions back to real users, test assumptions, and iterate. My qualitative research background means rigor and curiosity aren't in tension — they're the same thing. I follow up. I check. I ask again.</div>
+            <div class="step-proof"><strong>In practice:</strong> Ran PCA to validate Peapod's demand model — something the original consultants had never done. Followed up with every PH360 interviewee to validate features before building. User-tested ENSITE across DOD theaters.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process mapping -->
+  <section class="section" id="process-mapping">
+    <div class="section-inner">
+      <div class="section-label anim">Process Mapping</div>
+      <h2 class="section-h2 anim" data-delay="0.1">Map the process first.<br />Choose the technology second.</h2>
+      <div class="pm-grid">
+        <div>
+          <p class="body-p anim" data-delay="0.1">
+            Process mapping is the practice of breaking a workflow into its individual steps so you can see exactly what's happening, who's doing it, and where the real bottlenecks are. It's not bureaucratic. It's the foundation that separates successful AI adoption from expensive failures.
+          </p>
+          <p class="body-p anim" data-delay="0.2">
+            <strong>Elimination beats simplification. Simplification beats automation.</strong> The order matters. Automating an unnecessary step just makes you do something unnecessary faster. Automating a broken process just makes it fail faster.
+          </p>
+          <div class="pullquote anim" data-delay="0.2">
+            "You can't automate what you don't understand. And you definitely shouldn't automate what's already broken."
+            <cite>— Juliana McMillan-Wilhoit</cite>
+          </div>
+          <p class="body-p anim" data-delay="0.3">
+            I use process mapping with every client before any technology recommendation. It's how I found that Sauk County's environmental health bottleneck wasn't intake — it was that staff were spending most of their day on information lookup tasks that required no specialized judgment. That insight led to the AI implementation. The implementation didn't lead to the insight.
+          </p>
+        </div>
+        <div>
+          <div class="section-label anim" data-delay="0.1" style="margin-bottom:0.75rem;">The Head / Heart Filter</div>
+          <p class="body-p anim" data-delay="0.2" style="margin-bottom:1rem;">For each step in a process, I ask two questions. The answers tell you where AI belongs.</p>
+          <div class="hh-grid anim" data-delay="0.2">
+            <div class="hh-card head">
+              <div class="hh-icon">🧠</div>
+              <div class="hh-title">Head</div>
+              <div class="hh-desc">Does this step require specialized expertise, judgment, or analysis? If yes — keep a human. If no — candidate for automation.</div>
+            </div>
+            <div class="hh-card heart">
+              <div class="hh-icon">🤝</div>
+              <div class="hh-title">Heart</div>
+              <div class="hh-desc">Does this step require relationships, empathy, or trust-building? If yes — keep a human. If no — candidate for automation.</div>
+            </div>
+          </div>
+          <p class="body-p anim" data-delay="0.3" style="font-size:0.875rem;margin-top:0.75rem;">If the answer to both is no — it's routine, repetitive, administrative — that's your opportunity zone.</p>
+
+          <div class="section-label anim" data-delay="0.2" style="margin-top:2rem;margin-bottom:0.75rem;">The 6-Step Framework</div>
+          <div class="six-steps anim" data-delay="0.3">
+            <div class="six-step">
+              <div class="six-step-num">1</div>
+              <div class="six-step-title">Brainstorm inventory</div>
+              <div class="six-step-desc">List all major workflows. Don't filter. Just capture.</div>
+            </div>
+            <div class="six-step">
+              <div class="six-step-num">2</div>
+              <div class="six-step-title">Prioritize</div>
+              <div class="six-step-desc">Pick 3–5 processes where high pain meets high volume.</div>
+            </div>
+            <div class="six-step">
+              <div class="six-step-num">3</div>
+              <div class="six-step-title">Map current state</div>
+              <div class="six-step-desc">Every step. Don't skip the "obvious" ones. They hide the problems.</div>
+            </div>
+            <div class="six-step">
+              <div class="six-step-num">4</div>
+              <div class="six-step-title">Apply Head/Heart</div>
+              <div class="six-step-desc">Flag the opportunity zones. Mark clearly.</div>
+            </div>
+            <div class="six-step">
+              <div class="six-step-num">5</div>
+              <div class="six-step-title">Redesign first</div>
+              <div class="six-step-desc">Eliminate → simplify → automate. In that order.</div>
+            </div>
+            <div class="six-step">
+              <div class="six-step-num">6</div>
+              <div class="six-step-title">Test &amp; measure</div>
+              <div class="six-step-desc">Pilot. Track time, quality, satisfaction. Then scale.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Writing & content -->
+  <section class="section alt" id="writing">
+    <div class="section-inner">
+      <div class="section-label anim">Content &amp; Community</div>
+      <h2 class="section-h2 anim" data-delay="0.1">Thinking out loud, in public</h2>
+      <p class="section-desc anim" data-delay="0.2">I share what I'm learning. The AI CoP, the blog, the AI Policy Guide — all of it is an extension of the same instinct: find where people are confused or stuck, and help them get unstuck.</p>
+      <div class="content-links anim" data-delay="0.2">
+        <a href="https://fandtlabs.com/blog/why-process-mapping-is-your-secret-weapon-for-ai-success/" target="_blank" rel="noopener noreferrer" class="content-link-card">
+          <div class="content-type">Blog Post</div>
+          <div class="content-title">Why Process Mapping Is Your Secret Weapon for AI Success</div>
+          <div class="content-desc">The case for mapping workflows before implementing any AI tool. Includes the full 6-step framework and the Sauk County case study.</div>
+          <div class="content-arrow">Read on F&amp;T Labs →</div>
+        </a>
+        <a href="https://fandtlabs.com/ai-policy-guide" target="_blank" rel="noopener noreferrer" class="content-link-card">
+          <div class="content-type">Free Resource</div>
+          <div class="content-title">12 Things to Include in an AI Policy for Public Health Departments</div>
+          <div class="content-desc">The guide health departments use to get leadership buy-in. Covers HIPAA, Sunshine Law, data retention, and what the policy needs to say before anyone opens a chatbot.</div>
+          <div class="content-arrow">Download free →</div>
+        </a>
+        <a href="https://fandtlabs.com/ai-cop" target="_blank" rel="noopener noreferrer" class="content-link-card">
+          <div class="content-type">Monthly Community</div>
+          <div class="content-title">AI for Public Health — Community of Practice</div>
+          <div class="content-desc">Monthly peer learning community for public health professionals navigating AI. Guest speakers, real questions, no hype.</div>
+          <div class="content-arrow">Join the CoP →</div>
+        </a>
+        <a href="about.html#speaking" class="content-link-card">
+          <div class="content-type">Keynote Speaking</div>
+          <div class="content-title">National Keynote on AI in Public Health</div>
+          <div class="content-desc">National Maternal and Child Health Conference (2026), West Virginia GeoCon (2024), Kansas Association of Mappers (2023). Available for keynotes and panels.</div>
+          <div class="content-arrow">Learn more →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-strip">
+    <div class="cta-strip-inner anim">
+      <h2 class="cta-h">Ready to map your processes?</h2>
+      <p class="cta-p">Whether you're trying to implement AI or just figure out where to start — the conversation begins the same way. Tell me what's broken.</p>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="btn-primary">Let's talk →</a>
+      <a href="work.html" class="btn-ghost-light">See the case studies</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+    <div class="footer-links">
+      <a href="index-ai.html" class="footer-link">Home</a>
+      <a href="work.html" class="footer-link">Work</a>
+      <a href="about.html" class="footer-link">About</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-link">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    function initFadeIns() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.06 });
+      document.querySelectorAll('.anim').forEach(el => {
+        el.classList.add('will-animate');
+        observer.observe(el);
+      });
+    }
+    initFadeIns();
+  </script>
+</body>
+</html>

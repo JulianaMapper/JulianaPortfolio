@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="Case studies from 15 years of product leadership across AI, geospatial, supply chain, and defense. The domain changes. The approach doesn't." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      color: #3D3D3D; background: #FEFEFE;
+      min-height: 100vh; line-height: 1.6; font-weight: 400;
+    }
+
+    /* ── Fade-in ── */
+    .will-animate {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .will-animate.visible { opacity: 1; transform: translateY(0); }
+    .will-animate[data-delay="0.1"] { transition-delay: 0.1s; }
+    .will-animate[data-delay="0.2"] { transition-delay: 0.2s; }
+    .will-animate[data-delay="0.3"] { transition-delay: 0.3s; }
+
+    /* ── Header ── */
+    .header-band {
+      background: #1A4220; padding: 0 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    }
+    .header-name {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-weight: 700; font-size: 1.125rem;
+      color: #FEFEFE; letter-spacing: -0.01em; text-decoration: none;
+    }
+    .header-tagline {
+      font-size: 0.7rem; font-weight: 400; color: rgba(254,254,254,0.45);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-left: 1rem;
+    }
+    @media (min-width: 860px) { .header-tagline { display: inline; } }
+    .header-tagline { display: none; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link {
+      color: rgba(254,254,254,0.65); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover { color: #FEFEFE; }
+    .nav-link.active { color: #FEFEFE; border-bottom: 1px solid rgba(254,254,254,0.5); padding-bottom: 1px; }
+
+    /* ── Page header ── */
+    .page-header {
+      padding: 7rem 2.5rem 3.5rem;
+      max-width: 960px; margin: 0 auto;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .section-tag {
+      font-size: 0.6875rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: #255B2C; margin-bottom: 0.5rem;
+    }
+    .page-h1 {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; color: #1A4220;
+      letter-spacing: -0.02em; line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .page-desc {
+      font-size: 1.0625rem; color: #5A5A5A;
+      max-width: 600px; line-height: 1.75; font-weight: 300;
+    }
+
+    /* ── Case nav ── */
+    .case-nav {
+      position: sticky; top: 58px; z-index: 90;
+      background: rgba(254,254,254,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e8e8e8;
+      padding: 0 2.5rem;
+    }
+    .case-nav-inner {
+      max-width: 960px; margin: 0 auto;
+      display: flex; gap: 0; overflow-x: auto;
+    }
+    .case-nav-link {
+      display: block; padding: 1rem 1.25rem;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: #5A5A5A; text-decoration: none;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .case-nav-link:hover { color: #255B2C; }
+    .case-nav-link.active { color: #255B2C; border-bottom-color: #255B2C; }
+
+    /* ── Case study ── */
+    .case-study {
+      padding: 5rem 2.5rem;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .case-study:nth-child(even) { background: #F7F5F2; }
+    .case-inner { max-width: 960px; margin: 0 auto; }
+
+    .case-domain {
+      font-size: 0.6875rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #4A7C54; margin-bottom: 0.75rem;
+    }
+    .case-h2 {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.625rem);
+      font-weight: 900; color: #1A4220;
+      letter-spacing: -0.02em; line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+    .case-sub {
+      font-size: 1.0625rem; color: #5A5A5A;
+      font-weight: 300; margin-bottom: 2.5rem; line-height: 1.6;
+    }
+
+    /* metrics row */
+    .metrics-row {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+      padding: 1.75rem 2rem; background: #FEFEFE;
+      border-radius: 12px; border: 1px solid #e8e8e8;
+      margin-bottom: 3rem;
+    }
+    .case-study:nth-child(even) .metrics-row { background: #FEFEFE; }
+    .metric-block { flex: 1; min-width: 120px; }
+    .metric-num {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 2rem; font-weight: 900; color: #255B2C; line-height: 1;
+    }
+    .metric-label { font-size: 0.8rem; color: #5A5A5A; margin-top: 0.3rem; font-weight: 300; line-height: 1.4; }
+
+    /* body layout */
+    .case-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: start;
+    }
+    @media (max-width: 720px) { .case-body { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .case-label {
+      font-size: 0.6875rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #255B2C; margin-bottom: 0.6rem; margin-top: 1.75rem;
+    }
+    .case-label:first-child { margin-top: 0; }
+    .case-p {
+      font-size: 0.9375rem; color: #3D3D3D;
+      line-height: 1.75; font-weight: 300; margin-bottom: 0.5rem;
+    }
+    .case-li {
+      font-size: 0.9375rem; color: #3D3D3D;
+      line-height: 1.75; font-weight: 300;
+      padding-left: 1.1rem; position: relative; margin-bottom: 0.4rem;
+    }
+    .case-li::before {
+      content: '·'; position: absolute; left: 0;
+      color: #255B2C; font-weight: 700;
+    }
+
+    /* pull quote */
+    .case-pullquote {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1.1rem, 1.8vw, 1.375rem);
+      font-style: italic; font-weight: 400;
+      color: #3D3D3D; line-height: 1.7;
+      border-left: 4px solid #255B2C;
+      padding: 1rem 1.5rem;
+      background: rgba(37,91,44,0.04);
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+    }
+    .case-pullquote cite {
+      display: block; margin-top: 0.75rem;
+      font-size: 0.8rem; font-style: normal;
+      font-weight: 600; color: #255B2C;
+    }
+
+    .tool-pill {
+      display: inline-block; padding: 0.25rem 0.75rem;
+      background: rgba(37,91,44,0.08); color: #255B2C;
+      border-radius: 100px; font-size: 0.75rem; font-weight: 600;
+      margin-right: 0.4rem; margin-bottom: 0.4rem;
+    }
+
+    /* screenshot placeholders */
+    .case-screenshot {
+      width: 100%; border-radius: 10px;
+      overflow: hidden; margin: 1.5rem 0;
+      border: 1px solid #e8e8e8;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      background: #F7F5F2;
+    }
+    .case-screenshot img {
+      width: 100%; height: auto; display: block;
+      object-fit: cover;
+    }
+    .case-screenshot-caption {
+      font-size: 0.75rem; color: #5A5A5A; font-weight: 300;
+      padding: 0.5rem 0.875rem; background: #F7F5F2;
+      border-top: 1px solid #e8e8e8; font-style: italic;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: #1A4220; padding: 2.5rem 2.5rem;
+      text-align: center;
+    }
+    .footer-tagline {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1rem; font-style: italic; color: rgba(254,254,254,0.6);
+      margin-bottom: 1rem;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .footer-link {
+      color: rgba(254,254,254,0.55); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: #FEFEFE; }
+
+    @media (max-width: 720px) {
+      .page-header { padding: 6rem 1.5rem 2.5rem; }
+      .case-study { padding: 3.5rem 1.5rem; }
+      .case-nav { padding: 0 1rem; }
+      .metrics-row { gap: 1.25rem; padding: 1.25rem; }
+      .header-band { padding: 0 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      .nav-link { font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header-band" role="banner">
+    <div style="display:flex;align-items:baseline;">
+      <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <span class="header-tagline">— The domain changes. The approach doesn't.</span>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index-ai.html" class="nav-link">Home</a>
+      <a href="work.html" class="nav-link active">Work</a>
+      <a href="thinking.html" class="nav-link">How I Think</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="section-tag anim">Selected Work</div>
+    <h1 class="page-h1 anim" data-delay="0.1">The pattern, across four domains</h1>
+    <p class="page-desc anim" data-delay="0.2">
+      Different organizations. Different problems. Different scales.
+      The same approach every time: go toward the people, find the real problem, build the fix.
+    </p>
+  </div>
+
+  <!-- Sticky case nav -->
+  <nav class="case-nav" aria-label="Case studies">
+    <div class="case-nav-inner">
+      <a href="#ph360" class="case-nav-link active">PH360 / Public Health AI</a>
+      <a href="#ensite" class="case-nav-link">ENSITE / Defense</a>
+      <a href="#peapod" class="case-nav-link">Peapod / Supply Chain</a>
+      <a href="#library" class="case-nav-link">Library Automation</a>
+    </div>
+  </nav>
+
+  <!-- ── Case 1: PH360 ── -->
+  <section class="case-study" id="ph360">
+    <div class="case-inner">
+      <div class="case-domain anim">F&amp;T Labs · Public Health AI · Current</div>
+      <h2 class="case-h2 anim" data-delay="0.1">PH360: Built for the people running local public health</h2>
+      <p class="case-sub anim" data-delay="0.2">AI platform for departments that can't afford enterprise tools — HIPAA-compliant, Sunshine Law-ready, built on AWS Bedrock.</p>
+
+      <div class="metrics-row anim" data-delay="0.2">
+        <div class="metric-block">
+          <div class="metric-num">83%</div>
+          <div class="metric-label">Workload reduction on routine tasks — Sauk County</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">50+</div>
+          <div class="metric-label">Public health professionals interviewed before building</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">3</div>
+          <div class="metric-label">Local health departments — early adopters (Cooper County MO, Sauk County WI, Ottawa County MI)</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">National</div>
+          <div class="metric-label">AI Policy Guide adopted by departments across the US</div>
+        </div>
+      </div>
+
+      <div class="case-body">
+        <div>
+          <div class="case-label">The situation</div>
+          <p class="case-p">Local public health departments are chronically under-resourced. They're handling disease surveillance, environmental health complaints, emergency response, and a hundred other functions — often with teams of five to twenty people. After COVID, many were asked to do even more with even less.</p>
+          <p class="case-p">I'd been working in and around local health departments for years. I knew the workflows. I knew the pain. When I saw Claude's capabilities demonstrated at an AWS event, I didn't think "enterprise use case." I thought about the environmental health specialist in a small county spending half her day answering the same food code questions by phone. I thought about the emergency planner manually compiling reports that an AI could generate in minutes. The gap between what was possible and what these teams had access to was enormous — and nobody was building for them specifically.</p>
+          <p class="case-p">The challenge wasn't technical appetite. It was that the tools that existed weren't built for public health's unique constraints: HIPAA compliance, Sunshine Law data retention requirements, limited IT staff, and leadership that needed policy cover before they could say yes to anything new.</p>
+
+          <div class="case-label">What I heard</div>
+          <p class="case-p">I personally found people, structured the interviews, and led 50+ conversations with public health professionals across the US. The real blocker wasn't technology — it was policy ambiguity. Agencies didn't know what was allowed. ("You can't use Google Docs but you can use a commercial AI tool" — genuinely the guidance some teams were getting.)</p>
+          <p class="case-p">The second finding: even where AI was technically permitted, staff had no path to building a compliant knowledge base. Their information was locked in forms, case reports, food code manuals, and legacy systems — with no clear way to make it searchable or conversational without creating legal exposure.</p>
+
+          <div class="case-screenshot">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&auto=format&fit=crop&q=60" alt="Dashboard and analytics interface placeholder" />
+            <div class="case-screenshot-caption">Placeholder — PH360 dashboard UI (screenshot pending)</div>
+          </div>
+
+          <div class="case-pullquote">
+            "You can't automate what you don't understand. And you definitely shouldn't automate what's already broken."
+            <cite>— Juliana McMillan-Wilhoit, "Why Process Mapping Is Your Secret Weapon for AI Success"</cite>
+          </div>
+        </div>
+
+        <div>
+          <div class="case-label">What I built</div>
+          <div class="case-li">HIPAA-compliant AI chatbot builder on AWS Bedrock with RAG and document upload</div>
+          <div class="case-li">Sunshine Law-compliant data retention — purpose-built for public records requirements</div>
+          <div class="case-li">Modular Salesforce platform with insurance reimbursement capabilities</div>
+          <div class="case-li">AI Policy Guide: "12 Things to Include in an AI Policy for Public Health Departments" — free, adopted nationally</div>
+          <div class="case-li">Monthly AI for Public Health Community of Practice — peer learning with guest speakers</div>
+          <div class="case-li">Process mapping methodology: mapped Sauk County's environmental health workflows using Head/Heart filter before touching any technology</div>
+
+          <div class="case-label">What changed</div>
+          <p class="case-p">Sauk County's environmental health team achieved an 83% reduction in workload on routine tasks — not by working harder, but by finally being able to see which tasks required their expertise and which didn't. Staff freed to do environmental health work instead of administrative lookup.</p>
+          <p class="case-p">A small initial engagement grew into a flagship partnership: strategic plan, AI implementation, 2024 mutual plenary. The AI Policy Guide became the resource health departments use to get leadership buy-in.</p>
+
+          <div class="case-label">Tools &amp; Stack</div>
+          <div>
+            <span class="tool-pill">AWS Bedrock</span>
+            <span class="tool-pill">Claude API</span>
+            <span class="tool-pill">Salesforce</span>
+            <span class="tool-pill">RAG Architecture</span>
+            <span class="tool-pill">HIPAA Compliance</span>
+            <span class="tool-pill">Sunshine Law</span>
+            <span class="tool-pill">Process Mapping</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case 2: ENSITE ── -->
+  <section class="case-study" id="ensite">
+    <div class="case-inner">
+      <div class="case-domain anim">U.S. Army Corps of Engineers · Defense · 2013–2019</div>
+      <h2 class="case-h2 anim" data-delay="0.1">ENSITE: The military's first global site location tool</h2>
+      <p class="case-sub anim" data-delay="0.2">Product manager for a tool that had never existed. Deployed in Iraq, Afghanistan, and Poland after Russia's invasion of Ukraine.</p>
+
+      <div class="metrics-row anim" data-delay="0.2">
+        <div class="metric-block">
+          <div class="metric-num">3</div>
+          <div class="metric-label">Theaters of operation — Iraq, Afghanistan, Poland</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">DA Medal</div>
+          <div class="metric-label">Department of the Army Medal for Civilian Service</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">First</div>
+          <div class="metric-label">Global site location tool ever built for the U.S. military</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">8h → 30m</div>
+          <div class="metric-label">Daily data update time — Puerto Rico disaster response</div>
+        </div>
+      </div>
+
+      <div class="case-body">
+        <div>
+          <div class="case-label">The situation</div>
+          <p class="case-p">The U.S. military needed a unified tool for evaluating base locations worldwide — and had been making those decisions with fragmented data and gut instinct. There was no playbook. Nobody had built this before.</p>
+          <p class="case-p">My mentor Jim Westervelt — creator of GRASS GIS — gave me the only advice that mattered on day one: go talk to the people who will use it before you build anything. I've done that ever since.</p>
+
+          <div class="case-label">What I heard</div>
+          <p class="case-p">I conducted user engagement across DOD to understand what data they trusted, what decisions they actually needed to make, and what "good enough" looked like in the field versus in a briefing room. The answer was different in every theater.</p>
+          <p class="case-p">The presenting need was "a better map." The real need was a decision support system that could integrate dozens of conflicting data sources and give commanders something they could trust under pressure.</p>
+
+          <div class="case-pullquote">
+            "She was the rare student who was willing and able to step into a completely new assignment and totally own the work — fleshing out the assignment, establishing a path to success, and with minimal input completing the analysis, software development, publications, and presentations."
+            <cite>— Dr. Jim Westervelt, Creator of GRASS GIS, U.S. Army Corps of Engineers</cite>
+          </div>
+          <div class="case-screenshot">
+            <img src="https://images.unsplash.com/photo-1576153192396-180ecef2a715?w=900&auto=format&fit=crop&q=60" alt="Geospatial mapping interface placeholder" />
+            <div class="case-screenshot-caption">Placeholder — ENSITE site location interface (screenshot pending)</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="case-label">What I built</div>
+          <div class="case-li">Unified analytical back-end integrating diverse DOD and open-source data sources</div>
+          <div class="case-li">Data governance framework — review process, governance board, staff education from scratch</div>
+          <div class="case-li">UX/UI collaboration on wireframes and interface design with internal team</div>
+          <div class="case-li">ENSITE HUB for field data collection</div>
+          <div class="case-li">Multiple ERDC/CERL technical reports and a peer-reviewed journal article</div>
+
+          <div class="case-label" style="margin-top:1.75rem;">Puerto Rico — Hurricane Maria Response</div>
+          <p class="case-p" style="font-size:0.9rem;">Deployed as GIS Team Lead to Puerto Rico after Hurricane Maria. Built the geospatial platform supporting the Army Corps power restoration mission — reduced daily situation data updates from 8 hours to 30 minutes. Six months embedded with emergency response teams, coordinating geospatial data across federal and local agencies under active disaster conditions.</p>
+
+          <div class="case-label">What changed</div>
+          <p class="case-p">ENSITE deployed in Iraq, Afghanistan, and Poland after Russia's invasion of Ukraine. Reduced time to locate and establish military bases. Received the Department of the Army Medal for Civilian Service for the CB-SITE leadership component.</p>
+          <p class="case-p">The data governance framework I built from scratch became the standard for how CERL managed geospatial data products. The publication record — journal articles, ERDC technical reports, conference presentations — built credibility for the entire program.</p>
+
+          <div class="case-label">Tools &amp; Stack</div>
+          <div>
+            <span class="tool-pill">ArcGIS Suite</span>
+            <span class="tool-pill">Python</span>
+            <span class="tool-pill">Model Builder</span>
+            <span class="tool-pill">DOD Data Systems</span>
+            <span class="tool-pill">Data Governance</span>
+            <span class="tool-pill">R</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case 3: Peapod ── -->
+  <section class="case-study" id="peapod">
+    <div class="case-inner">
+      <div class="case-domain anim">Peapod Digital Labs (ADUSA Supply Chain Services) · Supply Chain · 2020–2023</div>
+      <h2 class="case-h2 anim" data-delay="0.1">The demand model nobody had validated</h2>
+      <p class="case-sub anim" data-delay="0.2">Inherited a geospatial forecasting model driving multi-million dollar facility decisions. The consultants who built it had never stress-tested it.</p>
+
+      <div class="metrics-row anim" data-delay="0.2">
+        <div class="metric-block">
+          <div class="metric-num">1000%</div>
+          <div class="metric-label">Reduction in dashboard reporting processing time</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">First</div>
+          <div class="metric-label">Validation the demand model had ever received (PCA)</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">Block-group</div>
+          <div class="metric-label">Granularity — demand forecasting at census block-group level</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">Multi-year</div>
+          <div class="metric-label">Facility network investment priorities set by model outputs</div>
+        </div>
+      </div>
+
+      <div class="case-body">
+        <div>
+          <div class="case-label">The situation</div>
+          <p class="case-p">I inherited a geospatial demand forecasting model built by outside consultants. Variables were hard-coded. File paths were hard-coded. And — the thing that stopped me cold — nobody had ever validated it.</p>
+          <p class="case-p">The company was making multi-year, multi-million dollar e-commerce facility network decisions — where to build warehouses, which stores to use for fulfillment — on a model nobody had stress-tested. I couldn't leave that alone.</p>
+
+          <div class="case-label">What I heard</div>
+          <p class="case-p">Before touching anything, I conducted user assessments and led focus groups to understand how the model was actually being used versus how it was supposed to be used. The gap was significant. People trusted outputs they didn't fully understand because there was nothing better.</p>
+          <p class="case-p">The dashboard situation was the same story: ad-hoc requests, constant stress, no repeatable process. I ran interviews to understand what decisions people were actually trying to make.</p>
+          <div class="case-screenshot">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&auto=format&fit=crop&q=60" alt="Data analytics dashboard placeholder" />
+            <div class="case-screenshot-caption">Placeholder — demand model validation output (screenshot pending)</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="case-label">What I built</div>
+          <div class="case-li">Cleaned up the codebase: relative paths, proper date handling, updated model logic</div>
+          <div class="case-li">Brought in new spatial data sources as better predictors of e-commerce demand than the originals</div>
+          <div class="case-li">Ran PCA — the first validation the model had ever received — to build stakeholder confidence and expand adoption</div>
+          <div class="case-li">Systematic dashboard process: SQL → Alteryx → Tableau, 1000% reduction in processing time</div>
+          <div class="case-li">Set investment priorities for multi-year e-commerce facility network decisions</div>
+
+          <div class="case-label">What changed</div>
+          <p class="case-p">Expanded adoption of the demand model across the organization. Stakeholders who had quietly doubted the outputs now had documented evidence they could trust. The ad-hoc dashboard chaos became a repeatable, user-centric process that the team actually wanted to use.</p>
+          <p class="case-p">The real change: multi-million dollar facility decisions started being made on a model that had actually been validated. That's not a small thing.</p>
+
+          <div class="case-label">Tools &amp; Stack</div>
+          <div>
+            <span class="tool-pill">Alteryx</span>
+            <span class="tool-pill">Tableau</span>
+            <span class="tool-pill">Python</span>
+            <span class="tool-pill">SQL</span>
+            <span class="tool-pill">ArcGIS</span>
+            <span class="tool-pill">PCA / Validation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case 4: Library ── -->
+  <section class="case-study" id="library">
+    <div class="case-inner">
+      <div class="case-domain anim">Personal · Automation · Always</div>
+      <h2 class="case-h2 anim" data-delay="0.1">The library book problem</h2>
+      <p class="case-sub anim" data-delay="0.2">Built for my own family because I genuinely cannot leave a broken process alone.</p>
+
+      <div class="metrics-row anim" data-delay="0.2">
+        <div class="metric-block">
+          <div class="metric-num">2,400+</div>
+          <div class="metric-label">Books in the backlog — Charlotte Mason, picture books, chapter books</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">2</div>
+          <div class="metric-label">Library accounts managed simultaneously</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">0</div>
+          <div class="metric-label">Manual holds placed since automation shipped</div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-num">Always</div>
+          <div class="metric-label">This is just how I think</div>
+        </div>
+      </div>
+
+      <div class="case-body">
+        <div>
+          <div class="case-label">The situation</div>
+          <p class="case-p">My kids go through library books faster than I can manually place holds. My backlog was over 2,400 books — Charlotte Mason living books, picture books, chapter books — across two library accounts with different systems.</p>
+          <p class="case-p">Every week I was spending real time on something a computer should handle. The process was: find a book recommendation, screenshot it, remember to go to the library site, navigate to the right account, search for the title, place the hold, repeat. For 2,400 books.</p>
+
+          <div class="case-label">What I heard</div>
+          <p class="case-p">I was the user. The pain was specific and real: multiple library systems, dual accounts, ILL fallback when holds weren't available locally, a backlog that kept growing faster than I could process it manually.</p>
+          <div class="case-screenshot">
+            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=900&auto=format&fit=crop&q=60" alt="Library books placeholder" />
+            <div class="case-screenshot-caption">Placeholder — automation script output (screenshot pending)</div>
+          </div>
+
+        </div>
+
+        <div>
+          <div class="case-label">What I built</div>
+          <div class="case-li">Selenium-based automation navigating the Polaris library system</div>
+          <div class="case-li">Screenshot → book list extraction pipeline using OCR</div>
+          <div class="case-li">Dual-account management with automatic ILL (interlibrary loan) fallback</div>
+          <div class="case-li">Backlog processing queue for 2,400+ books</div>
+
+          <div class="case-label">What changed</div>
+          <p class="case-p">I don't manually place library holds anymore. But that's not the point.</p>
+          <p class="case-p">The point is: I saw a broken process in my own life and I built the fix. Not because it was impressive. Not because anyone asked. Because I genuinely cannot walk past a broken process without wanting to fix it. That instinct — the one that makes me build the library tool at 10pm — is the same one that makes me good at product work.</p>
+          <p class="case-p">I apply this at enterprise scale. I also apply it to my own kitchen table. The scale changes. The instinct doesn't.</p>
+
+          <div class="case-label">Tools &amp; Stack</div>
+          <div>
+            <span class="tool-pill">Python</span>
+            <span class="tool-pill">Selenium</span>
+            <span class="tool-pill">OCR</span>
+            <span class="tool-pill">Automation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+    <div class="footer-links" style="margin-top:1rem;">
+      <a href="index-ai.html" class="footer-link">Home</a>
+      <a href="thinking.html" class="footer-link">How I Think</a>
+      <a href="about.html" class="footer-link">About</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-link">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── Fade-ins ──────────────────────────────────────────────────────────────
+    function initFadeIns() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.06 });
+      document.querySelectorAll('.anim').forEach(el => {
+        el.classList.add('will-animate');
+        observer.observe(el);
+      });
+    }
+
+    // ── Active case nav ───────────────────────────────────────────────────────
+    function initCaseNav() {
+      const links = document.querySelectorAll('.case-nav-link');
+      const sections = ['ph360','ensite','peapod','library'].map(id => document.getElementById(id));
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            links.forEach(l => {
+              l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(s => s && observer.observe(s));
+    }
+
+    initFadeIns();
+    initCaseNav();
+  </script>
+</body>
+</html>

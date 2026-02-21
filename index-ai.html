@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juliana McMillan-Wilhoit — Product Leader</title>
-  <meta name="description" content="Juliana McMillan-Wilhoit — Product leader who listens first, diagnoses the real problem, and builds solutions that work. 15 years across AI, geospatial, public health, and supply chain." />
+  <title>Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="Product leader who listens first, diagnoses the real problem, and builds solutions that work. 15 years across AI, geospatial, public health, and supply chain. The domain changes. The approach doesn't." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
@@ -20,374 +20,423 @@
       font-weight: 400;
     }
 
-    /* ── Fade-in: content visible by default, JS opts in ── */
+    /* ── Fade-in ── */
     .will-animate {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
     .will-animate.visible { opacity: 1; transform: translateY(0); }
     .will-animate[data-delay="0.1"] { transition-delay: 0.1s; }
-    .will-animate[data-delay="0.15"] { transition-delay: 0.15s; }
     .will-animate[data-delay="0.2"] { transition-delay: 0.2s; }
     .will-animate[data-delay="0.3"] { transition-delay: 0.3s; }
-    .will-animate[data-delay="0.35"] { transition-delay: 0.35s; }
+    .will-animate[data-delay="0.4"] { transition-delay: 0.4s; }
+    .will-animate[data-delay="0.5"] { transition-delay: 0.5s; }
 
-    /* ── Header band ── */
+    /* ── Header ── */
     .header-band {
       background: #1A4220;
-      padding: 0 2rem;
+      padding: 0 2.5rem;
       display: flex; justify-content: space-between; align-items: center;
-      height: 56px;
+      height: 58px;
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     }
     .header-name {
       font-family: 'Crimson Pro', Georgia, serif;
       font-weight: 700; font-size: 1.125rem;
       color: #FEFEFE; letter-spacing: -0.01em;
+      text-decoration: none;
     }
+    .header-tagline {
+      font-size: 0.7rem; font-weight: 400;
+      color: rgba(254,254,254,0.45);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-left: 1rem;
+      display: none;
+    }
+    @media (min-width: 860px) { .header-tagline { display: inline; } }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-link {
-      color: rgba(254,254,254,0.7); text-decoration: none;
+      color: rgba(254,254,254,0.65); text-decoration: none;
       font-size: 0.8rem; font-weight: 600;
       letter-spacing: 0.06em; text-transform: uppercase;
-      transition: color 0.2s ease; padding-bottom: 1px;
-      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease;
     }
-    .nav-link:hover { color: #FEFEFE; border-bottom-color: rgba(254,254,254,0.4); }
+    .nav-link:hover { color: #FEFEFE; }
+    .nav-link.active { color: #FEFEFE; border-bottom: 1px solid rgba(254,254,254,0.5); padding-bottom: 1px; }
 
     /* ── Hero ── */
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 220px;
-      gap: 3rem;
-      align-items: center;
-      padding: 4.5rem 2rem 2rem;
-      max-width: 960px;
-      margin: 0 auto;
+    .hero-section {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 2.5rem 5rem;
+      position: relative; overflow: hidden;
     }
-    .hero-photo {
-      width: 220px; height: 220px;
+    /* animated orb */
+    .hero-orb {
+      position: absolute;
       border-radius: 50%;
-      object-fit: cover; object-position: top center;
-      border: 3px solid #e8e8e8;
-      display: block;
+      filter: blur(80px);
+      opacity: 0.13;
+      animation: drift 18s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .hero-orb-1 {
+      width: 600px; height: 600px;
+      background: #255B2C;
+      top: -120px; right: -100px;
+      animation-duration: 20s;
+    }
+    .hero-orb-2 {
+      width: 400px; height: 400px;
+      background: #4A7C54;
+      bottom: 60px; left: -80px;
+      animation-duration: 15s; animation-delay: -7s;
+    }
+    @keyframes drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(30px, 20px) scale(1.05); }
+      100% { transform: translate(-20px, 40px) scale(0.97); }
     }
 
-    /* ── Cycling headline ── */
-    .cycle-wrap { display: inline-block; position: relative; }
+    .hero-inner {
+      max-width: 1000px; margin: 0 auto; width: 100%;
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 4rem; align-items: center;
+    }
+    .hero-text { min-width: 0; }
+    .hero-photo-wrap { display: flex; justify-content: center; align-items: center; }
+    .hero-photo {
+      width: 240px; height: 240px; border-radius: 50%;
+      object-fit: cover; object-position: top center;
+      border: 4px solid rgba(37,91,44,0.15);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.10);
+      display: block;
+    }
+    @media (max-width: 760px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo-wrap { order: -1; }
+      .hero-photo { width: 130px; height: 130px; }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: #4A7C54; margin-bottom: 1.5rem;
+    }
+
+    .hero-h1 {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(2.75rem, 6vw, 4.5rem);
+      font-weight: 900; line-height: 1.1;
+      color: #1A4220; letter-spacing: -0.02em;
+      margin-bottom: 1.75rem;
+    }
+
+    /* cycling phrase */
+    .cycle-wrap { display: inline-block; position: relative; min-width: 6ch; }
     .cycle-phrase {
       display: inline-block;
-      color: #255B2C; font-style: italic; font-weight: 400;
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      color: #255B2C; font-style: italic; font-weight: 700;
+      transition: opacity 0.4s ease, transform 0.4s ease;
       white-space: nowrap;
     }
-    .cycle-phrase.out { opacity: 0; transform: translateY(-8px); }
+    .cycle-phrase.out { opacity: 0; transform: translateY(-10px); }
     .cycle-phrase.in  { opacity: 1; transform: translateY(0); }
+
+    .hero-body {
+      font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+      color: #5A5A5A; max-width: 580px;
+      line-height: 1.8; font-weight: 300;
+      margin-bottom: 2.25rem;
+    }
+    .hero-body strong { color: #3D3D3D; font-weight: 600; }
+
+    .hero-tagline {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-style: italic; color: #4A7C54;
+      margin-bottom: 2.25rem;
+      font-weight: 400;
+    }
+
+    .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .btn-primary {
+      display: inline-block; background: #255B2C; color: #FEFEFE;
+      font-family: 'Outfit', sans-serif; font-size: 0.9375rem;
+      font-weight: 600; padding: 0.875rem 1.75rem;
+      border-radius: 8px; text-decoration: none;
+      letter-spacing: 0.02em; transition: background 0.2s ease;
+    }
+    .btn-primary:hover { background: #1A4220; }
+    .btn-ghost {
+      color: #255B2C; font-family: 'Outfit', sans-serif;
+      font-size: 0.9375rem; font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid #255B2C; padding-bottom: 1px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-ghost:hover { color: #1A4220; border-color: #1A4220; }
+    .hero-open {
+      font-size: 0.8125rem; color: #5A5A5A; font-weight: 300;
+    }
 
     /* ── Stats bar ── */
     .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid #e8e8e8;
-      border-bottom: 1px solid #e8e8e8;
-      max-width: 960px; margin: 2rem auto 0;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid #e8e8e8; border-bottom: 1px solid #e8e8e8;
+      max-width: 960px; margin: 0 auto;
     }
-    .stat-item {
-      padding: 1.25rem 1rem; text-align: center;
-      border-right: 1px solid #e8e8e8;
-    }
+    .stat-item { padding: 1.5rem 1rem; text-align: center; border-right: 1px solid #e8e8e8; }
     .stat-item:last-child { border-right: none; }
     .stat-num {
       font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.75rem; font-weight: 900;
+      font-size: 1.875rem; font-weight: 900;
       color: #255B2C; line-height: 1;
     }
     .stat-label {
-      font-family: 'Outfit', sans-serif;
       font-size: 0.75rem; color: #5A5A5A;
-      margin-top: 0.3rem; font-weight: 400;
-      line-height: 1.4;
+      margin-top: 0.35rem; font-weight: 400; line-height: 1.4;
     }
 
     /* ── Section shared ── */
     .section-tag {
-      font-family: 'Outfit', sans-serif;
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.15em; text-transform: uppercase;
       color: #255B2C; margin-bottom: 0.5rem;
     }
     .section-h2 {
       font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
       font-weight: 900; color: #1A4220;
       letter-spacing: -0.01em; line-height: 1.15;
-      margin-bottom: 1rem;
+      margin-bottom: 0.875rem;
     }
     .section-desc {
       font-size: 1rem; color: #5A5A5A;
-      max-width: 600px; line-height: 1.7;
+      max-width: 580px; line-height: 1.75;
       font-weight: 300; margin-bottom: 2.5rem;
     }
 
     /* ── Thesis section ── */
     .thesis-section {
-      padding: 4rem 2rem;
+      padding: 5rem 2.5rem;
       max-width: 960px; margin: 0 auto;
     }
     .thesis-text {
       font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+      font-size: clamp(1.25rem, 2.2vw, 1.625rem);
       font-weight: 400; color: #3D3D3D;
-      line-height: 1.7; max-width: 720px;
+      line-height: 1.75; max-width: 740px;
     }
-    .thesis-text strong {
-      font-weight: 700; color: #1A4220;
-    }
+    .thesis-text strong { font-weight: 700; color: #1A4220; }
 
-    /* ── How I Think grid ── */
-    .thinking-section {
-      padding: 4rem 2rem;
+    /* ── Domain strip ── */
+    .domain-strip {
       background: #F7F5F2;
+      padding: 3rem 2.5rem;
+      border-top: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
     }
-    .thinking-inner { max-width: 960px; margin: 0 auto; }
-    .thinking-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
+    .domain-inner {
+      max-width: 960px; margin: 0 auto;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
     }
-    .thinking-card {
-      background: #FEFEFE;
-      border-radius: 12px; padding: 1.5rem;
-      border: 1px solid #e8e8e8;
+    .domain-label {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #5A5A5A; margin-right: 0.5rem; flex-shrink: 0;
     }
-    .thinking-num {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 0.75rem; font-weight: 900;
-      color: #4A7C54; letter-spacing: 0.1em;
-      margin-bottom: 0.4rem;
+    .domain-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem; border-radius: 100px;
+      border: 1px solid #C8D9CB;
+      font-size: 0.875rem; font-weight: 400; color: #3D3D3D;
     }
-    .thinking-title {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.2rem; font-weight: 700;
-      color: #1A4220; margin-bottom: 0.4rem; line-height: 1.2;
-    }
-    .thinking-desc {
-      font-size: 0.875rem; color: #5A5A5A;
-      line-height: 1.65; font-weight: 300; margin-bottom: 0.75rem;
-    }
-    .thinking-proof {
-      font-size: 0.8rem; color: #5A5A5A; line-height: 1.6;
-      padding: 0.65rem 0.875rem;
-      background: rgba(37,91,44,0.06);
-      border-radius: 6px; border-left: 3px solid #4A7C54;
-      font-weight: 400;
-    }
+    .domain-dot { width: 6px; height: 6px; border-radius: 50%; background: #4A7C54; }
 
-    /* ── AI POV section ── */
-    .aipov-section {
-      padding: 4rem 2rem;
+    /* ── Work preview ── */
+    .work-section {
+      padding: 5rem 2.5rem;
       max-width: 960px; margin: 0 auto;
     }
-    .aipov-quote {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(1.1rem, 2vw, 1.375rem);
-      font-weight: 400; color: #3D3D3D;
-      line-height: 1.75; max-width: 680px;
-      border-left: 4px solid #255B2C;
-      padding-left: 1.5rem;
-      margin-bottom: 1.5rem;
+    .work-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; margin-bottom: 2rem;
     }
-
-    /* ── Moments (case studies) ── */
-    .moments-section {
-      padding: 4rem 2rem;
-      background: #F7F5F2;
+    .work-card {
+      background: #FEFEFE; border-radius: 12px;
+      border: 1px solid #e8e8e8;
+      padding: 1.75rem; text-decoration: none; color: inherit;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+      display: block;
     }
-    .moments-inner { max-width: 960px; margin: 0 auto; }
-    .moment-card {
-      background: #FEFEFE; border-radius: 12px; padding: 2rem;
-      margin-bottom: 1.25rem; cursor: pointer;
-      border: 2px solid #e8e8e8; transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    .work-card:hover {
+      border-color: #A8C5AD;
+      box-shadow: 0 8px 28px rgba(37,91,44,0.09);
+      transform: translateY(-2px);
     }
-    .moment-card:hover { border-color: #A8C5AD; }
-    .moment-card.expanded {
-      border-color: #255B2C;
-      box-shadow: 0 8px 32px rgba(37,91,44,0.1);
-    }
-    .moment-card:focus { outline: 2px solid #255B2C; outline-offset: 2px; }
-    .moment-domain {
+    .work-domain {
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: #5A5A5A; margin-bottom: 0.4rem;
+      color: #4A7C54; margin-bottom: 0.5rem;
     }
-    .moment-header { display: flex; justify-content: space-between; align-items: flex-start; }
-    .moment-title {
+    .work-title {
       font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.4rem; font-weight: 700;
-      color: #1A4220; margin-bottom: 0.2rem;
+      font-size: 1.3rem; font-weight: 700;
+      color: #1A4220; margin-bottom: 0.4rem; line-height: 1.25;
     }
-    .moment-sub { font-size: 0.9375rem; color: #5A5A5A; font-weight: 300; }
-    .expand-arrow {
-      width: 26px; height: 26px; border-radius: 50%;
-      background: #F7F5F2; color: #255B2C;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; transition: all 0.3s ease;
-      flex-shrink: 0; user-select: none; margin-left: 1rem; margin-top: 0.2rem;
+    .work-sub { font-size: 0.9rem; color: #5A5A5A; font-weight: 300; line-height: 1.5; margin-bottom: 1rem; }
+    .work-metric {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.5rem; font-weight: 900; color: #255B2C;
+      line-height: 1;
     }
-    .moment-card.expanded .expand-arrow {
-      background: #255B2C; color: #FEFEFE; transform: rotate(180deg);
-    }
-    .moment-expanded { display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e8e8e8; }
-    .moment-label {
-      font-size: 0.6875rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: #255B2C; margin-bottom: 0.5rem; margin-top: 1.25rem;
-    }
-    .moment-label:first-child { margin-top: 0; }
-    .moment-text { font-size: 0.9375rem; color: #3D3D3D; line-height: 1.7; font-weight: 300; }
-    .moment-li {
-      font-size: 0.9375rem; color: #3D3D3D; line-height: 1.7; font-weight: 300;
-      margin-bottom: 0.375rem; padding-left: 1rem; position: relative;
-    }
-    .moment-li::before { content: '·'; position: absolute; left: 0; color: #255B2C; font-weight: 700; }
-    .tool-pill {
-      display: inline-block; padding: 0.2rem 0.65rem;
-      background: rgba(37,91,44,0.08); color: #255B2C;
-      border-radius: 100px; font-size: 0.75rem; font-weight: 600;
-      margin-right: 0.4rem; margin-bottom: 0.4rem;
+    .work-metric-label { font-size: 0.75rem; color: #5A5A5A; margin-top: 0.2rem; font-weight: 300; }
+    .work-arrow {
+      display: inline-block; margin-top: 1rem;
+      font-size: 0.8125rem; font-weight: 600; color: #255B2C;
     }
 
-    /* ── Testimonials ── */
-    .testimonials-section {
-      padding: 4rem 2rem;
-      max-width: 960px; margin: 0 auto;
+    /* ── Testimonial strip ── */
+    .testimonial-strip {
+      background: #1A4220;
+      padding: 4rem 2.5rem;
     }
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-    }
-    .testimonial-card {
-      padding: 1.75rem; background: #FEFEFE;
-      border-radius: 12px; border-left: 4px solid #255B2C;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .testimonial-quote {
+    .testimonial-strip-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .t-quote {
       font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1rem; font-weight: 400;
-      color: #3D3D3D; line-height: 1.75;
-      font-style: italic; margin-bottom: 1rem;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-style: italic; font-weight: 400;
+      color: #FEFEFE; line-height: 1.65;
+      margin-bottom: 1.5rem;
     }
-    .testimonial-name { font-size: 0.8125rem; font-weight: 600; color: #255B2C; }
-    .testimonial-role { font-size: 0.75rem; font-weight: 400; color: #5A5A5A; margin-top: 0.1rem; }
+    .t-name { font-size: 0.875rem; font-weight: 600; color: rgba(254,254,254,0.7); }
+    .t-role { font-size: 0.8rem; font-weight: 300; color: rgba(254,254,254,0.45); margin-top: 0.2rem; }
 
-    /* ── CTA / Connect ── */
+    /* ── CTA ── */
     .connect-section {
-      padding: 4rem 2rem;
-      background: #1A4220; text-align: center;
+      padding: 5rem 2.5rem;
+      max-width: 960px; margin: 0 auto;
+      text-align: center;
     }
-    .connect-inner { max-width: 640px; margin: 0 auto; }
     .cta-btn {
-      display: inline-block;
-      background: #FEFEFE; color: #1A4220;
+      display: inline-block; background: #255B2C; color: #FEFEFE;
       font-family: 'Outfit', sans-serif; font-size: 0.9375rem;
       font-weight: 600; padding: 0.875rem 2rem;
       border-radius: 8px; text-decoration: none;
       letter-spacing: 0.02em; transition: background 0.2s ease;
-      margin-right: 1rem; margin-top: 1.5rem;
+      margin: 0.5rem;
     }
-    .cta-btn:hover { background: #F7F5F2; }
+    .cta-btn:hover { background: #1A4220; }
     .cta-link {
-      display: inline-block; color: rgba(254,254,254,0.8);
-      font-family: 'Outfit', sans-serif; font-size: 0.875rem;
-      font-weight: 400; text-decoration: none;
-      border-bottom: 1px solid rgba(254,254,254,0.4);
-      padding-bottom: 1px; margin-top: 1.5rem;
-      transition: color 0.2s ease;
+      display: inline-block; color: #255B2C;
+      font-size: 0.875rem; font-weight: 400; text-decoration: none;
+      border-bottom: 1px solid #A8C5AD; padding-bottom: 1px;
+      margin: 0.5rem 1rem; transition: color 0.2s ease;
     }
-    .cta-link:hover { color: #FEFEFE; }
+    .cta-link:hover { color: #1A4220; }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: #F7F5F2;
+      border-top: 1px solid #e8e8e8;
+      padding: 2rem 2.5rem;
+      text-align: center;
+    }
+    .footer-tagline {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 0.9375rem; font-style: italic; color: #5A5A5A;
+    }
 
     /* ── Mobile ── */
     @media (max-width: 720px) {
-      .hero-grid { grid-template-columns: 1fr; padding-top: 4.5rem; }
-      .hero-photo { display: none; }
+      .hero-section { padding: 7rem 1.5rem 4rem; }
       .stats-bar { grid-template-columns: repeat(2, 1fr); }
       .stat-item:nth-child(2) { border-right: none; }
       .stat-item:nth-child(3), .stat-item:nth-child(4) { border-top: 1px solid #e8e8e8; }
-      .thinking-grid { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .header-band { padding: 0 1rem; }
+      .work-grid { grid-template-columns: 1fr; }
+      .header-band { padding: 0 1.25rem; }
+      .nav-links { gap: 1.25rem; }
       .nav-link { font-size: 0.7rem; }
+      .thesis-section, .work-section { padding: 3.5rem 1.5rem; }
+      .domain-strip { padding: 2rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header band -->
+  <!-- Header -->
   <header class="header-band" role="banner">
-    <div class="header-name">Juliana McMillan-Wilhoit</div>
-    <nav style="display:flex;gap:1.5rem;" aria-label="Main navigation">
-      <a href="#how-i-think" class="nav-link">How I Think</a>
-      <a href="#moments" class="nav-link">Work</a>
-      <a href="#perspectives" class="nav-link">Perspectives</a>
-      <a href="#connect" class="nav-link">Connect</a>
+    <div style="display:flex;align-items:baseline;gap:0;">
+      <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <span class="header-tagline">— The domain changes. The approach doesn't.</span>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index-ai.html" class="nav-link active">Home</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="thinking.html" class="nav-link">How I Think</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
     </nav>
   </header>
 
   <!-- Hero -->
-  <div class="hero-grid">
-    <div>
-      <h1 class="anim" style="font-family:'Crimson Pro',Georgia,serif;font-size:clamp(2.25rem,4.5vw,3.5rem);font-weight:900;line-height:1.15;color:#1A4220;margin-bottom:1.25rem;letter-spacing:-0.02em;">
+  <section class="hero-section">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+      <div class="hero-eyebrow anim">Product Leader · AI · Geospatial · Public Health · Supply Chain</div>
+      <h1 class="hero-h1 anim" data-delay="0.1">
         I see broken processes<br />
         and I <span class="cycle-wrap"><span id="cycle-text" class="cycle-phrase in">listen first.</span></span>
       </h1>
-      <p class="anim" data-delay="0.2" style="font-size:1.0625rem;color:#5A5A5A;max-width:500px;line-height:1.75;font-weight:300;margin-bottom:1.75rem;">
+      <p class="hero-body anim" data-delay="0.2">
         I've spent 15 years in rooms where people had problems they couldn't
         fully articulate yet. I help them figure out what they actually need —
-        then I build it. AI, geospatial, public health, supply chain — the domain
-        changes. The approach doesn't.
+        then I build it. <strong>AI, geospatial, public health, supply chain</strong> —
+        the domain changes. The approach doesn't.
       </p>
-      <div class="anim" data-delay="0.3" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com"
-           style="display:inline-block;background:#255B2C;color:#FEFEFE;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;padding:0.75rem 1.5rem;border-radius:8px;text-decoration:none;letter-spacing:0.02em;transition:background 0.2s ease;"
-           onmouseover="this.style.background='#1A4220'" onmouseout="this.style.background='#255B2C'">
-          Let's talk →
-        </a>
-        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer"
-           style="color:#255B2C;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;text-decoration:none;border-bottom:1px solid #255B2C;padding-bottom:1px;">
-          LinkedIn
-        </a>
+      <div class="hero-actions anim" data-delay="0.4">
+        <a href="work.html" class="btn-primary">See the work →</a>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="btn-ghost">Let's talk</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn</a>
       </div>
-      <div class="anim" data-delay="0.35" style="margin-top:1.25rem;font-size:0.8125rem;color:#5A5A5A;font-weight:300;">
-        Open to product leadership roles — W2, fractional CPO, or advisory.
+      <div class="hero-open anim" data-delay="0.5">
+        Open to product leadership roles — W2, fractional CPO, or advisory. · Grayslake, IL · Remote-friendly.
+      </div>
+      </div><!-- end .hero-text -->
+      <div class="hero-photo-wrap anim" data-delay="0.15">
+        <img
+          src="https://cdn.fandtlabs.com/wp-content//uploads/2025/12/04142138/Juliana-McMillan-Wilhoit-Jefferson-McMillan-Jefferson-FT-Labs.png"
+          alt="Juliana McMillan-Wilhoit"
+          class="hero-photo"
+        />
       </div>
     </div>
-    <img
-      src="https://cdn.fandtlabs.com/wp-content//uploads/2025/12/04142138/Juliana-McMillan-Wilhoit-Jefferson-McMillan-Jefferson-FT-Labs.png"
-      alt="Juliana McMillan-Wilhoit"
-      class="hero-photo anim"
-      data-delay="0.15"
-    />
-  </div>
+  </section>
 
   <!-- Stats bar -->
   <div class="stats-bar">
     <div class="stat-item anim">
       <div class="stat-num">15+</div>
-      <div class="stat-label">Years of product leadership</div>
+      <div class="stat-label">Years building products people actually use</div>
     </div>
     <div class="stat-item anim" data-delay="0.1">
       <div class="stat-num">Fulbright</div>
-      <div class="stat-label">Scholar — lived &amp; taught abroad</div>
+      <div class="stat-label">Scholar — Bulgaria, 2012</div>
     </div>
     <div class="stat-item anim" data-delay="0.2">
       <div class="stat-num">3×</div>
-      <div class="stat-label">National keynote speaker</div>
+      <div class="stat-label">National keynote — AI in public health &amp; geospatial</div>
     </div>
     <div class="stat-item anim" data-delay="0.3">
-      <div class="stat-num">Free</div>
-      <div class="stat-label">AI Policy Guide — adopted nationally</div>
+      <div class="stat-num">83%</div>
+      <div class="stat-label">Workload reduction — Sauk County AI implementation</div>
     </div>
   </div>
 
@@ -395,331 +444,120 @@
   <section class="thesis-section">
     <div class="anim">
       <p class="thesis-text">
-        Most AI tools fail not because the technology is wrong —
+        Most tools fail not because the technology is wrong —
         but because <strong>nobody listened to the people who would use them.</strong>
-        I've built AI products for public health departments, the U.S. military, and
-        Fortune 500 supply chains. Every time, the work started the same way:
+        I've built tools for public health departments, the U.S. military, and
+        Fortune 500 supply chains. AI, geospatial models, automation scripts, data pipelines —
+        the technology changes. Every time, the work started the same way:
         I went to the people first.
       </p>
     </div>
-    <div class="anim" data-delay="0.1" style="margin-top:1.5rem;">
-      <p class="thesis-text" style="font-size:clamp(1rem,1.8vw,1.25rem);color:#5A5A5A;">
-        I'm not an AI evangelist. I'm interested in where AI actually fits —
-        and where organizations aren't ready for it yet.
-        That gap between "what the tool can do" and "what the team can absorb"
+    <div class="anim" data-delay="0.2" style="margin-top:1.75rem;">
+      <p class="thesis-text" style="font-size:clamp(1rem,1.7vw,1.2rem);color:#5A5A5A;">
+        I'm not an AI evangelist. I'm a tools person.
+        I'm interested in what's actually broken — and what the right tool is to fix it.
+        Sometimes that's AI. Sometimes it's a Python script and a better process.
+        That gap between "what the technology can do" and "what the team can absorb"
         is where I do my best work.
       </p>
     </div>
   </section>
 
-  <!-- How I Think -->
-  <section class="thinking-section" id="how-i-think">
-    <div class="thinking-inner">
-      <div class="anim">
-        <div class="section-tag">Framework</div>
-        <h2 class="section-h2">How I Think</h2>
-        <p class="section-desc">Same pattern, every project, every domain. Across 15 years.</p>
-      </div>
-      <div class="thinking-grid" id="thinking-grid">
-        <!-- injected by JS -->
-      </div>
+  <!-- Domain strip -->
+  <div class="domain-strip">
+    <div class="domain-inner anim">
+      <span class="domain-label">Domains</span>
+      <span class="domain-pill"><span class="domain-dot"></span>Public Health AI</span>
+      <span class="domain-pill"><span class="domain-dot"></span>Geospatial Analytics</span>
+      <span class="domain-pill"><span class="domain-dot"></span>Supply Chain</span>
+      <span class="domain-pill"><span class="domain-dot"></span>Defense / DOD</span>
+      <span class="domain-pill"><span class="domain-dot"></span>Commercial Real Estate &amp; M&amp;A</span>
+      <span class="domain-pill"><span class="domain-dot"></span>Process Mapping &amp; AI Readiness</span>
     </div>
-  </section>
+  </div>
 
-  <!-- Moments -->
-  <section class="moments-section" id="moments">
-    <div class="moments-inner">
-      <div class="anim">
-        <div class="section-tag">Selected Work</div>
-        <h2 class="section-h2">Moments that show the pattern</h2>
-        <p class="section-desc">
-          Different domains. Same approach: listen, diagnose the real problem, build the fix.
-          Click any card to see the full story.
-        </p>
-      </div>
-      <div id="moments-container">
-        <!-- injected by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Perspectives -->
-  <section class="testimonials-section" id="perspectives">
+  <!-- Work preview -->
+  <section class="work-section">
     <div class="anim">
-      <div class="section-tag">What Others Say</div>
-      <h2 class="section-h2">Perspectives</h2>
-      <p class="section-desc">People who've worked with me, in their own words.</p>
+      <div class="section-tag">Selected Work</div>
+      <h2 class="section-h2">The pattern, across four domains</h2>
+      <p class="section-desc">Different problems. Different organizations. Same approach: go toward the people, find the real problem, build the fix.</p>
     </div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card anim" data-delay="0.1">
-        <div class="testimonial-quote">
-          "I have yet to meet another individual who can walk into a room, establish personal connections,
-          ask probing questions that transform anticipated goals into actual goals, and have a draft of
-          next steps in under an hour."
-        </div>
-        <div class="testimonial-name">Elizabeth Bastian</div>
-        <div class="testimonial-role">Colleague, CERL / University of Illinois</div>
-      </div>
-      <div class="testimonial-card anim" data-delay="0.2">
-        <div class="testimonial-quote">
-          "She was the rare student who was willing and able to step into a completely new assignment
-          and totally own the work. She fleshed out the assignment, established a path to success, and with
-          minimal input completed the analysis, software development, publications, and presentations."
-        </div>
-        <div class="testimonial-name">Dr. Jim Westervelt</div>
-        <div class="testimonial-role">Creator of GRASS GIS, U.S. Army Corps of Engineers</div>
-      </div>
-      <div class="testimonial-card anim" data-delay="0.1">
-        <div class="testimonial-quote">
-          "This insatiable curiosity and love of learning only served to enhance her ability to wear
-          multiple hats, and to be able to translate project needs and solutions between different audiences."
-        </div>
-        <div class="testimonial-name">Elizabeth Bastian</div>
-        <div class="testimonial-role">Colleague, CERL / University of Illinois</div>
-      </div>
-      <div class="testimonial-card anim" data-delay="0.2">
-        <div class="testimonial-quote">
-          "If she puts her mind to something, it will get done. This determination and willingness to
-          proactively manage any situation or task carries over into her interpersonal skills and relationships."
-        </div>
-        <div class="testimonial-name">Anna Fuselier</div>
-        <div class="testimonial-role">Vice Chair, BEST Foundation</div>
-      </div>
+    <div class="work-grid">
+      <a href="work.html#ph360" class="work-card anim" data-delay="0.1">
+        <div class="work-domain">F&amp;T Labs · Public Health AI</div>
+        <div class="work-title">PH360: Built for the people running local public health</div>
+        <div class="work-sub">AI platform for departments that can't afford enterprise tools — HIPAA-compliant, Sunshine Law-ready, built on AWS Bedrock.</div>
+        <div class="work-metric">83%</div>
+        <div class="work-metric-label">Workload reduction on routine tasks — Sauk County</div>
+        <div class="work-arrow">Full story →</div>
+      </a>
+      <a href="work.html#ensite" class="work-card anim" data-delay="0.2">
+        <div class="work-domain">U.S. Army Corps of Engineers · Defense</div>
+        <div class="work-title">ENSITE: The military's first global site location tool</div>
+        <div class="work-sub">PM for a product that had never existed. Deployed in Iraq, Afghanistan, and Poland.</div>
+        <div class="work-metric">DA Medal</div>
+        <div class="work-metric-label">Department of the Army Medal for Civilian Service</div>
+        <div class="work-arrow">Full story →</div>
+      </a>
+      <a href="work.html#peapod" class="work-card anim" data-delay="0.1">
+        <div class="work-domain">Peapod Digital Labs (ADUSA) · Supply Chain</div>
+        <div class="work-title">The demand model nobody had validated</div>
+        <div class="work-sub">Inherited a model driving multi-million dollar facility decisions. Nobody had ever stress-tested it.</div>
+        <div class="work-metric">1000%</div>
+        <div class="work-metric-label">Reduction in dashboard reporting time</div>
+        <div class="work-arrow">Full story →</div>
+      </a>
+      <a href="work.html#library" class="work-card anim" data-delay="0.2">
+        <div class="work-domain">Personal · Automation</div>
+        <div class="work-title">The library book problem</div>
+        <div class="work-sub">My kids go through 2,400+ books. Manually placing holds was broken. So I built a tool to fix it.</div>
+        <div class="work-metric">2,400+</div>
+        <div class="work-metric-label">Books automated across two library accounts</div>
+        <div class="work-arrow">Full story →</div>
+      </a>
+    </div>
+    <div style="text-align:center;" class="anim" data-delay="0.3">
+      <a href="work.html" class="btn-primary">All case studies →</a>
     </div>
   </section>
+
+  <!-- Testimonial pull quote -->
+  <div class="testimonial-strip">
+    <div class="testimonial-strip-inner anim">
+      <div class="t-quote">
+        "I have yet to meet another individual who can walk into a room, establish personal connections,
+        ask probing questions that transform anticipated goals into actual goals,
+        and have a draft of next steps in under an hour."
+      </div>
+      <div class="t-name">Elizabeth Bastian</div>
+      <div class="t-role">Colleague, U.S. Army Corps of Engineers / University of Illinois</div>
+    </div>
+  </div>
 
   <!-- Connect -->
-  <section class="connect-section" id="connect">
-    <div class="connect-inner anim">
-      <div style="font-family:'Outfit',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:rgba(254,254,254,0.6);margin-bottom:1rem;">
-        Let's work together
-      </div>
-      <div style="font-family:'Crimson Pro',Georgia,serif;font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900;color:#FEFEFE;line-height:1.2;margin-bottom:0.75rem;">
-        Juliana McMillan-Wilhoit
-      </div>
-      <div style="font-size:1rem;font-weight:300;color:rgba(254,254,254,0.8);line-height:1.7;max-width:480px;margin:0 auto;">
+  <section class="connect-section">
+    <div class="anim">
+      <div class="section-tag">Let's work together</div>
+      <h2 class="section-h2">Juliana McMillan-Wilhoit</h2>
+      <p class="section-desc" style="margin:0 auto 2rem;text-align:center;">
         Chief Product Officer &amp; Co-Founder, F&amp;T Labs.<br />
         Open to W2, fractional CPO, and advisory engagements.
-      </div>
-      <div style="margin-top:2rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      </p>
+      <div>
         <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="cta-btn">Email me →</a>
         <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="cta-link">LinkedIn</a>
-        <a href="https://fandtlabs.com/ai-policy-guide" target="_blank" rel="noopener noreferrer" class="cta-link">Free AI Policy Guide</a>
-        <a href="https://fandtlabs.com/ai-cop" target="_blank" rel="noopener noreferrer" class="cta-link">AI Community of Practice</a>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+  </footer>
+
   <script>
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    // ── Data ──────────────────────────────────────────────────────────────────
-
-    const thinkingSteps = [
-      {
-        num: "01",
-        title: "Go toward the people",
-        desc: "Before I touch a product, I talk to the people who will use it. Not surveys — real conversations. I listen for the gap between what they say they need and what they actually do.",
-        proof: "Interviewed 50+ public health professionals before building PH360. Mentored by GRASS GIS creator Jim Westervelt on day one at the Army Corps: 'Go talk to the users first.' I've done that ever since."
-      },
-      {
-        num: "02",
-        title: "Find the real problem",
-        desc: "The presenting problem is rarely the actual problem. I trace pain points to root causes — which are usually organizational, not technical.",
-        proof: "Public health wasn't adopting AI because of policy ambiguity, not tech gaps. Peapod's demand model had never been validated — nobody had asked. Cemetery mapping took days because of a CAD conversion nobody had questioned."
-      },
-      {
-        num: "03",
-        title: "Build the fix — and ship it",
-        desc: "I don't just recommend. I build. Whether it's an AI platform, a data governance framework, an automation workflow, or a strategic plan — I ship things that actually work.",
-        proof: "Built PH360 on AWS Bedrock. Automated Puerto Rico power data from 8 hours to 30 minutes. Built a library hold system for my own family because I saw a broken process and couldn't leave it alone."
-      },
-      {
-        num: "04",
-        title: "Validate and iterate",
-        desc: "I bring solutions back to real users, test assumptions, and iterate. My research background means rigor and curiosity are the same thing.",
-        proof: "Ran PCA to validate Peapod's demand model — something the original consultants had never done. Followed up with every PH360 interviewee to validate features before building. User-tested ENSITE across DOD theaters."
-      }
-    ];
-
-    const moments = [
-      {
-        id: "ph360",
-        domain: "F&T Labs · Public Health AI · Current",
-        title: "PH360: Built for the people running local public health",
-        subtitle: "AI platform for health departments that can't afford enterprise tools",
-        story: "I saw Claude's capabilities at an AWS demo and immediately thought of the public health workers I'd been interviewing for months — drowning in paper forms, afraid to touch AI tools because nobody had told them what was allowed. That fear wasn't technical. It was a policy problem nobody had solved.",
-        listened: "Conducted field research with 50+ public health professionals. Found that policy ambiguity — not technology — was the real blocker. In many jurisdictions, AI chat logs are public records. Off-the-shelf tools like NotebookLM create legal exposure nobody was prepared for.",
-        built: [
-          "HIPAA-compliant AI chatbot builder on AWS Bedrock with RAG and document upload",
-          "Sunshine Law-compliant data retention — purpose-built for public records requirements",
-          "Modular Salesforce platform with insurance reimbursement capabilities",
-          "Free AI Policy Guide, adopted nationally (fandtlabs.com/ai-policy-guide)",
-          "Monthly AI for Public Health Community of Practice"
-        ],
-        outcome: "Early adopters in Missouri, Wisconsin, and Michigan. A small Sauk County engagement grew into a flagship partnership — strategic plan, process mapping, 2024 mutual plenary. The AI Policy Guide became a resource health departments nationwide use to get leadership buy-in.",
-        tools: ["AWS Bedrock", "Salesforce", "RAG Architecture", "Claude API", "HIPAA/Sunshine Law Compliance"]
-      },
-      {
-        id: "ensite",
-        domain: "U.S. Army Corps of Engineers · Geospatial · 2013–2019",
-        title: "ENSITE: The military's first global site location tool",
-        subtitle: "Product manager for a tool that had never existed before",
-        story: "There was no playbook for this. The U.S. military needed a unified tool for evaluating base locations worldwide — and had been making those decisions with fragmented data and gut instinct. My mentor Jim Westervelt gave me the only advice that mattered: go talk to the people who will use it before you build anything.",
-        listened: "Conducted user engagement across DOD to understand what data they trusted, what decisions they actually needed to make, and what 'good enough' looked like in the field versus in a briefing room. The answer was different in every theater.",
-        built: [
-          "Unified analytical back-end integrating diverse DOD and open-source data",
-          "Data governance framework — review process, governance board, staff education",
-          "UX/UI collaboration on wireframes and interface design with internal team",
-          "ENSITE HUB for field data collection",
-          "Multiple ERDC/CERL technical reports"
-        ],
-        outcome: "Deployed in Iraq, Afghanistan, and Poland after Russia's invasion of Ukraine. Reduced time to locate and establish bases. Received the Department of the Army Medal for Civilian Service.",
-        tools: ["ArcGIS Suite", "Python", "Model Builder", "DOD Data Systems", "Data Governance"]
-      },
-      {
-        id: "peapod",
-        domain: "Peapod Digital Labs (ADUSA) · Supply Chain · 2020–2023",
-        title: "The demand model nobody had validated",
-        subtitle: "Product manager for e-commerce facility network strategy",
-        story: "I inherited a geospatial demand forecasting model that had been built by outside consultants. The variables were hard-coded, the file paths were hard-coded, and — the thing that stopped me cold — nobody had ever validated it. The company was making multi-year, multi-million dollar facility network decisions on a model nobody had stress-tested.",
-        listened: "Conducted user assessments before touching anything. Led focus groups to understand how the model was actually being used versus how it was supposed to be used. The gap was significant.",
-        built: [
-          "Cleaned up the codebase: relative paths, proper date handling, updated model logic",
-          "Brought in new data sources as better predictors of e-commerce demand",
-          "Ran PCA validation — the first validation the model had ever received",
-          "Systematic dashboard process: SQL → Alteryx → Tableau, 1000% reduction in reporting time",
-          "Set investment priorities for multi-year e-commerce facility network decisions"
-        ],
-        outcome: "Expanded adoption of the demand model across the organization. Increased stakeholder confidence through documented validation. Transformed ad-hoc dashboard requests into a repeatable, user-centric process.",
-        tools: ["Alteryx", "Tableau", "Python", "SQL", "ArcGIS", "PCA/Validation"]
-      },
-      {
-        id: "library",
-        domain: "Personal · Automation · Always",
-        title: "The library book problem",
-        subtitle: "Built for my own family because I couldn't leave a broken process alone",
-        story: "My kids go through library books faster than I can manually place holds. My backlog was over 2,400 books — Charlotte Mason living books, picture books, chapter books across two library accounts. Every week I was spending real time managing holds that a computer should handle. So I built a tool to do it.",
-        listened: "I was the user. The pain was real and specific: screenshots of book lists, multiple library systems, two accounts, an ILL fallback when holds weren't available locally.",
-        built: [
-          "Selenium-based automation that navigates the Polaris library system",
-          "Screenshot → book list extraction pipeline",
-          "Dual-account management with automatic ILL fallback",
-          "Backlog processing for 2,400+ books"
-        ],
-        outcome: "I don't manually place library holds anymore. But more importantly: this is how I think. I see a broken process in my own life and I build the fix — not because it's impressive, but because I genuinely cannot help it.",
-        tools: ["Python", "Selenium", "Automation", "OCR"]
-      }
-    ];
-
-    // ── Nav ───────────────────────────────────────────────────────────────────
-
-    function initNav() {
-      // Header band is always solid — no scroll state needed
-    }
-
-    // ── Fade-ins ──────────────────────────────────────────────────────────────
-
-    function initFadeIns() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08 });
-
-      document.querySelectorAll('.anim').forEach(el => {
-        el.classList.add('will-animate');
-        observer.observe(el);
-      });
-    }
-
-    // ── Thinking grid ─────────────────────────────────────────────────────────
-
-    function initThinkingGrid() {
-      const grid = document.getElementById('thinking-grid');
-      if (!grid) return;
-      thinkingSteps.forEach((step, i) => {
-        const card = document.createElement('div');
-        card.className = 'thinking-card anim';
-        if (i > 0) card.dataset.delay = (i * 0.1).toFixed(1);
-        card.innerHTML = `
-          <div class="thinking-num">${escapeHtml(step.num)}</div>
-          <div class="thinking-title">${escapeHtml(step.title)}</div>
-          <div class="thinking-desc">${escapeHtml(step.desc)}</div>
-          <div class="thinking-proof"><strong style="font-weight:600;color:#255B2C;">In practice: </strong>${escapeHtml(step.proof)}</div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    // ── Moments ───────────────────────────────────────────────────────────────
-
-    function initMoments() {
-      const container = document.getElementById('moments-container');
-      let expandedId = null;
-
-      moments.forEach((m, i) => {
-        const card = document.createElement('div');
-        card.className = 'moment-card anim';
-        if (i > 0) card.dataset.delay = Math.min(i * 0.1, 0.3).toFixed(1);
-        card.setAttribute('role', 'button');
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('aria-expanded', 'false');
-        card.dataset.momentId = m.id;
-
-        const builtItems = m.built.map(b => `<div class="moment-li">${escapeHtml(b)}</div>`).join('');
-        const toolPills = m.tools.map(t => `<span class="tool-pill">${escapeHtml(t)}</span>`).join('');
-
-        card.innerHTML = `
-          <div class="moment-domain">${escapeHtml(m.domain)}</div>
-          <div class="moment-header">
-            <div>
-              <div class="moment-title">${escapeHtml(m.title)}</div>
-              <div class="moment-sub">${escapeHtml(m.subtitle)}</div>
-            </div>
-            <div class="expand-arrow" aria-hidden="true">&#x25BC;</div>
-          </div>
-          <div class="moment-expanded">
-            <div class="moment-label">The situation</div>
-            <div class="moment-text">${escapeHtml(m.story)}</div>
-            <div class="moment-label">What I heard</div>
-            <div class="moment-text">${escapeHtml(m.listened)}</div>
-            <div class="moment-label">What I built</div>
-            ${builtItems}
-            <div class="moment-label">What changed</div>
-            <div class="moment-text">${escapeHtml(m.outcome)}</div>
-            <div style="margin-top:1.25rem;">${toolPills}</div>
-          </div>
-        `;
-
-        const toggle = () => {
-          expandedId = (expandedId === m.id) ? null : m.id;
-          document.querySelectorAll('.moment-card').forEach(c => {
-            const isExp = c.dataset.momentId === expandedId;
-            c.classList.toggle('expanded', isExp);
-            c.setAttribute('aria-expanded', isExp ? 'true' : 'false');
-            c.querySelector('.moment-expanded').style.display = isExp ? 'block' : 'none';
-          });
-        };
-
-        card.addEventListener('click', toggle);
-        card.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-        });
-
-        container.appendChild(card);
-      });
-    }
-
     // ── Cycling headline ──────────────────────────────────────────────────────
-
     function initCyclingHeadline() {
       const el = document.getElementById('cycle-text');
       if (!el) return;
@@ -731,17 +569,29 @@
           i = (i + 1) % phrases.length;
           el.textContent = phrases[i];
           el.classList.replace('out', 'in');
-        }, 380);
-      }, 2400);
+        }, 420);
+      }, 2600);
     }
 
-    // ── Boot ──────────────────────────────────────────────────────────────────
+    // ── Fade-ins ──────────────────────────────────────────────────────────────
+    function initFadeIns() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.07 });
 
-    initNav();
-    initThinkingGrid();
-    initMoments();
-    initFadeIns();
+      document.querySelectorAll('.anim').forEach(el => {
+        el.classList.add('will-animate');
+        observer.observe(el);
+      });
+    }
+
     initCyclingHeadline();
+    initFadeIns();
   </script>
 </body>
 </html>
