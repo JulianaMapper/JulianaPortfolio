@@ -13,7 +13,7 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Outfit', system-ui, sans-serif;
-      color: #3D3D3D; background: #FEFEFE;
+      color: #2B2B2B; background: #FEFEFE;
       min-height: 100vh; line-height: 1.6; font-weight: 400;
     }
 
@@ -73,7 +73,7 @@
       margin-bottom: 1rem;
     }
     .page-desc {
-      font-size: 1.0625rem; color: #5A5A5A;
+      font-size: 1.0625rem; color: #484848;
       max-width: 600px; line-height: 1.75; font-weight: 300;
     }
 
@@ -93,7 +93,7 @@
       display: block; padding: 1rem 1.25rem;
       font-size: 0.8rem; font-weight: 600;
       letter-spacing: 0.04em; text-transform: uppercase;
-      color: #5A5A5A; text-decoration: none;
+      color: #484848; text-decoration: none;
       border-bottom: 2px solid transparent;
       white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease;
       flex-shrink: 0;
@@ -112,7 +112,7 @@
     .case-domain {
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
-      color: #4A7C54; margin-bottom: 0.75rem;
+      color: #2E6B3A; margin-bottom: 0.75rem;
     }
     .case-h2 {
       font-family: 'Crimson Pro', Georgia, serif;
@@ -122,7 +122,7 @@
       margin-bottom: 0.5rem;
     }
     .case-sub {
-      font-size: 1.0625rem; color: #5A5A5A;
+      font-size: 1.0625rem; color: #484848;
       font-weight: 300; margin-bottom: 2.5rem; line-height: 1.6;
     }
 
@@ -139,7 +139,7 @@
       font-family: 'Crimson Pro', Georgia, serif;
       font-size: 2rem; font-weight: 900; color: #255B2C; line-height: 1;
     }
-    .metric-label { font-size: 0.8rem; color: #5A5A5A; margin-top: 0.3rem; font-weight: 300; line-height: 1.4; }
+    .metric-label { font-size: 0.8rem; color: #484848; margin-top: 0.3rem; font-weight: 300; line-height: 1.4; }
 
     /* body layout */
     .case-body {
@@ -155,11 +155,11 @@
     }
     .case-label:first-child { margin-top: 0; }
     .case-p {
-      font-size: 0.9375rem; color: #3D3D3D;
+      font-size: 0.9375rem; color: #2B2B2B;
       line-height: 1.75; font-weight: 300; margin-bottom: 0.5rem;
     }
     .case-li {
-      font-size: 0.9375rem; color: #3D3D3D;
+      font-size: 0.9375rem; color: #2B2B2B;
       line-height: 1.75; font-weight: 300;
       padding-left: 1.1rem; position: relative; margin-bottom: 0.4rem;
     }
@@ -173,7 +173,7 @@
       font-family: 'Crimson Pro', Georgia, serif;
       font-size: clamp(1.1rem, 1.8vw, 1.375rem);
       font-style: italic; font-weight: 400;
-      color: #3D3D3D; line-height: 1.7;
+      color: #2B2B2B; line-height: 1.7;
       border-left: 4px solid #255B2C;
       padding: 1rem 1.5rem;
       background: rgba(37,91,44,0.04);
@@ -206,7 +206,7 @@
       object-fit: cover;
     }
     .case-screenshot-caption {
-      font-size: 0.75rem; color: #5A5A5A; font-weight: 300;
+      font-size: 0.75rem; color: #484848; font-weight: 300;
       padding: 0.5rem 0.875rem; background: #F7F5F2;
       border-top: 1px solid #e8e8e8; font-style: italic;
     }
@@ -274,7 +274,7 @@
       <a href="#ph360" class="case-nav-link active">PH360 / Public Health AI</a>
       <a href="#ensite" class="case-nav-link">ENSITE / Defense</a>
       <a href="#peapod" class="case-nav-link">Peapod / Supply Chain</a>
-      <a href="#library" class="case-nav-link">Library Automation</a>
+      <a href="#library" class="case-nav-link">Library / Automation</a>
     </div>
   </nav>
 
@@ -500,61 +500,25 @@
   <section class="case-study" id="library">
     <div class="case-inner">
       <div class="case-domain anim">Personal · Automation · Always</div>
-      <h2 class="case-h2 anim" data-delay="0.1">The library book problem</h2>
-      <p class="case-sub anim" data-delay="0.2">Built for my own family because I genuinely cannot leave a broken process alone.</p>
+      <h2 class="case-h2 anim" data-delay="0.1">A small problem. Automated.</h2>
+      <p class="case-sub anim" data-delay="0.2">Not every fix is enterprise-scale. This one is just how I think.</p>
 
-      <div class="metrics-row anim" data-delay="0.2">
-        <div class="metric-block">
-          <div class="metric-num">2,400+</div>
-          <div class="metric-label">Books in the backlog — Charlotte Mason, picture books, chapter books</div>
-        </div>
-        <div class="metric-block">
-          <div class="metric-num">2</div>
-          <div class="metric-label">Library accounts managed simultaneously</div>
-        </div>
-        <div class="metric-block">
-          <div class="metric-num">0</div>
-          <div class="metric-label">Manual holds placed since automation shipped</div>
-        </div>
-        <div class="metric-block">
-          <div class="metric-num">Always</div>
-          <div class="metric-label">This is just how I think</div>
-        </div>
-      </div>
-
-      <div class="case-body">
+      <div class="case-body" style="margin-top:1.5rem;">
         <div>
-          <div class="case-label">The situation</div>
-          <p class="case-p">My kids go through library books faster than I can manually place holds. My backlog was over 2,400 books — Charlotte Mason living books, picture books, chapter books — across two library accounts with different systems.</p>
-          <p class="case-p">Every week I was spending real time on something a computer should handle. The process was: find a book recommendation, screenshot it, remember to go to the library site, navigate to the right account, search for the title, place the hold, repeat. For 2,400 books.</p>
-
-          <div class="case-label">What I heard</div>
-          <p class="case-p">I was the user. The pain was specific and real: multiple library systems, dual accounts, ILL fallback when holds weren't available locally, a backlog that kept growing faster than I could process it manually.</p>
-          <div class="case-screenshot">
-            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=900&auto=format&fit=crop&q=60" alt="Library books placeholder" />
-            <div class="case-screenshot-caption">Placeholder — automation script output (screenshot pending)</div>
-          </div>
-
-        </div>
-
-        <div>
-          <div class="case-label">What I built</div>
-          <div class="case-li">Selenium-based automation navigating the Polaris library system</div>
-          <div class="case-li">Screenshot → book list extraction pipeline using OCR</div>
-          <div class="case-li">Dual-account management with automatic ILL (interlibrary loan) fallback</div>
-          <div class="case-li">Backlog processing queue for 2,400+ books</div>
-
-          <div class="case-label">What changed</div>
-          <p class="case-p">I don't manually place library holds anymore. But that's not the point.</p>
-          <p class="case-p">The point is: I saw a broken process in my own life and I built the fix. Not because it was impressive. Not because anyone asked. Because I genuinely cannot walk past a broken process without wanting to fix it. That instinct — the one that makes me build the library tool at 10pm — is the same one that makes me good at product work.</p>
-          <p class="case-p">I apply this at enterprise scale. I also apply it to my own kitchen table. The scale changes. The instinct doesn't.</p>
-
-          <div class="case-label">Tools &amp; Stack</div>
-          <div>
+          <p class="case-p anim">My kids go through library books faster than I can place holds manually. 2,400+ books in the backlog. Two library accounts. A process that required navigating multiple systems, searching by title, switching accounts — every single book, every single week.</p>
+          <p class="case-p anim" data-delay="0.1">It was a broken process. So I automated it. Selenium navigates the Polaris library system, OCR pulls titles from screenshots, and the script handles dual-account management with automatic ILL fallback when a book isn't available locally. I haven't manually placed a library hold since.</p>
+          <p class="case-p anim" data-delay="0.2">I include this because it's the same instinct I bring to enterprise work — just at kitchen-table scale. I genuinely cannot walk past a broken process. The scale changes. The instinct doesn't.</p>
+          <div style="margin-top:1.25rem;" class="anim" data-delay="0.2">
             <span class="tool-pill">Python</span>
             <span class="tool-pill">Selenium</span>
             <span class="tool-pill">OCR</span>
             <span class="tool-pill">Automation</span>
+          </div>
+        </div>
+        <div class="anim" data-delay="0.1">
+          <div class="case-screenshot">
+            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=900&auto=format&fit=crop&q=60" alt="Stack of library books" />
+            <div class="case-screenshot-caption">2,400+ books. Zero manual holds.</div>
           </div>
         </div>
       </div>
