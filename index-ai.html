@@ -392,6 +392,60 @@
       color: rgba(254,254,254,0.35);
     }
 
+    /* ── Marquee ── */
+    .marquee-strip {
+      overflow: hidden; background: #1A4220;
+      padding: 1rem 0; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .marquee-track {
+      display: flex; gap: 0;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    .marquee-strip:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1rem; font-style: italic; font-weight: 400;
+      color: rgba(254,254,254,0.55); white-space: nowrap;
+      padding: 0 2rem;
+    }
+    .marquee-sep {
+      color: rgba(254,254,254,0.2); padding: 0 0.5rem; font-style: normal;
+    }
+
+    /* ── Work cards with ghost metric ── */
+    .work-card { position: relative; overflow: hidden; }
+    .work-ghost {
+      position: absolute; bottom: -0.25rem; right: 0.75rem;
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 5rem; font-weight: 900; line-height: 1;
+      color: rgba(37,91,44,0.06); pointer-events: none;
+      user-select: none; letter-spacing: -0.03em;
+    }
+    .work-card:hover .work-ghost { color: rgba(37,91,44,0.1); transition: color 0.25s ease; }
+
+    /* ── Currently building badge ── */
+    .building-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(37,91,44,0.08); border: 1px solid rgba(37,91,44,0.2);
+      border-radius: 100px; padding: 0.35rem 0.9rem;
+      font-size: 0.75rem; font-weight: 600; color: #255B2C;
+      margin-bottom: 1.25rem; letter-spacing: 0.04em;
+    }
+    .building-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #255B2C;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.75); }
+    }
+
     /* ── Mobile ── */
     @media (max-width: 720px) {
       .hero-section { padding: 7rem 1.5rem 4rem; }
@@ -429,6 +483,7 @@
     <div class="hero-orb hero-orb-2"></div>
     <div class="hero-inner">
       <div class="hero-text">
+      <div class="building-badge anim"><span class="building-dot"></span>Currently building — PH360</div>
       <div class="hero-eyebrow anim">Product Leader · AI · Geospatial · Public Health · Supply Chain</div>
       <h1 class="hero-h1 anim" data-delay="0.1">
         I see broken processes<br />
@@ -462,20 +517,50 @@
   <!-- Stats bar -->
   <div class="stats-bar">
     <div class="stat-item anim">
-      <div class="stat-num">83%</div>
+      <div class="stat-num" data-count="83" data-suffix="%">83%</div>
       <div class="stat-label">Workload reduction — Sauk County AI implementation</div>
     </div>
     <div class="stat-item anim" data-delay="0.1">
-      <div class="stat-num">50+</div>
+      <div class="stat-num" data-count="50" data-suffix="+">50+</div>
       <div class="stat-label">Public health professionals interviewed before building PH360</div>
     </div>
     <div class="stat-item anim" data-delay="0.2">
-      <div class="stat-num">1000%</div>
+      <div class="stat-num" data-count="1000" data-suffix="%">1000%</div>
       <div class="stat-label">Reduction in dashboard reporting time — Peapod</div>
     </div>
     <div class="stat-item anim" data-delay="0.3">
-      <div class="stat-num">3</div>
+      <div class="stat-num" data-count="3" data-suffix="">3</div>
       <div class="stat-label">Military theaters deployed — Iraq, Afghanistan, Poland</div>
+    </div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Public Health AI <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Geospatial Analytics <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Process Mapping <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">AWS Bedrock <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Supply Chain <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Product Leadership <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">AI Readiness <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Defense &amp; DOD <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">User Research <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Data Governance <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Python &amp; Automation <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Keynote Speaking <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Public Health AI <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Geospatial Analytics <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Process Mapping <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">AWS Bedrock <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Supply Chain <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Product Leadership <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">AI Readiness <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Defense &amp; DOD <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">User Research <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Data Governance <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Python &amp; Automation <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">Keynote Speaking <span class="marquee-sep">·</span></span>
     </div>
   </div>
 
@@ -525,14 +610,16 @@
     </div>
     <div class="work-grid">
       <a href="work.html#ph360" class="work-card anim" data-delay="0.1">
+        <div class="work-ghost">83%</div>
         <div class="work-domain">F&amp;T Labs · Public Health AI</div>
         <div class="work-title">PH360: Built for the people running local public health</div>
         <div class="work-sub">AI platform for departments that can't afford enterprise tools — HIPAA-compliant, Sunshine Law-ready, built on AWS Bedrock.</div>
-        <div class="work-metric">83%</div>
+        <div class="work-metric" data-count="83" data-suffix="%">83%</div>
         <div class="work-metric-label">Workload reduction on routine tasks — Sauk County</div>
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="work.html#ensite" class="work-card anim" data-delay="0.2">
+        <div class="work-ghost">DA</div>
         <div class="work-domain">U.S. Army Corps of Engineers · Defense</div>
         <div class="work-title">ENSITE: The military's first global site location tool</div>
         <div class="work-sub">PM for a product that had never existed. Deployed in Iraq, Afghanistan, and Poland.</div>
@@ -541,18 +628,20 @@
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="work.html#peapod" class="work-card anim" data-delay="0.1">
+        <div class="work-ghost">1000%</div>
         <div class="work-domain">Peapod Digital Labs (ADUSA) · Supply Chain</div>
         <div class="work-title">The demand model nobody had validated</div>
         <div class="work-sub">Inherited a model driving multi-million dollar facility decisions. Nobody had ever stress-tested it.</div>
-        <div class="work-metric">1000%</div>
+        <div class="work-metric" data-count="1000" data-suffix="%">1000%</div>
         <div class="work-metric-label">Reduction in dashboard reporting time</div>
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="work.html#library" class="work-card anim" data-delay="0.2">
+        <div class="work-ghost">2400+</div>
         <div class="work-domain">Personal · Automation</div>
         <div class="work-title">The library book problem</div>
         <div class="work-sub">My kids go through 2,400+ books. Manually placing holds was broken. So I built a tool to fix it.</div>
-        <div class="work-metric">2,400+</div>
+        <div class="work-metric" data-count="2400" data-suffix="+">2,400+</div>
         <div class="work-metric-label">Books automated across two library accounts</div>
         <div class="work-arrow">Full story →</div>
       </a>
@@ -652,8 +741,38 @@
       });
     }
 
+    // ── Animated counters ─────────────────────────────────────────────────────
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1200;
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const current = Math.round(eased * target);
+        el.textContent = (target >= 1000 ? current.toLocaleString() : current) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function initCounters() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.target.dataset.count) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
+    }
+
     initCyclingHeadline();
     initFadeIns();
+    initCounters();
   </script>
 </body>
 </html>
