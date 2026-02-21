@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -186,7 +187,7 @@
     }
     .hh-card.head { border-color: #C8D9CB; background: rgba(37,91,44,0.04); }
     .hh-card.heart { border-color: #e8e8e8; background: #FEFEFE; }
-    .hh-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .hh-icon { font-size: 1.5rem; margin-bottom: 0.5rem; color: #255B2C; display: block; }
     .hh-title {
       font-family: 'Crimson Pro', Georgia, serif;
       font-size: 1.1rem; font-weight: 700; color: #1A4220; margin-bottom: 0.4rem;
@@ -224,16 +225,38 @@
       font-style: normal; font-weight: 600; color: #255B2C;
     }
 
-    /* Big stat */
-    .stat-callout {
-      background: #255B2C; border-radius: 12px; padding: 2rem;
-      text-align: center; margin: 1.5rem 0;
+    /* Evidence panel */
+    .evidence-panel {
+      display: flex; flex-direction: column; gap: 1rem;
     }
-    .stat-callout-num {
+    .evidence-card {
+      border-radius: 12px; padding: 1.5rem 1.75rem;
+      border: 1px solid #e8e8e8;
+    }
+    .evidence-card.dark { background: #1A4220; border-color: #1A4220; }
+    .evidence-card.light { background: #F7F5F2; border-color: #C8D9CB; }
+    .evidence-icon {
+      font-size: 1.25rem; color: #2E6B3A; margin-bottom: 0.75rem; display: block;
+    }
+    .evidence-card.dark .evidence-icon { color: rgba(254,254,254,0.6); }
+    .evidence-quote {
       font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 3rem; font-weight: 900; color: #FEFEFE; line-height: 1;
+      font-size: clamp(1.1rem, 1.8vw, 1.3rem); font-style: italic;
+      font-weight: 400; line-height: 1.6; margin-bottom: 0.75rem;
+      color: #1A4220;
     }
-    .stat-callout-label { font-size: 0.875rem; color: rgba(254,254,254,0.75); margin-top: 0.5rem; font-weight: 300; line-height: 1.5; }
+    .evidence-card.dark .evidence-quote { color: #FEFEFE; }
+    .evidence-source {
+      font-size: 0.75rem; font-weight: 600; color: #484848;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .evidence-card.dark .evidence-source { color: rgba(254,254,254,0.5); }
+    .evidence-num {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 2.5rem; font-weight: 900; color: #255B2C;
+      line-height: 1; display: inline-block; margin-right: 0.5rem;
+    }
+    .evidence-card.dark .evidence-num { color: #A8C5AD; }
 
     /* Writing/content strip */
     .content-links { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
@@ -318,6 +341,7 @@
       <a href="thinking.html" class="nav-link active">How I Think</a>
       <a href="about.html" class="nav-link">About</a>
       <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
+      <a href="Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link" style="color:rgba(254,254,254,0.9);background:rgba(254,254,254,0.1);padding:0.3rem 0.75rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.35rem;"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
     </nav>
   </header>
 
@@ -355,14 +379,16 @@
           </p>
         </div>
         <div>
-          <div class="anim" data-delay="0.2">
-            <div class="stat-callout">
-              <div class="stat-callout-num">80%</div>
-              <div class="stat-callout-label">of AI projects fail — most because organizations focus on the technology instead of the actual problem<br/><em style="font-size:0.75rem;opacity:0.6;">— RAND Corporation, based on 65 interviews with AI practitioners</em></div>
+          <div class="evidence-panel anim" data-delay="0.2">
+            <div class="evidence-card light">
+              <i class="ti ti-chart-bar evidence-icon"></i>
+              <div class="evidence-quote"><span class="evidence-num">80%</span>of AI projects fail — not because the technology was wrong, but because organizations skipped the problem-definition step.</div>
+              <div class="evidence-source">RAND Corporation · 65 interviews with AI practitioners</div>
             </div>
-            <div class="stat-callout" style="background:#2E6B3A;margin-top:1rem;">
-              <div class="stat-callout-num">83%</div>
-              <div class="stat-callout-label">Workload reduction Sauk County achieved — by mapping processes first, then implementing AI<br/><em style="font-size:0.75rem;opacity:0.6;">— F&amp;T Labs / PH360 case study</em></div>
+            <div class="evidence-card dark">
+              <i class="ti ti-check evidence-icon"></i>
+              <div class="evidence-quote"><span class="evidence-num">83%</span>workload reduction — achieved by mapping Sauk County's processes first, then implementing AI.</div>
+              <div class="evidence-source">F&amp;T Labs · PH360 case study</div>
             </div>
           </div>
         </div>
@@ -464,12 +490,12 @@
           <p class="body-p anim" data-delay="0.2" style="margin-bottom:1rem;">For each step in a process, I ask two questions. The answers tell you where AI belongs.</p>
           <div class="hh-grid anim" data-delay="0.2">
             <div class="hh-card head">
-              <div class="hh-icon">🧠</div>
+              <i class="ti ti-brain hh-icon"></i>
               <div class="hh-title">Head</div>
               <div class="hh-desc">Does this step require specialized expertise, judgment, or analysis? If yes — keep a human. If no — candidate for automation.</div>
             </div>
             <div class="hh-card heart">
-              <div class="hh-icon">🤝</div>
+              <i class="ti ti-handshake hh-icon"></i>
               <div class="hh-title">Heart</div>
               <div class="hh-desc">Does this step require relationships, empathy, or trust-building? If yes — keep a human. If no — candidate for automation.</div>
             </div>
