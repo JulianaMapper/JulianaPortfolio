@@ -236,17 +236,24 @@
     .btn-ghost-light:hover { color: #FEFEFE; }
 
     /* Footer */
-    .site-footer {
-      background: #F7F5F2; border-top: 1px solid #e8e8e8;
-      padding: 2rem 2.5rem; text-align: center;
+    .site-footer { background: #1A4220; padding: 3.5rem 2.5rem 2rem; }
+    .footer-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem; align-items: start;
+      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(254,254,254,0.12);
     }
-    .footer-tagline { font-family: 'Crimson Pro', Georgia, serif; font-size: 0.9375rem; font-style: italic; color: #5A5A5A; }
-    .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; }
-    .footer-link {
-      color: #5A5A5A; text-decoration: none; font-size: 0.8rem;
-      font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s ease;
-    }
-    .footer-link:hover { color: #255B2C; }
+    @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .footer-brand { font-family: 'Crimson Pro', Georgia, serif; font-size: 1.125rem; font-weight: 700; color: #FEFEFE; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(254,254,254,0.45); font-weight: 300; line-height: 1.6; }
+    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(254,254,254,0.4); margin-bottom: 0.75rem; }
+    .footer-nav-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-nav-link { color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
+    .footer-nav-link:hover { color: #FEFEFE; }
+    .footer-contact-link { display: block; color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
+    .footer-contact-link:hover { color: #FEFEFE; }
+    .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
+    .footer-tagline { font-family: 'Crimson Pro', Georgia, serif; font-size: 1rem; font-style: italic; color: rgba(254,254,254,0.35); }
 
     @media (max-width: 720px) {
       .header-band { padding: 0 1.25rem; }
@@ -486,12 +493,28 @@
   </section>
 
   <footer class="site-footer">
-    <div class="footer-tagline">The domain changes. The approach doesn't.</div>
-    <div class="footer-links">
-      <a href="index-ai.html" class="footer-link">Home</a>
-      <a href="work.html" class="footer-link">Work</a>
-      <a href="about.html" class="footer-link">About</a>
-      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-link">Contact</a>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Juliana McMillan-Wilhoit</div>
+        <div class="footer-brand-sub">Chief Product Officer &amp; Co-Founder, F&amp;T Labs<br />Northern Illinois</div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Pages</div>
+        <div class="footer-nav-links">
+          <a href="index-ai.html" class="footer-nav-link">Home</a>
+          <a href="work.html" class="footer-nav-link">Work</a>
+          <a href="thinking.html" class="footer-nav-link">How I Think</a>
+          <a href="about.html" class="footer-nav-link">About</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Get in touch</div>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">JulianaMcMillanWilhoit@Gmail.com</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn → julianamapper</a>
+      </div>
+    </div>
+    <div class="footer-tagline-row">
+      <div class="footer-tagline">The domain changes. The approach doesn't.</div>
     </div>
   </footer>
 
