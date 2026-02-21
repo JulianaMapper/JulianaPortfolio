@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juliana McMillan-Wilhoit — AI Product Leader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      color: #3D3D3D;
+      background: #FEFEFE;
+      min-height: 100vh;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* Fade-in animations — content is visible by default.
+       JS adds .will-animate before paint, then .visible triggers the transition. */
+    .will-animate {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .will-animate.visible { opacity: 1; transform: translateY(0); }
+    .will-animate[data-delay="0.1"] { transition-delay: 0.1s; }
+    .will-animate[data-delay="0.2"] { transition-delay: 0.2s; }
+    .will-animate[data-delay="0.3"] { transition-delay: 0.3s; }
+
+    /* Nav scroll state */
+    #main-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+      padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    #main-nav.nav-scrolled {
+      background: rgba(254,254,254,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    /* Step buttons */
+    .step-btn {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.75rem 1rem; border: none; background: transparent;
+      color: #3D3D3D; cursor: pointer; border-radius: 8px;
+      font-family: 'Outfit', sans-serif; font-size: 0.875rem; font-weight: 400;
+      text-align: left; transition: all 0.25s ease; width: 100%;
+    }
+    .step-btn.active {
+      background: #255B2C !important;
+      color: #FEFEFE !important;
+      font-weight: 600 !important;
+    }
+    .step-btn.active .step-num { opacity: 1 !important; }
+
+    /* Case cards */
+    .case-card {
+      background: #FEFEFE; border-radius: 12px; padding: 2rem;
+      margin-bottom: 1.5rem; cursor: pointer;
+      border: 2px solid #e8e8e8; transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .case-card.expanded {
+      border: 2px solid #255B2C !important;
+      box-shadow: 0 8px 32px rgba(37,91,44,0.1) !important;
+    }
+    .case-card:focus { outline: 2px solid #255B2C; outline-offset: 2px; }
+
+    /* Expand arrow */
+    .expand-arrow {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #F7F5F2; color: #255B2C;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; transition: all 0.3s ease;
+      transform: rotate(0deg); flex-shrink: 0;
+      user-select: none;
+    }
+    .case-card.expanded .expand-arrow {
+      background: #255B2C !important;
+      color: #FEFEFE !important;
+      transform: rotate(180deg) !important;
+    }
+
+    /* Route pills */
+    .route-pill {
+      padding: 0.5rem 1.25rem; border-radius: 100px;
+      font-family: 'Outfit', sans-serif; font-size: 0.8125rem;
+      font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+      border: 2px solid #B8B8B8; background: transparent; color: #5A5A5A;
+      text-decoration: none; display: inline-block;
+    }
+    .route-pill.active {
+      border-color: #255B2C; background: #255B2C; color: #FEFEFE;
+    }
+
+    /* Nav links */
+    .nav-link {
+      color: #5A5A5A; text-decoration: none; cursor: pointer;
+      border-bottom: 2px solid transparent; padding-bottom: 2px;
+      transition: all 0.2s ease; font-size: 0.8125rem;
+      font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .nav-link:hover { color: #255B2C; border-bottom-color: #255B2C; }
+
+    /* Hero layout */
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-photo {
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e8e8e8;
+      flex-shrink: 0;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
+      margin: 0;
+    }
+    .stat-item {
+      padding: 1.5rem 1rem;
+      text-align: center;
+      border-right: 1px solid #e8e8e8;
+    }
+    .stat-item:last-child { border-right: none; }
+
+    /* Stats grid (impact section) */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+
+    /* How I Think grid */
+    .thinking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .thinking-card {
+      background: #FEFEFE;
+      border-radius: 12px;
+      padding: 1.75rem;
+      border: 1px solid #e8e8e8;
+    }
+
+    /* Cycling headline animation */
+    .cycle-wrap {
+      display: inline-block;
+      position: relative;
+      min-width: 220px;
+    }
+    .cycle-phrase {
+      display: inline-block;
+      color: #255B2C;
+      font-style: italic;
+      font-weight: 400;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      white-space: nowrap;
+    }
+    .cycle-phrase.out {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    .cycle-phrase.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Step row (kept for fallback) */
+    .step-row {
+      display: flex; gap: 3rem; margin-bottom: 2rem; flex-wrap: wrap;
+    }
+
+    /* Footer links */
+    .footer-links {
+      display: flex; justify-content: center; gap: 2rem;
+      font-size: 0.8125rem; font-weight: 400; opacity: 0.8;
+      margin-top: 1rem; flex-wrap: wrap;
+    }
+
+    /* Mobile */
+    @media (max-width: 720px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo { display: none; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .thinking-grid { grid-template-columns: 1fr; }
+      #main-nav { padding: 0.75rem 1rem; }
+      .nav-links { gap: 1rem !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="main-nav" role="navigation" aria-label="Main navigation">
+    <div style="font-family:'Crimson Pro',Georgia,serif;font-weight:700;font-size:1.125rem;color:#255B2C;letter-spacing:-0.01em;">
+      Juliana McMillan-Wilhoit
+    </div>
+    <div class="nav-links" style="display:flex;gap:1.5rem;">
+      <a href="#thinking" class="nav-link">How I Think</a>
+      <a href="#work" class="nav-link">Work</a>
+      <a href="#impact" class="nav-link">Impact</a>
+      <a href="#connect" class="nav-link">Connect</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section style="padding:5.5rem 2rem 0;max-width:960px;margin:0 auto;">
+    <div class="hero-inner">
+      <div>
+        <div class="anim" style="font-family:'Outfit',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#255B2C;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:2rem;height:2px;background:#255B2C;" aria-hidden="true"></div>
+          AI Product Leader
+        </div>
+        <h1 class="anim" data-delay="0.1" style="font-family:'Crimson Pro',Georgia,serif;font-size:clamp(2.25rem,4.5vw,3.5rem);font-weight:900;line-height:1.2;color:#1A4220;margin-bottom:1.25rem;letter-spacing:-0.02em;">
+          I see broken processes<br />
+          and I <span class="cycle-wrap"><span id="cycle-text" class="cycle-phrase in">listen first.</span></span>
+        </h1>
+        <p class="anim" data-delay="0.2" style="font-size:1.0625rem;color:#5A5A5A;max-width:520px;line-height:1.7;font-weight:300;margin-bottom:1.5rem;">
+          15 years shipping AI products and geospatial tools — for the U.S. military,
+          public health departments, and Fortune 500 supply chains.
+          Fulbright Scholar. Department of the Army Medal. CPO &amp; Co-Founder, F&amp;T Labs.
+        </p>
+        <div class="anim" data-delay="0.3" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.5rem;">
+          <span class="route-pill active">AI Product Leader</span>
+          <span class="route-pill" style="opacity:0.5;cursor:default;" title="Coming soon">Product Management</span>
+          <span class="route-pill" style="opacity:0.5;cursor:default;" title="Coming soon">Geospatial</span>
+        </div>
+        <div class="anim" data-delay="0.35" style="margin-top:1.25rem;">
+          <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" style="display:inline-block;background:#255B2C;color:#FEFEFE;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;padding:0.75rem 1.5rem;border-radius:8px;text-decoration:none;letter-spacing:0.02em;transition:background 0.2s ease;" onmouseover="this.style.background='#1A4220'" onmouseout="this.style.background='#255B2C'">
+            Let's talk →
+          </a>
+          <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-left:0.75rem;color:#255B2C;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;text-decoration:none;border-bottom:1px solid #255B2C;padding-bottom:1px;">LinkedIn</a>
+        </div>
+      </div>
+      <img
+        src="https://cdn.fandtlabs.com/wp-content//uploads/2025/12/04142138/Juliana-McMillan-Wilhoit-Jefferson-McMillan-Jefferson-FT-Labs.png"
+        alt="Juliana McMillan-Wilhoit"
+        class="hero-photo anim"
+        data-delay="0.2"
+      />
+    </div>
+  </section>
+
+  <!-- Stats bar -->
+  <div style="max-width:960px;margin:2rem auto 0;">
+    <div class="stats-bar">
+      <div class="stat-item anim">
+        <div style="font-family:'Crimson Pro',Georgia,serif;font-size:2rem;font-weight:900;color:#255B2C;line-height:1;">15+</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:0.8125rem;color:#5A5A5A;margin-top:0.3rem;font-weight:400;">Years of product leadership</div>
+      </div>
+      <div class="stat-item anim" data-delay="0.1">
+        <div style="font-family:'Crimson Pro',Georgia,serif;font-size:2rem;font-weight:900;color:#255B2C;line-height:1;">Fulbright</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:0.8125rem;color:#5A5A5A;margin-top:0.3rem;font-weight:400;">Scholar — lived &amp; taught abroad</div>
+      </div>
+      <div class="stat-item anim" data-delay="0.2">
+        <div style="font-family:'Crimson Pro',Georgia,serif;font-size:2rem;font-weight:900;color:#255B2C;line-height:1;">3×</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:0.8125rem;color:#5A5A5A;margin-top:0.3rem;font-weight:400;">Keynote speaker, national stages</div>
+      </div>
+      <div class="stat-item anim" data-delay="0.3">
+        <div style="font-family:'Crimson Pro',Georgia,serif;font-size:2rem;font-weight:900;color:#255B2C;line-height:1;">Free</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:0.8125rem;color:#5A5A5A;margin-top:0.3rem;font-weight:400;">AI Policy Guide — adopted nationally</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How I Think -->
+  <section id="thinking" style="padding:4rem 2rem;background:#F7F5F2;">
+    <div style="max-width:960px;margin:0 auto;">
+      <div class="anim">
+        <div style="font-family:'Outfit',sans-serif;font-size:0.6875rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#255B2C;margin-bottom:0.5rem;">Framework</div>
+        <h2 style="font-family:'Crimson Pro',Georgia,serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:#1A4220;margin-bottom:2rem;letter-spacing:-0.01em;line-height:1.15;">How I Think</h2>
+      </div>
+      <div class="thinking-grid" id="thinking-grid">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section id="work" style="padding:5rem 2rem;max-width:960px;margin:0 auto;">
+    <div class="anim">
+      <div style="font-family:'Outfit',sans-serif;font-size:0.6875rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#255B2C;margin-bottom:0.75rem;">Selected Work</div>
+      <h2 style="font-family:'Crimson Pro',Georgia,serif;font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900;color:#1A4220;margin-bottom:1rem;letter-spacing:-0.01em;line-height:1.15;">AI Products I've Built</h2>
+      <p style="font-size:1rem;color:#5A5A5A;max-width:600px;line-height:1.7;font-weight:300;margin-bottom:3rem;">
+        Each project follows the same thinking framework. Click to see the full story.
+      </p>
+    </div>
+    <div id="case-studies-container">
+      <!-- Cards injected by JS -->
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section style="padding:5rem 2rem;max-width:960px;margin:0 auto;">
+    <div class="anim">
+      <div style="font-family:'Outfit',sans-serif;font-size:0.6875rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#255B2C;margin-bottom:0.75rem;">What Others Say</div>
+      <h2 style="font-family:'Crimson Pro',Georgia,serif;font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900;color:#1A4220;margin-bottom:2rem;letter-spacing:-0.01em;line-height:1.15;">Perspectives</h2>
+    </div>
+    <div class="anim" data-delay="0.1">
+      <div style="padding:2rem;background:#FEFEFE;border-radius:12px;margin-bottom:1.5rem;border-left:4px solid #255B2C;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.125rem;font-weight:400;color:#3D3D3D;line-height:1.7;font-style:italic;margin-bottom:0.75rem;">
+          "I have yet to meet another individual who can walk into a room, establish personal connections,
+          ask probing questions that transform anticipated goals into actual goals, and have a draft of
+          next steps in under an hour."
+        </div>
+        <div style="font-size:0.8125rem;font-weight:600;color:#255B2C;">Elizabeth Bastian</div>
+        <div style="font-size:0.75rem;font-weight:400;color:#5A5A5A;">Colleague, CERL / University of Illinois</div>
+      </div>
+    </div>
+    <div class="anim" data-delay="0.2">
+      <div style="padding:2rem;background:#FEFEFE;border-radius:12px;margin-bottom:1.5rem;border-left:4px solid #255B2C;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.125rem;font-weight:400;color:#3D3D3D;line-height:1.7;font-style:italic;margin-bottom:0.75rem;">
+          "She was the rare student who was willing and able to step into a completely new GIS assignment
+          and totally own the work. She fleshed out the assignment, established a path to success, and with
+          minimal input completed GIS analysis, software development, publications, and presentations."
+        </div>
+        <div style="font-size:0.8125rem;font-weight:600;color:#255B2C;">Dr. Jim Westervelt</div>
+        <div style="font-size:0.75rem;font-weight:400;color:#5A5A5A;">Creator of GRASS GIS, U.S. Army Corps of Engineers</div>
+      </div>
+    </div>
+    <div class="anim" data-delay="0.3">
+      <div style="padding:2rem;background:#FEFEFE;border-radius:12px;margin-bottom:1.5rem;border-left:4px solid #255B2C;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.125rem;font-weight:400;color:#3D3D3D;line-height:1.7;font-style:italic;margin-bottom:0.75rem;">
+          "If she puts her mind to something, it will get done. This determination and willingness to
+          proactively manage any situation or task carries over into her interpersonal skills and relationships."
+        </div>
+        <div style="font-size:0.8125rem;font-weight:600;color:#255B2C;">Anna Fuselier</div>
+        <div style="font-size:0.75rem;font-weight:400;color:#5A5A5A;">Vice Chair, BEST Foundation</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="connect" style="padding:3rem 2rem;background:#1A4220;color:#FEFEFE;text-align:center;">
+    <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;">
+      Juliana McMillan-Wilhoit
+    </div>
+    <div style="font-size:0.9375rem;font-weight:300;opacity:0.9;">
+      AI Product Leader &middot; Chief Product Officer, F&amp;T Labs
+    </div>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/julianamapper" style="color:#FEFEFE;text-decoration:none;border-bottom:1px solid rgba(254,254,254,0.3);" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://github.com/JulianaMapper/Portfolio" style="color:#FEFEFE;text-decoration:none;border-bottom:1px solid rgba(254,254,254,0.3);" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://fandtlabs.com/ai-cop" style="color:#FEFEFE;text-decoration:none;border-bottom:1px solid rgba(254,254,254,0.3);" target="_blank" rel="noopener noreferrer">AI Community of Practice</a>
+      <a href="https://fandtlabs.com/ai-policy-guide" style="color:#FEFEFE;text-decoration:none;border-bottom:1px solid rgba(254,254,254,0.3);" target="_blank" rel="noopener noreferrer">AI Policy Guide</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" style="color:#FEFEFE;text-decoration:none;border-bottom:1px solid rgba(254,254,254,0.3);">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ─── Data ───────────────────────────────────────────────────────────────
+
+    const thinkingSteps = [
+      {
+        num: "01",
+        title: "See the Process",
+        desc: "I walk into every situation looking for how things actually work — not how they're supposed to work. I listen, observe, and map the reality before proposing change.",
+        evidence: "Interviewed 50+ public health professionals before writing a single line of PH360. Conducted user assessments at Peapod before touching the demand model. Embedded with client teams for months. My mentor at the Army Corps told me on day one: go talk to the people who will use this. I've done that ever since."
+      },
+      {
+        num: "02",
+        title: "Ask 'How Can This Be Better?'",
+        desc: "Every process I encounter, I instinctively ask what's broken, what's slow, what's frustrating. I trace pain points back to root causes, not symptoms.",
+        evidence: "Discovered that policy ambiguity — not technology — was blocking AI adoption in public health. Found the Peapod demand model had never been validated by the consultants who built it. Identified that cemetery mapping took days because of an unnecessary CAD-to-GIS gap. Saw that Puerto Rico power data updates took 8 hours because nobody had automated them."
+      },
+      {
+        num: "03",
+        title: "Build the Solution",
+        desc: "I don't just recommend. I build. Whether that's an AI platform, a data governance framework, an automation workflow, or a strategic plan — I ship things that work.",
+        evidence: "Built PH360 on AWS Bedrock. Cut Puerto Rico power restoration reporting from 8 hours to 30 minutes with Python and Model Builder. Created Alteryx workflows that reduced Peapod reporting time by 1000%. Built a library automation tool for my own family because my kids go through books faster than I can manually place holds."
+      },
+      {
+        num: "04",
+        title: "Validate with Real Users",
+        desc: "I bring solutions back to the people who will use them. I test assumptions, gather feedback, and iterate. Research methods are a core strength, not an afterthought.",
+        evidence: "Ran Principal Component Analysis to validate Peapod's demand model — the original consultants never had. Followed up with every PH360 interviewee to validate features before building. User-tested ENSITE across DOD theaters in Iraq, Afghanistan, and Poland. Curiosity and rigor aren't separate for me — they're the same thing."
+      }
+    ];
+
+    const caseStudies = [
+      {
+        id: "ph360",
+        tag: "F&T Labs / Current",
+        title: "PH360 AI Platform",
+        subtitle: "AI-powered operations platform for local public health departments",
+        challenge: "Local health departments drown in manual processes, paper forms, and disconnected systems. They can't afford enterprise consultants, and off-the-shelf AI tools violate HIPAA and public records (Sunshine Law) requirements. After seeing Claude's capabilities demonstrated at AWS, and drawing on firsthand experience with manual public health workflows during COVID, I saw a clear product opportunity.",
+        thinking: [
+          "Personally conducted field research with 50+ public health professionals across the U.S. — structured interviews, not surveys. I found their actual workflows, not their aspirational ones.",
+          "Discovered a critical gap: policy ambiguity. Agencies didn't know what AI use was even allowed. In many jurisdictions, AI chats can constitute public records — tools like NotebookLM won't suffice. You can't adopt a tool you're afraid to touch.",
+          "Designed a dual approach: build the compliant tool AND create the policy framework (AI Policy Guide) so departments could confidently adopt it. Delivered the first AI policy workshop with the Public Health Services Council of Ohio."
+        ],
+        built: [
+          "HIPAA-compliant AI chatbot builder on AWS Bedrock with RAG/knowledge base document upload",
+          "Sunshine Law-compliant data retention and audit trails — purpose-built for public records requirements",
+          "Modular Salesforce-based platform with insurance reimbursement capabilities",
+          "Free AI Policy Guide adopted by health departments nationally (fandtlabs.com/ai-policy-guide)",
+          "Monthly AI for Public Health Community of Practice — peer learning with growing national participation"
+        ],
+        outcome: "Platform deployed with early adopters in Missouri, Wisconsin, and Michigan. Sauk County engagement started as a small contract and expanded into a deep strategic partnership including a strategic plan, process mapping, and a 2024 mutual plenary presentation. AI Policy Guide published as a free resource.",
+        tools: ["AWS Bedrock", "Salesforce", "RAG Architecture", "Claude API", "HIPAA Compliance"]
+      },
+      {
+        id: "ensite",
+        tag: "U.S. Army Corps of Engineers",
+        title: "ENSITE",
+        subtitle: "The military's first global site location tool",
+        challenge: "The U.S. military had no unified tool for evaluating potential base locations worldwide. Site selection relied on fragmented data, manual analysis, and inconsistent methodologies across theaters of operation. I was brought in as product manager and deputy principal investigator.",
+        thinking: [
+          "My mentor Jim Westervelt — creator of GRASS GIS — gave me the foundational advice I've carried ever since: go talk to the people who will actually use this before you build anything.",
+          "Conducted user engagement across DOD to understand what data they trusted, what decisions they needed to make, and what 'good enough' looked like in the field.",
+          "Recognized that the real challenge wasn't the algorithm. It was data governance: integrating diverse DOD and open data sources into a system people could trust and would actually use."
+        ],
+        built: [
+          "Integrated diverse DOD and open-source data into a unified analytical back-end",
+          "Data governance framework including review process, governance board, and staff education",
+          "Collaborated with internal UX/UI team on wireframes and interface design incorporating user feedback",
+          "Analytical plug-ins and data collection tools (ENSITE HUB)",
+          "Multiple ERDC/CERL technical reports documenting the methodology"
+        ],
+        outcome: "Deployed globally — used in Iraq, Afghanistan, and Poland following Russia's invasion of Ukraine. Reduced time to locate and establish bases. Received the Department of the Army Medal for Civilian Service for leadership on this work.",
+        tools: ["ArcGIS Suite", "Python", "Model Builder", "DOD Data Systems", "Data Governance"]
+      },
+      {
+        id: "emerald",
+        tag: "F&T Labs / Sauk County, WI",
+        title: "Emerald City AI Chatbot",
+        subtitle: "AI Food Code assistant for public health inspectors in the field",
+        challenge: "Public health inspectors in Sauk County needed quick, reliable answers to Food Code compliance questions in the field. The engagement started small — but I've learned that the best products come from listening carefully to what's actually needed, not scoping big from the start.",
+        thinking: [
+          "Started by listening. Rather than proposing a full solution, I asked what a win would look like for them in 90 days.",
+          "Recognized that the real value wasn't just a chatbot — it was giving inspectors confidence in the field with answers backed by their actual regulatory documents, not generic AI training data.",
+          "Saw the opportunity to use this as a proof-of-concept for purpose-built public health AI: not repurposed enterprise tools, but something built specifically for the way inspectors actually work."
+        ],
+        built: [
+          "Custom AI chatbot trained on Sauk County's local Food Code regulations",
+          "Front-end development, API configuration, and system integration",
+          "Knowledge base management with document upload and RAG retrieval",
+          "Designed for mobile use in field inspection contexts"
+        ],
+        outcome: "A small engagement became a flagship. Featured in a 2024 mutual plenary presentation. Led to strategic plan development, process mapping, and an ongoing consulting relationship. Became a primary example of what purpose-built public health AI looks like in practice.",
+        tools: ["AWS Bedrock", "RAG", "API Integration", "Front-end Development"]
+      }
+    ];
+
+    // ─── Init: Nav scroll ────────────────────────────────────────────────────
+
+    function initNav() {
+      const nav = document.getElementById('main-nav');
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+      }, { passive: true });
+    }
+
+    // ─── Init: Fade-ins ──────────────────────────────────────────────────────
+    // Content is visible by default. JS opts elements INTO animation by adding
+    // will-animate (hides them), then IntersectionObserver adds .visible to reveal.
+    // If JS fails, content is always visible — no blank page.
+
+    function initFadeIns() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.anim').forEach(el => {
+        el.classList.add('will-animate');
+        observer.observe(el);
+      });
+    }
+
+    function observeNewAnims() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.anim:not(.will-animate)').forEach(el => {
+        el.classList.add('will-animate');
+        observer.observe(el);
+      });
+    }
+
+    // ─── Init: Counters ──────────────────────────────────────────────────────
+
+    function animateCounter(el) {
+      const end = parseInt(el.dataset.counterEnd, 10);
+      const display = el.querySelector('.counter-value');
+      const duration = 1600;
+      let startTime = null;
+      function step(ts) {
+        if (!startTime) startTime = ts;
+        const progress = Math.min((ts - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        display.textContent = Math.floor(eased * end);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function initCounters() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('[data-counter-end]').forEach(el => observer.observe(el));
+    }
+
+    // ─── Init: Thinking grid ─────────────────────────────────────────────────
+
+    function initThinkingGrid() {
+      const grid = document.getElementById('thinking-grid');
+      if (!grid) return;
+      thinkingSteps.forEach((step, i) => {
+        const card = document.createElement('div');
+        card.className = 'thinking-card anim';
+        if (i > 0) card.dataset.delay = (i * 0.1).toFixed(1);
+        card.innerHTML = `
+          <div style="font-family:'Crimson Pro',Georgia,serif;font-size:0.75rem;font-weight:900;color:#255B2C;letter-spacing:0.1em;margin-bottom:0.5rem;">${escapeHtml(step.num)}</div>
+          <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.25rem;font-weight:700;color:#1A4220;margin-bottom:0.5rem;line-height:1.2;">${escapeHtml(step.title)}</div>
+          <div style="font-size:0.9rem;color:#5A5A5A;line-height:1.65;font-weight:300;margin-bottom:0.75rem;">${escapeHtml(step.desc)}</div>
+          <div style="font-size:0.8125rem;color:#5A5A5A;line-height:1.6;padding:0.75rem 1rem;background:rgba(37,91,44,0.06);border-radius:6px;border-left:3px solid #4A7C54;font-weight:400;">
+            <strong style="font-weight:600;color:#255B2C;">Proof: </strong>${escapeHtml(step.evidence)}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ─── Init: Case studies ──────────────────────────────────────────────────
+
+    function buildCaseExpandedHTML(cs) {
+      const thinkingItems = cs.thinking.map(t =>
+        `<div style="font-size:0.9375rem;color:#3D3D3D;line-height:1.7;font-weight:300;margin-bottom:0.375rem;padding-left:1rem;position:relative;">
+          <span style="position:absolute;left:0;color:#255B2C;font-weight:700;" aria-hidden="true">&bull;</span>
+          ${escapeHtml(t)}
+        </div>`
+      ).join('');
+
+      const builtItems = cs.built.map(b =>
+        `<div style="font-size:0.9375rem;color:#3D3D3D;line-height:1.7;font-weight:300;margin-bottom:0.375rem;padding-left:1rem;position:relative;">
+          <span style="position:absolute;left:0;color:#255B2C;font-weight:700;" aria-hidden="true">&bull;</span>
+          ${escapeHtml(b)}
+        </div>`
+      ).join('');
+
+      const toolPills = cs.tools.map(tool =>
+        `<span style="display:inline-block;padding:0.25rem 0.75rem;background:rgba(37,91,44,0.08);color:#255B2C;border-radius:100px;font-size:0.75rem;font-weight:600;margin-right:0.5rem;margin-bottom:0.5rem;">${escapeHtml(tool)}</span>`
+      ).join('');
+
+      const labelStyle = 'font-size:0.6875rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#255B2C;margin-bottom:0.5rem;margin-top:1.25rem;';
+      const textStyle  = 'font-size:0.9375rem;color:#3D3D3D;line-height:1.7;font-weight:300;';
+
+      return `
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #e8e8e8;">
+          <div style="${labelStyle}">The Challenge</div>
+          <div style="${textStyle}">${escapeHtml(cs.challenge)}</div>
+          <div style="${labelStyle}">How I Thought About It</div>
+          ${thinkingItems}
+          <div style="${labelStyle}">What I Built</div>
+          ${builtItems}
+          <div style="${labelStyle}">The Outcome</div>
+          <div style="${textStyle}">${escapeHtml(cs.outcome)}</div>
+          <div style="margin-top:1.25rem;">${toolPills}</div>
+        </div>
+      `;
+    }
+
+    function initCaseStudies() {
+      const container = document.getElementById('case-studies-container');
+      let expandedCase = null;
+
+      caseStudies.forEach((cs, i) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'fade-in' + (i > 0 ? '' : '');
+        if (i > 0) wrapper.dataset.delay = (i * 0.1).toFixed(1);
+
+        const card = document.createElement('div');
+        card.className = 'case-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-expanded', 'false');
+        card.setAttribute('aria-label', `${cs.title} case study. Click to expand.`);
+        card.dataset.caseId = cs.id;
+
+        card.innerHTML = `
+          <div style="font-size:0.6875rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#5A5A5A;margin-bottom:0.5rem;">${escapeHtml(cs.tag)}</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.5rem;font-weight:700;color:#1A4220;margin-bottom:0.25rem;">${escapeHtml(cs.title)}</div>
+              <div style="font-size:0.9375rem;color:#5A5A5A;font-weight:300;">${escapeHtml(cs.subtitle)}</div>
+            </div>
+            <div class="expand-arrow" aria-hidden="true">&#x25BC;</div>
+          </div>
+          <div class="case-expanded-content" style="display:none;"></div>
+        `;
+
+        card.addEventListener('click', () => toggleCard(cs.id));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleCard(cs.id);
+          }
+        });
+
+        wrapper.appendChild(card);
+        container.appendChild(wrapper);
+      });
+
+      function toggleCard(id) {
+        expandedCase = (expandedCase === id) ? null : id;
+        document.querySelectorAll('.case-card').forEach(card => {
+          const cardId = card.dataset.caseId;
+          const isExpanded = cardId === expandedCase;
+          const content = card.querySelector('.case-expanded-content');
+          card.classList.toggle('expanded', isExpanded);
+          card.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+          card.setAttribute('aria-label', `${caseStudies.find(c => c.id === cardId).title} case study. Click to ${isExpanded ? 'collapse' : 'expand'}.`);
+          if (isExpanded) {
+            const cs = caseStudies.find(c => c.id === cardId);
+            content.innerHTML = buildCaseExpandedHTML(cs);
+            content.style.display = 'block';
+          } else {
+            content.style.display = 'none';
+          }
+        });
+      }
+    }
+
+    // ─── Init: Cycling headline ──────────────────────────────────────────────
+
+    function initCyclingHeadline() {
+      const el = document.getElementById('cycle-text');
+      if (!el) return;
+      const phrases = ['listen first.', 'ask why.', 'build the fix.'];
+      let current = 0;
+
+      setInterval(() => {
+        // Fade out
+        el.classList.remove('in');
+        el.classList.add('out');
+        setTimeout(() => {
+          current = (current + 1) % phrases.length;
+          el.textContent = phrases[current];
+          el.classList.remove('out');
+          el.classList.add('in');
+        }, 420);
+      }, 2200);
+    }
+
+    // ─── Boot ────────────────────────────────────────────────────────────────
+
+    initNav();
+    initThinkingGrid();   // injects DOM
+    initCaseStudies();    // injects DOM
+    initFadeIns();        // opts .anim elements into animation, observes all
+    initCounters();
+    initCyclingHeadline();
+  </script>
+</body>
+</html>
