@@ -33,25 +33,27 @@
     .will-animate[data-delay="0.3"] { transition-delay: 0.3s; }
     .will-animate[data-delay="0.35"] { transition-delay: 0.35s; }
 
-    /* ── Nav ── */
-    #main-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: transparent; border-bottom: 1px solid transparent;
-      transition: all 0.3s ease; padding: 1rem 2rem;
+    /* ── Header band ── */
+    .header-band {
+      background: #1A4220;
+      padding: 0 2rem;
       display: flex; justify-content: space-between; align-items: center;
+      height: 56px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     }
-    #main-nav.nav-scrolled {
-      background: rgba(254,254,254,0.96);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid #e8e8e8;
+    .header-name {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-weight: 700; font-size: 1.125rem;
+      color: #FEFEFE; letter-spacing: -0.01em;
     }
     .nav-link {
-      color: #5A5A5A; text-decoration: none;
-      border-bottom: 2px solid transparent; padding-bottom: 2px;
-      transition: all 0.2s ease; font-size: 0.8125rem;
-      font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+      color: rgba(254,254,254,0.7); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s ease; padding-bottom: 1px;
+      border-bottom: 1px solid transparent;
     }
-    .nav-link:hover { color: #255B2C; border-bottom-color: #255B2C; }
+    .nav-link:hover { color: #FEFEFE; border-bottom-color: rgba(254,254,254,0.4); }
 
     /* ── Hero ── */
     .hero-grid {
@@ -59,7 +61,7 @@
       grid-template-columns: 1fr 220px;
       gap: 3rem;
       align-items: center;
-      padding: 5.5rem 2rem 2rem;
+      padding: 4.5rem 2rem 2rem;
       max-width: 960px;
       margin: 0 auto;
     }
@@ -315,34 +317,28 @@
       .stat-item:nth-child(3), .stat-item:nth-child(4) { border-top: 1px solid #e8e8e8; }
       .thinking-grid { grid-template-columns: 1fr; }
       .testimonials-grid { grid-template-columns: 1fr; }
-      #main-nav { padding: 0.75rem 1rem; }
-      .nav-links { gap: 1rem !important; }
+      .header-band { padding: 0 1rem; }
+      .nav-link { font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav id="main-nav" role="navigation" aria-label="Main navigation">
-    <div style="font-family:'Crimson Pro',Georgia,serif;font-weight:700;font-size:1.125rem;color:#255B2C;letter-spacing:-0.01em;">
-      Juliana McMillan-Wilhoit
-    </div>
-    <div class="nav-links" style="display:flex;gap:1.5rem;">
+  <!-- Header band -->
+  <header class="header-band" role="banner">
+    <div class="header-name">Juliana McMillan-Wilhoit</div>
+    <nav style="display:flex;gap:1.5rem;" aria-label="Main navigation">
       <a href="#how-i-think" class="nav-link">How I Think</a>
       <a href="#moments" class="nav-link">Work</a>
       <a href="#perspectives" class="nav-link">Perspectives</a>
       <a href="#connect" class="nav-link">Connect</a>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <!-- Hero -->
   <div class="hero-grid">
     <div>
-      <div class="anim" style="font-family:'Outfit',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#255B2C;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;">
-        <div style="width:2rem;height:2px;background:#255B2C;" aria-hidden="true"></div>
-        Product Leader
-      </div>
-      <h1 class="anim" data-delay="0.1" style="font-family:'Crimson Pro',Georgia,serif;font-size:clamp(2.25rem,4.5vw,3.5rem);font-weight:900;line-height:1.15;color:#1A4220;margin-bottom:1.25rem;letter-spacing:-0.02em;">
+      <h1 class="anim" style="font-family:'Crimson Pro',Georgia,serif;font-size:clamp(2.25rem,4.5vw,3.5rem);font-weight:900;line-height:1.15;color:#1A4220;margin-bottom:1.25rem;letter-spacing:-0.02em;">
         I see broken processes<br />
         and I <span class="cycle-wrap"><span id="cycle-text" class="cycle-phrase in">listen first.</span></span>
       </h1>
@@ -623,10 +619,7 @@
     // ── Nav ───────────────────────────────────────────────────────────────────
 
     function initNav() {
-      const nav = document.getElementById('main-nav');
-      window.addEventListener('scroll', () => {
-        nav.classList.toggle('nav-scrolled', window.scrollY > 50);
-      }, { passive: true });
+      // Header band is always solid — no scroll state needed
     }
 
     // ── Fade-ins ──────────────────────────────────────────────────────────────
