@@ -400,7 +400,7 @@
     }
     .marquee-track {
       display: flex; gap: 0;
-      animation: marquee 30s linear infinite;
+      animation: marquee 40s linear infinite;
       width: max-content;
     }
     .marquee-strip:hover .marquee-track { animation-play-state: paused; }
@@ -485,7 +485,6 @@
     <div class="hero-orb hero-orb-2"></div>
     <div class="hero-inner">
       <div class="hero-text">
-      <div class="building-badge anim"><span class="building-dot"></span>Currently building — PH360</div>
       <div class="hero-eyebrow anim">Product Leader · AI · Geospatial · Public Health · Supply Chain</div>
       <h1 class="hero-h1 anim" data-delay="0.1">
         I see broken processes<br />
@@ -539,32 +538,7 @@
 
   <!-- Marquee -->
   <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item">Public Health AI <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Geospatial Analytics <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Process Mapping <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">AWS Bedrock <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Supply Chain <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Product Leadership <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">AI Readiness <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Defense &amp; DOD <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">User Research <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Data Governance <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Python &amp; Automation <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Keynote Speaking <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Public Health AI <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Geospatial Analytics <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Process Mapping <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">AWS Bedrock <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Supply Chain <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Product Leadership <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">AI Readiness <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Defense &amp; DOD <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">User Research <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Data Governance <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Python &amp; Automation <span class="marquee-sep">·</span></span>
-      <span class="marquee-item">Keynote Speaking <span class="marquee-sep">·</span></span>
-    </div>
+    <div class="marquee-track" id="marquee-track"></div>
   </div>
 
   <!-- Thesis -->
@@ -773,9 +747,28 @@
       document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
     }
 
+    // ── Seamless marquee ─────────────────────────────────────────────────────
+    function initMarquee() {
+      const track = document.getElementById('marquee-track');
+      if (!track) return;
+      const items = [
+        'Public Health AI', 'Geospatial Analytics', 'Process Mapping',
+        'AWS Bedrock', 'Supply Chain', 'Product Leadership',
+        'AI Readiness', 'Defense &amp; DOD', 'User Research',
+        'Data Governance', 'Python &amp; Automation', 'Keynote Speaking'
+      ];
+      // Build one set of items as HTML
+      const set = items.map(t =>
+        `<span class="marquee-item">${t}<span class="marquee-sep"> ·</span></span>`
+      ).join('');
+      // Duplicate so the animation loops by translating -50%
+      track.innerHTML = set + set;
+    }
+
     initCyclingHeadline();
     initFadeIns();
     initCounters();
+    initMarquee();
   </script>
 </body>
 </html>
