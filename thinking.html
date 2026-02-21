@@ -312,7 +312,7 @@
     .footer-brand { font-family: 'Crimson Pro', Georgia, serif; font-size: 1.125rem; font-weight: 700; color: #FEFEFE; margin-bottom: 0.4rem; }
     .footer-brand-sub { font-size: 0.8rem; color: rgba(254,254,254,0.45); font-weight: 300; line-height: 1.6; }
     .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(254,254,254,0.4); margin-bottom: 0.75rem; }
-    .footer-nav-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
     .footer-nav-link { color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
     .footer-nav-link:hover { color: #FEFEFE; }
     .footer-contact-link { display: block; color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
@@ -379,17 +379,17 @@
           </p>
         </div>
         <div>
-          <div class="evidence-panel anim" data-delay="0.2">
-            <div class="evidence-card light">
-              <i class="ti ti-chart-bar evidence-icon"></i>
-              <div class="evidence-quote"><span class="evidence-num">80%</span>of AI projects fail — not because the technology was wrong, but because organizations skipped the problem-definition step.</div>
-              <div class="evidence-source">RAND Corporation · 65 interviews with AI practitioners</div>
+          <div class="anim" data-delay="0.2">
+            <div class="aipov-quote" style="font-size:clamp(1rem,1.6vw,1.2rem);margin-bottom:1.5rem;">
+              "She walked into a room, established personal connections, asked probing questions that transformed anticipated goals into actual goals, and had a draft of next steps in under an hour."
+              <span style="display:block;margin-top:0.75rem;font-size:0.8rem;font-style:normal;font-weight:600;color:#255B2C;">— Elizabeth Bastian, U.S. Army Corps of Engineers</span>
             </div>
-            <div class="evidence-card dark">
-              <i class="ti ti-check evidence-icon"></i>
-              <div class="evidence-quote"><span class="evidence-num">83%</span>workload reduction — achieved by mapping Sauk County's processes first, then implementing AI.</div>
-              <div class="evidence-source">F&amp;T Labs · PH360 case study</div>
-            </div>
+            <p class="body-p" style="font-size:0.9375rem;">
+              I've done this in public health departments, Fortune 500 supply chains, and military theaters. The domain changes. The instinct — go toward the people, slow down, understand before you build — that part doesn't.
+            </p>
+            <p class="body-p" style="font-size:0.9375rem;margin-top:0.75rem;">
+              At Sauk County, mapping the process first — before touching any technology — led to an <strong>83% reduction in workload</strong> on routine tasks. Not because the AI was impressive. Because we understood exactly what to automate.
+            </p>
           </div>
         </div>
       </div>
@@ -602,7 +602,7 @@
       </div>
       <div>
         <div class="footer-nav-label">Get in touch</div>
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">JulianaMcMillanWilhoit@Gmail.com</a>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
         <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn → julianamapper</a>
       </div>
     </div>

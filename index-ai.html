@@ -370,7 +370,7 @@
       text-transform: uppercase; color: rgba(254,254,254,0.4);
       margin-bottom: 0.75rem;
     }
-    .footer-nav-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
     .footer-nav-link {
       color: rgba(254,254,254,0.65); text-decoration: none;
       font-size: 0.875rem; font-weight: 400;
@@ -403,7 +403,6 @@
       animation: marquee 40s linear infinite;
       width: max-content;
     }
-    .marquee-strip:hover .marquee-track { animation-play-state: paused; }
     @keyframes marquee {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
@@ -675,7 +674,7 @@
       </div>
       <div>
         <div class="footer-nav-label">Get in touch</div>
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">JulianaMcMillanWilhoit@Gmail.com</a>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
         <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn → julianamapper</a>
       </div>
     </div>
