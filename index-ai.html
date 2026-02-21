@@ -238,26 +238,35 @@
     /* ── Domain strip ── */
     .domain-strip {
       background: #F7F5F2;
-      padding: 3rem 2.5rem;
+      padding: 2.5rem 2.5rem;
       border-top: 1px solid #e8e8e8;
       border-bottom: 1px solid #e8e8e8;
     }
-    .domain-inner {
-      max-width: 960px; margin: 0 auto;
-      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    .domain-inner { max-width: 960px; margin: 0 auto; }
+    .domain-header {
+      display: flex; align-items: baseline; gap: 2rem;
+      margin-bottom: 1rem; flex-wrap: wrap;
     }
     .domain-label {
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: #484848; margin-right: 0.5rem; flex-shrink: 0;
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: #484848; flex-shrink: 0;
     }
+    .domain-categories {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: baseline;
+    }
+    .domain-cat {
+      font-size: 0.75rem; font-weight: 600; color: #255B2C;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .domain-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
     .domain-pill {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 1rem; border-radius: 100px;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.875rem; border-radius: 100px;
       border: 1px solid #C8D9CB;
-      font-size: 0.875rem; font-weight: 400; color: #2B2B2B;
+      font-size: 0.8125rem; font-weight: 400; color: #2B2B2B;
     }
-    .domain-dot { width: 6px; height: 6px; border-radius: 50%; background: #2E6B3A; }
+    .domain-dot { width: 5px; height: 5px; border-radius: 50%; background: #2E6B3A; }
 
     /* ── Work preview ── */
     .work-section {
@@ -308,15 +317,38 @@
       padding: 4rem 2.5rem;
     }
     .testimonial-strip-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .t-carousel { position: relative; min-height: 180px; }
+    .t-slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .t-slide.active { opacity: 1; pointer-events: auto; position: relative; }
     .t-quote {
       font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-size: clamp(1.15rem, 2.2vw, 1.625rem);
       font-style: italic; font-weight: 400;
       color: #FEFEFE; line-height: 1.65;
       margin-bottom: 1.5rem;
     }
     .t-name { font-size: 0.875rem; font-weight: 600; color: rgba(254,254,254,0.7); }
     .t-role { font-size: 0.8rem; font-weight: 300; color: rgba(254,254,254,0.45); margin-top: 0.2rem; }
+    .t-dots {
+      display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem;
+    }
+    .t-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(254,254,254,0.25); border: none; cursor: pointer;
+      padding: 0; transition: background 0.2s ease;
+    }
+    .t-dot.active { background: rgba(254,254,254,0.75); }
+    .t-ref-link {
+      display: inline-block; margin-top: 1.75rem;
+      font-size: 0.8125rem; font-weight: 600; color: rgba(254,254,254,0.5);
+      text-decoration: none; border-bottom: 1px solid rgba(254,254,254,0.2);
+      padding-bottom: 1px; transition: color 0.2s ease;
+    }
+    .t-ref-link:hover { color: rgba(254,254,254,0.85); }
 
     /* ── CTA ── */
     .connect-section {
@@ -530,8 +562,8 @@
       <div class="stat-label">Reduction in dashboard reporting time — Peapod</div>
     </div>
     <div class="stat-item anim" data-delay="0.3">
-      <div class="stat-num" data-count="3" data-suffix="">3</div>
-      <div class="stat-label">Military theaters deployed — Iraq, Afghanistan, Poland</div>
+      <div class="stat-num">DA Medal</div>
+      <div class="stat-label">Department of the Army Medal for Civilian Service — ENSITE</div>
     </div>
   </div>
 
@@ -566,14 +598,28 @@
   <!-- Domain strip -->
   <div class="domain-strip">
     <div class="domain-inner anim">
-      <span class="domain-label">Domains</span>
-      <span class="domain-pill"><span class="domain-dot"></span>Public Health AI</span>
-      <span class="domain-pill"><span class="domain-dot"></span>Geospatial Analytics</span>
-      <span class="domain-pill"><span class="domain-dot"></span>Supply Chain</span>
-      <span class="domain-pill"><span class="domain-dot"></span>Defense / DOD</span>
-      <span class="domain-pill"><span class="domain-dot"></span>Commercial Real Estate</span>
-      <span class="domain-pill"><span class="domain-dot"></span>M&amp;A Due Diligence</span>
-      <span class="domain-pill"><span class="domain-dot"></span>Process Mapping &amp; AI Readiness</span>
+      <div class="domain-header">
+        <span class="domain-label">Domains</span>
+        <div class="domain-categories">
+          <span class="domain-cat">Technology</span>
+          <span class="domain-cat">Industry</span>
+          <span class="domain-cat">Practice</span>
+          <span class="domain-cat">Mission</span>
+        </div>
+      </div>
+      <div class="domain-pills">
+        <span class="domain-pill"><span class="domain-dot"></span>Public Health AI</span>
+        <span class="domain-pill"><span class="domain-dot"></span>Geospatial Analytics</span>
+        <span class="domain-pill"><span class="domain-dot"></span>AWS Bedrock &amp; AI Architecture</span>
+        <span class="domain-pill"><span class="domain-dot"></span>Supply Chain</span>
+        <span class="domain-pill"><span class="domain-dot"></span>Defense / DOD</span>
+        <span class="domain-pill"><span class="domain-dot"></span>Commercial Real Estate</span>
+        <span class="domain-pill"><span class="domain-dot"></span>M&amp;A Due Diligence</span>
+        <span class="domain-pill"><span class="domain-dot"></span>Process Mapping</span>
+        <span class="domain-pill"><span class="domain-dot"></span>AI Readiness</span>
+        <span class="domain-pill"><span class="domain-dot"></span>Health Equity</span>
+        <span class="domain-pill"><span class="domain-dot"></span>Social Impact</span>
+      </div>
     </div>
   </div>
 
@@ -598,7 +644,7 @@
         <div class="work-ghost">DA</div>
         <div class="work-domain">U.S. Army Corps of Engineers · Defense</div>
         <div class="work-title">ENSITE: The military's first global site location tool</div>
-        <div class="work-sub">PM for a product that had never existed. Deployed in Iraq, Afghanistan, and Poland.</div>
+        <div class="work-sub">PM for a product that had never existed. ENSITE deployed to Iraq, Afghanistan, and Poland.</div>
         <div class="work-metric">DA Medal</div>
         <div class="work-metric-label">Department of the Army Medal for Civilian Service</div>
         <div class="work-arrow">Full story →</div>
@@ -627,16 +673,33 @@
     </div>
   </section>
 
-  <!-- Testimonial pull quote -->
+  <!-- Testimonial carousel -->
   <div class="testimonial-strip">
     <div class="testimonial-strip-inner anim">
-      <div class="t-quote">
-        "I have yet to meet another individual who can walk into a room, establish personal connections,
-        ask probing questions that transform anticipated goals into actual goals,
-        and have a draft of next steps in under an hour."
+      <div class="t-carousel" id="t-carousel">
+        <div class="t-slide active">
+          <div class="t-quote">"I have yet to meet another individual who can walk into a room, establish personal connections, ask probing questions that transform anticipated goals into actual goals, and have a draft of next steps in under an hour."</div>
+          <div class="t-name">Elizabeth Bastian</div>
+          <div class="t-role">Colleague, U.S. Army Corps of Engineers / University of Illinois</div>
+        </div>
+        <div class="t-slide">
+          <div class="t-quote">"She was the rare student who was willing and able to step into a completely new assignment and totally own the work — with minimal input completing the analysis, software development, publications, and presentations."</div>
+          <div class="t-name">Dr. Jim Westervelt</div>
+          <div class="t-role">Creator of GRASS GIS · U.S. Army Corps of Engineers</div>
+        </div>
+        <div class="t-slide">
+          <div class="t-quote">"A few people in every work environment provide that combination of passion, positiveness, and genius that makes coming to work fun for others."</div>
+          <div class="t-name">Dr. Jim Westervelt</div>
+          <div class="t-role">Creator of GRASS GIS · U.S. Army Corps of Engineers</div>
+        </div>
+        <div class="t-slide">
+          <div class="t-quote">"She is able to meet people where they are rather than where she is."</div>
+          <div class="t-name">Anna Fuselier</div>
+          <div class="t-role">Vice Chair, BEST Foundation</div>
+        </div>
       </div>
-      <div class="t-name">Elizabeth Bastian</div>
-      <div class="t-role">Colleague, U.S. Army Corps of Engineers / University of Illinois</div>
+      <div class="t-dots" id="t-dots"></div>
+      <a href="references.html" class="t-ref-link">See all references →</a>
     </div>
   </div>
 
@@ -670,6 +733,7 @@
           <a href="work.html" class="footer-nav-link">Work</a>
           <a href="thinking.html" class="footer-nav-link">How I Think</a>
           <a href="about.html" class="footer-nav-link">About</a>
+          <a href="references.html" class="footer-nav-link">References</a>
         </div>
       </div>
       <div>
@@ -764,10 +828,44 @@
       track.innerHTML = set + set;
     }
 
+    // ── Testimonial carousel ──────────────────────────────────────────────────
+    function initCarousel() {
+      const slides = document.querySelectorAll('.t-slide');
+      const dotsEl = document.getElementById('t-dots');
+      if (!slides.length || !dotsEl) return;
+      let current = 0;
+      let timer;
+
+      // Build dots
+      slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 't-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Quote ' + (i + 1));
+        d.addEventListener('click', () => { goTo(i); resetTimer(); });
+        dotsEl.appendChild(d);
+      });
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        dotsEl.children[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dotsEl.children[current].classList.add('active');
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), 5000);
+      }
+
+      resetTimer();
+    }
+
     initCyclingHeadline();
     initFadeIns();
     initCounters();
     initMarquee();
+    initCarousel();
   </script>
 </body>
 </html>
