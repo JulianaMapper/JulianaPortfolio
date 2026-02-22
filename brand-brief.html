@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juliana McMillan-Wilhoit — Personal Brand Style Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ============================= */
+    /* COLOR TOKENS                  */
+    /* ============================= */
+
+    /* Primary palette */
+    --color-text:        #1C2826;
+    --color-body:        #4A5A54;
+    --color-accent:      #376E5A;
+    --color-accent-light:#8DB8A0;
+    --color-warm:        #D4A07A;
+    --color-muted:       #8A9690;
+    --color-ground:      #F7F5F0;
+    --color-white:       #FFFFFF;
+
+    /* Extended / utility */
+    --color-border:      #E0DDD8;
+    --color-border-light:#EDEAE6;
+    --color-warm-tint:   rgba(212, 160, 122, 0.15);
+    --color-accent-tint: rgba(55, 110, 90, 0.08);
+    --color-hover-accent:#2D5A49;
+    --color-hover-warm:  #C08A62;
+    --color-surface:     #FEFEFE;
+    --color-code-bg:     #F0EDEA;
+
+    /* ============================= */
+    /* TYPOGRAPHY TOKENS             */
+    /* ============================= */
+    --font-display:  'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-body:     'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-ui:       'Outfit', system-ui, -apple-system, sans-serif;
+
+    /* ============================= */
+    /* SPACING SCALE (8px base)      */
+    /* ============================= */
+    --space-1:  0.25rem;  /* 4px  */
+    --space-2:  0.5rem;   /* 8px  */
+    --space-3:  0.75rem;  /* 12px */
+    --space-4:  1rem;     /* 16px */
+    --space-5:  1.25rem;  /* 20px */
+    --space-6:  1.5rem;   /* 24px */
+    --space-8:  2rem;     /* 32px */
+    --space-10: 2.5rem;   /* 40px */
+    --space-12: 3rem;     /* 48px */
+    --space-16: 4rem;     /* 64px */
+    --space-20: 5rem;     /* 80px */
+    --space-24: 6rem;     /* 96px */
+
+    /* ============================= */
+    /* BORDER RADIUS                 */
+    /* ============================= */
+    --radius-sm:   4px;
+    --radius-md:   6px;
+    --radius-lg:   10px;
+    --radius-xl:   16px;
+    --radius-full: 100px;
+
+    /* ============================= */
+    /* LAYOUT                        */
+    /* ============================= */
+    --max-width:       1080px;
+    --max-width-text:  680px;
+    --page-padding-x:  1.5rem;
+    --page-padding-y:  2.5rem;
+
+    /* ============================= */
+    /* SHADOWS                       */
+    /* ============================= */
+    --shadow-sm:  0 1px 2px rgba(28, 40, 38, 0.04);
+    --shadow-md:  0 2px 8px rgba(28, 40, 38, 0.06);
+    --shadow-lg:  0 4px 16px rgba(28, 40, 38, 0.08);
+
+    /* ============================= */
+    /* TRANSITIONS                   */
+    /* ============================= */
+    --ease-default: 200ms ease;
+  }
+
+  /* ============================= */
+  /* RESET + BASE                  */
+  /* ============================= */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-body);
+    background: var(--color-ground);
+  }
+
+  /* ============================= */
+  /* STYLE BRIEF LAYOUT            */
+  /* ============================= */
+  .brief { max-width: var(--max-width); margin: 0 auto; padding: var(--space-12) var(--page-padding-x); }
+
+  .brief-header { margin-bottom: var(--space-16); padding-bottom: var(--space-8); border-bottom: 1px solid var(--color-border); }
+  .brief-header h1 {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 2rem;
+    color: var(--color-text); line-height: 1.2;
+    margin-bottom: var(--space-2);
+  }
+  .brief-header .subtitle {
+    font-family: var(--font-ui);
+    font-weight: 400; font-size: 0.88rem;
+    color: var(--color-muted);
+  }
+  .brief-header .version {
+    font-family: var(--font-ui);
+    font-weight: 500; font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-top: var(--space-4);
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-accent-tint);
+    border-radius: var(--radius-full);
+  }
+
+  /* Sections */
+  .section { margin-bottom: var(--space-16); }
+  .section-label {
+    font-family: var(--font-ui);
+    font-weight: 600; font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 1.4rem;
+    color: var(--color-text);
+    line-height: 1.25;
+    margin-bottom: var(--space-6);
+  }
+  .section-note {
+    font-family: var(--font-body);
+    font-weight: 400; font-size: 0.88rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+    max-width: var(--max-width-text);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+  .card-sm { padding: var(--space-4) var(--space-6); }
+  .card-label {
+    font-family: var(--font-ui);
+    font-weight: 600; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--color-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  /* Grid helpers */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); }
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ============================= */
+  /* COLOR SWATCHES                */
+  /* ============================= */
+  .swatch-grid { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-bottom: var(--space-6); }
+  .swatch {
+    display: flex; flex-direction: column;
+    width: 140px;
+  }
+  .swatch-color {
+    width: 100%; height: 72px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .swatch-info {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+  }
+  .swatch-name {
+    font-family: var(--font-ui);
+    font-weight: 600; font-size: 0.72rem;
+    color: var(--color-text);
+  }
+  .swatch-hex {
+    font-family: var(--font-ui);
+    font-weight: 400; font-size: 0.65rem;
+    color: var(--color-muted);
+  }
+  .swatch-use {
+    font-family: var(--font-ui);
+    font-weight: 400; font-size: 0.6rem;
+    color: var(--color-muted);
+    margin-top: 2px;
+  }
+
+  /* ============================= */
+  /* TYPOGRAPHY SPECIMENS          */
+  /* ============================= */
+  .type-specimen { margin-bottom: var(--space-6); }
+  .type-sample {
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+  }
+  .type-meta {
+    font-family: var(--font-ui);
+    font-weight: 400; font-size: 0.68rem;
+    color: var(--color-muted);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  /* ============================= */
+  /* SPACING VISUAL                */
+  /* ============================= */
+  .space-demo {
+    display: flex; align-items: center; gap: var(--space-4);
+    margin-bottom: var(--space-3);
+  }
+  .space-bar {
+    height: 20px;
+    background: var(--color-accent-tint);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .space-label {
+    font-family: var(--font-ui);
+    font-weight: 500; font-size: 0.72rem;
+    color: var(--color-body);
+    white-space: nowrap;
+    min-width: 120px;
+  }
+  .space-value {
+    font-family: var(--font-ui);
+    font-weight: 400; font-size: 0.68rem;
+    color: var(--color-muted);
+  }
+
+  /* ============================= */
+  /* COMPONENT SPECIMENS           */
+  /* ============================= */
+  .btn {
+    display: inline-block;
+    padding: 0.65rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--ease-default);
+    border: 1.5px solid;
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-white);
+    border-color: var(--color-accent);
+  }
+  .btn-primary:hover {
+    background: var(--color-hover-accent);
+    border-color: var(--color-hover-accent);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  .btn-outline:hover {
+    background: var(--color-accent-tint);
+  }
+  .btn-warm {
+    background: transparent;
+    color: var(--color-hover-warm);
+    border-color: var(--color-warm);
+  }
+  .btn-warm:hover {
+    background: var(--color-warm-tint);
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+  }
+  .tag-warm {
+    background: var(--color-warm-tint);
+    color: var(--color-hover-warm);
+  }
+
+  .highlight {
+    display: inline;
+    background: var(--color-warm-tint);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    color: var(--color-text);
+  }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: var(--space-8) 0;
+  }
+
+  /* Code blocks for token reference */
+  .code {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.78rem;
+    background: var(--color-code-bg);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    line-height: 1.8;
+    color: var(--color-body);
+    border: 1px solid var(--color-border);
+  }
+  .code .token-prop { color: var(--color-accent); }
+  .code .token-val { color: var(--color-hover-warm); }
+  .code .token-comment { color: var(--color-muted); }
+
+  /* Contrast table */
+  .contrast-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+  }
+  .contrast-table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .contrast-table td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-border-light);
+    color: var(--color-body);
+  }
+  .contrast-table .pass {
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  /* Do / Don't */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .do-box, .dont-box {
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-lg);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+  .do-box {
+    background: rgba(55, 110, 90, 0.04);
+    border: 1px solid rgba(55, 110, 90, 0.15);
+  }
+  .do-box .do-label {
+    font-family: var(--font-ui);
+    font-weight: 600; font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+  .dont-box {
+    background: rgba(212, 160, 122, 0.04);
+    border: 1px solid rgba(212, 160, 122, 0.2);
+  }
+  .dont-box .dont-label {
+    font-family: var(--font-ui);
+    font-weight: 600; font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--color-hover-warm);
+    margin-bottom: var(--space-2);
+  }
+  @media (max-width: 768px) {
+    .do-dont { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="brief">
+
+  <!-- ============================= -->
+  <!-- HEADER                        -->
+  <!-- ============================= -->
+  <div class="brief-header">
+    <h1>Personal Brand Style Brief</h1>
+    <p class="subtitle">Juliana McMillan-Wilhoit — "Balanced" direction (Still Water palette)</p>
+    <span class="version">v1.0 — February 2026</span>
+  </div>
+
+  <!-- ============================= -->
+  <!-- BRAND SUMMARY                 -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">Brand positioning</h2>
+    <div class="card">
+      <p class="card-label">Visual Personality</p>
+      <p style="font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--color-text); margin-bottom: var(--space-3);">Professional with warmth. Structured with joy. Clear enough to scan in 8 seconds, human enough to remember.</p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">This brand reads "product leader" first and "interesting human" second. The green accent carries competence, growth, and your public health roots. The coral appears only as a highlight, never as a structural color. It's the joy. Light backgrounds keep the focus on content and case studies. Typography is dyslexia-friendly throughout: even stroke widths, open letterforms, generous spacing.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card card-sm">
+        <p class="card-label">This brand feels like</p>
+        <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">A well-organized portfolio on a clean desk. The person who owns it clearly thinks in systems. There's a plant on the windowsill.</p>
+      </div>
+      <div class="card card-sm">
+        <p class="card-label">This brand does not feel like</p>
+        <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">A moody designer portfolio. A startup landing page with gradients. A government form. A Pinterest mood board.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ============================= -->
+  <!-- COLOR SYSTEM                  -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">01 — Color</p>
+    <h2 class="section-title">Color system</h2>
+    <p class="section-note">Six core colors plus three utility values. The palette draws from soft autumn tones: muted, warm-undertoned greens and a single warm accent. Every color has a defined role. Coral (#D4A07A) appears only as a tint/highlight, never as a background or primary structural element.</p>
+
+    <p class="card-label" style="margin-bottom: var(--space-3);">Primary Palette</p>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1C2826;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Text</p>
+          <p class="swatch-hex">#1C2826</p>
+          <p class="swatch-use">Headlines, primary text</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #4A5A54;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Body</p>
+          <p class="swatch-hex">#4A5A54</p>
+          <p class="swatch-use">Body text, descriptions</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #376E5A;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Accent</p>
+          <p class="swatch-hex">#376E5A</p>
+          <p class="swatch-use">Primary buttons, links, emphasis</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #8DB8A0;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Light Accent</p>
+          <p class="swatch-hex">#8DB8A0</p>
+          <p class="swatch-use">Decorative, chart fills, icons</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #D4A07A;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Warm</p>
+          <p class="swatch-hex">#D4A07A</p>
+          <p class="swatch-use">Highlight tints, joy moments</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #8A9690;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Muted</p>
+          <p class="swatch-hex">#8A9690</p>
+          <p class="swatch-use">Captions, metadata, footers</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="card-label" style="margin-bottom: var(--space-3);">Backgrounds &amp; Surfaces</p>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #F7F5F0;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Ground</p>
+          <p class="swatch-hex">#F7F5F0</p>
+          <p class="swatch-use">Page background</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FEFEFE;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Surface</p>
+          <p class="swatch-hex">#FEFEFE</p>
+          <p class="swatch-use">Cards, panels</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FFFFFF; border: 1px solid #E0DDD8;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">White</p>
+          <p class="swatch-hex">#FFFFFF</p>
+          <p class="swatch-use">Button text on accent, modals</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="card-label" style="margin-bottom: var(--space-3);">Utility / Tints</p>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: rgba(55, 110, 90, 0.08);"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Accent Tint</p>
+          <p class="swatch-hex">rgba(55,110,90,0.08)</p>
+          <p class="swatch-use">Tag backgrounds, hover states</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: rgba(212, 160, 122, 0.15);"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Warm Tint</p>
+          <p class="swatch-hex">rgba(212,160,122,0.15)</p>
+          <p class="swatch-use">Inline highlights only</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #E0DDD8;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Border</p>
+          <p class="swatch-hex">#E0DDD8</p>
+          <p class="swatch-use">Card borders, dividers</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #2D5A49;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Hover Accent</p>
+          <p class="swatch-hex">#2D5A49</p>
+          <p class="swatch-use">Button hover, active links</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #C08A62;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Hover Warm</p>
+          <p class="swatch-hex">#C08A62</p>
+          <p class="swatch-use">Warm tag text, warm button text</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contrast -->
+    <div class="card" style="margin-top: var(--space-6);">
+      <p class="card-label">Accessibility — Contrast Ratios (WCAG 2.1)</p>
+      <table class="contrast-table">
+        <thead>
+          <tr><th>Pair</th><th>Ratio</th><th>WCAG AA</th><th>WCAG AAA</th><th>Use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Text (#1C2826) on Ground (#F7F5F0)</td><td>13.8:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Headlines</td></tr>
+          <tr><td>Body (#4A5A54) on Ground (#F7F5F0)</td><td>8.0:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Body copy</td></tr>
+          <tr><td>Accent (#376E5A) on Ground (#F7F5F0)</td><td>4.9:1</td><td class="pass">Pass</td><td class="pass">Pass (large)</td><td>Links, labels, subheads</td></tr>
+          <tr><td>White (#FFF) on Accent (#376E5A)</td><td>5.6:1</td><td class="pass">Pass</td><td class="pass">Pass (large)</td><td>Primary buttons</td></tr>
+          <tr><td>Muted (#8A9690) on Ground (#F7F5F0)</td><td>3.2:1</td><td class="pass">Pass (large)</td><td>—</td><td>Captions, metadata only</td></tr>
+          <tr><td>Text (#1C2826) on Surface (#FEFEFE)</td><td>15.1:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Card headings</td></tr>
+          <tr><td>Body (#4A5A54) on Surface (#FEFEFE)</td><td>8.6:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Card body text</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Color rules -->
+    <div class="do-dont" style="margin-top: var(--space-6);">
+      <div class="do-box">
+        <p class="do-label">Do</p>
+        <p style="color: var(--color-body);">Use coral (#D4A07A) as an inline highlight tint behind key phrases. Use it in warm tags and a tertiary button option. Let it appear in small moments that feel like joy.</p>
+      </div>
+      <div class="dont-box">
+        <p class="dont-label">Avoid</p>
+        <p style="color: var(--color-body);">Using coral as a background color, section divider, or primary button. It competes with the green when given too much structural weight. Coral is the seasoning, not the plate.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ============================= -->
+  <!-- TYPOGRAPHY                    -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">02 — Typography</p>
+    <h2 class="section-title">Type system</h2>
+    <p class="section-note">Two font families. DM Sans handles all content (headlines and body). Outfit handles all interface elements (labels, buttons, tags, navigation, metadata). Both are dyslexia-friendly: even stroke widths, open counters, distinct letterforms (I/l/1 are easily distinguishable), tall x-height.</p>
+
+    <div class="grid-2" style="margin-bottom: var(--space-8);">
+      <div class="card">
+        <p class="card-label">Content Font — DM Sans</p>
+        <p style="font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--color-text); margin-bottom: var(--space-2);">DM Sans</p>
+        <p style="font-family: var(--font-body); font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Headlines (700), subheads (500), body text (400). Slightly softer geometry than geometric sans-serifs like Sora. Warm curves carry approachability without sacrificing clarity. Use for all long-form content, hero headlines, case study narratives.</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Interface Font — Outfit</p>
+        <p style="font-family: var(--font-ui); font-weight: 700; font-size: 1.5rem; color: var(--color-text); margin-bottom: var(--space-2);">Outfit</p>
+        <p style="font-family: var(--font-body); font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Section labels (600), buttons (600), tags (500), navigation (500), metadata (400). Clean geometric construction provides clear hierarchy distinction from DM Sans. Use for all UI chrome, wayfinding, and structural elements.</p>
+      </div>
+    </div>
+
+    <!-- Type scale -->
+    <div class="card">
+      <p class="card-label">Type Scale</p>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-display); font-weight: 700; font-size: 2.8rem; line-height: 1.1;">Hero Headline</p>
+        <p class="type-meta">DM Sans 700 · 2.8rem / 44.8px · Line-height: 1.1 · Color: var(--color-text) · Tracking: normal</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-display); font-weight: 700; font-size: 2rem; line-height: 1.2;">Page Heading (H1)</p>
+        <p class="type-meta">DM Sans 700 · 2rem / 32px · Line-height: 1.2 · Color: var(--color-text)</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; line-height: 1.25;">Section Heading (H2)</p>
+        <p class="type-meta">DM Sans 700 · 1.4rem / 22.4px · Line-height: 1.25 · Color: var(--color-text)</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; line-height: 1.35;">Card Heading (H3)</p>
+        <p class="type-meta">DM Sans 600 · 1.15rem / 18.4px · Line-height: 1.35 · Color: var(--color-text)</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; line-height: 1.5; color: var(--color-accent);">Subhead / Positioning Statement</p>
+        <p class="type-meta">DM Sans 500 · 1.15rem / 18.4px · Line-height: 1.5 · Color: var(--color-accent) or var(--color-muted)</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-body); font-weight: 400; font-size: 1rem; line-height: 1.75; color: var(--color-body);">Body text. This is what the bulk of the portfolio reads in. Generous line-height (1.75) improves readability for all users and is particularly helpful for readers with dyslexia. Paragraphs should have clear spacing between them.</p>
+        <p class="type-meta">DM Sans 400 · 1rem / 16px · Line-height: 1.75 · Color: var(--color-body)</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-body); font-weight: 400; font-size: 0.88rem; line-height: 1.7; color: var(--color-body);">Small body. Used for card descriptions, supporting copy, and secondary content.</p>
+        <p class="type-meta">DM Sans 400 · 0.88rem / 14px · Line-height: 1.7 · Color: var(--color-body)</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-ui); font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-accent);">Section Label / Eyebrow</p>
+        <p class="type-meta">Outfit 600 · 0.65rem / 10.4px · Uppercase · Letter-spacing: 0.14em · Color: var(--color-accent)</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-ui); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.03em; color: var(--color-accent);">Button Label</p>
+        <p class="type-meta">Outfit 600 · 0.78rem / 12.5px · Letter-spacing: 0.03em · Color: varies by button type</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-ui); font-weight: 500; font-size: 0.68rem; color: var(--color-accent);">Tag / Chip Text</p>
+        <p class="type-meta">Outfit 500 · 0.68rem / 10.9px · Color: var(--color-accent) or var(--color-hover-warm)</p>
+      </div>
+
+      <div class="type-specimen">
+        <p class="type-sample" style="font-family: var(--font-ui); font-weight: 400; font-size: 0.78rem; color: var(--color-muted);">Caption / Footer / Metadata</p>
+        <p class="type-meta">Outfit 400 · 0.78rem / 12.5px · Color: var(--color-muted)</p>
+      </div>
+    </div>
+
+    <!-- Readability rules -->
+    <div class="card" style="margin-top: var(--space-4);">
+      <p class="card-label">Readability Guidelines</p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Line length:</strong> Maximum 680px (roughly 70-75 characters per line). Wider lines strain tracking for all readers.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Paragraph spacing:</strong> Use var(--space-4) (1rem / 16px) between paragraphs. Avoid relying on first-line indent.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Text alignment:</strong> Left-aligned only. Never justify. Ragged right edges help readers with dyslexia find the next line.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Bold usage:</strong> DM Sans 700 for headlines, 600 for card heads. In body copy, use 700 sparingly for key phrases (strong tags). Avoid italic in body text.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
+        <strong style="color: var(--color-text);">All-caps:</strong> Outfit only. Used exclusively for section labels, eyebrows, and button text. Never apply all-caps to DM Sans or body copy.
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ============================= -->
+  <!-- SPACING                       -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">03 — Spacing</p>
+    <h2 class="section-title">Spacing scale</h2>
+    <p class="section-note">Based on an 8px grid with a 4px half-step. Use the named tokens, not raw pixel values. Consistency in spacing communicates the same systematic thinking as the content itself.</p>
+
+    <div class="card">
+      <p class="card-label">Scale</p>
+      <div class="space-demo"><span class="space-label">--space-1</span><div class="space-bar" style="width: 4px;"></div><span class="space-value">0.25rem / 4px</span></div>
+      <div class="space-demo"><span class="space-label">--space-2</span><div class="space-bar" style="width: 8px;"></div><span class="space-value">0.5rem / 8px</span></div>
+      <div class="space-demo"><span class="space-label">--space-3</span><div class="space-bar" style="width: 12px;"></div><span class="space-value">0.75rem / 12px</span></div>
+      <div class="space-demo"><span class="space-label">--space-4</span><div class="space-bar" style="width: 16px;"></div><span class="space-value">1rem / 16px</span></div>
+      <div class="space-demo"><span class="space-label">--space-5</span><div class="space-bar" style="width: 20px;"></div><span class="space-value">1.25rem / 20px</span></div>
+      <div class="space-demo"><span class="space-label">--space-6</span><div class="space-bar" style="width: 24px;"></div><span class="space-value">1.5rem / 24px</span></div>
+      <div class="space-demo"><span class="space-label">--space-8</span><div class="space-bar" style="width: 32px;"></div><span class="space-value">2rem / 32px</span></div>
+      <div class="space-demo"><span class="space-label">--space-10</span><div class="space-bar" style="width: 40px;"></div><span class="space-value">2.5rem / 40px</span></div>
+      <div class="space-demo"><span class="space-label">--space-12</span><div class="space-bar" style="width: 48px;"></div><span class="space-value">3rem / 48px</span></div>
+      <div class="space-demo"><span class="space-label">--space-16</span><div class="space-bar" style="width: 64px;"></div><span class="space-value">4rem / 64px</span></div>
+      <div class="space-demo"><span class="space-label">--space-20</span><div class="space-bar" style="width: 80px;"></div><span class="space-value">5rem / 80px</span></div>
+      <div class="space-demo"><span class="space-label">--space-24</span><div class="space-bar" style="width: 96px;"></div><span class="space-value">6rem / 96px</span></div>
+    </div>
+
+    <div class="card" style="margin-top: var(--space-4);">
+      <p class="card-label">Common Spacing Patterns</p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Page padding:</strong> 1.5rem horizontal (--space-6), 2.5rem vertical (--space-10). On mobile, maintain horizontal padding at 1.5rem minimum.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Between sections:</strong> 4rem (--space-16). Major content sections need breathing room.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Section label to section title:</strong> 0.5rem (--space-2).
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Section title to content:</strong> 1.5rem (--space-6).
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Card internal padding:</strong> 1.5rem (--space-6) for standard cards. 1rem/1.5rem (--space-4/--space-6) for compact cards.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Between cards:</strong> 1rem (--space-4).
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Tag/button gap:</strong> 0.5rem (--space-2) between tags. 0.75rem (--space-3) between buttons.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
+        <strong style="color: var(--color-text);">Paragraph spacing:</strong> 1rem (--space-4) between paragraphs within body text.
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ============================= -->
+  <!-- BORDERS + RADIUS + SHADOWS    -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">04 — Surface &amp; Depth</p>
+    <h2 class="section-title">Borders, radius, and shadows</h2>
+
+    <div class="grid-3">
+      <div class="card card-sm">
+        <p class="card-label">Border Radius</p>
+        <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
+          <strong style="color: var(--color-text);">sm:</strong> 4px — inputs, small elements<br>
+          <strong style="color: var(--color-text);">md:</strong> 6px — buttons, swatches<br>
+          <strong style="color: var(--color-text);">lg:</strong> 10px — cards, panels<br>
+          <strong style="color: var(--color-text);">xl:</strong> 16px — hero sections, modals<br>
+          <strong style="color: var(--color-text);">full:</strong> 100px — tags, pills
+        </p>
+      </div>
+      <div class="card card-sm">
+        <p class="card-label">Borders</p>
+        <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
+          <strong style="color: var(--color-text);">Default:</strong> 1px solid #E0DDD8<br>
+          <strong style="color: var(--color-text);">Light:</strong> 1px solid #EDEAE6<br>
+          <strong style="color: var(--color-text);">Accent:</strong> 1.5px solid #376E5A (buttons)<br>
+          Cards always have borders. Shadows are additive, not a replacement.
+        </p>
+      </div>
+      <div class="card card-sm">
+        <p class="card-label">Shadows</p>
+        <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
+          <strong style="color: var(--color-text);">sm:</strong> 0 1px 2px rgba(28,40,38,0.04)<br>
+          <strong style="color: var(--color-text);">md:</strong> 0 2px 8px rgba(28,40,38,0.06)<br>
+          <strong style="color: var(--color-text);">lg:</strong> 0 4px 16px rgba(28,40,38,0.08)<br>
+          Use sparingly. Cards rely on border, not shadow, by default. Apply shadow-md on hover for interactive cards.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ============================= -->
+  <!-- COMPONENTS                    -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">05 — Components</p>
+    <h2 class="section-title">Core components</h2>
+    <p class="section-note">Reusable elements that make up the portfolio. Each component uses the tokens defined above.</p>
+
+    <div class="card">
+      <p class="card-label">Buttons</p>
+      <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4); align-items: center;">
+        <a class="btn btn-primary">Primary action</a>
+        <a class="btn btn-outline">Secondary action</a>
+        <a class="btn btn-warm">Warm / tertiary</a>
+      </div>
+      <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.7;">
+        Padding: 0.65rem top/bottom, 1.5rem left/right. Border-radius: 6px (--radius-md). Font: Outfit 600, 0.78rem. Letter-spacing: 0.03em. Border: 1.5px solid. Transition: all 200ms ease.
+      </p>
+    </div>
+
+    <div class="card">
+      <p class="card-label">Tags / Chips</p>
+      <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-4); align-items: center;">
+        <span class="tag">Product Leadership</span>
+        <span class="tag">AI / ML</span>
+        <span class="tag">Geospatial</span>
+        <span class="tag tag-warm">Public Health</span>
+        <span class="tag">Supply Chain</span>
+      </div>
+      <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.7;">
+        Padding: 0.35rem top/bottom, 0.85rem left/right. Border-radius: 100px (--radius-full). Font: Outfit 500, 0.68rem. Use warm tags sparingly — one per group maximum.
+      </p>
+    </div>
+
+    <div class="card">
+      <p class="card-label">Inline Highlight</p>
+      <p style="font-size: 1rem; color: var(--color-body); line-height: 1.75; margin-bottom: var(--space-4);">
+        Product leader with 15 years building <span class="highlight">AI, geospatial, and data products</span> that people actually use.
+      </p>
+      <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.7;">
+        Background: rgba(212,160,122,0.15). This is how coral enters the design — as joy, not structure. One key phrase per section maximum.
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ============================= -->
+  <!-- LAYOUT                        -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">06 — Layout</p>
+    <h2 class="section-title">Layout principles</h2>
+
+    <div class="card">
+      <p class="card-label">Grid &amp; Containers</p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Max content width:</strong> 1080px. Centered with auto margins.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Max text width:</strong> 680px. Applied to body copy and descriptions.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Card grids:</strong> CSS Grid, 1fr columns. 2-col for comparisons, 3-col for stats. Gap: 1rem. Collapse to 1-col at 768px.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
+        <strong style="color: var(--color-text);">Section flow:</strong> section-label → section-title → section-note (optional) → content. Consistent rhythm throughout.
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ============================= -->
+  <!-- CSS VARIABLES REFERENCE       -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">07 — Implementation</p>
+    <h2 class="section-title">CSS custom properties</h2>
+
+    <div class="code">
+<span class="token-comment">/* Juliana McMillan-Wilhoit — Personal Brand Tokens */</span><br>
+<span class="token-comment">/* "Balanced" direction — Still Water palette — v1.0 Feb 2026 */</span><br><br>
+:root {<br>
+&nbsp;&nbsp;<span class="token-prop">--color-text</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#1C2826</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-body</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#4A5A54</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-accent</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#376E5A</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-accent-light</span>: <span class="token-val">#8DB8A0</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-warm</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#D4A07A</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-muted</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#8A9690</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-ground</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#F7F5F0</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-surface</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#FEFEFE</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-white</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#FFFFFF</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-border</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#E0DDD8</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-border-light</span>: <span class="token-val">#EDEAE6</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-warm-tint</span>:&nbsp;&nbsp;&nbsp;<span class="token-val">rgba(212, 160, 122, 0.15)</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-accent-tint</span>:&nbsp;<span class="token-val">rgba(55, 110, 90, 0.08)</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-hover-accent</span>: <span class="token-val">#2D5A49</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--color-hover-warm</span>:&nbsp;&nbsp;<span class="token-val">#C08A62</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--font-display</span>:&nbsp;&nbsp;<span class="token-val">'DM Sans', system-ui, sans-serif</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--font-body</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">'DM Sans', system-ui, sans-serif</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--font-ui</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">'Outfit', system-ui, sans-serif</span>;<br>
+}
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ============================= -->
+  <!-- VOICE NOTES                   -->
+  <!-- ============================= -->
+  <div class="section">
+    <p class="section-label">08 — Brand Voice</p>
+    <h2 class="section-title">How this pairs with Jefferson</h2>
+    <div class="card">
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Jefferson's system:</strong> Plus Jakarta Sans, charcoal background (#18191E), purple accent. Sharp, executive, CIO energy.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
+        <strong style="color: var(--color-text);">Juliana's system:</strong> DM Sans + Outfit, warm cream ground (#F7F5F0), green accent (#376E5A) with coral highlight (#D4A07A). Structured, warm, product leader energy.
+      </p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
+        <strong style="color: var(--color-text);">Together:</strong> Complementary, not matching. Dark/light. Purple/green. Both read as senior leadership. Neither looks like the other's template. If placed side by side, they look like co-founders with distinct strengths — which is exactly what they are.
+      </p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

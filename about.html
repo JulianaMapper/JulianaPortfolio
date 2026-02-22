@@ -7,14 +7,14 @@
   <meta name="description" content="15 years. Five domains. One approach. The career arc of Juliana McMillan-Wilhoit — product leader, Fulbright Scholar, tools builder, keynote speaker." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      color: #2B2B2B; background: #FEFEFE;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: #1C2826; background: #F7F5F0;
       min-height: 100vh; line-height: 1.6; font-weight: 400;
     }
     .will-animate {
@@ -28,97 +28,97 @@
 
     /* Header */
     .header-band {
-      background: #1A4220; padding: 0 2.5rem;
+      background: #1C2826; padding: 0 2.5rem;
       display: flex; justify-content: space-between; align-items: center;
       height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     }
     .header-name {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-weight: 700; font-size: 1.125rem;
-      color: #FEFEFE; letter-spacing: -0.01em; text-decoration: none;
+      color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none;
     }
     .header-tagline {
-      font-size: 0.7rem; font-weight: 400; color: rgba(254,254,254,0.45);
+      font-size: 0.7rem; font-weight: 400; color: rgba(247,245,240,0.45);
       letter-spacing: 0.08em; text-transform: uppercase; margin-left: 1rem; display: none;
     }
     @media (min-width: 860px) { .header-tagline { display: inline; } }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-link {
-      color: rgba(254,254,254,0.65); text-decoration: none;
+      color: rgba(247,245,240,0.65); text-decoration: none;
       font-size: 0.8rem; font-weight: 600;
       letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s ease;
     }
-    .nav-link:hover { color: #FEFEFE; }
-    .nav-link.active { color: #FEFEFE; border-bottom: 1px solid rgba(254,254,254,0.5); padding-bottom: 1px; }
+    .nav-link:hover { color: #F7F5F0; }
+    .nav-link.active { color: #F7F5F0; border-bottom: 1px solid rgba(247,245,240,0.5); padding-bottom: 1px; }
 
     /* Page header */
     .page-header {
-      padding: 7rem 2.5rem 4rem; background: #1A4220; position: relative; overflow: hidden;
+      padding: 7rem 2.5rem 4rem; background: #1C2826; position: relative; overflow: hidden;
     }
     .page-header-orb {
-      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15;
-      width: 500px; height: 500px; background: #2E6B3A;
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12;
+      width: 500px; height: 500px; background: #376E5A;
       top: -100px; right: -100px; pointer-events: none;
     }
     .page-header-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; }
     .section-tag {
       font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-      color: rgba(254,254,254,0.5); margin-bottom: 0.5rem;
+      color: rgba(247,245,240,0.5); margin-bottom: 0.5rem;
     }
     .page-h1 {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 900;
-      color: #FEFEFE; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700;
+      color: #F7F5F0; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem;
     }
     .page-desc {
-      font-size: 1.0625rem; color: rgba(254,254,254,0.7);
-      max-width: 560px; line-height: 1.75; font-weight: 300;
+      font-size: 1.0625rem; color: rgba(247,245,240,0.7);
+      max-width: 560px; line-height: 1.75; font-weight: 400;
     }
 
     /* Content */
     .content-section { padding: 5rem 2.5rem; max-width: 960px; margin: 0 auto; }
-    .content-section.alt { background: #F7F5F2; max-width: 100%; padding: 5rem 2.5rem; }
+    .content-section.alt { background: #FEFEFE; max-width: 100%; padding: 5rem 2.5rem; }
     .content-section.alt .content-inner { max-width: 960px; margin: 0 auto; }
 
     .section-h2 {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 900; color: #1A4220;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; color: #1C2826;
       letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 0.75rem;
     }
     .section-label {
       font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-      color: #255B2C; margin-bottom: 0.5rem;
+      color: #376E5A; margin-bottom: 0.5rem;
     }
     .body-p {
-      font-size: 1rem; color: #2B2B2B; line-height: 1.8; font-weight: 300; margin-bottom: 1rem;
+      font-size: 1rem; color: #1C2826; line-height: 1.8; font-weight: 400; margin-bottom: 1rem;
       max-width: 680px;
     }
-    .body-p strong { font-weight: 600; color: #1A4220; }
+    .body-p strong { font-weight: 600; color: #376E5A; }
 
     /* Timeline */
     .timeline { position: relative; padding-left: 2rem; margin-top: 1.5rem; }
     .timeline::before {
       content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
-      width: 2px; background: linear-gradient(to bottom, #255B2C, #A8C5AD);
+      width: 2px; background: linear-gradient(to bottom, #376E5A, #8DB8A0);
     }
     .timeline-item { position: relative; margin-bottom: 2.75rem; }
     .timeline-item:last-child { margin-bottom: 0; }
     .timeline-dot {
       position: absolute; left: -2.375rem; top: 5px;
       width: 12px; height: 12px; border-radius: 50%;
-      background: #255B2C; border: 2px solid #FEFEFE;
-      box-shadow: 0 0 0 2px #255B2C;
+      background: #376E5A; border: 2px solid #FEFEFE;
+      box-shadow: 0 0 0 2px #376E5A;
     }
     .timeline-date {
       font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #2E6B3A; margin-bottom: 0.3rem;
+      text-transform: uppercase; color: #376E5A; margin-bottom: 0.3rem;
     }
     .timeline-org {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.25rem; font-weight: 700; color: #1A4220; line-height: 1.2; margin-bottom: 0.25rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.2rem; font-weight: 700; color: #1C2826; line-height: 1.2; margin-bottom: 0.25rem;
     }
-    .timeline-role { font-size: 0.9rem; color: #484848; font-weight: 400; margin-bottom: 0.5rem; }
-    .timeline-p { font-size: 0.9rem; color: #2B2B2B; line-height: 1.7; font-weight: 300; max-width: 580px; }
+    .timeline-role { font-size: 0.9rem; color: #4A5A54; font-weight: 400; margin-bottom: 0.5rem; }
+    .timeline-p { font-size: 0.9rem; color: #1C2826; line-height: 1.7; font-weight: 400; max-width: 580px; }
 
     /* Two-col */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
@@ -129,76 +129,76 @@
     @media (max-width: 720px) { .rec-grid { grid-template-columns: 1fr 1fr; } }
     .rec-card {
       padding: 1.25rem; background: #FEFEFE; border-radius: 10px;
-      border: 1px solid #e8e8e8;
+      border: 1px solid #E0DDD8;
     }
     .rec-num {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.5rem; font-weight: 900; color: #255B2C; line-height: 1; margin-bottom: 0.3rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.5rem; font-weight: 700; color: #376E5A; line-height: 1; margin-bottom: 0.3rem;
     }
-    .rec-label { font-size: 0.8rem; color: #484848; font-weight: 300; line-height: 1.4; }
+    .rec-label { font-size: 0.8rem; color: #4A5A54; font-weight: 400; line-height: 1.4; }
 
     /* Strengths */
     .strength-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
     .strength-pill {
       padding: 0.5rem 1.1rem; border-radius: 100px;
-      border: 1px solid #C8D9CB; font-size: 0.875rem;
-      font-weight: 400; color: #2B2B2B;
+      border: 1px solid #E0DDD8; font-size: 0.875rem;
+      font-weight: 400; color: #1C2826;
     }
 
     /* Pull quote */
     .pullquote {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1.1rem, 1.8vw, 1.375rem); font-style: italic;
-      color: #2B2B2B; line-height: 1.7;
-      border-left: 4px solid #255B2C; padding: 1rem 1.5rem;
-      background: rgba(37,91,44,0.04); border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+      color: #1C2826; line-height: 1.7;
+      border-left: 4px solid #376E5A; padding: 1rem 1.5rem;
+      background: rgba(55,110,90,0.05); border-radius: 0 8px 8px 0; margin: 1.5rem 0;
     }
     .pullquote cite {
       display: block; margin-top: 0.75rem; font-size: 0.8rem;
-      font-style: normal; font-weight: 600; color: #255B2C;
+      font-style: normal; font-weight: 600; color: #376E5A;
     }
 
     /* CTA strip */
     .cta-strip {
-      background: #1A4220; padding: 4rem 2.5rem; text-align: center;
+      background: #1C2826; padding: 4rem 2.5rem; text-align: center;
     }
     .cta-strip-inner { max-width: 600px; margin: 0 auto; }
-    .cta-h { font-family: 'Crimson Pro', Georgia, serif; font-size: 2rem; font-weight: 900; color: #FEFEFE; margin-bottom: 0.75rem; }
-    .cta-p { font-size: 1rem; color: rgba(254,254,254,0.7); font-weight: 300; line-height: 1.7; margin-bottom: 1.75rem; }
+    .cta-h { font-family: 'DM Sans', system-ui, sans-serif; font-size: 2rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.75rem; }
+    .cta-p { font-size: 1rem; color: rgba(247,245,240,0.7); font-weight: 400; line-height: 1.7; margin-bottom: 1.75rem; }
     .btn-primary {
-      display: inline-block; background: #FEFEFE; color: #1A4220;
+      display: inline-block; background: #F7F5F0; color: #1C2826;
       font-family: 'Outfit', sans-serif; font-size: 0.9375rem;
       font-weight: 600; padding: 0.875rem 2rem; border-radius: 8px;
       text-decoration: none; letter-spacing: 0.02em; transition: background 0.2s ease; margin: 0.4rem;
     }
-    .btn-primary:hover { background: #F7F5F2; }
+    .btn-primary:hover { background: #EDEAE6; }
     .btn-ghost-light {
-      display: inline-block; color: rgba(254,254,254,0.8); font-family: 'Outfit', sans-serif;
+      display: inline-block; color: rgba(247,245,240,0.8); font-family: 'Outfit', sans-serif;
       font-size: 0.875rem; font-weight: 400; text-decoration: none;
-      border-bottom: 1px solid rgba(254,254,254,0.35); padding-bottom: 1px; margin: 0.4rem 1rem;
+      border-bottom: 1px solid rgba(247,245,240,0.35); padding-bottom: 1px; margin: 0.4rem 1rem;
       transition: color 0.2s ease;
     }
-    .btn-ghost-light:hover { color: #FEFEFE; }
+    .btn-ghost-light:hover { color: #F7F5F0; }
 
     /* Footer */
-    .site-footer { background: #1A4220; padding: 3.5rem 2.5rem 2rem; }
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; }
     .footer-inner {
       max-width: 960px; margin: 0 auto;
       display: grid; grid-template-columns: 1fr 1fr 1fr;
       gap: 2rem; align-items: start;
-      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(254,254,254,0.12);
+      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12);
     }
     @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; } }
-    .footer-brand { font-family: 'Crimson Pro', Georgia, serif; font-size: 1.125rem; font-weight: 700; color: #FEFEFE; margin-bottom: 0.4rem; }
-    .footer-brand-sub { font-size: 0.8rem; color: rgba(254,254,254,0.45); font-weight: 300; line-height: 1.6; }
-    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(254,254,254,0.4); margin-bottom: 0.75rem; }
+    .footer-brand { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.45); font-weight: 400; line-height: 1.6; }
+    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.4); margin-bottom: 0.75rem; }
     .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
-    .footer-nav-link { color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
-    .footer-nav-link:hover { color: #FEFEFE; }
-    .footer-contact-link { display: block; color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
-    .footer-contact-link:hover { color: #FEFEFE; }
+    .footer-nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
+    .footer-nav-link:hover { color: #F7F5F0; }
+    .footer-contact-link { display: block; color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
+    .footer-contact-link:hover { color: #F7F5F0; }
     .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
-    .footer-tagline { font-family: 'Crimson Pro', Georgia, serif; font-size: 1rem; font-style: italic; color: rgba(254,254,254,0.35); }
+    .footer-tagline { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1rem; font-style: italic; color: rgba(247,245,240,0.35); }
 
     @media (max-width: 720px) {
       .header-band { padding: 0 1.25rem; }

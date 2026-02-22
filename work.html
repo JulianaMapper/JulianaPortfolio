@@ -7,14 +7,14 @@
   <meta name="description" content="Case studies from 15 years of product leadership across AI, geospatial, supply chain, and defense. The domain changes. The approach doesn't." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      color: #2B2B2B; background: #FEFEFE;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: #1C2826; background: #F7F5F0;
       min-height: 100vh; line-height: 1.6; font-weight: 400;
     }
 
@@ -30,14 +30,14 @@
 
     /* ── Header ── */
     .header-band {
-      background: #1A4220; padding: 0 2.5rem;
+      background: #1C2826; padding: 0 2.5rem;
       display: flex; justify-content: space-between; align-items: center;
       height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     }
     .header-name {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-weight: 700; font-size: 1.125rem;
-      color: #FEFEFE; letter-spacing: -0.01em; text-decoration: none;
+      color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none;
     }
     .header-tagline {
       font-size: 0.7rem; font-weight: 400; color: rgba(254,254,254,0.45);
@@ -59,31 +59,31 @@
     .page-header {
       padding: 7rem 2.5rem 3.5rem;
       max-width: 960px; margin: 0 auto;
-      border-bottom: 1px solid #e8e8e8;
+      border-bottom: 1px solid #E0DDD8;
     }
     .section-tag {
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.15em; text-transform: uppercase;
-      color: #255B2C; margin-bottom: 0.5rem;
+      color: #376E5A; margin-bottom: 0.5rem;
     }
     .page-h1 {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 900; color: #1A4220;
+      font-weight: 700; color: #1C2826;
       letter-spacing: -0.02em; line-height: 1.15;
       margin-bottom: 1rem;
     }
     .page-desc {
-      font-size: 1.0625rem; color: #484848;
-      max-width: 600px; line-height: 1.75; font-weight: 300;
+      font-size: 1.0625rem; color: #4A5A54;
+      max-width: 600px; line-height: 1.75; font-weight: 400;
     }
 
     /* ── Case nav ── */
     .case-nav {
       position: sticky; top: 58px; z-index: 90;
-      background: rgba(254,254,254,0.96);
+      background: rgba(247,245,240,0.97);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid #e8e8e8;
+      border-bottom: 1px solid #E0DDD8;
       padding: 0 2.5rem;
     }
     .case-nav-inner {
@@ -94,29 +94,29 @@
       display: block; padding: 1rem 1.25rem;
       font-size: 0.8rem; font-weight: 600;
       letter-spacing: 0.04em; text-transform: uppercase;
-      color: #484848; text-decoration: none;
+      color: #4A5A54; text-decoration: none;
       border-bottom: 2px solid transparent;
       white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease;
       flex-shrink: 0;
     }
-    .case-nav-link:hover { color: #255B2C; }
-    .case-nav-link.active { color: #255B2C; border-bottom-color: #255B2C; }
+    .case-nav-link:hover { color: #376E5A; }
+    .case-nav-link.active { color: #376E5A; border-bottom-color: #376E5A; }
 
     /* ── Case study ── */
     .case-study {
       padding: 0;
-      border-bottom: 1px solid #e8e8e8;
+      border-bottom: 1px solid #E0DDD8;
     }
 
     /* Chapter banner — full-width top strip per case */
     .case-banner {
-      background: #1A4220; padding: 3rem 2.5rem 2.5rem;
+      background: #1C2826; padding: 3rem 2.5rem 2.5rem;
       position: relative; overflow: hidden;
     }
     .case-banner-num {
       position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(6rem, 14vw, 11rem); font-weight: 900; line-height: 1;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(6rem, 14vw, 11rem); font-weight: 700; line-height: 1;
       color: rgba(255,255,255,0.06); pointer-events: none; user-select: none;
       letter-spacing: -0.04em;
     }
@@ -127,9 +127,9 @@
       color: rgba(255,255,255,0.5); margin-bottom: 0.6rem;
     }
     .case-h2 {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1.625rem, 3.5vw, 2.5rem);
-      font-weight: 900; color: #FEFEFE;
+      font-weight: 700; color: #F7F5F0;
       letter-spacing: -0.02em; line-height: 1.15;
       margin-bottom: 0.75rem;
     }
@@ -141,20 +141,20 @@
     /* Metrics bar — sits between banner and body */
     .metrics-row {
       display: flex; gap: 0; flex-wrap: wrap;
-      border-bottom: 1px solid #e8e8e8;
-      background: #F7F5F2;
+      border-bottom: 1px solid #E0DDD8;
+      background: #FEFEFE;
     }
     .metric-block {
       flex: 1; min-width: 140px;
       padding: 1.5rem 1.75rem;
-      border-right: 1px solid #e8e8e8;
+      border-right: 1px solid #E0DDD8;
     }
     .metric-block:last-child { border-right: none; }
     .metric-num {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.875rem; font-weight: 900; color: #255B2C; line-height: 1;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.875rem; font-weight: 700; color: #376E5A; line-height: 1;
     }
-    .metric-label { font-size: 0.75rem; color: #484848; margin-top: 0.3rem; font-weight: 300; line-height: 1.4; }
+    .metric-label { font-size: 0.75rem; color: #4A5A54; margin-top: 0.3rem; font-weight: 400; line-height: 1.4; }
 
     /* Body — 3-col layout: narrative | divider | sidebar */
     .case-inner { max-width: 960px; margin: 0 auto; padding: 0 2.5rem; }
@@ -173,107 +173,107 @@
     .case-label {
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
-      color: #255B2C; margin-bottom: 0.6rem; margin-top: 1.75rem;
+      color: #376E5A; margin-bottom: 0.6rem; margin-top: 1.75rem;
     }
     .case-label:first-child { margin-top: 0; }
     .case-p {
-      font-size: 0.9375rem; color: #2B2B2B;
-      line-height: 1.75; font-weight: 300; margin-bottom: 0.75rem;
+      font-size: 0.9375rem; color: #1C2826;
+      line-height: 1.75; font-weight: 400; margin-bottom: 0.75rem;
     }
     .case-li {
-      font-size: 0.9375rem; color: #2B2B2B;
-      line-height: 1.75; font-weight: 300;
+      font-size: 0.9375rem; color: #1C2826;
+      line-height: 1.75; font-weight: 400;
       padding-left: 1.1rem; position: relative; margin-bottom: 0.4rem;
     }
     .case-li::before {
       content: '·'; position: absolute; left: 0;
-      color: #255B2C; font-weight: 700;
+      color: #376E5A; font-weight: 700;
     }
 
     /* Sidebar cards */
     .sidebar-card {
-      background: #F7F5F2; border-radius: 10px;
-      border: 1px solid #e8e8e8;
+      background: #FEFEFE; border-radius: 10px;
+      border: 1px solid #E0DDD8;
       padding: 1.25rem; margin-bottom: 1rem;
     }
     .sidebar-card:last-child { margin-bottom: 0; }
     .sidebar-card-label {
       font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: #484848; margin-bottom: 0.6rem;
+      text-transform: uppercase; color: #8A9690; margin-bottom: 0.6rem;
     }
     .sidebar-card-text {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.05rem; font-style: italic; font-weight: 400;
-      color: #1A4220; line-height: 1.6;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1rem; font-style: italic; font-weight: 400;
+      color: #1C2826; line-height: 1.6;
     }
     .sidebar-card-cite {
       display: block; margin-top: 0.5rem; font-size: 0.75rem;
-      font-style: normal; font-weight: 600; color: #255B2C;
+      font-style: normal; font-weight: 600; color: #376E5A;
       font-family: 'Outfit', sans-serif;
     }
 
     .tool-pill {
       display: inline-block; padding: 0.25rem 0.75rem;
-      background: rgba(37,91,44,0.08); color: #255B2C;
+      background: rgba(55,110,90,0.08); color: #376E5A;
       border-radius: 100px; font-size: 0.75rem; font-weight: 600;
       margin-right: 0.4rem; margin-bottom: 0.4rem;
     }
 
     /* pull quote (inline) */
     .case-pullquote {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1rem, 1.6vw, 1.25rem);
       font-style: italic; font-weight: 400;
-      color: #2B2B2B; line-height: 1.7;
-      border-left: 4px solid #255B2C;
+      color: #1C2826; line-height: 1.7;
+      border-left: 4px solid #376E5A;
       padding: 0.875rem 1.25rem;
-      background: rgba(37,91,44,0.04);
+      background: rgba(55,110,90,0.05);
       border-radius: 0 8px 8px 0;
       margin: 1.25rem 0;
     }
     .case-pullquote cite {
       display: block; margin-top: 0.6rem;
       font-size: 0.75rem; font-style: normal;
-      font-weight: 600; color: #255B2C;
+      font-weight: 600; color: #376E5A;
     }
 
     /* screenshot placeholders */
     .case-screenshot {
       width: 100%; border-radius: 10px;
       overflow: hidden; margin: 1.5rem 0;
-      border: 1px solid #e8e8e8;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      background: #F7F5F2;
+      border: 1px solid #E0DDD8;
+      box-shadow: 0 4px 24px rgba(28,40,38,0.06);
+      background: #F7F5F0;
     }
     .case-screenshot img {
       width: 100%; height: auto; display: block;
       object-fit: cover;
     }
     .case-screenshot-caption {
-      font-size: 0.75rem; color: #484848; font-weight: 300;
-      padding: 0.5rem 0.875rem; background: #F7F5F2;
-      border-top: 1px solid #e8e8e8; font-style: italic;
+      font-size: 0.75rem; color: #4A5A54; font-weight: 400;
+      padding: 0.5rem 0.875rem; background: #F7F5F0;
+      border-top: 1px solid #E0DDD8; font-style: italic;
     }
 
     /* ── Footer ── */
-    .site-footer { background: #1A4220; padding: 3.5rem 2.5rem 2rem; }
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; }
     .footer-inner {
       max-width: 960px; margin: 0 auto;
       display: grid; grid-template-columns: 1fr 1fr 1fr;
       gap: 2rem; align-items: start;
-      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(254,254,254,0.12);
+      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12);
     }
     @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; } }
-    .footer-brand { font-family: 'Crimson Pro', Georgia, serif; font-size: 1.125rem; font-weight: 700; color: #FEFEFE; margin-bottom: 0.4rem; }
-    .footer-brand-sub { font-size: 0.8rem; color: rgba(254,254,254,0.45); font-weight: 300; line-height: 1.6; }
-    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(254,254,254,0.4); margin-bottom: 0.75rem; }
+    .footer-brand { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.45); font-weight: 400; line-height: 1.6; }
+    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.4); margin-bottom: 0.75rem; }
     .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
-    .footer-nav-link { color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
-    .footer-nav-link:hover { color: #FEFEFE; }
-    .footer-contact-link { display: block; color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
-    .footer-contact-link:hover { color: #FEFEFE; }
+    .footer-nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
+    .footer-nav-link:hover { color: #F7F5F0; }
+    .footer-contact-link { display: block; color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
+    .footer-contact-link:hover { color: #F7F5F0; }
     .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
-    .footer-tagline { font-family: 'Crimson Pro', Georgia, serif; font-size: 1rem; font-style: italic; color: rgba(254,254,254,0.35); }
+    .footer-tagline { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1rem; font-style: italic; color: rgba(247,245,240,0.35); }
 
     @media (max-width: 720px) {
       .page-header { padding: 6rem 1.5rem 2.5rem; }
@@ -281,7 +281,7 @@
       .case-inner { padding: 0 1.5rem; }
       .case-nav { padding: 0 1rem; }
       .metrics-row { flex-direction: column; gap: 0; }
-      .metric-block { border-right: none; border-bottom: 1px solid #e8e8e8; }
+      .metric-block { border-right: none; border-bottom: 1px solid #E0DDD8; }
       .metric-block:last-child { border-bottom: none; }
       .header-band { padding: 0 1.25rem; }
       .nav-links { gap: 1.25rem; }
@@ -413,7 +413,7 @@
 
   <!-- ── Case 2: ENSITE ── -->
   <section class="case-study" id="ensite">
-    <div class="case-banner" style="background:#255B2C;">
+    <div class="case-banner" style="background:#2D5A49;">
       <div class="case-banner-num">02</div>
       <div class="case-banner-inner">
         <div class="case-domain anim">U.S. Army Corps of Engineers · Defense · 2013–2019</div>
@@ -494,7 +494,7 @@
 
   <!-- ── Case 3: Peapod ── -->
   <section class="case-study" id="peapod">
-    <div class="case-banner" style="background:#2E6B3A;">
+    <div class="case-banner" style="background:#376E5A;">
       <div class="case-banner-num">03</div>
       <div class="case-banner-inner">
         <div class="case-domain anim">Peapod Digital Labs (ADUSA Supply Chain Services) · Supply Chain · 2020–2023</div>
@@ -575,7 +575,7 @@
 
   <!-- ── Case 4: Library ── -->
   <section class="case-study" id="library">
-    <div class="case-banner" style="background:#1A3A1F;">
+    <div class="case-banner" style="background:#4A5A54;">
       <div class="case-banner-num">04</div>
       <div class="case-banner-inner">
         <div class="case-domain anim">Personal · Automation · Always</div>

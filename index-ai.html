@@ -7,15 +7,15 @@
   <meta name="description" content="Product leader who listens first, diagnoses the real problem, and builds solutions that work. 15 years across AI, geospatial, public health, and supply chain. The domain changes. The approach doesn't." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      color: #2B2B2B;
-      background: #FEFEFE;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: #1C2826;
+      background: #F7F5F0;
       min-height: 100vh;
       line-height: 1.6;
       font-weight: 400;
@@ -36,16 +36,16 @@
 
     /* ── Header ── */
     .header-band {
-      background: #1A4220;
+      background: #1C2826;
       padding: 0 2.5rem;
       display: flex; justify-content: space-between; align-items: center;
       height: 58px;
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     }
     .header-name {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-weight: 700; font-size: 1.125rem;
-      color: #FEFEFE; letter-spacing: -0.01em;
+      color: #F7F5F0; letter-spacing: -0.01em;
       text-decoration: none;
     }
     .header-tagline {
@@ -85,13 +85,13 @@
     }
     .hero-orb-1 {
       width: 600px; height: 600px;
-      background: #255B2C;
+      background: #376E5A;
       top: -120px; right: -100px;
       animation-duration: 20s;
     }
     .hero-orb-2 {
       width: 400px; height: 400px;
-      background: #2E6B3A;
+      background: #D4A07A;
       bottom: 60px; left: -80px;
       animation-duration: 15s; animation-delay: -7s;
     }
@@ -113,8 +113,8 @@
     .hero-photo {
       width: 240px; height: 240px; border-radius: 50%;
       object-fit: cover; object-position: center 20%;
-      border: 4px solid rgba(37,91,44,0.15);
-      box-shadow: 0 12px 48px rgba(0,0,0,0.10);
+      border: 4px solid rgba(55,110,90,0.18);
+      box-shadow: 0 12px 48px rgba(28,40,38,0.12);
       display: block;
     }
     @media (max-width: 760px) {
@@ -126,14 +126,14 @@
     .hero-eyebrow {
       font-size: 0.75rem; font-weight: 600;
       letter-spacing: 0.15em; text-transform: uppercase;
-      color: #2E6B3A; margin-bottom: 1.5rem;
+      color: #376E5A; margin-bottom: 1.5rem;
     }
 
     .hero-h1 {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(2.75rem, 6vw, 4.5rem);
-      font-weight: 900; line-height: 1.1;
-      color: #1A4220; letter-spacing: -0.02em;
+      font-weight: 700; line-height: 1.1;
+      color: #1C2826; letter-spacing: -0.02em;
       margin-bottom: 1.75rem;
     }
 
@@ -141,7 +141,7 @@
     .cycle-wrap { display: inline-block; position: relative; min-width: 6ch; }
     .cycle-phrase {
       display: inline-block;
-      color: #255B2C; font-style: italic; font-weight: 700;
+      color: #376E5A; font-style: italic; font-weight: 600;
       transition: opacity 0.4s ease, transform 0.4s ease;
       white-space: nowrap;
     }
@@ -150,56 +150,56 @@
 
     .hero-body {
       font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
-      color: #484848; max-width: 580px;
-      line-height: 1.8; font-weight: 300;
+      color: #4A5A54; max-width: 580px;
+      line-height: 1.8; font-weight: 400;
       margin-bottom: 2.25rem;
     }
-    .hero-body strong { color: #2B2B2B; font-weight: 600; }
+    .hero-body strong { color: #1C2826; font-weight: 600; }
 
     .hero-tagline {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1rem, 1.5vw, 1.2rem);
-      font-style: italic; color: #2E6B3A;
+      font-style: italic; color: #376E5A;
       margin-bottom: 2.25rem;
       font-weight: 400;
     }
 
     .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1rem; }
     .btn-primary {
-      display: inline-block; background: #255B2C; color: #FEFEFE;
+      display: inline-block; background: #376E5A; color: #FEFEFE;
       font-family: 'Outfit', sans-serif; font-size: 0.9375rem;
       font-weight: 600; padding: 0.875rem 1.75rem;
       border-radius: 8px; text-decoration: none;
       letter-spacing: 0.02em; transition: background 0.2s ease;
     }
-    .btn-primary:hover { background: #1A4220; }
+    .btn-primary:hover { background: #2D5A49; }
     .btn-ghost {
-      color: #255B2C; font-family: 'Outfit', sans-serif;
+      color: #376E5A; font-family: 'Outfit', sans-serif;
       font-size: 0.9375rem; font-weight: 600;
       text-decoration: none;
-      border-bottom: 1px solid #255B2C; padding-bottom: 1px;
+      border-bottom: 1px solid #376E5A; padding-bottom: 1px;
       transition: color 0.2s ease, border-color 0.2s ease;
     }
-    .btn-ghost:hover { color: #1A4220; border-color: #1A4220; }
+    .btn-ghost:hover { color: #2D5A49; border-color: #2D5A49; }
     .hero-open {
-      font-size: 0.8125rem; color: #484848; font-weight: 300;
+      font-size: 0.8125rem; color: #8A9690; font-weight: 400;
     }
 
     /* ── Stats bar ── */
     .stats-bar {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid #e8e8e8; border-bottom: 1px solid #e8e8e8;
+      border-top: 1px solid #E0DDD8; border-bottom: 1px solid #E0DDD8;
       max-width: 960px; margin: 0 auto;
     }
-    .stat-item { padding: 1.5rem 1rem; text-align: center; border-right: 1px solid #e8e8e8; }
+    .stat-item { padding: 1.5rem 1rem; text-align: center; border-right: 1px solid #E0DDD8; }
     .stat-item:last-child { border-right: none; }
     .stat-num {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.875rem; font-weight: 900;
-      color: #255B2C; line-height: 1;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.875rem; font-weight: 700;
+      color: #376E5A; line-height: 1;
     }
     .stat-label {
-      font-size: 0.75rem; color: #484848;
+      font-size: 0.75rem; color: #4A5A54;
       margin-top: 0.35rem; font-weight: 400; line-height: 1.4;
     }
 
@@ -207,19 +207,19 @@
     .section-tag {
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.15em; text-transform: uppercase;
-      color: #255B2C; margin-bottom: 0.5rem;
+      color: #376E5A; margin-bottom: 0.5rem;
     }
     .section-h2 {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1.75rem, 3vw, 2.5rem);
-      font-weight: 900; color: #1A4220;
+      font-weight: 700; color: #1C2826;
       letter-spacing: -0.01em; line-height: 1.15;
       margin-bottom: 0.875rem;
     }
     .section-desc {
-      font-size: 1rem; color: #484848;
+      font-size: 1rem; color: #4A5A54;
       max-width: 580px; line-height: 1.75;
-      font-weight: 300; margin-bottom: 2.5rem;
+      font-weight: 400; margin-bottom: 2.5rem;
     }
 
     /* ── Thesis section ── */
@@ -228,19 +228,19 @@
       max-width: 960px; margin: 0 auto;
     }
     .thesis-text {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1.25rem, 2.2vw, 1.625rem);
-      font-weight: 400; color: #2B2B2B;
+      font-weight: 400; color: #1C2826;
       line-height: 1.75; max-width: 740px;
     }
-    .thesis-text strong { font-weight: 700; color: #1A4220; }
+    .thesis-text strong { font-weight: 700; color: #376E5A; }
 
     /* ── Domain strip ── */
     .domain-strip {
-      background: #F7F5F2;
+      background: #FEFEFE;
       padding: 2.5rem 2.5rem;
-      border-top: 1px solid #e8e8e8;
-      border-bottom: 1px solid #e8e8e8;
+      border-top: 1px solid #E0DDD8;
+      border-bottom: 1px solid #E0DDD8;
     }
     .domain-inner { max-width: 960px; margin: 0 auto; }
     .domain-header {
@@ -250,23 +250,23 @@
     .domain-label {
       font-size: 0.65rem; font-weight: 600;
       letter-spacing: 0.15em; text-transform: uppercase;
-      color: #484848; flex-shrink: 0;
+      color: #8A9690; flex-shrink: 0;
     }
     .domain-categories {
       display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: baseline;
     }
     .domain-cat {
-      font-size: 0.75rem; font-weight: 600; color: #255B2C;
+      font-size: 0.75rem; font-weight: 600; color: #376E5A;
       letter-spacing: 0.06em; text-transform: uppercase;
     }
     .domain-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
     .domain-pill {
       display: inline-flex; align-items: center; gap: 0.4rem;
       padding: 0.35rem 0.875rem; border-radius: 100px;
-      border: 1px solid #C8D9CB;
-      font-size: 0.8125rem; font-weight: 400; color: #2B2B2B;
+      border: 1px solid #E0DDD8;
+      font-size: 0.8125rem; font-weight: 400; color: #1C2826;
     }
-    .domain-dot { width: 5px; height: 5px; border-radius: 50%; background: #2E6B3A; }
+    .domain-dot { width: 5px; height: 5px; border-radius: 50%; background: #376E5A; }
 
     /* ── Work preview ── */
     .work-section {
@@ -278,42 +278,42 @@
       gap: 1.25rem; margin-bottom: 2rem;
     }
     .work-card {
-      background: #FEFEFE; border-radius: 12px;
-      border: 1px solid #e8e8e8;
+      background: #FEFEFE; border-radius: 10px;
+      border: 1px solid #E0DDD8;
       padding: 1.75rem; text-decoration: none; color: inherit;
       transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
       display: block;
     }
     .work-card:hover {
-      border-color: #A8C5AD;
-      box-shadow: 0 8px 28px rgba(37,91,44,0.09);
+      border-color: #8DB8A0;
+      box-shadow: 0 8px 28px rgba(28,40,38,0.08);
       transform: translateY(-2px);
     }
     .work-domain {
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: #2E6B3A; margin-bottom: 0.5rem;
+      color: #376E5A; margin-bottom: 0.5rem;
     }
     .work-title {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.3rem; font-weight: 700;
-      color: #1A4220; margin-bottom: 0.4rem; line-height: 1.25;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: #1C2826; margin-bottom: 0.4rem; line-height: 1.25;
     }
-    .work-sub { font-size: 0.9rem; color: #484848; font-weight: 300; line-height: 1.5; margin-bottom: 1rem; }
+    .work-sub { font-size: 0.9rem; color: #4A5A54; font-weight: 400; line-height: 1.5; margin-bottom: 1rem; }
     .work-metric {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.5rem; font-weight: 900; color: #255B2C;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.5rem; font-weight: 700; color: #376E5A;
       line-height: 1;
     }
-    .work-metric-label { font-size: 0.75rem; color: #484848; margin-top: 0.2rem; font-weight: 300; }
+    .work-metric-label { font-size: 0.75rem; color: #4A5A54; margin-top: 0.2rem; font-weight: 400; }
     .work-arrow {
       display: inline-block; margin-top: 1rem;
-      font-size: 0.8125rem; font-weight: 600; color: #255B2C;
+      font-size: 0.8125rem; font-weight: 600; color: #376E5A;
     }
 
     /* ── Testimonial strip ── */
     .testimonial-strip {
-      background: #1A4220;
+      background: #1C2826;
       padding: 4rem 2.5rem;
     }
     .testimonial-strip-inner { max-width: 760px; margin: 0 auto; text-align: center; }
@@ -325,30 +325,30 @@
     }
     .t-slide.active { opacity: 1; pointer-events: auto; position: relative; }
     .t-quote {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(1.15rem, 2.2vw, 1.625rem);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
       font-style: italic; font-weight: 400;
-      color: #FEFEFE; line-height: 1.65;
+      color: #F7F5F0; line-height: 1.7;
       margin-bottom: 1.5rem;
     }
-    .t-name { font-size: 0.875rem; font-weight: 600; color: rgba(254,254,254,0.7); }
-    .t-role { font-size: 0.8rem; font-weight: 300; color: rgba(254,254,254,0.45); margin-top: 0.2rem; }
+    .t-name { font-size: 0.875rem; font-weight: 600; color: rgba(247,245,240,0.75); }
+    .t-role { font-size: 0.8rem; font-weight: 400; color: rgba(247,245,240,0.45); margin-top: 0.2rem; }
     .t-dots {
       display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem;
     }
     .t-dot {
       width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(254,254,254,0.25); border: none; cursor: pointer;
+      background: rgba(247,245,240,0.22); border: none; cursor: pointer;
       padding: 0; transition: background 0.2s ease;
     }
-    .t-dot.active { background: rgba(254,254,254,0.75); }
+    .t-dot.active { background: rgba(212,160,122,0.85); }
     .t-ref-link {
       display: inline-block; margin-top: 1.75rem;
-      font-size: 0.8125rem; font-weight: 600; color: rgba(254,254,254,0.5);
-      text-decoration: none; border-bottom: 1px solid rgba(254,254,254,0.2);
+      font-size: 0.8125rem; font-weight: 600; color: rgba(247,245,240,0.5);
+      text-decoration: none; border-bottom: 1px solid rgba(247,245,240,0.2);
       padding-bottom: 1px; transition: color 0.2s ease;
     }
-    .t-ref-link:hover { color: rgba(254,254,254,0.85); }
+    .t-ref-link:hover { color: rgba(212,160,122,0.9); }
 
     /* ── CTA ── */
     .connect-section {
@@ -357,25 +357,25 @@
       text-align: center;
     }
     .cta-btn {
-      display: inline-block; background: #255B2C; color: #FEFEFE;
+      display: inline-block; background: #376E5A; color: #FEFEFE;
       font-family: 'Outfit', sans-serif; font-size: 0.9375rem;
       font-weight: 600; padding: 0.875rem 2rem;
       border-radius: 8px; text-decoration: none;
       letter-spacing: 0.02em; transition: background 0.2s ease;
       margin: 0.5rem;
     }
-    .cta-btn:hover { background: #1A4220; }
+    .cta-btn:hover { background: #2D5A49; }
     .cta-link {
-      display: inline-block; color: #255B2C;
+      display: inline-block; color: #376E5A;
       font-size: 0.875rem; font-weight: 400; text-decoration: none;
-      border-bottom: 1px solid #A8C5AD; padding-bottom: 1px;
+      border-bottom: 1px solid #8DB8A0; padding-bottom: 1px;
       margin: 0.5rem 1rem; transition: color 0.2s ease;
     }
-    .cta-link:hover { color: #1A4220; }
+    .cta-link:hover { color: #2D5A49; }
 
     /* ── Footer ── */
     .site-footer {
-      background: #1A4220;
+      background: #1C2826;
       padding: 3.5rem 2.5rem 2rem;
     }
     .footer-inner {
@@ -389,8 +389,8 @@
       .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     }
     .footer-brand {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.125rem; font-weight: 700; color: #FEFEFE;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.125rem; font-weight: 700; color: #F7F5F0;
       margin-bottom: 0.4rem;
     }
     .footer-brand-sub {
@@ -420,15 +420,15 @@
       text-align: center;
     }
     .footer-tagline {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: 1rem; font-style: italic;
-      color: rgba(254,254,254,0.35);
+      color: rgba(247,245,240,0.35);
     }
 
     /* ── Marquee ── */
     .marquee-strip {
-      overflow: hidden; background: #1A4220;
-      padding: 1rem 0; border-top: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden; background: #1C2826;
+      padding: 1rem 0; border-top: 1px solid rgba(247,245,240,0.08);
     }
     .marquee-track {
       display: flex; gap: 0;
@@ -440,37 +440,37 @@
       to   { transform: translateX(-50%); }
     }
     .marquee-item {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: 1rem; font-style: italic; font-weight: 400;
-      color: rgba(254,254,254,0.55); white-space: nowrap;
+      color: rgba(247,245,240,0.5); white-space: nowrap;
       padding: 0 2rem;
     }
     .marquee-sep {
-      color: rgba(254,254,254,0.2); padding: 0 0.5rem; font-style: normal;
+      color: rgba(212,160,122,0.4); padding: 0 0.5rem; font-style: normal;
     }
 
     /* ── Work cards with ghost metric ── */
     .work-card { position: relative; overflow: hidden; }
     .work-ghost {
       position: absolute; bottom: -0.25rem; right: 0.75rem;
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 5rem; font-weight: 900; line-height: 1;
-      color: rgba(37,91,44,0.06); pointer-events: none;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 5rem; font-weight: 700; line-height: 1;
+      color: rgba(55,110,90,0.05); pointer-events: none;
       user-select: none; letter-spacing: -0.03em;
     }
-    .work-card:hover .work-ghost { color: rgba(37,91,44,0.1); transition: color 0.25s ease; }
+    .work-card:hover .work-ghost { color: rgba(55,110,90,0.09); transition: color 0.25s ease; }
 
     /* ── Currently building badge ── */
     .building-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(37,91,44,0.08); border: 1px solid rgba(37,91,44,0.2);
+      background: rgba(55,110,90,0.08); border: 1px solid rgba(55,110,90,0.2);
       border-radius: 100px; padding: 0.35rem 0.9rem;
-      font-size: 0.75rem; font-weight: 600; color: #255B2C;
+      font-size: 0.75rem; font-weight: 600; color: #376E5A;
       margin-bottom: 1.25rem; letter-spacing: 0.04em;
     }
     .building-dot {
       width: 7px; height: 7px; border-radius: 50%;
-      background: #255B2C;
+      background: #376E5A;
       animation: pulse-dot 2s ease-in-out infinite;
     }
     @keyframes pulse-dot {
@@ -483,7 +483,7 @@
       .hero-section { padding: 7rem 1.5rem 4rem; }
       .stats-bar { grid-template-columns: repeat(2, 1fr); }
       .stat-item:nth-child(2) { border-right: none; }
-      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-top: 1px solid #e8e8e8; }
+      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-top: 1px solid #E0DDD8; }
       .work-grid { grid-template-columns: 1fr; }
       .header-band { padding: 0 1.25rem; }
       .nav-links { gap: 1.25rem; }
@@ -585,7 +585,7 @@
       </p>
     </div>
     <div class="anim" data-delay="0.2" style="margin-top:1.75rem;">
-      <p class="thesis-text" style="font-size:clamp(1rem,1.7vw,1.2rem);color:#484848;">
+      <p class="thesis-text" style="font-size:clamp(1rem,1.7vw,1.2rem);color:#4A5A54;">
         I'm not an AI evangelist. I'm a tools person.
         I'm interested in what's actually broken — and what the right tool is to fix it.
         Sometimes that's AI. Sometimes it's a Python script and a better process.

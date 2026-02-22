@@ -7,14 +7,14 @@
   <meta name="description" content="Juliana McMillan-Wilhoit's approach to AI, process mapping, and problem-solving. The framework behind 15 years of product work." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      color: #2B2B2B; background: #FEFEFE;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: #1C2826; background: #F7F5F0;
       min-height: 100vh; line-height: 1.6; font-weight: 400;
     }
     .will-animate {
@@ -29,69 +29,69 @@
 
     /* Header */
     .header-band {
-      background: #1A4220; padding: 0 2.5rem;
+      background: #1C2826; padding: 0 2.5rem;
       display: flex; justify-content: space-between; align-items: center;
       height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     }
     .header-name {
-      font-family: 'Crimson Pro', Georgia, serif; font-weight: 700;
-      font-size: 1.125rem; color: #FEFEFE; letter-spacing: -0.01em; text-decoration: none;
+      font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700;
+      font-size: 1.125rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none;
     }
     .header-tagline {
-      font-size: 0.7rem; font-weight: 400; color: rgba(254,254,254,0.45);
+      font-size: 0.7rem; font-weight: 400; color: rgba(247,245,240,0.45);
       letter-spacing: 0.08em; text-transform: uppercase; margin-left: 1rem; display: none;
     }
     @media (min-width: 860px) { .header-tagline { display: inline; } }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-link {
-      color: rgba(254,254,254,0.65); text-decoration: none;
+      color: rgba(247,245,240,0.65); text-decoration: none;
       font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
       text-transform: uppercase; transition: color 0.2s ease;
     }
-    .nav-link:hover { color: #FEFEFE; }
-    .nav-link.active { color: #FEFEFE; border-bottom: 1px solid rgba(254,254,254,0.5); padding-bottom: 1px; }
+    .nav-link:hover { color: #F7F5F0; }
+    .nav-link.active { color: #F7F5F0; border-bottom: 1px solid rgba(247,245,240,0.5); padding-bottom: 1px; }
 
     /* Page hero */
     .page-hero {
       padding: 8rem 2.5rem 5rem; position: relative; overflow: hidden;
-      background: linear-gradient(160deg, #F7F5F2 0%, #FEFEFE 60%);
-      border-bottom: 1px solid #e8e8e8;
+      background: linear-gradient(160deg, #F7F5F0 0%, #FEFEFE 60%);
+      border-bottom: 1px solid #E0DDD8;
     }
     .page-hero-inner { max-width: 860px; margin: 0 auto; }
     .section-tag {
       font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: #255B2C; margin-bottom: 0.5rem;
+      text-transform: uppercase; color: #376E5A; margin-bottom: 0.5rem;
     }
     .page-h1 {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 900;
-      color: #1A4220; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 700;
+      color: #1C2826; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;
     }
     .page-desc {
-      font-size: 1.1rem; color: #484848; max-width: 620px; line-height: 1.8; font-weight: 300;
+      font-size: 1.1rem; color: #4A5A54; max-width: 620px; line-height: 1.8; font-weight: 400;
     }
 
     /* Shared section */
     .section { padding: 5rem 2.5rem; }
-    .section.alt { background: #F7F5F2; }
+    .section.alt { background: #FEFEFE; }
     .section-inner { max-width: 960px; margin: 0 auto; }
     .section-label {
       font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: #255B2C; margin-bottom: 0.5rem;
+      text-transform: uppercase; color: #376E5A; margin-bottom: 0.5rem;
     }
     .section-h2 {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 900; color: #1A4220;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; color: #1C2826;
       letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 0.875rem;
     }
     .section-desc {
-      font-size: 1rem; color: #484848; max-width: 620px; line-height: 1.75; font-weight: 300; margin-bottom: 2.5rem;
+      font-size: 1rem; color: #4A5A54; max-width: 620px; line-height: 1.75; font-weight: 400; margin-bottom: 2.5rem;
     }
     .body-p {
-      font-size: 1rem; color: #2B2B2B; line-height: 1.8; font-weight: 300;
+      font-size: 1rem; color: #1C2826; line-height: 1.8; font-weight: 400;
       margin-bottom: 1rem; max-width: 680px;
     }
-    .body-p strong { font-weight: 600; color: #1A4220; }
+    .body-p strong { font-weight: 600; color: #376E5A; }
 
     /* AI POV section */
     .aipov-grid {
@@ -99,11 +99,11 @@
     }
     @media (max-width: 720px) { .aipov-grid { grid-template-columns: 1fr; gap: 2rem; } }
     .aipov-quote {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1.2rem, 2vw, 1.5rem); font-style: italic; font-weight: 400;
-      color: #1A4220; line-height: 1.65;
-      border-left: 4px solid #255B2C; padding: 1.25rem 1.5rem;
-      background: rgba(37,91,44,0.05); border-radius: 0 8px 8px 0;
+      color: #1C2826; line-height: 1.65;
+      border-left: 4px solid #376E5A; padding: 1.25rem 1.5rem;
+      background: rgba(55,110,90,0.05); border-radius: 0 8px 8px 0;
       margin-bottom: 1.5rem;
     }
 
@@ -111,25 +111,25 @@
     .framework-steps { display: flex; flex-direction: column; gap: 0; }
     .step {
       display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem;
-      padding: 2rem 0; border-bottom: 1px solid #e8e8e8; align-items: start;
+      padding: 2rem 0; border-bottom: 1px solid #E0DDD8; align-items: start;
     }
     .step:last-child { border-bottom: none; }
     .step-num {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 2.5rem; font-weight: 900; color: #C8D9CB; line-height: 1; padding-top: 0.1rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 2.5rem; font-weight: 700; color: #E0DDD8; line-height: 1; padding-top: 0.1rem;
     }
     .step-body {}
     .step-title {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.3rem; font-weight: 700; color: #1A4220; margin-bottom: 0.4rem; line-height: 1.2;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.2rem; font-weight: 700; color: #1C2826; margin-bottom: 0.4rem; line-height: 1.2;
     }
-    .step-desc { font-size: 0.9375rem; color: #2B2B2B; line-height: 1.75; font-weight: 300; margin-bottom: 0.75rem; }
+    .step-desc { font-size: 0.9375rem; color: #1C2826; line-height: 1.75; font-weight: 400; margin-bottom: 0.75rem; }
     .step-proof {
-      font-size: 0.875rem; color: #484848; line-height: 1.65;
-      padding: 0.65rem 0.875rem; background: rgba(37,91,44,0.06);
-      border-radius: 6px; border-left: 3px solid #2E6B3A; font-weight: 400;
+      font-size: 0.875rem; color: #4A5A54; line-height: 1.65;
+      padding: 0.65rem 0.875rem; background: rgba(55,110,90,0.06);
+      border-radius: 6px; border-left: 3px solid #376E5A; font-weight: 400;
     }
-    .step-proof strong { color: #255B2C; font-weight: 600; }
+    .step-proof strong { color: #376E5A; font-weight: 600; }
 
     /* Process flow diagram */
     .process-flow {
@@ -146,31 +146,31 @@
     .flow-step:not(:last-child)::after {
       content: '→';
       position: absolute; right: -0.6rem; top: 1.4rem;
-      font-size: 1.25rem; color: #A8C5AD; z-index: 1;
+      font-size: 1.25rem; color: #8DB8A0; z-index: 1;
       font-family: serif;
     }
     @media (max-width: 720px) { .flow-step:not(:last-child)::after { display: none; } }
     .flow-circle {
       width: 52px; height: 52px; border-radius: 50%;
-      background: #255B2C; color: #FEFEFE;
+      background: #376E5A; color: #F7F5F0;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 0.75rem;
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.375rem; font-weight: 900;
-      box-shadow: 0 4px 16px rgba(37,91,44,0.25);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.375rem; font-weight: 700;
+      box-shadow: 0 4px 16px rgba(55,110,90,0.2);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .flow-step:hover .flow-circle {
       transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(37,91,44,0.3);
+      box-shadow: 0 8px 24px rgba(55,110,90,0.28);
     }
     .flow-label {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1rem; font-weight: 700; color: #1A4220;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1rem; font-weight: 700; color: #1C2826;
       margin-bottom: 0.35rem; line-height: 1.2;
     }
     .flow-sub {
-      font-size: 0.8rem; color: #484848; font-weight: 300; line-height: 1.5;
+      font-size: 0.8rem; color: #4A5A54; font-weight: 400; line-height: 1.5;
     }
 
     /* Process mapping section */
@@ -183,16 +183,16 @@
     .hh-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.5rem 0; }
     @media (max-width: 600px) { .hh-grid { grid-template-columns: 1fr; } }
     .hh-card {
-      padding: 1.5rem; border-radius: 12px; border: 1px solid #e8e8e8;
+      padding: 1.5rem; border-radius: 10px; border: 1px solid #E0DDD8;
     }
-    .hh-card.head { border-color: #C8D9CB; background: rgba(37,91,44,0.04); }
-    .hh-card.heart { border-color: #e8e8e8; background: #FEFEFE; }
-    .hh-icon { font-size: 1.5rem; margin-bottom: 0.5rem; color: #255B2C; display: block; }
+    .hh-card.head { border-color: #8DB8A0; background: rgba(55,110,90,0.05); }
+    .hh-card.heart { border-color: #E0DDD8; background: #FEFEFE; }
+    .hh-icon { font-size: 1.5rem; margin-bottom: 0.5rem; color: #376E5A; display: block; }
     .hh-title {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.1rem; font-weight: 700; color: #1A4220; margin-bottom: 0.4rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: #1C2826; margin-bottom: 0.4rem;
     }
-    .hh-desc { font-size: 0.875rem; color: #484848; line-height: 1.6; font-weight: 300; }
+    .hh-desc { font-size: 0.875rem; color: #4A5A54; line-height: 1.6; font-weight: 400; }
 
     /* 6-step framework */
     .six-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
@@ -200,29 +200,29 @@
     @media (max-width: 480px) { .six-steps { grid-template-columns: 1fr; } }
     .six-step {
       padding: 1.25rem; background: #FEFEFE; border-radius: 10px;
-      border: 1px solid #e8e8e8; position: relative;
+      border: 1px solid #E0DDD8; position: relative;
     }
     .six-step-num {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 2rem; font-weight: 900; color: #e8e8e8;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 2rem; font-weight: 700; color: #E0DDD8;
       line-height: 1; margin-bottom: 0.5rem;
     }
     .six-step-title {
-      font-size: 0.875rem; font-weight: 600; color: #1A4220; margin-bottom: 0.3rem;
+      font-size: 0.875rem; font-weight: 600; color: #1C2826; margin-bottom: 0.3rem;
     }
-    .six-step-desc { font-size: 0.8125rem; color: #484848; line-height: 1.55; font-weight: 300; }
+    .six-step-desc { font-size: 0.8125rem; color: #4A5A54; line-height: 1.55; font-weight: 400; }
 
     /* Pull quote */
     .pullquote {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1.1rem, 1.8vw, 1.375rem); font-style: italic; font-weight: 400;
-      color: #2B2B2B; line-height: 1.7; border-left: 4px solid #255B2C;
-      padding: 1rem 1.5rem; background: rgba(37,91,44,0.04);
+      color: #1C2826; line-height: 1.7; border-left: 4px solid #376E5A;
+      padding: 1rem 1.5rem; background: rgba(55,110,90,0.05);
       border-radius: 0 8px 8px 0; margin: 1.5rem 0;
     }
     .pullquote cite {
       display: block; margin-top: 0.75rem; font-size: 0.8rem;
-      font-style: normal; font-weight: 600; color: #255B2C;
+      font-style: normal; font-weight: 600; color: #376E5A;
     }
 
     /* Evidence panel */
@@ -230,95 +230,95 @@
       display: flex; flex-direction: column; gap: 1rem;
     }
     .evidence-card {
-      border-radius: 12px; padding: 1.5rem 1.75rem;
-      border: 1px solid #e8e8e8;
+      border-radius: 10px; padding: 1.5rem 1.75rem;
+      border: 1px solid #E0DDD8;
     }
-    .evidence-card.dark { background: #1A4220; border-color: #1A4220; }
-    .evidence-card.light { background: #F7F5F2; border-color: #C8D9CB; }
+    .evidence-card.dark { background: #1C2826; border-color: #1C2826; }
+    .evidence-card.light { background: #FEFEFE; border-color: #8DB8A0; }
     .evidence-icon {
-      font-size: 1.25rem; color: #2E6B3A; margin-bottom: 0.75rem; display: block;
+      font-size: 1.25rem; color: #376E5A; margin-bottom: 0.75rem; display: block;
     }
-    .evidence-card.dark .evidence-icon { color: rgba(254,254,254,0.6); }
+    .evidence-card.dark .evidence-icon { color: rgba(247,245,240,0.6); }
     .evidence-quote {
-      font-family: 'Crimson Pro', Georgia, serif;
+      font-family: 'DM Sans', system-ui, sans-serif;
       font-size: clamp(1.1rem, 1.8vw, 1.3rem); font-style: italic;
       font-weight: 400; line-height: 1.6; margin-bottom: 0.75rem;
-      color: #1A4220;
+      color: #1C2826;
     }
-    .evidence-card.dark .evidence-quote { color: #FEFEFE; }
+    .evidence-card.dark .evidence-quote { color: #F7F5F0; }
     .evidence-source {
-      font-size: 0.75rem; font-weight: 600; color: #484848;
+      font-size: 0.75rem; font-weight: 600; color: #4A5A54;
       letter-spacing: 0.04em; text-transform: uppercase;
     }
-    .evidence-card.dark .evidence-source { color: rgba(254,254,254,0.5); }
+    .evidence-card.dark .evidence-source { color: rgba(247,245,240,0.5); }
     .evidence-num {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 2.5rem; font-weight: 900; color: #255B2C;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 2.5rem; font-weight: 700; color: #376E5A;
       line-height: 1; display: inline-block; margin-right: 0.5rem;
     }
-    .evidence-card.dark .evidence-num { color: #A8C5AD; }
+    .evidence-card.dark .evidence-num { color: #8DB8A0; }
 
     /* Writing/content strip */
     .content-links { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
     @media (max-width: 600px) { .content-links { grid-template-columns: 1fr; } }
     .content-link-card {
-      display: block; padding: 1.5rem; background: #FEFEFE; border-radius: 12px;
-      border: 1px solid #e8e8e8; text-decoration: none; color: inherit;
+      display: block; padding: 1.5rem; background: #FEFEFE; border-radius: 10px;
+      border: 1px solid #E0DDD8; text-decoration: none; color: inherit;
       transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
     }
     .content-link-card:hover {
-      border-color: #A8C5AD; box-shadow: 0 6px 20px rgba(37,91,44,0.08); transform: translateY(-2px);
+      border-color: #8DB8A0; box-shadow: 0 6px 20px rgba(28,40,38,0.07); transform: translateY(-2px);
     }
     .content-type {
       font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      color: #2E6B3A; margin-bottom: 0.4rem;
+      color: #376E5A; margin-bottom: 0.4rem;
     }
     .content-title {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 1.15rem; font-weight: 700; color: #1A4220; line-height: 1.25; margin-bottom: 0.4rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: #1C2826; line-height: 1.25; margin-bottom: 0.4rem;
     }
-    .content-desc { font-size: 0.875rem; color: #484848; font-weight: 300; line-height: 1.55; }
-    .content-arrow { margin-top: 0.75rem; font-size: 0.8125rem; font-weight: 600; color: #255B2C; }
+    .content-desc { font-size: 0.875rem; color: #4A5A54; font-weight: 400; line-height: 1.55; }
+    .content-arrow { margin-top: 0.75rem; font-size: 0.8125rem; font-weight: 600; color: #376E5A; }
 
     /* CTA */
-    .cta-strip { background: #1A4220; padding: 4rem 2.5rem; text-align: center; }
+    .cta-strip { background: #1C2826; padding: 4rem 2.5rem; text-align: center; }
     .cta-strip-inner { max-width: 600px; margin: 0 auto; }
-    .cta-h { font-family: 'Crimson Pro', Georgia, serif; font-size: 2rem; font-weight: 900; color: #FEFEFE; margin-bottom: 0.75rem; }
-    .cta-p { font-size: 1rem; color: rgba(254,254,254,0.7); font-weight: 300; line-height: 1.7; margin-bottom: 1.75rem; }
+    .cta-h { font-family: 'DM Sans', system-ui, sans-serif; font-size: 2rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.75rem; }
+    .cta-p { font-size: 1rem; color: rgba(247,245,240,0.7); font-weight: 400; line-height: 1.7; margin-bottom: 1.75rem; }
     .btn-primary {
-      display: inline-block; background: #FEFEFE; color: #1A4220;
+      display: inline-block; background: #F7F5F0; color: #1C2826;
       font-family: 'Outfit', sans-serif; font-size: 0.9375rem; font-weight: 600;
       padding: 0.875rem 2rem; border-radius: 8px; text-decoration: none;
       letter-spacing: 0.02em; transition: background 0.2s ease; margin: 0.4rem;
     }
-    .btn-primary:hover { background: #F7F5F2; }
+    .btn-primary:hover { background: #EDEAE6; }
     .btn-ghost-light {
-      display: inline-block; color: rgba(254,254,254,0.8); font-family: 'Outfit', sans-serif;
+      display: inline-block; color: rgba(247,245,240,0.8); font-family: 'Outfit', sans-serif;
       font-size: 0.875rem; font-weight: 400; text-decoration: none;
-      border-bottom: 1px solid rgba(254,254,254,0.35); padding-bottom: 1px;
+      border-bottom: 1px solid rgba(247,245,240,0.35); padding-bottom: 1px;
       margin: 0.4rem 1rem; transition: color 0.2s ease;
     }
-    .btn-ghost-light:hover { color: #FEFEFE; }
+    .btn-ghost-light:hover { color: #F7F5F0; }
 
     /* Footer */
-    .site-footer { background: #1A4220; padding: 3.5rem 2.5rem 2rem; }
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; }
     .footer-inner {
       max-width: 960px; margin: 0 auto;
       display: grid; grid-template-columns: 1fr 1fr 1fr;
       gap: 2rem; align-items: start;
-      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(254,254,254,0.12);
+      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12);
     }
     @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; } }
-    .footer-brand { font-family: 'Crimson Pro', Georgia, serif; font-size: 1.125rem; font-weight: 700; color: #FEFEFE; margin-bottom: 0.4rem; }
-    .footer-brand-sub { font-size: 0.8rem; color: rgba(254,254,254,0.45); font-weight: 300; line-height: 1.6; }
-    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(254,254,254,0.4); margin-bottom: 0.75rem; }
+    .footer-brand { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.45); font-weight: 400; line-height: 1.6; }
+    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.4); margin-bottom: 0.75rem; }
     .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
-    .footer-nav-link { color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
-    .footer-nav-link:hover { color: #FEFEFE; }
-    .footer-contact-link { display: block; color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
-    .footer-contact-link:hover { color: #FEFEFE; }
+    .footer-nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
+    .footer-nav-link:hover { color: #F7F5F0; }
+    .footer-contact-link { display: block; color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
+    .footer-contact-link:hover { color: #F7F5F0; }
     .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
-    .footer-tagline { font-family: 'Crimson Pro', Georgia, serif; font-size: 1rem; font-style: italic; color: rgba(254,254,254,0.35); }
+    .footer-tagline { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1rem; font-style: italic; color: rgba(247,245,240,0.35); }
 
     @media (max-width: 720px) {
       .header-band { padding: 0 1.25rem; }
@@ -383,7 +383,7 @@
           <div class="anim" data-delay="0.2">
             <div class="aipov-quote" style="font-size:clamp(1rem,1.6vw,1.2rem);margin-bottom:1.5rem;">
               "She walked into a room, established personal connections, asked probing questions that transformed anticipated goals into actual goals, and had a draft of next steps in under an hour."
-              <span style="display:block;margin-top:0.75rem;font-size:0.8rem;font-style:normal;font-weight:600;color:#255B2C;">— Elizabeth Bastian, U.S. Army Corps of Engineers</span>
+              <span style="display:block;margin-top:0.75rem;font-size:0.8rem;font-style:normal;font-weight:600;color:#376E5A;">— Elizabeth Bastian, U.S. Army Corps of Engineers</span>
             </div>
             <p class="body-p" style="font-size:0.9375rem;">
               I've done this in public health departments, Fortune 500 supply chains, and military theaters. The domain changes. The instinct — go toward the people, slow down, understand before you build — that part doesn't.
@@ -561,20 +561,20 @@
           </p>
         </div>
         <div style="display:flex;flex-direction:column;gap:0.875rem;">
-          <div style="padding:1.25rem;background:#FEFEFE;border-radius:10px;border:1px solid #e8e8e8;">
-            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#255B2C;margin-bottom:0.4rem;">Geospatial Community</div>
-            <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.5rem;font-weight:900;color:#1A4220;line-height:1;">~2,000</div>
-            <div style="font-size:0.8rem;color:#484848;font-weight:300;margin-top:0.2rem;">person email audience — Tabulae Spatial brand</div>
+          <div style="padding:1.25rem;background:#FEFEFE;border-radius:10px;border:1px solid #E0DDD8;">
+            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#376E5A;margin-bottom:0.4rem;">Geospatial Community</div>
+            <div style="font-family:'DM Sans',system-ui,sans-serif;font-size:1.5rem;font-weight:700;color:#1C2826;line-height:1;">~2,000</div>
+            <div style="font-size:0.8rem;color:#4A5A54;font-weight:400;margin-top:0.2rem;">person email audience — Tabulae Spatial brand</div>
           </div>
-          <div style="padding:1.25rem;background:#FEFEFE;border-radius:10px;border:1px solid #e8e8e8;">
-            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#255B2C;margin-bottom:0.4rem;">BEST Foundation · Bulgaria</div>
-            <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.5rem;font-weight:900;color:#1A4220;line-height:1;">6 → 35+</div>
-            <div style="font-size:0.8rem;color:#484848;font-weight:300;margin-top:0.2rem;">schools · 1,000+ students · co-founded during Fulbright</div>
+          <div style="padding:1.25rem;background:#FEFEFE;border-radius:10px;border:1px solid #E0DDD8;">
+            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#376E5A;margin-bottom:0.4rem;">BEST Foundation · Bulgaria</div>
+            <div style="font-family:'DM Sans',system-ui,sans-serif;font-size:1.5rem;font-weight:700;color:#1C2826;line-height:1;">6 → 35+</div>
+            <div style="font-size:0.8rem;color:#4A5A54;font-weight:400;margin-top:0.2rem;">schools · 1,000+ students · co-founded during Fulbright</div>
           </div>
-          <div style="padding:1.25rem;background:#FEFEFE;border-radius:10px;border:1px solid #e8e8e8;">
-            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#255B2C;margin-bottom:0.4rem;">AI for Public Health CoP</div>
-            <div style="font-family:'Crimson Pro',Georgia,serif;font-size:1.5rem;font-weight:900;color:#1A4220;line-height:1;">Monthly</div>
-            <div style="font-size:0.8rem;color:#484848;font-weight:300;margin-top:0.2rem;">peer learning community · guest speakers · no hype</div>
+          <div style="padding:1.25rem;background:#FEFEFE;border-radius:10px;border:1px solid #E0DDD8;">
+            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#376E5A;margin-bottom:0.4rem;">AI for Public Health CoP</div>
+            <div style="font-family:'DM Sans',system-ui,sans-serif;font-size:1.5rem;font-weight:700;color:#1C2826;line-height:1;">Monthly</div>
+            <div style="font-size:0.8rem;color:#4A5A54;font-weight:400;margin-top:0.2rem;">peer learning community · guest speakers · no hype</div>
           </div>
         </div>
       </div>
