@@ -42,9 +42,9 @@
     .header-tagline {
       font-size: 0.7rem; font-weight: 400; color: rgba(254,254,254,0.45);
       letter-spacing: 0.08em; text-transform: uppercase; margin-left: 1rem;
+      display: none;
     }
     @media (min-width: 860px) { .header-tagline { display: inline; } }
-    .header-tagline { display: none; }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-link {
       color: rgba(254,254,254,0.65); text-decoration: none;
@@ -192,8 +192,9 @@
 
     /* Sidebar cards */
     .sidebar-card {
-      background: #FEFEFE; border-radius: 10px;
+      background: rgba(55,110,90,0.03); border-radius: 10px;
       border: 1px solid #E0DDD8;
+      border-left: 3px solid #8DB8A0;
       padding: 1.25rem; margin-bottom: 1rem;
     }
     .sidebar-card:last-child { margin-bottom: 0; }
@@ -295,6 +296,7 @@
   <header class="header-band" role="banner">
     <div style="display:flex;align-items:baseline;">
       <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <span class="header-tagline">The domain changes. The approach doesn't.</span>
     </div>
     <nav class="nav-links" aria-label="Main navigation">
       <a href="index-ai.html" class="nav-link">Home</a>
@@ -505,8 +507,8 @@
 
     <div class="metrics-row anim">
       <div class="metric-block">
-        <div class="metric-num">1000%</div>
-        <div class="metric-label">Reduction in dashboard reporting processing time</div>
+        <div class="metric-num">8h → 30m</div>
+        <div class="metric-label">Dashboard reporting time cut</div>
       </div>
       <div class="metric-block">
         <div class="metric-num">First</div>
@@ -537,7 +539,7 @@
           <div class="case-li">Cleaned up the codebase: relative paths, proper date handling, updated model logic</div>
           <div class="case-li">Brought in new spatial data sources as better predictors of e-commerce demand than the originals</div>
           <div class="case-li">Ran PCA — the first validation the model had ever received — to build stakeholder confidence and expand adoption</div>
-          <div class="case-li">Systematic dashboard process: SQL → Alteryx → Tableau, 1000% reduction in processing time</div>
+          <div class="case-li">Systematic dashboard process: SQL → Alteryx → Tableau, cut reporting time from 8 hours to 30 minutes</div>
           <div class="case-li">Set investment priorities for multi-year e-commerce facility network decisions</div>
 
           <div class="case-label">What changed</div>

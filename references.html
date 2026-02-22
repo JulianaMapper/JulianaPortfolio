@@ -36,6 +36,11 @@
       font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700;
       font-size: 1.125rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none;
     }
+    .header-tagline {
+      font-size: 0.7rem; font-weight: 400; color: rgba(247,245,240,0.45);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-left: 1rem; display: none;
+    }
+    @media (min-width: 860px) { .header-tagline { display: inline; } }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-link {
       color: rgba(247,245,240,0.65); text-decoration: none;
@@ -166,6 +171,7 @@
   <header class="header-band" role="banner">
     <div style="display:flex;align-items:baseline;">
       <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <span class="header-tagline">The domain changes. The approach doesn't.</span>
     </div>
     <nav class="nav-links" aria-label="Main navigation">
       <a href="index-ai.html" class="nav-link">Home</a>

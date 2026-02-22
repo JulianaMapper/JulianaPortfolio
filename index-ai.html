@@ -203,6 +203,24 @@
       margin-top: 0.35rem; font-weight: 400; line-height: 1.4;
     }
 
+    /* ── Recognition strip ── */
+    .recognition-strip {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 0.5rem 1rem;
+      padding: 0.85rem 2.5rem;
+      background: rgba(212,160,122,0.08);
+      border-bottom: 1px solid rgba(212,160,122,0.2);
+    }
+    .rec-badge {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #1C2826;
+    }
+    .rec-sep {
+      color: rgba(212,160,122,0.7); font-size: 0.8rem;
+    }
+
     /* ── Section shared ── */
     .section-tag {
       font-size: 0.6875rem; font-weight: 600;
@@ -455,7 +473,7 @@
       position: absolute; bottom: -0.25rem; right: 0.75rem;
       font-family: 'DM Sans', system-ui, sans-serif;
       font-size: 5rem; font-weight: 700; line-height: 1;
-      color: rgba(55,110,90,0.05); pointer-events: none;
+      color: rgba(55,110,90,0.07); pointer-events: none;
       user-select: none; letter-spacing: -0.03em;
     }
     .work-card:hover .work-ghost { color: rgba(55,110,90,0.09); transition: color 0.25s ease; }
@@ -499,6 +517,7 @@
   <header class="header-band" role="banner">
     <div style="display:flex;align-items:baseline;gap:0;">
       <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <span class="header-tagline">The domain changes. The approach doesn't.</span>
     </div>
     <nav class="nav-links" aria-label="Main navigation">
       <a href="index-ai.html" class="nav-link active">Home</a>
@@ -530,8 +549,6 @@
       <div class="hero-actions anim" data-delay="0.4">
         <a href="work.html" class="btn-primary">See the work →</a>
         <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="btn-ghost">Let's talk</a>
-        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn</a>
-        <a href="Juliana_McMillan-Wilhoit_Resume.pdf" download class="btn-ghost" style="display:inline-flex;align-items:center;gap:0.35rem;"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
       </div>
       <div class="hero-open anim" data-delay="0.5">
         Open to product leadership roles — W2, fractional CPO, or advisory. · Northern Illinois.
@@ -558,13 +575,24 @@
       <div class="stat-label">Public health professionals interviewed before building PH360</div>
     </div>
     <div class="stat-item anim" data-delay="0.2">
-      <div class="stat-num" data-count="1000" data-suffix="%">1000%</div>
-      <div class="stat-label">Reduction in dashboard reporting time — Peapod</div>
+      <div class="stat-num">8h → 30m</div>
+      <div class="stat-label">Dashboard reporting time cut — Peapod</div>
     </div>
-    <div class="stat-item anim" data-delay="0.3">
-      <div class="stat-num">DA Medal</div>
+    <div class="stat-item anim" data-delay="0.3" style="background:rgba(212,160,122,0.06);">
+      <div class="stat-num" style="color:#D4A07A;">DA Medal</div>
       <div class="stat-label">Department of the Army Medal for Civilian Service — ENSITE</div>
     </div>
+  </div>
+
+  <!-- Recognition strip -->
+  <div class="recognition-strip" aria-label="Key credentials">
+    <span class="rec-badge">Fulbright Scholar</span>
+    <span class="rec-sep">·</span>
+    <span class="rec-badge">Department of the Army Medal</span>
+    <span class="rec-sep">·</span>
+    <span class="rec-badge">Geospatial Rising Star</span>
+    <span class="rec-sep">·</span>
+    <span class="rec-badge">3× National Keynote</span>
   </div>
 
   <!-- Marquee -->
@@ -646,17 +674,17 @@
         <div class="work-domain">U.S. Army Corps of Engineers · Defense</div>
         <div class="work-title">ENSITE: The military's first global site location tool</div>
         <div class="work-sub">PM for a product that had never existed. ENSITE deployed to Iraq, Afghanistan, and Poland.</div>
-        <div class="work-metric">DA Medal</div>
+        <div class="work-metric" style="color:#D4A07A;">DA Medal</div>
         <div class="work-metric-label">Department of the Army Medal for Civilian Service</div>
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="work.html#peapod" class="work-card anim" data-delay="0.1">
-        <div class="work-ghost">1000%</div>
+        <div class="work-ghost">10×</div>
         <div class="work-domain">Peapod Digital Labs (ADUSA) · Supply Chain</div>
         <div class="work-title">The demand model nobody had validated</div>
         <div class="work-sub">Inherited a model driving multi-million dollar facility decisions. Nobody had ever stress-tested it.</div>
-        <div class="work-metric" data-count="1000" data-suffix="%">1000%</div>
-        <div class="work-metric-label">Reduction in dashboard reporting time</div>
+        <div class="work-metric">8h → 30m</div>
+        <div class="work-metric-label">Dashboard reporting time cut</div>
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="work.html#library" class="work-card anim" data-delay="0.2">
@@ -820,7 +848,9 @@
         'AWS Bedrock', 'Supply Chain', 'Product Leadership',
         'AI Readiness', 'Defense &amp; DOD', 'User Research',
         'Data Governance', 'Python &amp; Automation', 'Keynote Speaking',
-        'Storytelling with Data', 'Community Building'
+        'Storytelling with Data', 'Community Building',
+        'Commercial Real Estate', 'M&amp;A Due Diligence',
+        'Health Equity', 'Social Impact', 'Audience Building'
       ];
       // Build one set of items as HTML
       const set = items.map(t =>

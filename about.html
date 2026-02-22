@@ -145,6 +145,26 @@
       font-weight: 400; color: #1C2826;
     }
 
+    /* Speaking */
+    .speaking-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    @media (max-width: 720px) { .speaking-grid { grid-template-columns: 1fr; } }
+    .speaking-card {
+      padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+      background: #FEFEFE; border-radius: 10px;
+      border: 1px solid #E0DDD8;
+    }
+    .speaking-event { font-size: 0.9rem; font-weight: 700; color: #1C2826; margin-bottom: 0.2rem; }
+    .speaking-year { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.6rem; }
+    .speaking-topic { font-size: 0.8125rem; color: #4A5A54; line-height: 1.55; font-weight: 400; }
+    .btn-speaking {
+      display: inline-block; background: #376E5A; color: #FEFEFE;
+      font-family: 'Outfit', sans-serif; font-size: 0.9375rem;
+      font-weight: 600; padding: 0.875rem 1.75rem;
+      border-radius: 8px; text-decoration: none;
+      letter-spacing: 0.02em; transition: background 0.2s ease;
+    }
+    .btn-speaking:hover { background: #2D5A49; }
+
     /* Pull quote */
     .pullquote {
       font-family: 'DM Sans', system-ui, sans-serif;
@@ -216,6 +236,7 @@
   <header class="header-band" role="banner">
     <div style="display:flex;align-items:baseline;">
       <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <span class="header-tagline">The domain changes. The approach doesn't.</span>
     </div>
     <nav class="nav-links" aria-label="Main navigation">
       <a href="index-ai.html" class="nav-link">Home</a>
@@ -249,7 +270,7 @@
           <strong>My superpower isn't technology</strong> — it's the combination of genuine curiosity, deep listening, and the ability to translate what I hear into something that actually gets built. I ask better questions than most. I stay until I understand what's actually broken. Then I build the fix.
         </p>
         <p class="body-p anim" data-delay="0.3">
-          I'm Chief Product Officer and Co-Founder of Flourish &amp; Thrive Labs — a WBE and SBA 8(a) certified public health technology company. I'm also a Fulbright Scholar, three-time national keynote speaker, and the person who built a library automation system for her own family because she couldn't walk past a broken process.
+          I'm Chief Product Officer and Co-Founder of Flourish &amp; Thrive Labs — a WBE and SBA 8(a) certified public health technology company. I'm also a <span style="background:rgba(212,160,122,0.15);padding:0.1em 0.3em;border-radius:3px;">Fulbright Scholar</span>, three-time national keynote speaker, and the person who built a library automation system for her own family because she couldn't walk past a broken process.
         </p>
         <p class="body-p anim" data-delay="0.3">
           I also build communities around the problems I care about — not as a side project, but as part of the work. I grew a 2,000-person geospatial audience under the Tabulae Spatial brand, hosted Mappy Hours as a gathering point for the geospatial community, co-founded the Bulgarian English Speech Tournament Foundation (6 schools → 35+), and now run a monthly AI for Public Health Community of Practice. I've led multiple storytelling with data trainings for clients and spoken on national stages three times. The instinct is the same one I bring to product work: find where people are isolated or stuck, and create the thing that brings them together.
@@ -298,7 +319,7 @@
           <div class="timeline-date">2013 – 2019</div>
           <div class="timeline-org">U.S. Army Corps of Engineers (CERL/ERDC)</div>
           <div class="timeline-role">Community Planner → Product Manager, ENSITE</div>
-          <div class="timeline-p">Built the military's first global site location tool. Deployed to Puerto Rico as GIS Team Lead after Hurricane Maria. Mentored by GRASS GIS creator Jim Westervelt, who gave me the advice I've carried ever since: go talk to the people who will use it before you build anything. Received the Department of the Army Medal for Civilian Service.</div>
+          <div class="timeline-p">Built the military's first global site location tool. Deployed to Puerto Rico as GIS Team Lead after Hurricane Maria. Mentored by GRASS GIS creator Jim Westervelt, who gave me the advice I've carried ever since: go talk to the people who will use it before you build anything. Received the <span style="background:rgba(212,160,122,0.15);padding:0.1em 0.3em;border-radius:3px;">Department of the Army Medal for Civilian Service</span>.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
@@ -312,7 +333,7 @@
           <div class="timeline-date">2020 – 2023</div>
           <div class="timeline-org">Peapod Digital Labs (ADUSA Supply Chain Services)</div>
           <div class="timeline-role">Product Manager / Senior Network Strategy Analyst</div>
-          <div class="timeline-p">PM for the demand model driving multi-million dollar e-commerce facility decisions. Ran the first validation the model had ever received. Built a systematic dashboard process that reduced reporting time by 1000%. Ran this concurrently with Tabulae Spatial consulting work.</div>
+          <div class="timeline-p">PM for the demand model driving multi-million dollar e-commerce facility decisions. Ran the first validation the model had ever received. Built a systematic dashboard process that cut reporting time from 8 hours to 30 minutes. Ran this concurrently with Tabulae Spatial consulting work.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
@@ -330,12 +351,12 @@
     <div class="section-label anim">Recognition</div>
     <h2 class="section-h2 anim" data-delay="0.1">A few highlights</h2>
     <div class="rec-grid anim" data-delay="0.2">
-      <div class="rec-card">
-        <div class="rec-num">Fulbright</div>
+      <div class="rec-card" style="background:rgba(212,160,122,0.07);border-color:rgba(212,160,122,0.25);">
+        <div class="rec-num" style="color:#D4A07A;">Fulbright</div>
         <div class="rec-label">Scholar — English Teaching Assistantship, Bulgaria 2012–2013</div>
       </div>
-      <div class="rec-card">
-        <div class="rec-num">DA Medal</div>
+      <div class="rec-card" style="background:rgba(212,160,122,0.07);border-color:rgba(212,160,122,0.25);">
+        <div class="rec-num" style="color:#D4A07A;">DA Medal</div>
         <div class="rec-label">Department of the Army Medal for Civilian Service, 2017</div>
       </div>
       <div class="rec-card">
@@ -354,6 +375,44 @@
         <div class="rec-num">Summa</div>
         <div class="rec-label">Summa Cum Laude, Wheaton College — 3.85 GPA, top 5% of class</div>
       </div>
+    </div>
+  </section>
+
+  <!-- Speaking -->
+  <section class="content-section" id="speaking">
+    <div class="section-label anim">Speaking</div>
+    <h2 class="section-h2 anim" data-delay="0.1">On national stages — and available for yours</h2>
+    <p class="body-p anim" data-delay="0.2">Three-time national keynote speaker on AI in public health and geospatial. I speak from the inside: the case studies are mine, the failures are real, and the audience walks away with something actionable.</p>
+    <div class="speaking-grid anim" data-delay="0.3">
+      <div class="speaking-card" style="border-left:3px solid #D4A07A;">
+        <div class="speaking-event">National Maternal &amp; Child Health Conference</div>
+        <div class="speaking-year">2026</div>
+        <div class="speaking-topic">AI implementation for local public health departments — what's working, what's not, and how to start</div>
+      </div>
+      <div class="speaking-card" style="border-left:3px solid #376E5A;">
+        <div class="speaking-event">West Virginia GeoCon</div>
+        <div class="speaking-year">2024</div>
+        <div class="speaking-topic">Geospatial AI in practice: from research to deployed tools in the field</div>
+      </div>
+      <div class="speaking-card" style="border-left:3px solid #376E5A;">
+        <div class="speaking-event">Kansas Association of Mappers</div>
+        <div class="speaking-year">2023</div>
+        <div class="speaking-topic">Storytelling with geospatial data — how maps mislead and how to fix it</div>
+      </div>
+    </div>
+    <div class="speaking-topics anim" data-delay="0.4">
+      <div class="section-label" style="margin-top:2.5rem;margin-bottom:0.75rem;">Topic areas</div>
+      <div class="strength-row">
+        <span class="strength-pill">AI in public health</span>
+        <span class="strength-pill">Responsible AI implementation</span>
+        <span class="strength-pill">Geospatial analytics</span>
+        <span class="strength-pill">Storytelling with data</span>
+        <span class="strength-pill">Product leadership</span>
+        <span class="strength-pill">Human-centered AI</span>
+      </div>
+    </div>
+    <div class="anim" data-delay="0.4" style="margin-top:2rem;">
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com?subject=Speaking%20Inquiry" class="btn-speaking">Invite me to speak →</a>
     </div>
   </section>
 
