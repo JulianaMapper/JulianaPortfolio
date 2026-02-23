@@ -203,22 +203,40 @@
       margin-top: 0.35rem; font-weight: 400; line-height: 1.4;
     }
 
-    /* ── Recognition strip ── */
-    .recognition-strip {
+    /* ── Recognition section ── */
+    .recognition-section {
+      background: #FEFEFE;
+      border-top: 1px solid #E0DDD8;
+      border-bottom: 1px solid #E0DDD8;
+      padding: 3.5rem 2.5rem;
+    }
+    .recognition-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 720px) {
+      .recognition-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .recognition-inner { grid-template-columns: 1fr; }
+    }
+    .rec-item { text-align: center; }
+    .rec-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(55,110,90,0.08);
       display: flex; align-items: center; justify-content: center;
-      flex-wrap: wrap; gap: 0.5rem 1rem;
-      padding: 0.85rem 2.5rem;
-      background: rgba(212,160,122,0.08);
-      border-bottom: 1px solid rgba(212,160,122,0.2);
+      margin: 0 auto 1rem;
+      font-size: 1.5rem; color: #376E5A;
     }
-    .rec-badge {
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: #1C2826;
+    .rec-title {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.9375rem; font-weight: 700;
+      color: #1C2826; margin-bottom: 0.35rem;
     }
-    .rec-sep {
-      color: rgba(212,160,122,0.7); font-size: 0.8rem;
+    .rec-desc {
+      font-size: 0.8rem; color: #4A5A54;
+      font-weight: 400; line-height: 1.5;
     }
 
     /* ── Section shared ── */
@@ -583,17 +601,6 @@
     </div>
   </div>
 
-  <!-- Recognition strip -->
-  <div class="recognition-strip" aria-label="Key credentials">
-    <span class="rec-badge">Fulbright Scholar</span>
-    <span class="rec-sep">·</span>
-    <span class="rec-badge">Department of the Army Medal</span>
-    <span class="rec-sep">·</span>
-    <span class="rec-badge">Geospatial Rising Star</span>
-    <span class="rec-sep">·</span>
-    <span class="rec-badge">3× National Keynote</span>
-  </div>
-
   <!-- Marquee -->
   <div class="marquee-strip" aria-hidden="true">
     <div class="marquee-track" id="marquee-track"></div>
@@ -734,6 +741,32 @@
       <div>
         <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="cta-btn">Email me →</a>
         <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="cta-link">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recognition -->
+  <section class="recognition-section">
+    <div class="recognition-inner anim">
+      <div class="rec-item">
+        <div class="rec-icon"><i class="ti ti-world"></i></div>
+        <div class="rec-title">Fulbright Scholar</div>
+        <div class="rec-desc">English Teaching Assistantship — Bulgaria, 2012–2013</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon"><i class="ti ti-medal"></i></div>
+        <div class="rec-title">Department of the Army Medal</div>
+        <div class="rec-desc">Medal for Civilian Service — ENSITE, 2017</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon"><i class="ti ti-star"></i></div>
+        <div class="rec-title">Geospatial Rising Star</div>
+        <div class="rec-desc">Geospatial World Magazine, 2022</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon"><i class="ti ti-microphone"></i></div>
+        <div class="rec-title">3× National Keynote</div>
+        <div class="rec-desc">NMCH 2026 · WV GeoCon 2024 · KAM 2023</div>
       </div>
     </div>
   </section>
