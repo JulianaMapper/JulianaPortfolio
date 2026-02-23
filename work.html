@@ -341,16 +341,16 @@
 
     <div class="metrics-row anim">
       <div class="metric-block">
-        <div class="metric-num">83%</div>
-        <div class="metric-label">Workload reduction on routine tasks — Sauk County</div>
+        <div class="metric-num">30m → 5m</div>
+        <div class="metric-label">Time to get an answer on routine tasks — Sauk County (83% reduction)</div>
       </div>
       <div class="metric-block">
         <div class="metric-num">50+</div>
-        <div class="metric-label">Public health professionals interviewed before building</div>
+        <div class="metric-label">Public health professionals interviewed before writing a line of code</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">3</div>
-        <div class="metric-label">Early-adopter health departments across the US</div>
+        <div class="metric-num">5+</div>
+        <div class="metric-label">LLMs tested before committing to the production stack</div>
       </div>
       <div class="metric-block">
         <div class="metric-num">National</div>
@@ -367,30 +367,38 @@
           <p class="case-p">The challenge wasn't technical appetite. It was that the tools that existed weren't built for public health's unique constraints: HIPAA compliance, Sunshine Law data retention requirements, limited IT staff, and leadership that needed policy cover before they could say yes to anything new.</p>
 
           <div class="case-label">What I heard</div>
-          <p class="case-p">I personally found people, structured the interviews, and led 50+ conversations with public health professionals across the US. The real blocker wasn't technology — it was policy ambiguity. Agencies didn't know what was allowed.</p>
-          <p class="case-p">The second finding: even where AI was technically permitted, staff had no path to building a compliant knowledge base. Their information was locked in forms, case reports, food code manuals, and legacy systems — with no clear way to make it searchable or conversational without creating legal exposure.</p>
+          <p class="case-p">I personally found people, structured the interviews, and led 50+ conversations with public health professionals across the US. The real blocker wasn't technology — it was policy ambiguity. Agencies didn't know what was allowed. "You can't use Google Docs but you can use a commercial AI tool" — the rules were inconsistent and nobody could explain them.</p>
+          <p class="case-p">The second finding: even where AI was technically permitted, staff had no path to building a compliant knowledge base. Their information was locked in forms, case reports, food code manuals, and legacy systems — with no clear way to make it searchable without creating legal exposure.</p>
+          <p class="case-p">The interviews also surfaced a product opportunity I hadn't planned for: organizations didn't just need a tool — they needed help writing the AI policy that would let them use it. That became a separate offering.</p>
+
+          <div class="case-label">How I built it</div>
+          <p class="case-p">The first prototype was entirely hand-coded by me — before AI coding tools existed. We had grant funding for a specific project and I started with the simplest thing that could work: a chat interface for asking questions of a food code document. I ran structured comparative tests across 5+ LLMs using a script I built to swap API keys — testing on real tasks, not benchmarks — before committing to AWS Bedrock. We tested different embeddings models and chunking strategies for the RAG knowledge base. Then iterated from there: food code chat → photo scanning for restaurant inspections → full knowledge base management.</p>
 
           <div class="case-label">What I built</div>
           <div class="case-li">HIPAA-compliant AI chatbot builder on AWS Bedrock with RAG and document upload</div>
           <div class="case-li">Sunshine Law-compliant data retention — purpose-built for public records requirements</div>
           <div class="case-li">Modular Salesforce platform with insurance reimbursement capabilities</div>
           <div class="case-li">AI Policy Guide: "12 Things to Include in an AI Policy for Public Health Departments" — free, adopted nationally</div>
+          <div class="case-li">AI Policy Workshop offering — delivered first with Public Health Services Council of Ohio, built directly from what discovery interviews revealed</div>
           <div class="case-li">Monthly AI for Public Health Community of Practice — peer learning with guest speakers</div>
           <div class="case-li">Process mapping methodology: mapped Sauk County's workflows using the Head/Heart filter before touching any technology</div>
 
           <div class="case-label">What changed</div>
-          <p class="case-p">Sauk County achieved an 83% reduction in workload on routine tasks — not by working harder, but by finally being able to see which tasks required their expertise and which didn't. Staff freed to do real public health work instead of administrative lookup.</p>
-          <p class="case-p">A small initial engagement grew into a flagship partnership. The AI Policy Guide became the resource health departments use to get leadership buy-in.</p>
+          <p class="case-p">Tasks that used to take 30 minutes now take 5. Sauk County staff can get an answer on a routine question in the time it takes to make a cup of coffee — instead of digging through binders or calling the state. That's the 83% reduction in real terms.</p>
+          <p class="case-p">A small initial engagement grew into a flagship partnership. The AI Policy Guide became the resource health departments use to get leadership buy-in before they can say yes to anything new.</p>
 
           <div class="case-label">Tools &amp; Stack</div>
           <div>
             <span class="tool-pill">AWS Bedrock</span>
             <span class="tool-pill">Claude API</span>
-            <span class="tool-pill">Salesforce</span>
+            <span class="tool-pill">Multi-LLM Testing</span>
             <span class="tool-pill">RAG Architecture</span>
+            <span class="tool-pill">Embeddings</span>
+            <span class="tool-pill">Salesforce</span>
             <span class="tool-pill">HIPAA Compliance</span>
             <span class="tool-pill">Sunshine Law</span>
             <span class="tool-pill">Process Mapping</span>
+            <span class="tool-pill">SAFe</span>
           </div>
         </div>
 
@@ -400,9 +408,12 @@
             <div class="case-screenshot-caption">Placeholder — PH360 dashboard UI (screenshot pending)</div>
           </div>
           <div class="sidebar-card">
-            <div class="sidebar-card-label">In their words</div>
-            <div class="sidebar-card-text">"You can't automate what you don't understand. And you definitely shouldn't automate what's already broken."</div>
-            <span class="sidebar-card-cite">— Juliana McMillan-Wilhoit</span>
+            <div class="sidebar-card-label">On model selection</div>
+            <div class="sidebar-card-text">I built a script to run structured tests across 5+ LLMs before committing to a stack. Real tasks, not benchmarks. The model decision followed the evidence.</div>
+          </div>
+          <div class="sidebar-card">
+            <div class="sidebar-card-label">What the interviews surfaced</div>
+            <div class="sidebar-card-text">Organizations didn't just need a tool. They needed the policy that let them use it. The AI Policy Guide wasn't planned — it came directly from listening.</div>
           </div>
           <div class="sidebar-card">
             <div class="sidebar-card-label">The pattern</div>
