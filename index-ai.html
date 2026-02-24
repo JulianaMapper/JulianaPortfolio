@@ -470,29 +470,6 @@
       color: rgba(247,245,240,0.35);
     }
 
-    /* ── Marquee ── */
-    .marquee-strip {
-      overflow: hidden; background: #1C2826;
-      padding: 1rem 0; border-top: 1px solid rgba(247,245,240,0.08);
-    }
-    .marquee-track {
-      display: flex; gap: 0;
-      animation: marquee 28s linear infinite;
-      width: max-content;
-    }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    .marquee-item {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 1rem; font-style: italic; font-weight: 400;
-      color: rgba(247,245,240,0.5); white-space: nowrap;
-      padding: 0 2rem;
-    }
-    .marquee-sep {
-      color: rgba(212,160,122,0.4); padding: 0 0.5rem; font-style: normal;
-    }
 
     /* ── Work cards with ghost metric ── */
     .work-card { position: relative; overflow: hidden; }
@@ -611,10 +588,6 @@
     </div>
   </div>
 
-  <!-- Marquee -->
-  <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-track" id="marquee-track"></div>
-  </div>
 
   <!-- Thesis -->
   <section class="thesis-section">
@@ -877,26 +850,6 @@
       document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
     }
 
-    // ── Seamless marquee ─────────────────────────────────────────────────────
-    function initMarquee() {
-      const track = document.getElementById('marquee-track');
-      if (!track) return;
-      const items = [
-        'Public Health AI', 'Geospatial Analytics', 'Process Mapping',
-        'AWS Bedrock', 'Supply Chain', 'Product Leadership',
-        'AI Readiness', 'Defense &amp; DOD', 'User Research',
-        'Data Governance', 'Python &amp; Automation', 'Keynote Speaking',
-        'Storytelling with Data', 'Community Building',
-        'Commercial Real Estate', 'M&amp;A Due Diligence',
-        'Health Equity', 'Social Impact', 'Audience Building'
-      ];
-      // Build one set of items as HTML
-      const set = items.map(t =>
-        `<span class="marquee-item">${t}<span class="marquee-sep"> ·</span></span>`
-      ).join('');
-      // Duplicate so the animation loops by translating -50%
-      track.innerHTML = set + set;
-    }
 
     // ── Testimonial carousel ──────────────────────────────────────────────────
     function initCarousel() {
@@ -934,7 +887,6 @@
     initCyclingHeadline();
     initFadeIns();
     initCounters();
-    initMarquee();
     initCarousel();
   </script>
 </body>
