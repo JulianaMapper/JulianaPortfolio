@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Text Reformatter — Still Water</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    :root {
+      --ink:        #1C2826;
+      --body:       #4A5A54;
+      --accent:     #376E5A;
+      --coral:      #D4A07A;
+      --ground:     #F7F5F0;
+      --surface:    #FEFEFE;
+      --border:     #E0DDD8;
+      --accent-lt:  #8DB8A0;
+      --hover:      #2D5A49;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "DM Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 400;
+      margin: 0;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      background-color: var(--ground);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0 1.5rem 0;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-wordmark {
+      font-family: "DM Sans", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--body);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── CONTAINER ── */
+    .container {
+      background: var(--surface);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(28,40,38,0.07);
+      border: 1px solid var(--border);
+    }
+
+    /* ── HEADER ── */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      font-family: "DM Sans", sans-serif;
+      color: var(--body);
+      margin-bottom: 0;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.65;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tool-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: "Outfit", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: rgba(55,110,90,0.08);
+      border: 1px solid rgba(55,110,90,0.2);
+      border-radius: 20px;
+      padding: 0.3rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── LAYOUT ── */
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-section, .output-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-title {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--body);
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .section-title-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title i { color: var(--accent); font-size: 1rem; }
+
+    /* ── INLINE BUTTON ── */
+    .btn-inline {
+      font-family: "Outfit", sans-serif;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .btn-inline:hover { background-color: var(--hover); }
+
+    /* ── TEXTAREA ── */
+    textarea {
+      flex: 1;
+      min-height: 140px;
+      max-height: 580px;
+      padding: 0.85rem;
+      font-size: 0.9rem;
+      font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      resize: vertical;
+      transition: all 0.2s;
+      background: var(--surface);
+      line-height: 1.55;
+      color: var(--ink);
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(55,110,90,0.12);
+    }
+
+    textarea:hover { border-color: var(--accent-lt); }
+
+    /* ── OUTPUT ── */
+    #output {
+      flex: 1;
+      background-color: var(--surface);
+      border: 1.5px solid var(--border);
+      padding: 0.85rem;
+      border-radius: 10px;
+      min-height: 140px;
+      max-height: 580px;
+      position: relative;
+      transition: border-color 0.2s;
+      overflow-y: auto;
+      color: var(--ink);
+    }
+
+    #output:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(55,110,90,0.12);
+    }
+
+    #output:hover { border-color: var(--accent-lt); }
+
+    #output:empty::before {
+      content: "Your formatted text will appear here…";
+      color: var(--body);
+      font-family: "DM Sans", sans-serif;
+      font-weight: 300;
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 0.95rem;
+    }
+
+    /* Word-preview output styles */
+    #output h1 {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      font-size: 18pt;
+      font-weight: 700;
+      margin: 18pt 0 12pt 0;
+      line-height: 1.2;
+    }
+    #output h2 {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--accent);
+      font-size: 14pt;
+      font-weight: 600;
+      margin: 14pt 0 6pt 0;
+      line-height: 1.2;
+    }
+    #output h3 {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--accent);
+      font-size: 12pt;
+      font-weight: 600;
+      margin: 12pt 0 3pt 0;
+    }
+    #output h4, #output h5, #output h6 {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--accent);
+      font-size: 11pt;
+      font-weight: 600;
+      margin: 10pt 0 3pt 0;
+    }
+    #output p {
+      font-family: 'DM Sans', sans-serif;
+      margin: 0 0 10pt 0;
+      line-height: 1.55;
+      font-size: 11pt;
+      font-weight: 400;
+      color: var(--ink);
+    }
+    #output strong, #output b { font-weight: 600; color: inherit; }
+    #output em, #output i { font-style: italic; color: inherit; }
+    #output blockquote {
+      font-family: 'DM Sans', sans-serif;
+      margin: 10pt 32pt 10pt 32pt;
+      padding: 10pt;
+      border-left: 3px solid var(--coral);
+      background-color: var(--ground);
+      font-size: 11pt;
+      font-style: italic;
+      color: var(--body);
+      line-height: 1.55;
+    }
+    #output table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 10pt 0;
+      font-family: 'DM Sans', sans-serif;
+    }
+    #output table th, #output table td {
+      border: 1px solid var(--border);
+      padding: 4pt 6pt;
+      text-align: left;
+      vertical-align: top;
+    }
+    #output table th {
+      background-color: var(--ink);
+      font-weight: 600;
+      color: white;
+    }
+    #output table tr:nth-child(even) { background-color: var(--ground); }
+    #output table tr:nth-child(odd) { background-color: var(--surface); }
+    #output ul, #output ol { margin: 10pt 0; padding-left: 28pt; }
+    #output li {
+      font-family: 'DM Sans', sans-serif;
+      margin-bottom: 5pt;
+      line-height: 1.55;
+      font-size: 11pt;
+      color: var(--ink);
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      font-family: "Outfit", sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--ground);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--body);
+      font-weight: 400;
+      border: 1px solid var(--border);
+    }
+
+    /* ── BUTTON GROUP ── */
+    .button-group {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-family: "Outfit", sans-serif;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    button i { font-size: 1rem; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 16px rgba(55,110,90,0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: var(--hover);
+      box-shadow: 0 8px 24px rgba(55,110,90,0.32);
+    }
+
+    .btn-secondary {
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 4px 16px rgba(28,40,38,0.2);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: #0f1916;
+      box-shadow: 0 8px 24px rgba(28,40,38,0.28);
+    }
+
+    .btn-tertiary {
+      background: transparent;
+      color: var(--body);
+      border: 1.5px solid var(--border);
+    }
+    .btn-tertiary:hover {
+      border-color: var(--accent-lt);
+      color: var(--ink);
+    }
+
+    .btn-smart {
+      background: linear-gradient(135deg, #376E5A 0%, #D4A07A 100%);
+      color: white;
+      box-shadow: 0 4px 16px rgba(55,110,90,0.2);
+    }
+    .btn-smart:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(55,110,90,0.28);
+    }
+
+    /* ── STATUS ── */
+    .status-message {
+      font-family: "Outfit", sans-serif;
+      padding: 0.85rem 1.25rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: none;
+      animation: slideIn 0.25s ease-out;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .status-success { background: rgba(55,110,90,0.1); color: var(--hover); border-left: 4px solid var(--accent); }
+    .status-error   { background: #fdeeee; color: #721c24; border-left: 4px solid #dc3545; }
+    .status-info    { background: #e3f2fd; color: #1565c0; border-left: 4px solid #2196f3; }
+
+    /* ── KEYBOARD SHORTCUTS ── */
+    .keyboard-shortcuts {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.78rem;
+      color: var(--body);
+      text-align: center;
+      margin-top: 1.25rem;
+      font-weight: 400;
+    }
+    .shortcut-key {
+      background: var(--ground);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+      font-weight: bold;
+      border: 1px solid var(--border);
+    }
+
+    /* ── COPY FEEDBACK ── */
+    .copy-feedback {
+      font-family: "Outfit", sans-serif;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s;
+      box-shadow: 0 3px 12px rgba(55,110,90,0.3);
+      z-index: 10;
+    }
+    .copy-feedback.show {
+      opacity: 1;
+      transform: translateY(-50%) translateX(-8px);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-section-title {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-text {
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--body);
+      line-height: 1.65;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      font-family: "Outfit", sans-serif;
+      font-size: 0.78rem;
+      color: var(--body);
+    }
+
+    .footer-bottom a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .footer-bottom a:hover { color: var(--hover); }
+
+    /* ── DEV NOTES ── */
+    .dev-notes {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background: var(--ground);
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+    }
+    .dev-notes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    .dev-notes-title {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .dev-notes-toggle {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .dev-notes-content {
+      margin-top: 1rem;
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--body);
+      display: none;
+    }
+    .dev-notes-content.show { display: block; }
+    .dev-notes-content h4 {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .dev-notes-content p { margin-bottom: 0.6rem; }
+    .dev-notes-content ul { margin: 0.4rem 0 0.8rem 1.25rem; list-style-type: disc; }
+    .dev-notes-content li { margin-bottom: 0.4rem; }
+    .dev-notes-content code {
+      background: var(--surface);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Monaco', monospace;
+      font-size: 0.82rem;
+      color: var(--accent);
+      border: 1px solid var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) { .main-content { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      body { padding: 1rem; }
+      .container { padding: 1.25rem; }
+      h1 { font-size: 1.8rem; }
+      .button-group { flex-direction: column; }
+      button { width: 100%; justify-content: center; }
+      textarea, #output { min-height: 260px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .site-nav { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="../index-ai.html" class="nav-wordmark">Juliana McMillan-Wilhoit</a>
+    <ul class="nav-links">
+      <li><a href="../work.html">Work</a></li>
+      <li><a href="../thinking.html">Thinking</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../tools.html">Tools</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="header">
+      <div class="tool-badge"><i class="ti ti-sparkles"></i> Personal Tool</div>
+      <h1>AI Text Reformatter</h1>
+      <p class="subtitle">Paste AI-generated markdown and get clean, Word-ready HTML in seconds. Handles headers, tables, lists, and bold formatting — no manual cleanup required.</p>
+    </div>
+
+    <div class="main-content">
+      <div class="input-section">
+        <div class="section-title">
+          <div class="section-title-left"><i class="ti ti-edit"></i> Input Text</div>
+          <button class="btn-inline" onclick="formatText()">Format</button>
+        </div>
+        <div class="stats-bar">
+          <span id="input-count">0 characters, 0 words</span>
+          <span><i class="ti ti-chart-bar"></i> Input</span>
+        </div>
+        <textarea id="input" placeholder="Paste your AI-generated markdown here…"></textarea>
+      </div>
+
+      <div class="output-section">
+        <div class="section-title">
+          <div class="section-title-left"><i class="ti ti-wand"></i> Formatted Output</div>
+          <div style="position: relative;">
+            <button class="btn-inline" onclick="copyFormatted()">Copy</button>
+            <div id="copy-feedback" class="copy-feedback"><i class="ti ti-check"></i> Copied!</div>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <span id="output-count">0 characters, 0 words</span>
+          <span><i class="ti ti-file-check"></i> Ready for Word</span>
+        </div>
+        <div id="output" contenteditable="true"></div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn-primary" onclick="formatText()"><i class="ti ti-transform"></i> Format Text</button>
+      <button class="btn-smart" onclick="formatTextSmart()"><i class="ti ti-brain"></i> Smart Cleanup</button>
+      <button class="btn-secondary" onclick="copyFormatted()"><i class="ti ti-clipboard"></i> Copy to Clipboard</button>
+      <button class="btn-tertiary" onclick="clearAll()"><i class="ti ti-trash"></i> Clear All</button>
+    </div>
+
+    <div class="status-message" id="status-message"></div>
+
+    <div class="keyboard-shortcuts">
+      <i class="ti ti-keyboard"></i> <strong>Shortcuts:</strong>
+      <span class="shortcut-key">Ctrl+Enter</span> format &nbsp;·&nbsp;
+      <span class="shortcut-key">Ctrl+Shift+K</span> copy
+    </div>
+
+    <div class="footer">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-section-title">What this does</div>
+          <p class="footer-text">Converts markdown (as returned by ChatGPT, Claude, Gemini, etc.) into styled HTML that pastes cleanly into Microsoft Word. Headings map to Word's built-in heading styles. Tables retain alternating row colors. No formatting lost in translation.</p>
+        </div>
+        <div>
+          <div class="footer-section-title">Privacy</div>
+          <p class="footer-text">Entirely client-side. Nothing leaves your browser. No server, no tracking, no data stored. Your content stays yours.</p>
+        </div>
+      </div>
+
+      <div class="dev-notes">
+        <div class="dev-notes-header" onclick="toggleDevNotes()">
+          <div class="dev-notes-title"><i class="ti ti-code"></i> Developer Notes</div>
+          <div class="dev-notes-toggle" id="dev-notes-toggle">Show</div>
+        </div>
+        <div class="dev-notes-content" id="dev-notes-content">
+          <h4>Preview vs. Word output</h4>
+          <p>The preview uses Still Water colors. When you paste into Word, content adopts your document's Heading 1–6 styles. Table inline styles (row colors) carry over regardless of Word theme.</p>
+
+          <h4>Format vs. Smart Cleanup</h4>
+          <ul>
+            <li><strong>Format</strong> — minimal processing: bullet normalization, line break cleanup, markdown parse. Preserves your text structure.</li>
+            <li><strong>Smart Cleanup</strong> — aggressive: removes LLM preamble phrases, converts all-caps headers, detects table formats (pipe, TSV, space-aligned), normalizes typography.</li>
+          </ul>
+
+          <h4>Technical stack</h4>
+          <ul>
+            <li>Uses <code>marked.js</code> for markdown → HTML conversion</li>
+            <li>Word-compatible copy via <code>ClipboardItem</code> API with <code>text/html</code> MIME type</li>
+            <li>Table rows get inline background styles at copy time (Word ignores CSS nth-child)</li>
+            <li>Tabler Icons for UI; DM Sans + Outfit for fonts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Built by <a href="../index-ai.html">Juliana McMillan-Wilhoit</a></span>
+        <span><a href="../tools.html">← All tools</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+      sanitize: false,
+      headerIds: false,
+      mangle: false,
+      tables: true,
+      smartLists: true,
+      smartypants: false
+    });
+
+    function updateWordCount(elementId, countId) {
+      const element = document.getElementById(elementId);
+      const countElement = document.getElementById(countId);
+      let text = (element.tagName === 'TEXTAREA') ? element.value : (element.textContent || '');
+      const charCount = text.length;
+      const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+      countElement.textContent = `${charCount.toLocaleString()} characters, ${wordCount.toLocaleString()} words`;
+    }
+
+    function showStatus(message, type, duration = 4000) {
+      const el = document.getElementById('status-message');
+      el.innerHTML = message;
+      el.className = `status-message status-${type}`;
+      el.style.display = 'block';
+      if (el.timeoutId) clearTimeout(el.timeoutId);
+      el.timeoutId = setTimeout(() => { el.style.display = 'none'; }, duration);
+    }
+
+    function formatText() {
+      try {
+        let raw = document.getElementById("input").value;
+        if (!raw.trim()) { showStatus('Please enter some text to format.', 'error'); return; }
+        raw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        raw = raw.replace(/```[\s\S]*?```/g, '');
+        raw = raw.replace(/^\s*[-=]{3,}\s*$/gm, '');
+        raw = raw.trim();
+        raw = raw.replace(/^(\s*)[•]/gm, '$1-');
+        raw = raw.replace(/^(\s*)[▪▫◦]/gm, '$1-');
+        raw = raw.replace(/\*\*([^*]+?):\*(?!\*)/g, '**$1:**');
+        raw = raw.replace(/\n{3,}/g, '\n\n');
+        const html = marked.parse(raw);
+        document.getElementById("output").innerHTML = html.replace(/<p><\/p>/g, '');
+        updateWordCount('output', 'output-count');
+        showStatus('Text formatted successfully.', 'success', 3000);
+      } catch (error) {
+        showStatus(`Error: ${error.message}`, 'error');
+      }
+    }
+
+    function formatTextSmart() {
+      try {
+        let raw = document.getElementById("input").value;
+        if (!raw.trim()) { showStatus('Please enter some text to format.', 'error'); return; }
+        raw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        raw = raw.replace(/```[\s\S]*?```/g, '');
+        raw = raw.replace(/^\s*[-=]{3,}\s*$/gm, '');
+        raw = raw.trim();
+        const llmArtifacts = [
+          /^Here's what I found:?\s*$/gmi,
+          /^Let me help you with that:?\s*$/gmi,
+          /^Based on my analysis:?\s*$/gmi,
+          /^In conclusion:?\s*$/gmi,
+          /^Here are the (?:key|main) (?:points|takeaways):?\s*$/gmi,
+          /^To summarize:?\s*$/gmi,
+          /^(?:Key )?(?:takeaways?|summary):?\s*$/gmi
+        ];
+        llmArtifacts.forEach(p => { raw = raw.replace(p, ''); });
+        raw = raw.replace(/[""]/g, '"');
+        raw = raw.replace(/['']/g, "'");
+        raw = raw.replace(/[—–]/g, '-');
+        raw = raw.replace(/…/g, '...');
+        raw = raw.replace(/^([A-Z][A-Z\s]{10,})$/gm, (match, title) =>
+          `## ${title.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}`);
+        raw = raw.replace(/^(\s*)[→✓○■]/gm, '$1-');
+        raw = raw.replace(/^(\s*)[•▪▫◦]/gm, '$1-');
+        raw = convertAllTableFormats(raw);
+        raw = raw.replace(/\n{3,}/g, '\n\n');
+        raw = raw.replace(/<strong>(.*?)<\/strong>/g, '**$1**');
+        raw = raw.replace(/<em>(.*?)<\/em>/g, '*$1*');
+        const html = marked.parse(raw);
+        document.getElementById("output").innerHTML = html.replace(/<p><\/p>/g, '');
+        updateWordCount('output', 'output-count');
+        showStatus('Smart cleanup complete.', 'success', 4000);
+      } catch (error) {
+        showStatus(`Error: ${error.message}`, 'error');
+      }
+    }
+
+    function convertAllTableFormats(text) {
+      const lines = text.split('\n');
+      const result = [];
+      let i = 0;
+      while (i < lines.length) {
+        const line = lines[i];
+        if (line.includes('|') && line.split('|').length >= 3) {
+          const tableLines = [line];
+          let j = i + 1;
+          while (j < lines.length && (lines[j].includes('|') || lines[j].match(/^[\s\-\|\+\=]+$/))) {
+            tableLines.push(lines[j]); j++;
+          }
+          result.push(...convertAsciiTable(tableLines));
+          i = j; continue;
+        }
+        if (line.includes('\t') && line.split('\t').length >= 2) {
+          const tableLines = [line];
+          let j = i + 1;
+          while (j < lines.length && lines[j].includes('\t')) { tableLines.push(lines[j]); j++; }
+          if (tableLines.length >= 2) { result.push(...convertTsvTable(tableLines)); i = j; continue; }
+        }
+        result.push(line); i++;
+      }
+      return result.join('\n');
+    }
+
+    function convertAsciiTable(lines) {
+      const result = [];
+      const dataLines = lines.filter(l => !l.match(/^[\s\-\|\+\=]+$/));
+      if (dataLines.length >= 2) {
+        result.push(dataLines[0]);
+        const cols = dataLines[0].split('|').length - 1;
+        result.push('|' + ' --- |'.repeat(cols));
+        for (let i = 1; i < dataLines.length; i++) result.push(dataLines[i]);
+      }
+      return result;
+    }
+
+    function convertTsvTable(lines) {
+      const result = [];
+      result.push('| ' + lines[0].split('\t').join(' | ') + ' |');
+      const cols = lines[0].split('\t').length;
+      result.push('|' + ' --- |'.repeat(cols));
+      for (let i = 1; i < lines.length; i++)
+        result.push('| ' + lines[i].split('\t').join(' | ') + ' |');
+      return result;
+    }
+
+    function copyFormatted() {
+      const output = document.getElementById("output");
+      if (!output.innerHTML.trim()) { showStatus('No formatted text to copy.', 'error'); return; }
+
+      const feedback = document.getElementById('copy-feedback');
+      feedback.classList.add('show');
+      setTimeout(() => feedback.classList.remove('show'), 2000);
+
+      try {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = output.innerHTML;
+        const tables = tempDiv.getElementsByTagName('table');
+        for (let table of tables) {
+          const rows = table.getElementsByTagName('tr');
+          for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const isHeader = row.getElementsByTagName('th').length > 0;
+            if (!isHeader) {
+              row.style.background = i % 2 === 0 ? '#FEFEFE' : '#F7F5F0';
+            }
+          }
+        }
+        const cleanHtml = tempDiv.innerHTML;
+
+        const wordHtml = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="UTF-8">
+<meta name="ProgId" content="Word.Document">
+<style>
+<!--
+p.MsoNormal, li.MsoNormal, div.MsoNormal, p {
+  mso-style-name: "Normal";
+  margin: 0in 0in 10.0pt 0in;
+  line-height: 150%;
+  font-size: 11.0pt;
+  font-family: "Calibri", sans-serif;
+  color: #1C2826;
+}
+h1 {
+  mso-style-priority: 9;
+  mso-style-next: Normal;
+  margin-top: 18.0pt; margin-bottom: 12.0pt;
+  line-height: 120%;
+  font-size: 18.0pt;
+  font-family: "Calibri", sans-serif;
+  color: #1C2826;
+  font-weight: bold;
+}
+h2 {
+  mso-style-priority: 9;
+  mso-style-next: Normal;
+  margin-top: 14.0pt; margin-bottom: 6.0pt;
+  font-size: 14.0pt;
+  font-family: "Calibri", sans-serif;
+  color: #376E5A;
+  font-weight: bold;
+}
+h3 {
+  mso-style-priority: 9;
+  mso-style-next: Normal;
+  margin-top: 12.0pt; margin-bottom: 3.0pt;
+  font-size: 12.0pt;
+  font-family: "Calibri", sans-serif;
+  color: #376E5A;
+  font-weight: bold;
+}
+h4, h5, h6 {
+  mso-style-priority: 9;
+  mso-style-next: Normal;
+  margin-top: 10.0pt; margin-bottom: 3.0pt;
+  font-size: 11.0pt;
+  font-family: "Calibri", sans-serif;
+  color: #376E5A;
+  font-weight: bold;
+}
+blockquote {
+  mso-style-name: "Quote";
+  margin: 10.0pt 32.0pt 10.0pt 32.0pt;
+  padding: 10.0pt;
+  border-left: 3.0pt solid #D4A07A;
+  background: #F7F5F0;
+  font-size: 11.0pt;
+  font-style: italic;
+  color: #4A5A54;
+}
+ul, ol { margin: 10.0pt 0in; padding-left: 28.0pt; }
+li { margin-bottom: 5.0pt; font-size: 11.0pt; font-family: "Calibri", sans-serif; color: #1C2826; }
+table { border-collapse: collapse; margin: 10.0pt 0in; }
+th, td { border: 1px solid #E0DDD8; padding: 4.0pt 6.0pt; vertical-align: top; font-family: "Calibri", sans-serif; font-size: 11.0pt; }
+th { background: #1C2826; font-weight: bold; color: white; }
+td { color: #1C2826; }
+strong, b { font-weight: bold; }
+em, i { font-style: italic; }
+-->
+</style>
+</head>
+<body>
+<div class="WordSection1">
+${cleanHtml}
+</div>
+</body>
+</html>`;
+
+        const textContent = output.textContent || '';
+        const htmlBlob = new Blob([wordHtml], { type: 'text/html' });
+        const textBlob = new Blob([textContent], { type: 'text/plain' });
+
+        navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
+          .then(() => showStatus('Copied! Paste into Word — headings and formatting should transfer correctly.', 'success', 5000))
+          .catch(() => fallbackCopy());
+      } catch (error) {
+        fallbackCopy();
+      }
+    }
+
+    function fallbackCopy() {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(document.getElementById("output"));
+      selection.removeAllRanges();
+      selection.addRange(range);
+      try {
+        if (document.execCommand('copy')) {
+          showStatus('Copied to clipboard.', 'success');
+        } else {
+          showStatus('Copy failed — please select and copy manually.', 'error');
+        }
+      } catch (err) {
+        showStatus('Copy failed — please select and copy manually.', 'error');
+      }
+      selection.removeAllRanges();
+    }
+
+    function clearAll() {
+      const inputEl = document.getElementById("input");
+      const outputEl = document.getElementById("output");
+      if (!inputEl.value && !outputEl.innerHTML) return;
+      if (confirm('Clear all content?')) {
+        inputEl.value = '';
+        outputEl.innerHTML = '';
+        updateWordCount('input', 'input-count');
+        updateWordCount('output', 'output-count');
+        showStatus('Cleared.', 'success', 2000);
+        inputEl.focus();
+      }
+    }
+
+    function toggleDevNotes() {
+      const content = document.getElementById('dev-notes-content');
+      const toggle = document.getElementById('dev-notes-toggle');
+      if (content.classList.contains('show')) {
+        content.classList.remove('show');
+        toggle.textContent = 'Show';
+      } else {
+        content.classList.add('show');
+        toggle.textContent = 'Hide';
+      }
+    }
+
+    document.getElementById('input').addEventListener('input', () => updateWordCount('input', 'input-count'));
+    document.getElementById('output').addEventListener('input', () => updateWordCount('output', 'output-count'));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key.toLowerCase() === 'enter') { e.preventDefault(); formatText(); }
+        if (e.shiftKey && e.key.toLowerCase() === 'k') { e.preventDefault(); copyFormatted(); }
+      }
+    });
+
+    window.addEventListener('load', () => {
+      document.getElementById('input').focus();
+      updateWordCount('input', 'input-count');
+      updateWordCount('output', 'output-count');
+    });
+  </script>
+</body>
+</html>

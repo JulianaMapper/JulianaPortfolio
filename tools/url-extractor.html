@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Extractor — Still Water</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    :root {
+      --ink:        #1C2826;
+      --body:       #4A5A54;
+      --accent:     #376E5A;
+      --coral:      #D4A07A;
+      --ground:     #F7F5F0;
+      --surface:    #FEFEFE;
+      --border:     #E0DDD8;
+      --accent-lt:  #8DB8A0;
+      --hover:      #2D5A49;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "DM Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 400;
+      margin: 0;
+      padding: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      background-color: var(--ground);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0 1.5rem 0;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-wordmark {
+      font-family: "DM Sans", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--body);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── CONTAINER ── */
+    .container {
+      background: var(--surface);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(28,40,38,0.07);
+      border: 1px solid var(--border);
+    }
+
+    /* ── HEADER ── */
+    .header { text-align: center; margin-bottom: 2.5rem; }
+
+    .tool-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: "Outfit", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: rgba(55,110,90,0.08);
+      border: 1px solid rgba(55,110,90,0.2);
+      border-radius: 20px;
+      padding: 0.3rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      font-family: "DM Sans", sans-serif;
+      color: var(--body);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.65;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ── STEPS ── */
+    .steps {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: var(--ground);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      flex: 1;
+    }
+    .step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      font-family: "Outfit", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-text {
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.85rem;
+      color: var(--body);
+      line-height: 1.4;
+    }
+    .step-text strong { color: var(--ink); font-weight: 600; }
+    .step-divider {
+      width: 1px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ── PASTE ZONE ── */
+    .section-label {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--body);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .section-label i { color: var(--accent); }
+
+    .paste-zone {
+      width: 100%;
+      min-height: 120px;
+      padding: 0.85rem;
+      font-size: 0.88rem;
+      font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      resize: vertical;
+      transition: all 0.2s;
+      background: var(--surface);
+      line-height: 1.55;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .paste-zone:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(55,110,90,0.12);
+    }
+    .paste-zone:hover { border-color: var(--accent-lt); }
+
+    /* ── CONTROLS ── */
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      font-family: "Outfit", sans-serif;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn i { font-size: 1rem; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 14px rgba(55,110,90,0.22);
+    }
+    .btn-primary:hover {
+      background: var(--hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(55,110,90,0.28);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--body);
+      border: 1.5px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent-lt);
+      color: var(--ink);
+    }
+
+    .btn-copy {
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 4px 14px rgba(28,40,38,0.18);
+    }
+    .btn-copy:hover {
+      background: #0f1916;
+      transform: translateY(-2px);
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: auto;
+    }
+    .filter-label {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--body);
+    }
+    .filter-input {
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.85rem;
+      padding: 0.45rem 0.7rem;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      color: var(--ink);
+      background: var(--surface);
+      width: 200px;
+      transition: border-color 0.2s;
+    }
+    .filter-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* ── STATUS ── */
+    .status {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.6rem 0.9rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .status.success { background: rgba(55,110,90,0.1); color: var(--hover); border-left: 3px solid var(--accent); display: block; }
+    .status.error   { background: #fdeeee; color: #721c24; border-left: 3px solid #dc3545; display: block; }
+    .status.info    { background: rgba(55,110,90,0.06); color: var(--body); border-left: 3px solid var(--accent-lt); display: block; }
+
+    /* ── RESULTS ── */
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .results-count {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--body);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .results-count strong { color: var(--accent); }
+
+    .url-list {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--surface);
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .url-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .url-item:last-child { border-bottom: none; }
+    .url-item:hover { background: rgba(55,110,90,0.04); }
+
+    .url-item-num {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent-lt);
+      width: 24px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    .url-text {
+      font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
+      font-size: 0.8rem;
+      color: var(--ink);
+      flex: 1;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    .url-actions {
+      display: flex;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .url-btn {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      border: none;
+    }
+    .url-btn-open {
+      background: rgba(55,110,90,0.1);
+      color: var(--accent);
+    }
+    .url-btn-open:hover { background: rgba(55,110,90,0.18); }
+    .url-btn-copy-one {
+      background: rgba(28,40,38,0.07);
+      color: var(--body);
+    }
+    .url-btn-copy-one:hover { background: rgba(28,40,38,0.12); }
+    .url-btn-copy-one.copied { background: rgba(55,110,90,0.15); color: var(--accent); }
+
+    .empty-state {
+      padding: 3rem 1rem;
+      text-align: center;
+      color: var(--body);
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+    .empty-state i {
+      font-size: 2rem;
+      color: var(--border);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── PLAIN TEXT OUTPUT ── */
+    .plain-output-wrap {
+      margin-top: 1.25rem;
+    }
+    .plain-output {
+      width: 100%;
+      min-height: 80px;
+      max-height: 200px;
+      padding: 0.75rem;
+      font-size: 0.8rem;
+      font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      resize: vertical;
+      background: var(--ground);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .plain-output:focus { outline: none; border-color: var(--accent); }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "Outfit", sans-serif;
+      font-size: 0.78rem;
+      color: var(--body);
+    }
+    .footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .footer a:hover { color: var(--hover); }
+    .privacy-note {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      body { padding: 1rem; }
+      .container { padding: 1.25rem; }
+      h1 { font-size: 1.8rem; }
+      .steps { flex-direction: column; gap: 0.5rem; }
+      .step-divider { display: none; }
+      .controls { flex-direction: column; align-items: stretch; }
+      .filter-group { margin-left: 0; }
+      .filter-input { width: 100%; }
+      .footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+      .site-nav { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="../index-ai.html" class="nav-wordmark">Juliana McMillan-Wilhoit</a>
+    <ul class="nav-links">
+      <li><a href="../work.html">Work</a></li>
+      <li><a href="../thinking.html">Thinking</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../tools.html">Tools</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="header">
+      <div class="tool-badge"><i class="ti ti-link"></i> Personal Tool</div>
+      <h1>URL Extractor</h1>
+      <p class="subtitle">Copy a webpage or any rich content, paste it here, and extract every URL in one click. Useful for processing research dumps, email chains, or AI outputs full of links.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Select and copy</strong> any webpage, email, or document — anything with links in it.</div>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Paste below</strong> using Ctrl+V / ⌘+V — the tool captures the hidden HTML clipboard content.</div>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Extract &amp; filter</strong> — copy individual URLs or all at once as plain text.</div>
+      </div>
+    </div>
+
+    <div class="section-label"><i class="ti ti-clipboard-text"></i> Paste content here</div>
+    <div
+      id="paste-target"
+      class="paste-zone"
+      contenteditable="true"
+      data-placeholder="Paste anything here — webpage, email, document, AI output…"
+      style="min-height: 100px;"
+    ></div>
+
+    <div id="status" class="status"></div>
+
+    <div class="controls">
+      <button class="btn btn-primary" onclick="extractURLs()">
+        <i class="ti ti-link"></i> Extract URLs
+      </button>
+      <button class="btn btn-secondary" onclick="clearAll()">
+        <i class="ti ti-trash"></i> Clear
+      </button>
+      <button class="btn btn-copy" id="copy-all-btn" onclick="copyAllURLs()" style="display:none">
+        <i class="ti ti-copy"></i> Copy All
+      </button>
+      <div class="filter-group">
+        <span class="filter-label">Filter:</span>
+        <input
+          type="text"
+          class="filter-input"
+          id="filter-input"
+          placeholder="e.g. github.com"
+          oninput="applyFilter()"
+        />
+      </div>
+    </div>
+
+    <div id="results-area" style="display:none">
+      <div class="results-header">
+        <span class="results-count" id="results-count"><strong>0</strong> URLs found</span>
+      </div>
+      <div class="url-list" id="url-list"></div>
+
+      <div class="plain-output-wrap">
+        <div class="section-label"><i class="ti ti-align-left"></i> Plain text (one per line)</div>
+        <textarea class="plain-output" id="plain-output" readonly></textarea>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="privacy-note">
+        <i class="ti ti-shield-lock" style="color: var(--accent);"></i>
+        Client-side only. Nothing leaves your browser.
+      </div>
+      <span><a href="../tools.html">← All tools</a> &nbsp;·&nbsp; <a href="../index-ai.html">Portfolio</a></span>
+    </div>
+  </div>
+
+  <script>
+    let allURLs = [];
+    let filteredURLs = [];
+
+    // Style the placeholder via pseudo-element workaround
+    const pasteTarget = document.getElementById('paste-target');
+    pasteTarget.addEventListener('focus', () => {
+      if (!pasteTarget.textContent.trim()) pasteTarget.textContent = '';
+    });
+
+    function showStatus(msg, type) {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = 'status ' + type;
+      if (type !== 'error') {
+        setTimeout(() => { el.className = 'status'; }, 4000);
+      }
+    }
+
+    pasteTarget.addEventListener('paste', (e) => {
+      // Let the paste happen, then auto-extract
+      setTimeout(() => {
+        if (pasteTarget.innerHTML.trim()) extractURLs();
+      }, 100);
+    });
+
+    function extractURLs() {
+      const html = pasteTarget.innerHTML;
+      const text = pasteTarget.textContent || pasteTarget.innerText || '';
+
+      if (!html.trim() && !text.trim()) {
+        showStatus('Nothing to extract — paste some content first.', 'error');
+        return;
+      }
+
+      const urlSet = new Set();
+
+      // Extract hrefs from HTML anchors
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const anchors = doc.querySelectorAll('a[href]');
+      anchors.forEach(a => {
+        const href = a.getAttribute('href');
+        if (href && isValidURL(href)) urlSet.add(normalizeURL(href));
+      });
+
+      // Also extract raw URLs from visible text
+      const rawURLRegex = /https?:\/\/[^\s"'<>()[\]{}|\\^`\u0000-\u001f\u007f-\u009f]+/gi;
+      const textMatches = (html + ' ' + text).match(rawURLRegex) || [];
+      textMatches.forEach(u => {
+        const clean = u.replace(/[.,;:!?'")\]}>]+$/, '');
+        if (isValidURL(clean)) urlSet.add(normalizeURL(clean));
+      });
+
+      allURLs = Array.from(urlSet).sort();
+
+      if (allURLs.length === 0) {
+        showStatus('No URLs found in pasted content.', 'info');
+        document.getElementById('results-area').style.display = 'none';
+        document.getElementById('copy-all-btn').style.display = 'none';
+        return;
+      }
+
+      filteredURLs = [...allURLs];
+      renderResults();
+      showStatus(`Found ${allURLs.length} URL${allURLs.length === 1 ? '' : 's'}.`, 'success');
+      document.getElementById('results-area').style.display = 'block';
+      document.getElementById('copy-all-btn').style.display = 'inline-flex';
+      document.getElementById('filter-input').value = '';
+    }
+
+    function isValidURL(str) {
+      if (!str) return false;
+      if (str.startsWith('mailto:') || str.startsWith('javascript:') || str.startsWith('#')) return false;
+      if (str.startsWith('http://') || str.startsWith('https://')) return true;
+      return false;
+    }
+
+    function normalizeURL(url) {
+      return url.trim();
+    }
+
+    function applyFilter() {
+      const query = document.getElementById('filter-input').value.toLowerCase().trim();
+      filteredURLs = query ? allURLs.filter(u => u.toLowerCase().includes(query)) : [...allURLs];
+      renderResults();
+    }
+
+    function renderResults() {
+      const listEl = document.getElementById('url-list');
+      const countEl = document.getElementById('results-count');
+      const plainEl = document.getElementById('plain-output');
+
+      countEl.innerHTML = `<strong>${filteredURLs.length}</strong> URL${filteredURLs.length === 1 ? '' : 's'}${filteredURLs.length !== allURLs.length ? ` (of ${allURLs.length})` : ''} found`;
+
+      if (filteredURLs.length === 0) {
+        listEl.innerHTML = `<div class="empty-state"><i class="ti ti-search-off"></i>No URLs match your filter.</div>`;
+        plainEl.value = '';
+        return;
+      }
+
+      listEl.innerHTML = filteredURLs.map((url, i) => `
+        <div class="url-item">
+          <span class="url-item-num">${i + 1}</span>
+          <span class="url-text">${escapeHtml(url)}</span>
+          <div class="url-actions">
+            <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="url-btn url-btn-open">
+              <i class="ti ti-external-link"></i> Open
+            </a>
+            <button class="url-btn url-btn-copy-one" onclick="copyOneURL(this, '${escapeAttr(url)}')">
+              <i class="ti ti-copy"></i> Copy
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      plainEl.value = filteredURLs.join('\n');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function escapeAttr(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    function copyOneURL(btn, url) {
+      navigator.clipboard.writeText(url).then(() => {
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="ti ti-check"></i> Copied';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<i class="ti ti-copy"></i> Copy';
+        }, 2000);
+      }).catch(() => {
+        const tmp = document.createElement('textarea');
+        tmp.value = url;
+        document.body.appendChild(tmp);
+        tmp.select();
+        document.execCommand('copy');
+        document.body.removeChild(tmp);
+      });
+    }
+
+    function copyAllURLs() {
+      const text = filteredURLs.join('\n');
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        showStatus(`Copied ${filteredURLs.length} URL${filteredURLs.length === 1 ? '' : 's'} to clipboard.`, 'success');
+      }).catch(() => {
+        // Fallback: select the textarea
+        const plainEl = document.getElementById('plain-output');
+        plainEl.select();
+        document.execCommand('copy');
+        showStatus(`Copied to clipboard.`, 'success');
+      });
+    }
+
+    function clearAll() {
+      pasteTarget.innerHTML = '';
+      document.getElementById('filter-input').value = '';
+      document.getElementById('status').className = 'status';
+      document.getElementById('results-area').style.display = 'none';
+      document.getElementById('copy-all-btn').style.display = 'none';
+      allURLs = [];
+      filteredURLs = [];
+      pasteTarget.focus();
+    }
+  </script>
+</body>
+</html>

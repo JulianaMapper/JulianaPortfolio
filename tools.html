@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools — Juliana McMillan-Wilhoit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    :root {
+      --ink:       #1C2826;
+      --body:      #4A5A54;
+      --accent:    #376E5A;
+      --coral:     #D4A07A;
+      --ground:    #F7F5F0;
+      --surface:   #FEFEFE;
+      --border:    #E0DDD8;
+      --lt:        #8DB8A0;
+      --hover:     #2D5A49;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: "DM Sans", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER / NAV ── */
+    header {
+      background: var(--ink);
+      padding: 0 2.5rem;
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 0;
+    }
+    .nav-wordmark {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--surface);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--surface); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--ink);
+      padding: 3.5rem 2.5rem 3rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .page-hero-inner { max-width: 680px; margin: 0 auto; }
+
+    .hero-eyebrow {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--coral);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--surface);
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin: 0 0 1rem 0;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 3rem 2.5rem 5rem;
+    }
+
+    /* ── SECTION HEADING ── */
+    .section-heading {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--lt);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── TOOL GRID ── */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(28,40,38,0.1);
+      border-color: var(--lt);
+    }
+
+    .tool-card:hover::before { transform: scaleX(1); }
+
+    .tool-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(55,110,90,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .tool-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .tool-meta { flex: 1; }
+
+    .tool-tag {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .tool-desc {
+      font-size: 0.9rem;
+      color: var(--body);
+      line-height: 1.6;
+    }
+
+    .tool-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .pill {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      background: var(--ground);
+      color: var(--body);
+      border: 1px solid var(--border);
+    }
+
+    .tool-link {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: auto;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .tool-link:hover { color: var(--hover); }
+
+    /* ── COMING SOON CARD ── */
+    .tool-card.coming-soon {
+      opacity: 0.6;
+      cursor: default;
+      pointer-events: none;
+    }
+    .tool-card.coming-soon:hover { transform: none; box-shadow: none; }
+    .tool-card.coming-soon::before { display: none; }
+
+    .badge-soon {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      background: var(--ground);
+      color: var(--body);
+      border: 1px solid var(--border);
+      margin-left: auto;
+      align-self: flex-start;
+    }
+
+    /* ── PHILOSOPHY STRIP ── */
+    .philosophy {
+      background: var(--ink);
+      border-radius: 14px;
+      padding: 2.5rem;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+    .philosophy strong { color: var(--surface); font-weight: 600; }
+    .philosophy .philosophy-label {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--coral);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 2rem 2.5rem;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "Outfit", sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+    }
+    .footer-inner a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    .footer-inner a:hover { color: var(--surface); }
+    .footer-links { display: flex; gap: 1.5rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header { padding: 0 1.25rem; }
+      .page-hero { padding: 2.5rem 1.25rem 2rem; }
+      .page-hero h1 { font-size: 2rem; }
+      main { padding: 2rem 1.25rem 4rem; }
+      .tool-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-inner">
+      <a href="index-ai.html" class="nav-wordmark">Juliana McMillan-Wilhoit</a>
+      <nav>
+        <ul>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="thinking.html">Thinking</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="references.html">References</a></li>
+          <li><a href="tools.html" class="active">Tools</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="hero-eyebrow">Personal tools</div>
+      <h1>Things I built for myself</h1>
+      <p>I don't wait for perfect tools. When something is annoying enough, I build a fix. These are small, sharp utilities I reach for regularly — browser-only, no accounts, no tracking.</p>
+    </div>
+  </div>
+
+  <main>
+
+    <div class="philosophy">
+      <div class="philosophy-label">On building</div>
+      <p>Most of these started with a task I was doing ten times a week that didn't need to be that hard. I believe a Gen AI PM should be able to build, not just spec. These aren't prototypes — they're things I actually use. Client-side HTML means they work anywhere, need no backend, and keep data private by default.</p>
+    </div>
+
+    <div class="section-heading">Live tools</div>
+
+    <div class="tool-grid">
+
+      <a href="tools/url-extractor.html" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon"><i class="ti ti-link"></i></div>
+          <div class="tool-meta">
+            <div class="tool-tag">Productivity</div>
+            <div class="tool-name">URL Extractor</div>
+          </div>
+        </div>
+        <p class="tool-desc">Copy a webpage, email, or any rich content — paste it here and extract every URL instantly. Built because I was doing this by hand way too often for research and briefing prep.</p>
+        <div class="tool-pills">
+          <span class="pill">Clipboard API</span>
+          <span class="pill">DOM parsing</span>
+          <span class="pill">Client-side</span>
+        </div>
+        <span class="tool-link">Open tool <i class="ti ti-arrow-right"></i></span>
+      </a>
+
+      <a href="tools/text-reformatter.html" class="tool-card">
+        <div class="tool-card-top">
+          <div class="tool-icon"><i class="ti ti-wand"></i></div>
+          <div class="tool-meta">
+            <div class="tool-tag">AI workflow</div>
+            <div class="tool-name">AI Text Reformatter</div>
+          </div>
+        </div>
+        <p class="tool-desc">Paste AI-generated markdown and get clean, Word-ready HTML in one click. Headings map to Word's built-in heading styles; tables keep alternating row colors. Built for the copy-paste-reformat loop that eats 20 minutes a day.</p>
+        <div class="tool-pills">
+          <span class="pill">marked.js</span>
+          <span class="pill">ClipboardItem API</span>
+          <span class="pill">Word-compatible HTML</span>
+        </div>
+        <span class="tool-link">Open tool <i class="ti ti-arrow-right"></i></span>
+      </a>
+
+    </div>
+
+    <div class="section-heading">In the queue</div>
+
+    <div class="tool-grid">
+
+      <div class="tool-card coming-soon">
+        <div class="tool-card-top">
+          <div class="tool-icon"><i class="ti ti-calendar-time"></i></div>
+          <div class="tool-meta">
+            <div class="tool-tag">Productivity</div>
+            <div class="tool-name">Calendar Blocking Assistant</div>
+          </div>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <p class="tool-desc">Prompt-driven week planner. Paste your Jira backlog + calendar screenshot → get a time-blocked draft week. Exports ICS for Outlook.</p>
+        <div class="tool-pills">
+          <span class="pill">ICS export</span>
+          <span class="pill">Jira integration</span>
+        </div>
+      </div>
+
+      <div class="tool-card coming-soon">
+        <div class="tool-card-top">
+          <div class="tool-icon"><i class="ti ti-forms"></i></div>
+          <div class="tool-meta">
+            <div class="tool-tag">Research</div>
+            <div class="tool-name">Form Field Extractor</div>
+          </div>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <p class="tool-desc">Paste a web form's source — get every field, label, and input type extracted as structured data. Built for vendor research and requirements gathering.</p>
+        <div class="tool-pills">
+          <span class="pill">HTML parsing</span>
+          <span class="pill">CSV export</span>
+        </div>
+      </div>
+
+      <div class="tool-card coming-soon">
+        <div class="tool-card-top">
+          <div class="tool-icon"><i class="ti ti-calendar-event"></i></div>
+          <div class="tool-meta">
+            <div class="tool-tag">Productivity</div>
+            <div class="tool-name">Doodle → ICS Converter</div>
+          </div>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <p class="tool-desc">Turn Doodle poll results into a proper .ics calendar invite without copying everything by hand. Small tool, used constantly for community organizing.</p>
+        <div class="tool-pills">
+          <span class="pill">ICS generation</span>
+          <span class="pill">Scheduling</span>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© 2025 Juliana McMillan-Wilhoit</span>
+      <div class="footer-links">
+        <a href="index-ai.html">Home</a>
+        <a href="work.html">Work</a>
+        <a href="thinking.html">Thinking</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
