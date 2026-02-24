@@ -229,6 +229,34 @@
       .content-section.alt { padding: 3.5rem 1.5rem; }
       .rec-grid { grid-template-columns: 1fr 1fr; }
     }
+    /* Data thread */
+    .data-thread-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .data-thread-card {
+      background: #FEFEFE;
+      border: 1px solid #E0DDD8;
+      border-left: 3px solid #376E5A;
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .data-thread-org {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #376E5A;
+      margin-bottom: 0.5rem;
+    }
+    .data-thread-text {
+      font-size: 0.9rem;
+      color: #4A5A54;
+      line-height: 1.65;
+    }
   </style>
 </head>
 <body>
@@ -346,6 +374,32 @@
     </div>
   </section>
 
+  <!-- Data Thread -->
+  <section class="content-section">
+    <div class="section-label anim">The Through-Line</div>
+    <h2 class="section-h2 anim" data-delay="0.1">Every role. One obsession.</h2>
+    <p class="body-p anim" data-delay="0.2">Fifteen years across defense, supply chain, geospatial, and public health. The domains changed constantly. One thing didn't: I always ended up asking whether the data behind the decision could actually support the conclusion being drawn from it.</p>
+    <div class="data-thread-grid anim" data-delay="0.3">
+      <div class="data-thread-card">
+        <div class="data-thread-org">Army Corps of Engineers</div>
+        <div class="data-thread-text">Which datasets transfer across geographies? I evaluated data sources worldwide for global applicability and built the governance framework that decided what the military could trust.</div>
+      </div>
+      <div class="data-thread-card">
+        <div class="data-thread-org">KPMG</div>
+        <div class="data-thread-text">Three analytical products built on external data. Every one required understanding what the data could and couldn't say — and designing outputs that didn't overstate the conclusions.</div>
+      </div>
+      <div class="data-thread-card">
+        <div class="data-thread-org">Peapod Digital Labs</div>
+        <div class="data-thread-text">Inherited a demand model driving multi-million dollar decisions. Nobody had validated it. I ran the first PCA the model had ever seen — not because I was asked to, but because I don't trust a dataset until I understand its limits.</div>
+      </div>
+      <div class="data-thread-card">
+        <div class="data-thread-org">F&amp;T Labs / PH360</div>
+        <div class="data-thread-text">AI for public health raises the same question louder: is what the model returns actually grounded in something defensible? I built HIPAA and Sunshine Law compliance into the architecture from day one — because the consequences of getting it wrong aren't just embarrassing, they're legal.</div>
+      </div>
+    </div>
+    <p class="body-p anim" data-delay="0.4" style="margin-top:1.5rem;font-style:italic;color:#4A5A54;">AI is not a substitute for thinking critically about your data. Using AI for data analysis is a signal to pay closer attention to the limitations — not less.</p>
+  </section>
+
   <!-- Recognition -->
   <section class="content-section">
     <div class="section-label anim">Recognition</div>
@@ -355,8 +409,8 @@
         <div class="rec-num" style="color:#D4A07A;">Fulbright</div>
         <div class="rec-label">Scholar — English Teaching Assistantship, Bulgaria 2012–2013</div>
       </div>
-      <div class="rec-card" style="background:rgba(212,160,122,0.07);border-color:rgba(212,160,122,0.25);">
-        <div class="rec-num" style="color:#D4A07A;">DA Medal</div>
+      <div class="rec-card">
+        <div class="rec-num">DA Medal</div>
         <div class="rec-label">Department of the Army Medal for Civilian Service, 2017</div>
       </div>
       <div class="rec-card">

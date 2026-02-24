@@ -430,8 +430,8 @@
       <div class="case-banner-num">02</div>
       <div class="case-banner-inner">
         <div class="case-domain anim">U.S. Army Corps of Engineers · Defense · 2013–2019</div>
-        <h2 class="case-h2 anim" data-delay="0.1">ENSITE: The military's first global site location tool</h2>
-        <p class="case-sub anim" data-delay="0.2">Product manager for a tool that had never existed. ENSITE deployed to Iraq, Afghanistan, and Poland after Russia's invasion of Ukraine.</p>
+        <h2 class="case-h2 anim" data-delay="0.1">ENSITE: "Zillow for base camps"</h2>
+        <p class="case-sub anim" data-delay="0.2">PM for a product that had never existed. The real work: setting global data standards, navigating commander's intent as a product constraint, and building relationships that crossed NGA, Army, and allied commands worldwide.</p>
       </div>
     </div>
 
@@ -441,8 +441,8 @@
         <div class="metric-label">Military theaters ENSITE deployed to — Iraq, Afghanistan, Poland</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">DA Medal</div>
-        <div class="metric-label">Department of the Army Medal for Civilian Service</div>
+        <div class="metric-num">Global</div>
+        <div class="metric-label">Data standards set — pushed country-by-country coverage to worldwide applicability</div>
       </div>
       <div class="metric-block">
         <div class="metric-num">First</div>
@@ -458,17 +458,25 @@
       <div class="case-body">
         <div class="case-narrative">
           <div class="case-label">The situation</div>
-          <p class="case-p">The U.S. military needed a unified tool for evaluating base locations worldwide — and had been making those decisions with fragmented data and gut instinct. There was no playbook. Nobody had built this before.</p>
-          <p class="case-p">My mentor Jim Westervelt — creator of GRASS GIS — gave me the only advice that mattered on day one: go talk to the people who will use it before you build anything. I've done that ever since.</p>
+          <p class="case-p">The U.S. military was making base location decisions — where to set up operations, which sites could support specific mission types — with fragmented data and institutional memory. No unified tool existed. My predecessor called the prototype "CB-SITE." I saw what it could become: a global decision support system that gave commanders something they could actually trust under pressure.</p>
+          <p class="case-p">My mentor Jim Westervelt — creator of GRASS GIS — gave me the only advice that mattered on day one: go talk to the people who will use it before you build anything. It became the rule I've never broken.</p>
 
-          <div class="case-label">What I heard</div>
-          <p class="case-p">I conducted user engagement across DOD to understand what data they trusted, what decisions they actually needed to make, and what "good enough" looked like in the field versus in a briefing room. The answer was different in every theater.</p>
-          <p class="case-p">The presenting need was "a better map." The real need was a decision support system that could integrate dozens of conflicting data sources and give commanders something they could trust under pressure.</p>
+          <div class="case-label">The data problem nobody was talking about</div>
+          <p class="case-p">The original tool was built for one country at a time. To make ENSITE globally applicable, I had to rethink the entire data architecture. Which datasets actually transfer across geographies? Which variables that "work" in one theater are meaningless in another? I evaluated data sources for worldwide applicability and set standards for what would — and wouldn't — be part of the system.</p>
+          <p class="case-p">This wasn't just a technical decision. Every data standard I set was also a policy decision about what the military would trust. I built the governance framework from scratch: a formal review process, a governance board, and a staff education program so decisions about data quality didn't live in one person's head.</p>
+
+          <div class="case-label">Commander's intent as a product constraint</div>
+          <p class="case-p">The unique tension in defense product work: your users are not your decision-makers. Commanders set intent — "evaluate 50 potential sites in this region before next week" — and the tool has to support execution without knowing the specific mission context. I couldn't ask "what are you actually trying to do?" the way I might with a civilian client.</p>
+          <p class="case-p">I learned to design for ambiguity. What does "good enough to act on" look like when the stakes are operational? What does a decision-maker need to see to trust the output? That thinking shaped every UX decision.</p>
+
+          <div class="case-label">Building the relationships that made it real</div>
+          <p class="case-p">I traveled to South Korea to meet with command teams and understand how they used the data in the field versus how we imagined they used it in the lab. I built working relationships with NGA (National Geospatial-Intelligence Agency) — the people who actually controlled the data we needed. I spent time in DC cultivating the defense network that made deployment possible.</p>
+          <p class="case-p">The honest self-assessment: we were researchers, not operators. That gap forced me to ask harder questions than I would have asked if I'd come from the field. It also meant I couldn't assume I understood the use case — I had to keep going back to verify.</p>
 
           <div class="case-label">What I built</div>
-          <div class="case-li">Unified analytical back-end integrating diverse DOD and open-source data sources</div>
-          <div class="case-li">Data governance framework — review process, governance board, staff education from scratch</div>
-          <div class="case-li">UX/UI collaboration on wireframes and interface design with internal team</div>
+          <div class="case-li">Unified analytical back-end integrating DOD, NGA, and open-source data — globally applicable</div>
+          <div class="case-li">Data governance framework: formal review process, governance board, staff education from scratch</div>
+          <div class="case-li">UX/UI collaboration on wireframes and interface design, built around commander's intent constraints</div>
           <div class="case-li">ENSITE HUB for field data collection</div>
           <div class="case-li">Multiple ERDC/CERL technical reports and a peer-reviewed journal article</div>
 
@@ -476,17 +484,17 @@
           <p class="case-p">Deployed as GIS Team Lead to Puerto Rico after Hurricane Maria. Built the geospatial platform supporting the Army Corps power restoration mission — reduced daily data updates from 8 hours to 30 minutes. Six months embedded with emergency response teams, coordinating geospatial data across federal and local agencies under active disaster conditions.</p>
 
           <div class="case-label">What changed</div>
-          <p class="case-p">ENSITE deployed to Iraq, Afghanistan, and Poland after Russia's invasion of Ukraine — reducing the time to locate and evaluate potential military base sites. I received the Department of the Army Medal for Civilian Service for the CB-SITE leadership component.</p>
-          <p class="case-p">The data governance framework I built from scratch became the standard for how CERL managed geospatial data products.</p>
+          <p class="case-p">ENSITE deployed to Iraq, Afghanistan, and Poland after Russia's invasion of Ukraine — reducing the time to locate and evaluate potential military base sites. The data governance framework I built from scratch became the standard for how CERL managed geospatial data products. I received the Department of the Army Medal for Civilian Service for the CB-SITE leadership component.</p>
 
           <div class="case-label">Tools &amp; Stack</div>
           <div>
             <span class="tool-pill">ArcGIS Suite</span>
             <span class="tool-pill">Python</span>
             <span class="tool-pill">Model Builder</span>
-            <span class="tool-pill">DOD Data Systems</span>
+            <span class="tool-pill">DOD / NGA Data Systems</span>
             <span class="tool-pill">Data Governance</span>
             <span class="tool-pill">R</span>
+            <span class="tool-pill">Commander's Intent Design</span>
           </div>
         </div>
 
@@ -500,6 +508,10 @@
             <div class="sidebar-card-text">"She was willing to step into a completely new assignment and totally own the work — with minimal input completing the analysis, software development, publications, and presentations."</div>
             <span class="sidebar-card-cite">— Dr. Jim Westervelt, Creator of GRASS GIS</span>
           </div>
+          <div class="sidebar-card">
+            <div class="sidebar-card-label">The honest self-assessment</div>
+            <div class="sidebar-card-text">We were researchers, not operators. That gap forced harder questions — and meant I could never assume I understood the use case. I had to keep going back to verify. That habit has never left me.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -511,8 +523,8 @@
       <div class="case-banner-num">03</div>
       <div class="case-banner-inner">
         <div class="case-domain anim">Peapod Digital Labs (ADUSA Supply Chain Services) · Supply Chain · 2020–2023</div>
-        <h2 class="case-h2 anim" data-delay="0.1">The demand model nobody had validated</h2>
-        <p class="case-sub anim" data-delay="0.2">Inherited a geospatial forecasting model driving multi-million dollar facility decisions. The consultants who built it had never stress-tested it.</p>
+        <h2 class="case-h2 anim" data-delay="0.1">The demand model nobody had questioned</h2>
+        <p class="case-sub anim" data-delay="0.2">Consultants built it. Executives trusted it. Multi-million dollar facility decisions ran on it. Nobody had ever asked whether the underlying data could support the conclusions it was drawing.</p>
       </div>
     </div>
 
@@ -539,8 +551,8 @@
       <div class="case-body">
         <div class="case-narrative">
           <div class="case-label">The situation</div>
-          <p class="case-p">I inherited a geospatial demand forecasting model built by outside consultants. Variables were hard-coded. File paths were hard-coded. And — the thing that stopped me cold — nobody had ever validated it.</p>
-          <p class="case-p">The company was making multi-year, multi-million dollar e-commerce facility network decisions — where to build warehouses, which stores to use for fulfillment — on a model nobody had stress-tested. I couldn't leave that alone.</p>
+          <p class="case-p">Consultants had built the model. The business had adopted it. And it was driving multi-year, multi-million dollar e-commerce facility network decisions — where to build warehouses, which stores to use for fulfillment. Variables were hard-coded. File paths were hard-coded. The model hadn't been questioned.</p>
+          <p class="case-p">I questioned it because that's what I do. I don't trust a dataset until I understand its limitations. When I evaluated the Esri consumer spending data that anchored the model, I started asking: does this variable actually predict e-commerce demand, or does it just look like it does? The answer wasn't clean. That's when I knew the real problem wasn't the code — it was that nobody had ever run a validation.</p>
 
           <div class="case-label">What I heard</div>
           <p class="case-p">Before touching anything, I conducted user assessments and led focus groups to understand how the model was actually being used versus how it was supposed to be used. The gap was significant. People trusted outputs they didn't fully understand because there was nothing better.</p>
