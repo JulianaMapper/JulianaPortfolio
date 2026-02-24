@@ -9,49 +9,100 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1C2826; background: #F7F5F0; min-height: 100vh; line-height: 1.6; }
-    .will-animate { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .will-animate.visible { opacity: 1; transform: translateY(0); }
-    .will-animate[data-delay="0.1"] { transition-delay: 0.1s; }
-    .will-animate[data-delay="0.2"] { transition-delay: 0.2s; }
-    .will-animate[data-delay="0.3"] { transition-delay: 0.3s; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1C2826; background: #F7F5F0; min-height: 100vh; line-height: 1.7; }
+
+    /* ── Animations ── */
+    .anim { opacity: 0; transform: translateY(18px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .anim.visible { opacity: 1; transform: translateY(0); }
+    .anim[data-delay="0.1"] { transition-delay: 0.1s; }
+    .anim[data-delay="0.2"] { transition-delay: 0.2s; }
+    .anim[data-delay="0.3"] { transition-delay: 0.3s; }
+    .anim[data-delay="0.4"] { transition-delay: 0.4s; }
+
+    /* ── Header ── */
     .header-band { background: #1C2826; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
-    .header-name { font-weight: 700; font-size: 1.125rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none; }
+    .header-name { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.05rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-link { color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-link:hover { color: #FEFEFE; }
-    .breadcrumb { max-width: 960px; margin: 0 auto; padding: 5.5rem 2.5rem 0; }
-    .breadcrumb a { font-family: 'DM Sans', system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; color: #376E5A; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-link:hover { color: #F7F5F0; }
+    .nav-link-btn { color: rgba(247,245,240,0.9) !important; border: 1px solid rgba(247,245,240,0.3); padding: 0.3rem 0.75rem; border-radius: 6px; }
+    .nav-link-dl { color: rgba(247,245,240,0.9) !important; background: rgba(247,245,240,0.1); padding: 0.3rem 0.75rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.35rem; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb { max-width: 800px; margin: 0 auto; padding: 5rem 2.5rem 0; }
+    .breadcrumb a { font-size: 0.8rem; font-weight: 600; color: #376E5A; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; }
     .breadcrumb a:hover { color: #2D5A49; }
-    .case-banner { background: #4A5A54; padding: 3rem 2.5rem 2.5rem; margin-top: 1.5rem; position: relative; overflow: hidden; }
-    .case-banner-num { position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); font-size: clamp(6rem, 14vw, 11rem); font-weight: 700; line-height: 1; color: rgba(255,255,255,0.06); pointer-events: none; letter-spacing: -0.04em; }
-    .case-banner-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; }
-    .case-domain { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.6rem; }
-    .case-h1 { font-family: 'Lora', Georgia, serif; font-size: clamp(1.625rem, 3.5vw, 2.5rem); font-weight: 700; color: #F7F5F0; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
-    .case-sub { font-size: 1rem; color: rgba(255,255,255,0.65); font-weight: 300; max-width: 600px; line-height: 1.6; }
-    .metrics-row { display: flex; flex-wrap: wrap; border-bottom: 1px solid #E0DDD8; background: #FEFEFE; }
-    .metric-block { flex: 1; min-width: 140px; padding: 1.5rem 1.75rem; border-right: 1px solid #E0DDD8; }
+
+    /* ── Hero ── */
+    .hero { max-width: 800px; margin: 0 auto; padding: 2.5rem 2.5rem 0; }
+    .project-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .project-eyebrow-divider { width: 24px; height: 1px; background: #8DB8A0; display: inline-block; }
+    .hero-h1 { font-family: 'Lora', Georgia, serif; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; color: #1C2826; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-turn { font-size: 1.125rem; color: #4A5A54; line-height: 1.7; max-width: 640px; margin-bottom: 2rem; border-left: 3px solid #8DB8A0; padding-left: 1.25rem; }
+    .context-strip { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; padding-bottom: 2rem; border-bottom: 1px solid #E0DDD8; }
+    .context-item { font-size: 0.8rem; color: #8A9690; display: flex; align-items: center; gap: 0.4rem; }
+    .context-item i { color: #8DB8A0; font-size: 0.9rem; }
+    .context-tag { font-size: 0.72rem; font-weight: 600; background: rgba(55,110,90,0.08); color: #376E5A; padding: 0.2rem 0.7rem; border-radius: 100px; }
+
+    /* ── Metrics ── */
+    .metrics-band { max-width: 800px; margin: 0 auto; padding: 0 2.5rem; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #E0DDD8; border-radius: 10px; background: #FEFEFE; overflow: hidden; margin: 2.5rem 0; }
+    .metric-block { padding: 1.5rem 1.25rem; border-right: 1px solid #E0DDD8; }
     .metric-block:last-child { border-right: none; }
-    .metric-num { font-family: 'DM Sans', sans-serif; font-size: 1.875rem; font-weight: 700; color: #376E5A; line-height: 1; }
-    .metric-label { font-size: 0.75rem; color: #4A5A54; margin-top: 0.3rem; line-height: 1.4; }
-    .case-inner { max-width: 960px; margin: 0 auto; padding: 0 2.5rem; }
-    .case-body { display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; padding: 3rem 0 5rem; }
-    @media (max-width: 820px) { .case-body { grid-template-columns: 1fr; } }
-    .case-label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #376E5A; margin-bottom: 0.6rem; margin-top: 1.75rem; }
-    .case-label:first-child { margin-top: 0; }
-    .case-p { font-size: 0.9375rem; color: #1C2826; line-height: 1.75; margin-bottom: 0.75rem; }
-    .case-li { font-size: 0.9375rem; color: #1C2826; line-height: 1.75; padding-left: 1.1rem; position: relative; margin-bottom: 0.4rem; }
-    .case-li::before { content: '·'; position: absolute; left: 0; color: #376E5A; font-weight: 700; }
-    .case-sidebar { position: sticky; top: 78px; }
-    .sidebar-card { background: rgba(55,110,90,0.03); border-radius: 10px; border: 1px solid #E0DDD8; border-left: 3px solid #8DB8A0; padding: 1.25rem; margin-bottom: 1rem; }
-    .sidebar-card-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.6rem; }
-    .sidebar-card-text { font-size: 1rem; font-style: italic; color: #1C2826; line-height: 1.6; }
-    .sidebar-card-cite { display: block; margin-top: 0.5rem; font-size: 0.75rem; font-style: normal; font-weight: 600; color: #376E5A; font-family: 'DM Sans', system-ui, sans-serif; }
-    .tool-pill { display: inline-block; padding: 0.25rem 0.75rem; background: rgba(55,110,90,0.08); color: #376E5A; border-radius: 100px; font-size: 0.75rem; font-weight: 600; margin-right: 0.4rem; margin-bottom: 0.4rem; }
-    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; }
+    .metric-num { font-size: 1.625rem; font-weight: 700; color: #376E5A; line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+    .metric-label { font-size: 0.75rem; color: #4A5A54; line-height: 1.4; }
+
+    /* ── Body ── */
+    .case-body { max-width: 800px; margin: 0 auto; padding: 0 2.5rem 6rem; }
+
+    /* ── Sections ── */
+    .case-section { margin-bottom: 3rem; }
+    .case-section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    .case-section-label::after { content: ''; flex: 1; height: 1px; background: #E0DDD8; }
+    .case-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.25rem; font-weight: 700; color: #1C2826; margin-bottom: 0.85rem; line-height: 1.3; }
+    .case-p { font-size: 0.9375rem; color: #4A5A54; line-height: 1.8; margin-bottom: 0.85rem; }
+    .case-p:last-child { margin-bottom: 0; }
+    .case-p strong { color: #1C2826; font-weight: 600; }
+
+    /* ── Pull quote ── */
+    .pull-quote { margin: 2rem 0; padding: 1.5rem 1.75rem; background: rgba(55,110,90,0.04); border-left: 3px solid #376E5A; border-radius: 0 8px 8px 0; }
+    .pull-quote-text { font-family: 'Lora', Georgia, serif; font-size: 1.0625rem; font-style: italic; color: #1C2826; line-height: 1.65; margin-bottom: 0.5rem; }
+    .pull-quote-cite { font-size: 0.78rem; font-weight: 600; color: #376E5A; }
+
+    /* ── What I built list ── */
+    .built-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1rem 0; }
+    .built-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .built-dot { width: 6px; height: 6px; border-radius: 50%; background: #376E5A; flex-shrink: 0; margin-top: 0.65rem; }
+    .built-text { font-size: 0.9375rem; color: #4A5A54; line-height: 1.7; }
+    .built-text strong { color: #1C2826; font-weight: 600; }
+
+    /* ── What changed ── */
+    .outcome-section { background: #1C2826; border-radius: 10px; padding: 2.5rem; margin: 3rem 0; }
+    .outcome-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8DB8A0; margin-bottom: 1rem; }
+    .outcome-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.2rem; font-weight: 700; color: #F7F5F0; margin-bottom: 1rem; line-height: 1.3; }
+    .outcome-p { font-size: 0.9375rem; color: rgba(247,245,240,0.75); line-height: 1.8; margin-bottom: 0.75rem; }
+    .outcome-p:last-child { margin-bottom: 0; }
+
+    /* ── Tools ── */
+    .tools-section { margin: 2.5rem 0; }
+    .tools-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.85rem; }
+    .tools-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tool-pill { font-size: 0.75rem; font-weight: 600; color: #376E5A; background: rgba(55,110,90,0.08); padding: 0.3rem 0.85rem; border-radius: 100px; }
+
+    /* ── Next project ── */
+    .next-project { border-top: 1px solid #E0DDD8; padding: 2.5rem 0 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .next-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.35rem; }
+    .next-title { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #1C2826; }
+    .next-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #376E5A; text-decoration: none; transition: gap 0.2s, color 0.2s; }
+    .next-link:hover { color: #2D5A49; gap: 0.75rem; }
+
+    /* ── Footer ── */
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; margin-top: 4rem; }
     .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12); }
-    .footer-brand { font-size: 1.125rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
+    .footer-brand { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
     .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.45); line-height: 1.6; }
     .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.4); margin-bottom: 0.75rem; }
     .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
@@ -60,11 +111,25 @@
     .footer-contact-link { display: block; color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; margin-bottom: 0.5rem; transition: color 0.2s; }
     .footer-contact-link:hover { color: #F7F5F0; }
     .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
-    .footer-tagline { font-size: 1rem; font-style: italic; color: rgba(247,245,240,0.35); }
-    @media (max-width: 720px) { .header-band { padding: 0 1.25rem; } .nav-links { gap: 1.25rem; } .nav-link { font-size: 0.7rem; } .case-banner { padding: 2.5rem 1.25rem 2rem; } .case-inner { padding: 0 1.25rem; } .metrics-row { flex-direction: column; } .metric-block { border-right: none; border-bottom: 1px solid #E0DDD8; } .footer-inner { grid-template-columns: 1fr; } }
+    .footer-tagline { font-family: 'Lora', Georgia, serif; font-size: 0.9375rem; font-style: italic; color: rgba(247,245,240,0.35); }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .nav-link { font-size: 0.7rem; letter-spacing: 0.04em; }
+      .hero, .metrics-band, .case-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .breadcrumb { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .metric-block:nth-child(2) { border-right: none; }
+      .metric-block:nth-child(3), .metric-block:nth-child(4) { border-top: 1px solid #E0DDD8; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .outcome-section { padding: 1.75rem; }
+    }
   </style>
 </head>
 <body>
+
   <header class="header-band">
     <a href="../index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
     <nav class="nav-links">
@@ -73,90 +138,170 @@
       <a href="../thinking.html" class="nav-link">How I Think</a>
       <a href="../about.html" class="nav-link">About</a>
       <a href="../tools.html" class="nav-link">Tools</a>
-      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
-      <a href="../Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link" style="color:rgba(254,254,254,0.9);background:rgba(254,254,254,0.1);padding:0.3rem 0.75rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.35rem;"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link nav-link-btn">Contact</a>
+      <a href="../Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link nav-link-dl"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
     </nav>
   </header>
 
-  <div class="breadcrumb"><a href="../work.html"><i class="ti ti-arrow-left"></i> Back to Work</a></div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb anim">
+    <a href="../work.html"><i class="ti ti-arrow-left"></i> Back to Work</a>
+  </div>
 
-  <div class="case-banner">
-    <div class="case-banner-num">04</div>
-    <div class="case-banner-inner">
-      <div class="case-domain anim">Personal · Automation · Always</div>
-      <h1 class="case-h1 anim" data-delay="0.1">A small problem. Automated.</h1>
-      <p class="case-sub anim" data-delay="0.2">2,400+ books. Two library accounts. A process that was annoying enough to fix. Not every problem is enterprise-scale — but the instinct is the same.</p>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="project-eyebrow anim" data-delay="0.1">
+      <span>04</span>
+      <span class="project-eyebrow-divider"></span>
+      <span>Personal · Automation · Always</span>
+    </div>
+    <h1 class="hero-h1 anim" data-delay="0.2">A small problem. Automated.</h1>
+    <p class="hero-turn anim" data-delay="0.3">2,400+ books. Two library accounts. A process that was annoying enough to fix. Not every problem is enterprise-scale — but the instinct is the same.</p>
+    <div class="context-strip anim" data-delay="0.4">
+      <span class="context-item"><i class="ti ti-book"></i> Personal project</span>
+      <span class="context-item"><i class="ti ti-home"></i> Home / Family</span>
+      <span class="context-tag">Python</span>
+      <span class="context-tag">Selenium</span>
+      <span class="context-tag">OCR</span>
+      <span class="context-tag">Automation</span>
     </div>
   </div>
 
-  <div class="metrics-row anim">
-    <div class="metric-block">
-      <div class="metric-num">2,400+</div>
-      <div class="metric-label">Books in the backlog — automated across two library accounts</div>
-    </div>
-    <div class="metric-block">
-      <div class="metric-num">0</div>
-      <div class="metric-label">Manual holds placed since the script went live</div>
-    </div>
-    <div class="metric-block">
-      <div class="metric-num">Automatic</div>
-      <div class="metric-label">ILL fallback when books aren't available locally</div>
-    </div>
-    <div class="metric-block">
-      <div class="metric-num">Same instinct</div>
-      <div class="metric-label">Kitchen-table scale. Enterprise-level problem-solving.</div>
+  <!-- Metrics -->
+  <div class="metrics-band">
+    <div class="metrics-grid anim">
+      <div class="metric-block">
+        <div class="metric-num">2,400+</div>
+        <div class="metric-label">Books in the backlog — automated across two library accounts</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">0</div>
+        <div class="metric-label">Manual holds placed since the script went live</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">Automatic</div>
+        <div class="metric-label">ILL fallback when books aren't available locally</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">Same instinct</div>
+        <div class="metric-label">Kitchen-table scale. Enterprise-level problem-solving.</div>
+      </div>
     </div>
   </div>
 
-  <div class="case-inner">
-    <div class="case-body">
-      <div class="case-narrative">
-        <div class="case-label">The situation</div>
-        <p class="case-p">My kids go through library books faster than I can place holds manually. 2,400+ books in the backlog. Two library accounts. A process that required navigating multiple systems, searching by title, switching accounts — every single book, every single week.</p>
-        <p class="case-p">It was a broken process. So I automated it.</p>
+  <!-- Body -->
+  <div class="case-body">
 
-        <div class="case-label">What I built</div>
-        <p class="case-p">Selenium navigates the Polaris library system, OCR pulls titles from screenshots, and the script handles dual-account management with automatic ILL (interlibrary loan) fallback when a book isn't available locally. I haven't manually placed a library hold since.</p>
-        <div class="case-li">Selenium-driven automation navigating the Polaris library catalog</div>
-        <div class="case-li">OCR-based title extraction from screenshots</div>
-        <div class="case-li">Dual-account management — switches between accounts automatically</div>
-        <div class="case-li">ILL fallback — automatically triggers interlibrary loan requests when local availability fails</div>
-        <div class="case-li">2,400+ book backlog processed without manual intervention</div>
+    <!-- The situation -->
+    <div class="case-section anim">
+      <div class="case-section-label">The situation</div>
+      <p class="case-p">My kids go through library books faster than I can place holds manually. 2,400+ books in the backlog. Two library accounts. A process that required navigating multiple systems, searching by title, switching accounts — every single book, every single week.</p>
+      <p class="case-p">It was a broken process. So I automated it.</p>
+    </div>
 
-        <div class="case-label">Why I'm including this</div>
-        <p class="case-p">I include this because it's the same instinct I bring to enterprise work — just at kitchen-table scale. I genuinely cannot walk past a broken process. The scale changes. The instinct doesn't.</p>
-        <p class="case-p">The tools are the same. The pattern is the same: find the broken step, understand why it's broken, build the fix. Whether that's a multi-million dollar supply chain model or a library hold queue, the approach doesn't change.</p>
-
-        <div class="case-label">Tools &amp; Stack</div>
-        <div>
-          <span class="tool-pill">Python</span>
-          <span class="tool-pill">Selenium</span>
-          <span class="tool-pill">OCR</span>
-          <span class="tool-pill">Automation</span>
+    <!-- What I built -->
+    <div class="case-section anim">
+      <div class="case-section-label">What I built</div>
+      <p class="case-p">Selenium navigates the Polaris library system, OCR pulls titles from screenshots, and the script handles dual-account management with automatic ILL (interlibrary loan) fallback when a book isn't available locally. I haven't manually placed a library hold since.</p>
+      <div class="built-list">
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Selenium-driven automation</strong> navigating the Polaris library catalog</div>
         </div>
-      </div>
-
-      <div class="case-sidebar">
-        <div class="sidebar-card">
-          <div class="sidebar-card-label">The pattern</div>
-          <div class="sidebar-card-text">"I applied the same problem-solving instinct to my own kitchen table that I bring to enterprise-scale work. The scale changes. The instinct doesn't."</div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>OCR-based title extraction</strong> from screenshots</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Dual-account management</strong> — switches between accounts automatically</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>ILL fallback</strong> — automatically triggers interlibrary loan requests when local availability fails</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>2,400+ book backlog</strong> processed without manual intervention</div>
         </div>
       </div>
     </div>
+
+    <!-- Pull quote -->
+    <div class="pull-quote anim">
+      <div class="pull-quote-text">"I genuinely cannot walk past a broken process. The scale changes. The instinct doesn't."</div>
+    </div>
+
+    <!-- Why I'm including this -->
+    <div class="case-section anim">
+      <div class="case-section-label">Why I'm including this</div>
+      <p class="case-p">I include this because it's the same instinct I bring to enterprise work — just at kitchen-table scale. The tools are the same. The pattern is the same: find the broken step, understand why it's broken, build the fix.</p>
+      <p class="case-p">Whether that's a multi-million dollar supply chain model or a library hold queue, the approach doesn't change.</p>
+    </div>
+
+    <!-- What changed -->
+    <div class="outcome-section anim">
+      <div class="outcome-label">What changed</div>
+      <div class="outcome-h2">I haven't manually placed a library hold since.</div>
+      <p class="outcome-p">The backlog runs. The books arrive. The kids keep reading.</p>
+      <p class="outcome-p">The real point isn't the automation — it's that I applied the same problem-solving instinct to my own kitchen table that I bring to enterprise-scale work. That's not a quirk. It's the methodology.</p>
+    </div>
+
+    <!-- Tools -->
+    <div class="tools-section anim">
+      <div class="tools-label">Tools &amp; Stack</div>
+      <div class="tools-pills">
+        <span class="tool-pill">Python</span>
+        <span class="tool-pill">Selenium</span>
+        <span class="tool-pill">OCR</span>
+        <span class="tool-pill">Automation</span>
+      </div>
+    </div>
+
+    <!-- Next project -->
+    <div class="next-project anim">
+      <div>
+        <div class="next-label">Back to the beginning</div>
+        <div class="next-title">50 interviews to find the real problem: not missing tools, missing policy.</div>
+      </div>
+      <a href="ph360.html" class="next-link">PH360 <i class="ti ti-arrow-right"></i></a>
+    </div>
+
   </div>
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <div><div class="footer-brand">Juliana McMillan-Wilhoit</div><div class="footer-brand-sub">Chief Product Officer &amp; Co-Founder, F&amp;T Labs<br />Northern Illinois</div></div>
-      <div><div class="footer-nav-label">Pages</div><div class="footer-nav-links"><a href="../index-ai.html" class="footer-nav-link">Home</a><a href="../work.html" class="footer-nav-link">Work</a><a href="../thinking.html" class="footer-nav-link">How I Think</a><a href="../about.html" class="footer-nav-link">About</a><a href="../references.html" class="footer-nav-link">References</a><a href="../tools.html" class="footer-nav-link">Tools</a></div></div>
-      <div><div class="footer-nav-label">Get in touch</div><a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a><a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn → julianamapper</a></div>
+      <div>
+        <div class="footer-brand">Juliana McMillan-Wilhoit</div>
+        <div class="footer-brand-sub">Chief Product Officer &amp; Co-Founder, F&amp;T Labs<br />Northern Illinois</div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Pages</div>
+        <div class="footer-nav-links">
+          <a href="../index-ai.html" class="footer-nav-link">Home</a>
+          <a href="../work.html" class="footer-nav-link">Work</a>
+          <a href="../thinking.html" class="footer-nav-link">How I Think</a>
+          <a href="../about.html" class="footer-nav-link">About</a>
+          <a href="../references.html" class="footer-nav-link">References</a>
+          <a href="../tools.html" class="footer-nav-link">Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Get in touch</div>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn → julianamapper</a>
+      </div>
     </div>
-    <div class="footer-tagline-row"><div class="footer-tagline">The domain changes. The approach doesn't.</div></div>
+    <div class="footer-tagline-row">
+      <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+    </div>
   </footer>
 
   <script>
-    const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.06 });
-    document.querySelectorAll('.anim').forEach(el => { el.classList.add('will-animate'); obs.observe(el); });
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.anim').forEach(el => obs.observe(el));
   </script>
 </body>
 </html>

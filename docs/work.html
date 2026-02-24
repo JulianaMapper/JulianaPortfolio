@@ -10,112 +10,362 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1C2826; background: #F7F5F0; min-height: 100vh; line-height: 1.6; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 
-    .will-animate { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .will-animate.visible { opacity: 1; transform: translateY(0); }
-    .will-animate[data-delay="0.1"] { transition-delay: 0.1s; }
-    .will-animate[data-delay="0.2"] { transition-delay: 0.2s; }
-    .will-animate[data-delay="0.3"] { transition-delay: 0.3s; }
+    :root {
+      --color-text: #1C2826;
+      --color-body: #4A5A54;
+      --color-accent: #376E5A;
+      --color-accent-light: #8DB8A0;
+      --color-muted: #8A9690;
+      --color-ground: #F7F5F0;
+      --color-surface: #FEFEFE;
+      --color-border: #E0DDD8;
+      --color-hover-accent: #2D5A49;
+      --font-display: 'Lora', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
 
-    /* Header */
-    .header-band { background: #1C2826; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
-    .header-name { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.125rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none; }
-    .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-link { color: rgba(254,254,254,0.65); text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-ground);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    /* ── Animations ── */
+    .anim {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .anim.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .anim[data-delay="0.1"] { transition-delay: 0.1s; }
+    .anim[data-delay="0.2"] { transition-delay: 0.2s; }
+    .anim[data-delay="0.3"] { transition-delay: 0.3s; }
+    .anim[data-delay="0.4"] { transition-delay: 0.4s; }
+
+    /* ── Header ── */
+    .header-band {
+      background: var(--color-text);
+      padding: 0 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 58px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+    .header-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--color-ground);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-link {
+      color: rgba(247,245,240,0.65);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
     .nav-link:hover { color: #FEFEFE; }
-    .nav-link.active { color: #FEFEFE; border-bottom: 1px solid rgba(254,254,254,0.5); padding-bottom: 1px; }
+    .nav-link.active {
+      color: #FEFEFE;
+      border-bottom: 1px solid rgba(247,245,240,0.5);
+      padding-bottom: 1px;
+    }
+    .nav-link-btn {
+      color: rgba(247,245,240,0.9) !important;
+      border: 1px solid rgba(247,245,240,0.3);
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+    }
+    .nav-link-dl {
+      color: rgba(247,245,240,0.9) !important;
+      background: rgba(247,245,240,0.1);
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
 
-    /* Page header */
-    .page-header { padding: 7rem 2.5rem 3.5rem; max-width: 960px; margin: 0 auto; border-bottom: 1px solid #E0DDD8; }
-    .section-tag { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #376E5A; margin-bottom: 0.5rem; }
-    .page-h1 { font-family: 'Lora', Georgia, serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #1C2826; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem; }
-    .page-desc { font-size: 1.0625rem; color: #4A5A54; max-width: 600px; line-height: 1.75; }
+    /* ── Page intro ── */
+    .page-intro {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 7rem 2.5rem 3.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+    .page-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+    }
+    .page-subtitle {
+      font-size: 1.0625rem;
+      color: var(--color-body);
+      line-height: 1.75;
+      max-width: 580px;
+    }
 
-    /* Card grid */
-    .work-grid { max-width: 960px; margin: 0 auto; padding: 3rem 2.5rem 5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 1.5rem; }
+    /* ── Project index ── */
+    .project-index {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2.5rem 6rem;
+    }
 
-    .work-card {
-      background: #FEFEFE;
-      border: 1px solid #E0DDD8;
-      border-radius: 14px;
-      overflow: hidden;
+    /* Each row is a full-width link */
+    .project-row {
+      display: grid;
+      grid-template-columns: 4.5rem 1fr auto;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--color-border);
       text-decoration: none;
       color: inherit;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .project-row:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+    /* Hover: subtle tint behind full row */
+    .project-row::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(55, 110, 90, 0.05);
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .project-row:hover::before {
+      opacity: 1;
+    }
+
+    /* Left col: number */
+    .row-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-text);
+      opacity: 0.08;
+      line-height: 1;
+      text-align: right;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    /* Middle col */
+    .row-middle {
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      position: relative;
+      gap: 0.55rem;
     }
-    .work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(28,40,38,0.1); border-color: #8DB8A0; }
-
-    .card-banner {
-      padding: 1.75rem 1.75rem 1.5rem;
-      position: relative;
-      overflow: hidden;
+    .row-title {
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--color-text);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      transition: color 0.2s;
     }
-    .card-banner-num {
-      position: absolute; right: 1rem; bottom: -0.5rem;
-      font-size: 6rem; font-weight: 700; line-height: 1;
-      color: rgba(255,255,255,0.07); pointer-events: none;
-      letter-spacing: -0.04em;
+    .project-row:hover .row-title {
+      color: var(--color-accent);
     }
-    .card-domain { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 0.5rem; }
-    .card-title { font-family: 'Lora', Georgia, serif; font-size: 1.375rem; font-weight: 700; color: #FEFEFE; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.5rem; }
-    .card-sub { font-size: 0.875rem; color: rgba(255,255,255,0.65); line-height: 1.6; font-weight: 300; }
-
-    .card-body { padding: 1.5rem 1.75rem; flex: 1; display: flex; flex-direction: column; gap: 1rem; }
-
-    .card-metrics { display: flex; gap: 1.5rem; }
-    .card-metric-num { font-family: 'DM Sans', sans-serif; font-size: 1.375rem; font-weight: 700; color: #376E5A; line-height: 1; }
-    .card-metric-label { font-size: 0.72rem; color: #4A5A54; margin-top: 0.2rem; line-height: 1.3; }
-
-    .card-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .card-pill { font-family: 'DM Sans', system-ui, sans-serif; font-size: 0.68rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 20px; background: rgba(55,110,90,0.07); color: #376E5A; border: 1px solid rgba(55,110,90,0.15); }
-
-    .card-cta { display: flex; align-items: center; gap: 0.4rem; font-family: 'DM Sans', system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; color: #376E5A; margin-top: auto; padding-top: 0.25rem; text-decoration: none; transition: gap 0.2s; }
-    .work-card:hover .card-cta { gap: 0.65rem; }
-
-    /* Ghost card */
-    .ghost-card {
-      background: transparent;
-      border: 1.5px dashed #E0DDD8;
-      border-radius: 14px;
-      padding: 1.75rem;
+    .row-meta {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
-      min-height: 160px;
-      color: #8A9690;
-      font-family: 'DM Sans', system-ui, sans-serif;
+      gap: 0.5rem;
+    }
+    .row-domain {
+      font-size: 0.75rem;
+      color: var(--color-muted);
+      font-weight: 400;
+    }
+    .row-divider {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--color-accent-light);
+      flex-shrink: 0;
+    }
+    .row-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: rgba(55, 110, 90, 0.08);
+      padding: 0.15rem 0.6rem;
+      border-radius: 100px;
+    }
+
+    /* Right col: stat + arrow */
+    .row-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .row-stat {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .row-arrow {
+      font-size: 1rem;
+      color: var(--color-accent-light);
+      transition: transform 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .project-row:hover .row-arrow {
+      transform: translateX(5px);
+      color: var(--color-accent);
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--color-text);
+      padding: 3.5rem 2.5rem 2rem;
+    }
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(247,245,240,0.12);
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-ground);
+      margin-bottom: 0.4rem;
+    }
+    .footer-brand-sub {
       font-size: 0.8rem;
-      font-weight: 500;
-      text-align: center;
+      color: rgba(247,245,240,0.45);
       line-height: 1.6;
     }
+    .footer-nav-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(247,245,240,0.4);
+      margin-bottom: 0.75rem;
+    }
+    .footer-nav-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.25rem;
+    }
+    .footer-nav-link {
+      color: rgba(247,245,240,0.65);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .footer-nav-link:hover { color: var(--color-ground); }
+    .footer-contact-link {
+      display: block;
+      color: rgba(247,245,240,0.65);
+      text-decoration: none;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+    .footer-contact-link:hover { color: var(--color-ground); }
+    .footer-tagline-row {
+      max-width: 960px;
+      margin: 2rem auto 0;
+      text-align: center;
+    }
+    .footer-tagline {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-style: italic;
+      color: rgba(247,245,240,0.35);
+    }
 
-    /* Footer */
-    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; }
-    .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12); }
-    .footer-brand { font-family: 'DM Sans', sans-serif; font-size: 1.125rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
-    .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.45); line-height: 1.6; }
-    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.4); margin-bottom: 0.75rem; }
-    .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
-    .footer-nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s; }
-    .footer-nav-link:hover { color: #F7F5F0; }
-    .footer-contact-link { display: block; color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; margin-bottom: 0.5rem; transition: color 0.2s; }
-    .footer-contact-link:hover { color: #F7F5F0; }
-    .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
-    .footer-tagline { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-style: italic; color: rgba(247,245,240,0.35); }
-
+    /* ── Responsive ── */
     @media (max-width: 720px) {
-      .page-header { padding: 6rem 1.25rem 2.5rem; }
-      .work-grid { padding: 2rem 1.25rem 4rem; grid-template-columns: 1fr; }
       .header-band { padding: 0 1.25rem; }
-      .nav-links { gap: 1.25rem; }
-      .nav-link { font-size: 0.7rem; }
+      .nav-links { gap: 1rem; }
+      .nav-link { font-size: 0.7rem; letter-spacing: 0.04em; }
+
+      .page-intro { padding: 6rem 1.25rem 2.5rem; }
+      .project-index { padding: 0 1.25rem 4rem; }
+
+      /* Stack rows on mobile */
+      .project-row {
+        grid-template-columns: 2.5rem 1fr;
+        grid-template-rows: auto auto;
+        row-gap: 0.75rem;
+        column-gap: 1rem;
+        padding: 1.5rem 0;
+      }
+      .row-num {
+        font-size: 1.75rem;
+        grid-row: 1;
+        grid-column: 1;
+        text-align: left;
+      }
+      .row-middle {
+        grid-row: 1;
+        grid-column: 2;
+      }
+      .row-right {
+        grid-row: 2;
+        grid-column: 2;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
       .footer-inner { grid-template-columns: 1fr; }
     }
   </style>
@@ -130,130 +380,86 @@
       <a href="thinking.html" class="nav-link">How I Think</a>
       <a href="about.html" class="nav-link">About</a>
       <a href="tools.html" class="nav-link">Tools</a>
-      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
-      <a href="Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link" style="color:rgba(254,254,254,0.9);background:rgba(254,254,254,0.1);padding:0.3rem 0.75rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.35rem;"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link nav-link-btn">Contact</a>
+      <a href="Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link nav-link-dl"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
     </nav>
   </header>
 
-  <div class="page-header">
-    <div class="section-tag anim">Selected Work</div>
+  <!-- Page intro -->
+  <div class="page-intro">
+    <div class="eyebrow anim">Selected Work</div>
     <h1 class="page-h1 anim" data-delay="0.1">The pattern, across four domains</h1>
-    <p class="page-desc anim" data-delay="0.2">Different organizations. Different problems. Different scales. Same approach every time: go toward the people, find the real problem, build the fix.</p>
+    <p class="page-subtitle anim" data-delay="0.2">Different problems. Different organizations. Same approach: go toward the people, find the real problem, build the fix.</p>
   </div>
 
-  <div class="work-grid">
+  <!-- Project index -->
+  <div class="project-index">
 
-    <a href="cases/ph360.html" class="work-card anim" data-delay="0.1">
-      <div class="card-banner" style="background:#1C2826;">
-        <div class="card-banner-num">01</div>
-        <div class="card-domain">F&amp;T Labs · Public Health AI · 2023–Present</div>
-        <div class="card-title">PH360: AI for public health, built from 50 interviews</div>
-        <div class="card-sub">HIPAA-compliant AI platform on AWS Bedrock. Nobody had built this for local health departments. I asked 50 people why before writing a line of code.</div>
+    <a href="cases/ph360.html" class="project-row anim" data-delay="0.1">
+      <div class="row-num">01</div>
+      <div class="row-middle">
+        <div class="row-title">50 interviews to find the real problem: not missing tools, missing policy</div>
+        <div class="row-meta">
+          <span class="row-domain">F&amp;T Labs &middot; Public Health AI</span>
+          <span class="row-divider"></span>
+          <span class="row-tag">HIPAA</span>
+          <span class="row-tag">AWS Bedrock</span>
+        </div>
       </div>
-      <div class="card-body">
-        <div class="card-metrics">
-          <div>
-            <div class="card-metric-num">30m → 5m</div>
-            <div class="card-metric-label">Routine task time, Sauk County</div>
-          </div>
-          <div>
-            <div class="card-metric-num">5+</div>
-            <div class="card-metric-label">LLMs tested before choosing Bedrock</div>
-          </div>
-        </div>
-        <div class="card-pills">
-          <span class="card-pill">AWS Bedrock</span>
-          <span class="card-pill">HIPAA</span>
-          <span class="card-pill">Multi-LLM Testing</span>
-          <span class="card-pill">50 interviews</span>
-          <span class="card-pill">SAFe</span>
-        </div>
-        <span class="card-cta">Read case study <i class="ti ti-arrow-right"></i></span>
+      <div class="row-right">
+        <span class="row-stat">30m &rarr; 5m</span>
+        <span class="row-arrow">&rarr;</span>
       </div>
     </a>
 
-    <a href="cases/ensite.html" class="work-card anim" data-delay="0.2">
-      <div class="card-banner" style="background:#2D5A49;">
-        <div class="card-banner-num">02</div>
-        <div class="card-domain">U.S. Army Corps of Engineers · Defense · 2013–2019</div>
-        <div class="card-title">ENSITE: "Zillow for base camps"</div>
-        <div class="card-sub">PM for a product that had never existed. Set global data standards, navigated commander's intent as a product constraint, deployed to three military theaters.</div>
+    <a href="cases/ensite.html" class="project-row anim" data-delay="0.2">
+      <div class="row-num">02</div>
+      <div class="row-middle">
+        <div class="row-title">The military didn&rsquo;t need a better database. It needed data standards that worked globally</div>
+        <div class="row-meta">
+          <span class="row-domain">Army Corps of Engineers &middot; Defense</span>
+          <span class="row-divider"></span>
+          <span class="row-tag">ArcGIS</span>
+          <span class="row-tag">Data Governance</span>
+        </div>
       </div>
-      <div class="card-body">
-        <div class="card-metrics">
-          <div>
-            <div class="card-metric-num">3</div>
-            <div class="card-metric-label">Military theaters deployed — Iraq, Afghanistan, Poland</div>
-          </div>
-          <div>
-            <div class="card-metric-num">First</div>
-            <div class="card-metric-label">Global military site location tool ever built</div>
-          </div>
-        </div>
-        <div class="card-pills">
-          <span class="card-pill">ArcGIS</span>
-          <span class="card-pill">Data Governance</span>
-          <span class="card-pill">NGA Relationships</span>
-          <span class="card-pill">Commander's Intent Design</span>
-        </div>
-        <span class="card-cta">Read case study <i class="ti ti-arrow-right"></i></span>
+      <div class="row-right">
+        <span class="row-stat">3 theaters</span>
+        <span class="row-arrow">&rarr;</span>
       </div>
     </a>
 
-    <a href="cases/peapod.html" class="work-card anim" data-delay="0.1">
-      <div class="card-banner" style="background:#376E5A;">
-        <div class="card-banner-num">03</div>
-        <div class="card-domain">Peapod Digital Labs · Supply Chain · 2020–2023</div>
-        <div class="card-title">The demand model nobody had questioned</div>
-        <div class="card-sub">Consultants built it. Executives trusted it. Multi-million dollar facility decisions ran on it. I ran the first validation it had ever seen.</div>
+    <a href="cases/peapod.html" class="project-row anim" data-delay="0.3">
+      <div class="row-num">03</div>
+      <div class="row-middle">
+        <div class="row-title">The dashboard wasn&rsquo;t the problem. Nobody trusted the model behind it</div>
+        <div class="row-meta">
+          <span class="row-domain">Peapod Digital Labs &middot; Supply Chain</span>
+          <span class="row-divider"></span>
+          <span class="row-tag">Alteryx</span>
+          <span class="row-tag">PCA</span>
+        </div>
       </div>
-      <div class="card-body">
-        <div class="card-metrics">
-          <div>
-            <div class="card-metric-num">8h → 30m</div>
-            <div class="card-metric-label">Dashboard reporting time</div>
-          </div>
-          <div>
-            <div class="card-metric-num">First</div>
-            <div class="card-metric-label">Validation the model ever received</div>
-          </div>
-        </div>
-        <div class="card-pills">
-          <span class="card-pill">Alteryx</span>
-          <span class="card-pill">Tableau</span>
-          <span class="card-pill">PCA / Validation</span>
-          <span class="card-pill">SQL</span>
-          <span class="card-pill">ArcGIS</span>
-        </div>
-        <span class="card-cta">Read case study <i class="ti ti-arrow-right"></i></span>
+      <div class="row-right">
+        <span class="row-stat">8h &rarr; 30m</span>
+        <span class="row-arrow">&rarr;</span>
       </div>
     </a>
 
-    <a href="cases/library.html" class="work-card anim" data-delay="0.2">
-      <div class="card-banner" style="background:#4A5A54;">
-        <div class="card-banner-num">04</div>
-        <div class="card-domain">Personal · Automation · Always</div>
-        <div class="card-title">A small problem. Automated.</div>
-        <div class="card-sub">2,400+ books. Two library accounts. A process that was annoying enough to fix. Not every problem is enterprise-scale — but the instinct is the same.</div>
+    <a href="cases/library.html" class="project-row anim" data-delay="0.4">
+      <div class="row-num">04</div>
+      <div class="row-middle">
+        <div class="row-title">A small problem. Automated</div>
+        <div class="row-meta">
+          <span class="row-domain">Personal &middot; Automation</span>
+          <span class="row-divider"></span>
+          <span class="row-tag">Python</span>
+          <span class="row-tag">Selenium</span>
+        </div>
       </div>
-      <div class="card-body">
-        <div class="card-metrics">
-          <div>
-            <div class="card-metric-num">2,400+</div>
-            <div class="card-metric-label">Books automated across two accounts</div>
-          </div>
-          <div>
-            <div class="card-metric-num">0</div>
-            <div class="card-metric-label">Manual holds placed since launch</div>
-          </div>
-        </div>
-        <div class="card-pills">
-          <span class="card-pill">Python</span>
-          <span class="card-pill">Selenium</span>
-          <span class="card-pill">OCR</span>
-          <span class="card-pill">Automation</span>
-        </div>
-        <span class="card-cta">Read case study <i class="ti ti-arrow-right"></i></span>
+      <div class="row-right">
+        <span class="row-stat">2,400+ books</span>
+        <span class="row-arrow">&rarr;</span>
       </div>
     </a>
 
@@ -278,20 +484,26 @@
       </div>
       <div>
         <div class="footer-nav-label">Get in touch</div>
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
-        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn → julianamapper</a>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch &rarr;</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn &rarr; julianamapper</a>
       </div>
     </div>
     <div class="footer-tagline-row">
-      <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+      <div class="footer-tagline">The domain changes. The approach doesn&rsquo;t.</div>
     </div>
   </footer>
 
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
     }, { threshold: 0.06 });
-    document.querySelectorAll('.anim').forEach(el => { el.classList.add('will-animate'); observer.observe(el); });
+    document.querySelectorAll('.anim').forEach(el => obs.observe(el));
   </script>
+
 </body>
 </html>
