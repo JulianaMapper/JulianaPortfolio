@@ -18,7 +18,6 @@
     --color-body:        #4A5A54;
     --color-accent:      #376E5A;
     --color-accent-light:#8DB8A0;
-    --color-warm:        #D4A07A;
     --color-muted:       #8A9690;
     --color-ground:      #F7F5F0;
     --color-white:       #FFFFFF;
@@ -26,10 +25,8 @@
     /* Extended / utility */
     --color-border:      #E0DDD8;
     --color-border-light:#EDEAE6;
-    --color-warm-tint:   rgba(212, 160, 122, 0.15);
     --color-accent-tint: rgba(55, 110, 90, 0.08);
     --color-hover-accent:#2D5A49;
-    --color-hover-warm:  #C08A62;
     --color-surface:     #FEFEFE;
     --color-code-bg:     #F0EDEA;
 
@@ -297,13 +294,15 @@
   .btn-outline:hover {
     background: var(--color-accent-tint);
   }
-  .btn-warm {
+  .btn-light {
     background: transparent;
-    color: var(--color-hover-warm);
-    border-color: var(--color-warm);
+    color: var(--color-accent-light);
+    border-color: var(--color-accent-light);
   }
-  .btn-warm:hover {
-    background: var(--color-warm-tint);
+  .btn-light:hover {
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
   }
 
   .tag {
@@ -316,14 +315,10 @@
     background: var(--color-accent-tint);
     color: var(--color-accent);
   }
-  .tag-warm {
-    background: var(--color-warm-tint);
-    color: var(--color-hover-warm);
-  }
 
   .highlight {
     display: inline;
-    background: var(--color-warm-tint);
+    background: var(--color-accent-tint);
     padding: 0.1rem 0.4rem;
     border-radius: 3px;
     color: var(--color-text);
@@ -349,7 +344,7 @@
     border: 1px solid var(--color-border);
   }
   .code .token-prop { color: var(--color-accent); }
-  .code .token-val { color: var(--color-hover-warm); }
+  .code .token-val { color: var(--color-accent-light); }
   .code .token-comment { color: var(--color-muted); }
 
   /* Contrast table */
@@ -399,14 +394,14 @@
     margin-bottom: var(--space-2);
   }
   .dont-box {
-    background: rgba(212, 160, 122, 0.04);
-    border: 1px solid rgba(212, 160, 122, 0.2);
+    background: rgba(138, 150, 144, 0.06);
+    border: 1px solid rgba(138, 150, 144, 0.2);
   }
   .dont-box .dont-label {
     font-family: var(--font-ui);
     font-weight: 600; font-size: 0.65rem;
     text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--color-hover-warm);
+    color: var(--color-muted);
     margin-bottom: var(--space-2);
   }
   @media (max-width: 768px) {
@@ -423,7 +418,7 @@
   <!-- ============================= -->
   <div class="brief-header">
     <h1>Personal Brand Style Brief</h1>
-    <p class="subtitle">Juliana McMillan-Wilhoit — "Balanced" direction (Still Water palette)</p>
+    <p class="subtitle">Juliana McMillan-Wilhoit — "Still Water" direction — Lora + DM Sans</p>
     <span class="version">v1.0 — February 2026</span>
   </div>
 
@@ -436,7 +431,7 @@
     <div class="card">
       <p class="card-label">Visual Personality</p>
       <p style="font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--color-text); margin-bottom: var(--space-3);">Professional with warmth. Structured with joy. Clear enough to scan in 8 seconds, human enough to remember.</p>
-      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">This brand reads "product leader" first and "interesting human" second. The green accent carries competence, growth, and your public health roots. The coral appears only as a highlight, never as a structural color. It's the joy. Light backgrounds keep the focus on content and case studies. Typography is dyslexia-friendly throughout: even stroke widths, open letterforms, generous spacing.</p>
+      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">This brand reads "product leader" first and "interesting human" second. The green accent carries competence, growth, and your public health roots. Light backgrounds keep the focus on content and case studies. Lora brings warmth and credibility to headlines with its brushed serif curves. DM Sans keeps body text dyslexia-friendly throughout: even stroke widths, open letterforms, generous spacing. Together they say "I take this seriously and I care about you reading it."</p>
     </div>
     <div class="grid-2">
       <div class="card card-sm">
@@ -458,7 +453,7 @@
   <div class="section">
     <p class="section-label">01 — Color</p>
     <h2 class="section-title">Color system</h2>
-    <p class="section-note">Six core colors plus three utility values. The palette draws from soft autumn tones: muted, warm-undertoned greens and a single warm accent. Every color has a defined role. Coral (#D4A07A) appears only as a tint/highlight, never as a background or primary structural element.</p>
+    <p class="section-note">Five core colors plus utility values. The palette draws from soft autumn tones: muted, warm-undertoned greens grounded by a near-white background. Every color has a defined role. All primary text pairings meet WCAG AAA (7:1+).</p>
 
     <p class="card-label" style="margin-bottom: var(--space-3);">Primary Palette</p>
     <div class="swatch-grid">
@@ -492,14 +487,6 @@
           <p class="swatch-name">Light Accent</p>
           <p class="swatch-hex">#8DB8A0</p>
           <p class="swatch-use">Decorative, chart fills, icons</p>
-        </div>
-      </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background: #D4A07A;"></div>
-        <div class="swatch-info">
-          <p class="swatch-name">Warm</p>
-          <p class="swatch-hex">#D4A07A</p>
-          <p class="swatch-use">Highlight tints, joy moments</p>
         </div>
       </div>
       <div class="swatch">
@@ -547,15 +534,7 @@
         <div class="swatch-info">
           <p class="swatch-name">Accent Tint</p>
           <p class="swatch-hex">rgba(55,110,90,0.08)</p>
-          <p class="swatch-use">Tag backgrounds, hover states</p>
-        </div>
-      </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background: rgba(212, 160, 122, 0.15);"></div>
-        <div class="swatch-info">
-          <p class="swatch-name">Warm Tint</p>
-          <p class="swatch-hex">rgba(212,160,122,0.15)</p>
-          <p class="swatch-use">Inline highlights only</p>
+          <p class="swatch-use">Tag backgrounds, highlights, hover states</p>
         </div>
       </div>
       <div class="swatch">
@@ -574,14 +553,6 @@
           <p class="swatch-use">Button hover, active links</p>
         </div>
       </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background: #C08A62;"></div>
-        <div class="swatch-info">
-          <p class="swatch-name">Hover Warm</p>
-          <p class="swatch-hex">#C08A62</p>
-          <p class="swatch-use">Warm tag text, warm button text</p>
-        </div>
-      </div>
     </div>
 
     <!-- Contrast -->
@@ -592,13 +563,13 @@
           <tr><th>Pair</th><th>Ratio</th><th>WCAG AA</th><th>WCAG AAA</th><th>Use</th></tr>
         </thead>
         <tbody>
-          <tr><td>Text (#1C2826) on Ground (#F7F5F0)</td><td>13.8:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Headlines</td></tr>
-          <tr><td>Body (#4A5A54) on Ground (#F7F5F0)</td><td>8.0:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Body copy</td></tr>
-          <tr><td>Accent (#376E5A) on Ground (#F7F5F0)</td><td>4.9:1</td><td class="pass">Pass</td><td class="pass">Pass (large)</td><td>Links, labels, subheads</td></tr>
-          <tr><td>White (#FFF) on Accent (#376E5A)</td><td>5.6:1</td><td class="pass">Pass</td><td class="pass">Pass (large)</td><td>Primary buttons</td></tr>
-          <tr><td>Muted (#8A9690) on Ground (#F7F5F0)</td><td>3.2:1</td><td class="pass">Pass (large)</td><td>—</td><td>Captions, metadata only</td></tr>
-          <tr><td>Text (#1C2826) on Surface (#FEFEFE)</td><td>15.1:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Card headings</td></tr>
-          <tr><td>Body (#4A5A54) on Surface (#FEFEFE)</td><td>8.6:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Card body text</td></tr>
+          <tr><td>Text (#1C2826) on Ground (#F7F5F0)</td><td>13.2:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Headlines</td></tr>
+          <tr><td>Body (#4A5A54) on Ground (#F7F5F0)</td><td>7.1:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Body copy</td></tr>
+          <tr><td>Accent (#376E5A) on Ground (#F7F5F0)</td><td>5.4:1</td><td class="pass">Pass</td><td>—</td><td>Links, labels, buttons</td></tr>
+          <tr><td>White (#FFF) on Accent (#376E5A)</td><td>5.4:1</td><td class="pass">Pass</td><td>—</td><td>Primary buttons</td></tr>
+          <tr><td>Muted (#8A9690) on Ground (#F7F5F0)</td><td>3.1:1</td><td class="pass">Pass (large)</td><td>—</td><td>Captions, metadata only</td></tr>
+          <tr><td>Text (#1C2826) on Surface (#FEFEFE)</td><td>13.6:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Card headings</td></tr>
+          <tr><td>Body (#4A5A54) on Surface (#FEFEFE)</td><td>7.3:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Card body text</td></tr>
         </tbody>
       </table>
     </div>
@@ -607,11 +578,11 @@
     <div class="do-dont" style="margin-top: var(--space-6);">
       <div class="do-box">
         <p class="do-label">Do</p>
-        <p style="color: var(--color-body);">Use coral (#D4A07A) as an inline highlight tint behind key phrases. Use it in warm tags and a tertiary button option. Let it appear in small moments that feel like joy.</p>
+        <p style="color: var(--color-body);">Use accent (#376E5A) for all interactive elements: buttons, links, labels, emphasis. Use accent tint for tag backgrounds and inline highlights. Reserve light accent (#8DB8A0) for decorative elements, chart fills, and tertiary buttons.</p>
       </div>
       <div class="dont-box">
         <p class="dont-label">Avoid</p>
-        <p style="color: var(--color-body);">Using coral as a background color, section divider, or primary button. It competes with the green when given too much structural weight. Coral is the seasoning, not the plate.</p>
+        <p style="color: var(--color-body);">Introducing off-palette colors. The system works because it stays within the green family. Keep muted (#8A9690) for metadata and captions only. Never use light accent for text on light backgrounds (insufficient contrast).</p>
       </div>
     </div>
   </div>
@@ -624,18 +595,18 @@
   <div class="section">
     <p class="section-label">02 — Typography</p>
     <h2 class="section-title">Type system</h2>
-    <p class="section-note">Two font families. DM Sans handles all content (headlines and body). Outfit handles all interface elements (labels, buttons, tags, navigation, metadata). Both are dyslexia-friendly: even stroke widths, open counters, distinct letterforms (I/l/1 are easily distinguishable), tall x-height.</p>
+    <p class="section-note">Two font families. Lora handles all headlines and display text, bringing warmth and credibility through its brushed serif curves. DM Sans handles everything else — body copy, UI elements, labels, buttons, tags, navigation, and metadata — with dyslexia-friendly characteristics: even stroke widths, open counters, distinct letterforms (I/l/1 are easily distinguishable), tall x-height.</p>
 
     <div class="grid-2" style="margin-bottom: var(--space-8);">
       <div class="card">
-        <p class="card-label">Content Font — DM Sans</p>
-        <p style="font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--color-text); margin-bottom: var(--space-2);">DM Sans</p>
-        <p style="font-family: var(--font-body); font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Headlines (700), subheads (500), body text (400). Slightly softer geometry than geometric sans-serifs like Sora. Warm curves carry approachability without sacrificing clarity. Use for all long-form content, hero headlines, case study narratives.</p>
+        <p class="card-label">Display Font — Lora</p>
+        <p style="font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--color-text); margin-bottom: var(--space-2);">Lora</p>
+        <p style="font-family: var(--font-body); font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Headlines (700), section headings (700), card headings (600). A contemporary serif with brushed curves rooted in calligraphy. Carries warmth and credibility without feeling stiff or academic. The optical contrast between thick and thin strokes gives headlines presence. Use for all display text, hero headlines, case study titles.</p>
       </div>
       <div class="card">
-        <p class="card-label">Interface Font — Outfit</p>
-        <p style="font-family: var(--font-ui); font-weight: 700; font-size: 1.5rem; color: var(--color-text); margin-bottom: var(--space-2);">Outfit</p>
-        <p style="font-family: var(--font-body); font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Section labels (600), buttons (600), tags (500), navigation (500), metadata (400). Clean geometric construction provides clear hierarchy distinction from DM Sans. Use for all UI chrome, wayfinding, and structural elements.</p>
+        <p class="card-label">Body Font — DM Sans</p>
+        <p style="font-family: var(--font-body); font-weight: 700; font-size: 1.5rem; color: var(--color-text); margin-bottom: var(--space-2);">DM Sans</p>
+        <p style="font-family: var(--font-body); font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Body text (400), subheads (500), supporting copy (300). Slightly softer geometry than rigid sans-serifs. Warm curves carry approachability without sacrificing clarity. Dyslexia-friendly: even stroke widths, open counters, distinct letterforms. Use for all long-form content, case study narratives, descriptions.</p>
       </div>
     </div>
 
@@ -645,22 +616,22 @@
 
       <div class="type-specimen">
         <p class="type-sample" style="font-family: var(--font-display); font-weight: 700; font-size: 2.8rem; line-height: 1.1;">Hero Headline</p>
-        <p class="type-meta">DM Sans 700 · 2.8rem / 44.8px · Line-height: 1.1 · Color: var(--color-text) · Tracking: normal</p>
+        <p class="type-meta">Lora 700 · 2.8rem / 44.8px · Line-height: 1.1 · Color: var(--color-text) · Tracking: normal</p>
       </div>
 
       <div class="type-specimen">
         <p class="type-sample" style="font-family: var(--font-display); font-weight: 700; font-size: 2rem; line-height: 1.2;">Page Heading (H1)</p>
-        <p class="type-meta">DM Sans 700 · 2rem / 32px · Line-height: 1.2 · Color: var(--color-text)</p>
+        <p class="type-meta">Lora 700 · 2rem / 32px · Line-height: 1.2 · Color: var(--color-text)</p>
       </div>
 
       <div class="type-specimen">
         <p class="type-sample" style="font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; line-height: 1.25;">Section Heading (H2)</p>
-        <p class="type-meta">DM Sans 700 · 1.4rem / 22.4px · Line-height: 1.25 · Color: var(--color-text)</p>
+        <p class="type-meta">Lora 700 · 1.4rem / 22.4px · Line-height: 1.25 · Color: var(--color-text)</p>
       </div>
 
       <div class="type-specimen">
         <p class="type-sample" style="font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; line-height: 1.35;">Card Heading (H3)</p>
-        <p class="type-meta">DM Sans 600 · 1.15rem / 18.4px · Line-height: 1.35 · Color: var(--color-text)</p>
+        <p class="type-meta">Lora 600 · 1.15rem / 18.4px · Line-height: 1.35 · Color: var(--color-text)</p>
       </div>
 
       <div class="type-specimen">
@@ -680,22 +651,22 @@
 
       <div class="type-specimen">
         <p class="type-sample" style="font-family: var(--font-ui); font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-accent);">Section Label / Eyebrow</p>
-        <p class="type-meta">Outfit 600 · 0.65rem / 10.4px · Uppercase · Letter-spacing: 0.14em · Color: var(--color-accent)</p>
+        <p class="type-meta">DM Sans 600 · 0.65rem / 10.4px · Uppercase · Letter-spacing: 0.14em · Color: var(--color-accent)</p>
       </div>
 
       <div class="type-specimen">
         <p class="type-sample" style="font-family: var(--font-ui); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.03em; color: var(--color-accent);">Button Label</p>
-        <p class="type-meta">Outfit 600 · 0.78rem / 12.5px · Letter-spacing: 0.03em · Color: varies by button type</p>
+        <p class="type-meta">DM Sans 600 · 0.78rem / 12.5px · Letter-spacing: 0.03em · Color: varies by button type</p>
       </div>
 
       <div class="type-specimen">
         <p class="type-sample" style="font-family: var(--font-ui); font-weight: 500; font-size: 0.68rem; color: var(--color-accent);">Tag / Chip Text</p>
-        <p class="type-meta">Outfit 500 · 0.68rem / 10.9px · Color: var(--color-accent) or var(--color-hover-warm)</p>
+        <p class="type-meta">DM Sans 500 · 0.68rem / 10.9px · Color: var(--color-accent)</p>
       </div>
 
       <div class="type-specimen">
         <p class="type-sample" style="font-family: var(--font-ui); font-weight: 400; font-size: 0.78rem; color: var(--color-muted);">Caption / Footer / Metadata</p>
-        <p class="type-meta">Outfit 400 · 0.78rem / 12.5px · Color: var(--color-muted)</p>
+        <p class="type-meta">DM Sans 400 · 0.78rem / 12.5px · Color: var(--color-muted)</p>
       </div>
     </div>
 
@@ -712,10 +683,10 @@
         <strong style="color: var(--color-text);">Text alignment:</strong> Left-aligned only. Never justify. Ragged right edges help readers with dyslexia find the next line.
       </p>
       <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-3);">
-        <strong style="color: var(--color-text);">Bold usage:</strong> DM Sans 700 for headlines, 600 for card heads. In body copy, use 700 sparingly for key phrases (strong tags). Avoid italic in body text.
+        <strong style="color: var(--color-text);">Bold usage:</strong> Lora 700 for headlines, 600 for card heads. In body copy, use DM Sans 700 sparingly for key phrases (strong tags). Avoid italic in body text (italic in Lora headlines is acceptable for occasional emphasis).
       </p>
       <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
-        <strong style="color: var(--color-text);">All-caps:</strong> Outfit only. Used exclusively for section labels, eyebrows, and button text. Never apply all-caps to DM Sans or body copy.
+        <strong style="color: var(--color-text);">All-caps:</strong> DM Sans only, and only for section labels and eyebrows (0.65rem, letter-spacing 0.14em). Never apply all-caps to Lora or body copy.
       </p>
     </div>
   </div>
@@ -807,9 +778,9 @@
       <div class="card card-sm">
         <p class="card-label">Shadows</p>
         <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">
-          <strong style="color: var(--color-text);">sm:</strong> 0 1px 2px rgba(28,40,38,0.04)<br>
-          <strong style="color: var(--color-text);">md:</strong> 0 2px 8px rgba(28,40,38,0.06)<br>
-          <strong style="color: var(--color-text);">lg:</strong> 0 4px 16px rgba(28,40,38,0.08)<br>
+          <strong style="color: var(--color-text);">sm:</strong> 0 1px 2px rgba(28,46,40,0.04)<br>
+          <strong style="color: var(--color-text);">md:</strong> 0 2px 8px rgba(28,46,40,0.06)<br>
+          <strong style="color: var(--color-text);">lg:</strong> 0 4px 16px rgba(28,46,40,0.08)<br>
           Use sparingly. Cards rely on border, not shadow, by default. Apply shadow-md on hover for interactive cards.
         </p>
       </div>
@@ -831,10 +802,10 @@
       <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4); align-items: center;">
         <a class="btn btn-primary">Primary action</a>
         <a class="btn btn-outline">Secondary action</a>
-        <a class="btn btn-warm">Warm / tertiary</a>
+        <a class="btn btn-light">Tertiary action</a>
       </div>
       <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.7;">
-        Padding: 0.65rem top/bottom, 1.5rem left/right. Border-radius: 6px (--radius-md). Font: Outfit 600, 0.78rem. Letter-spacing: 0.03em. Border: 1.5px solid. Transition: all 200ms ease.
+        Padding: 0.65rem top/bottom, 1.5rem left/right. Border-radius: 6px (--radius-md). Font: DM Sans 600, 0.78rem. Letter-spacing: 0.03em. Border: 1.5px solid. Transition: all 200ms ease.
       </p>
     </div>
 
@@ -844,11 +815,11 @@
         <span class="tag">Product Leadership</span>
         <span class="tag">AI / ML</span>
         <span class="tag">Geospatial</span>
-        <span class="tag tag-warm">Public Health</span>
+        <span class="tag">Public Health</span>
         <span class="tag">Supply Chain</span>
       </div>
       <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.7;">
-        Padding: 0.35rem top/bottom, 0.85rem left/right. Border-radius: 100px (--radius-full). Font: Outfit 500, 0.68rem. Use warm tags sparingly — one per group maximum.
+        Padding: 0.35rem top/bottom, 0.85rem left/right. Border-radius: 100px (--radius-full). Font: DM Sans 500, 0.68rem. Background: accent tint. Color: accent.
       </p>
     </div>
 
@@ -858,7 +829,7 @@
         Product leader with 15 years building <span class="highlight">AI, geospatial, and data products</span> that people actually use.
       </p>
       <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.7;">
-        Background: rgba(212,160,122,0.15). This is how coral enters the design — as joy, not structure. One key phrase per section maximum.
+        Background: rgba(55,110,90,0.08). A subtle emphasis for key phrases. One key phrase per section maximum.
       </p>
     </div>
   </div>
@@ -900,102 +871,26 @@
 
     <div class="code">
 <span class="token-comment">/* Juliana McMillan-Wilhoit — Personal Brand Tokens */</span><br>
-<span class="token-comment">/* "Balanced" direction — Still Water palette — v1.0 Feb 2026 */</span><br><br>
+<span class="token-comment">/* "Still Water" direction — Lora + DM Sans — v1.1 Feb 2026 */</span><br><br>
 :root {<br>
 &nbsp;&nbsp;<span class="token-prop">--color-text</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#1C2826</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-body</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#4A5A54</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-accent</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#376E5A</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-accent-light</span>: <span class="token-val">#8DB8A0</span>;<br>
-&nbsp;&nbsp;<span class="token-prop">--color-warm</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#D4A07A</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-muted</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#8A9690</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-ground</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#F7F5F0</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-surface</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#FEFEFE</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-white</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#FFFFFF</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-border</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">#E0DDD8</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-border-light</span>: <span class="token-val">#EDEAE6</span>;<br>
-&nbsp;&nbsp;<span class="token-prop">--color-warm-tint</span>:&nbsp;&nbsp;&nbsp;<span class="token-val">rgba(212, 160, 122, 0.15)</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-accent-tint</span>:&nbsp;<span class="token-val">rgba(55, 110, 90, 0.08)</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--color-hover-accent</span>: <span class="token-val">#2D5A49</span>;<br>
-&nbsp;&nbsp;<span class="token-prop">--color-hover-warm</span>:&nbsp;&nbsp;<span class="token-val">#C08A62</span>;<br>
-&nbsp;&nbsp;<span class="token-prop">--font-display</span>:&nbsp;&nbsp;<span class="token-val">'DM Sans', system-ui, sans-serif</span>;<br>
+&nbsp;&nbsp;<span class="token-prop">--font-display</span>:&nbsp;&nbsp;<span class="token-val">'Lora', Georgia, serif</span>;<br>
 &nbsp;&nbsp;<span class="token-prop">--font-body</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">'DM Sans', system-ui, sans-serif</span>;<br>
-&nbsp;&nbsp;<span class="token-prop">--font-ui</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="token-val">'Outfit', system-ui, sans-serif</span>;<br>
 }
     </div>
   </div>
 
-  <hr class="divider">
-
-  <!-- ============================= -->
-  <!-- VOICE NOTES                   -->
-  <!-- ============================= -->
-  <div class="section">
-    <p class="section-label">08 — Brand Voice</p>
-    <h2 class="section-title">How Juliana sounds</h2>
-    <p class="section-note">The visual system and the writing voice should feel like the same person. Both are precise, warm, and unafraid to be direct. Neither is performatively humble nor aggressively self-promotional.</p>
-
-    <div class="card" style="margin-bottom: var(--space-4);">
-      <p class="card-label">Core voice: what it is</p>
-      <div class="grid-2" style="margin-top: var(--space-3);">
-        <div>
-          <p style="font-size: 0.83rem; font-family: var(--font-ui); font-weight: 600; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2);">Tone words</p>
-          <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.8;">Direct. Warm. Grounded.<br>Curious without being scattered.<br>Confident without being loud.<br>Celebratory without being breathless.</p>
-        </div>
-        <div>
-          <p style="font-size: 0.83rem; font-family: var(--font-ui); font-weight: 600; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2);">Not these</p>
-          <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.8;">Buzzword-dense. Hustle-coded.<br>Falsely modest ("just a…").<br>Vague ("passionate about impact").<br>Formal to the point of cold.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-bottom: var(--space-4);">
-      <p class="card-label">The through-line</p>
-      <p style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--color-text); margin-bottom: var(--space-3); line-height: 1.5;">I go toward the people, find the real problem, build the fix. The domain changes. The approach doesn't.</p>
-      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">This is the governing sentence. Every page, every section, every case study traces back to this pattern. It is not a tagline — it is a description of how she actually works. Write copy that demonstrates it, not copy that restates it.</p>
-    </div>
-
-    <div class="card" style="margin-bottom: var(--space-4);">
-      <p class="card-label">Sentence-level patterns</p>
-      <div style="margin-top: var(--space-3); display: flex; flex-direction: column; gap: var(--space-3);">
-        <div style="padding: var(--space-3); background: var(--color-ground); border-radius: var(--radius-md); border-left: 3px solid var(--color-accent);">
-          <p style="font-size: 0.78rem; font-family: var(--font-ui); font-weight: 600; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1);">Short declaratives carry the weight</p>
-          <p style="font-size: 0.88rem; color: var(--color-text); line-height: 1.6; font-style: italic;">"I went to the people first." &nbsp;·&nbsp; "Nobody trusted the conclusions." &nbsp;·&nbsp; "Speed wasn't the problem. Credibility was."</p>
-          <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.6; margin-top: var(--space-2);">Use short sentences at the start and end of paragraphs. They land harder. The longer explanation goes in the middle.</p>
-        </div>
-        <div style="padding: var(--space-3); background: var(--color-ground); border-radius: var(--radius-md); border-left: 3px solid var(--color-accent);">
-          <p style="font-size: 0.78rem; font-family: var(--font-ui); font-weight: 600; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1);">Name what changed, not just what was done</p>
-          <p style="font-size: 0.88rem; color: var(--color-text); line-height: 1.6; font-style: italic;">Not: "I ran PCA on the demand model." &nbsp; → &nbsp; "I ran PCA — the first validation the model had ever received. The problem wasn't speed. It was that nobody believed the outputs."</p>
-        </div>
-        <div style="padding: var(--space-3); background: var(--color-ground); border-radius: var(--radius-md); border-left: 3px solid var(--color-warm);">
-          <p style="font-size: 0.78rem; font-family: var(--font-ui); font-weight: 600; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1);">Joy is specific, not exclamatory</p>
-          <p style="font-size: 0.88rem; color: var(--color-text); line-height: 1.6; font-style: italic;">Not: "I love building things!" &nbsp; → &nbsp; "I built an automation for my family's library holds because I couldn't tolerate a broken process at home any more than at work."</p>
-          <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.6; margin-top: var(--space-2);">The warmth comes through in the specificity and the self-awareness, not in exclamation points or adjective stacking. When something is worth celebrating — name it plainly and let it stand.</p>
-        </div>
-        <div style="padding: var(--space-3); background: var(--color-ground); border-radius: var(--radius-md); border-left: 3px solid var(--color-accent);">
-          <p style="font-size: 0.78rem; font-family: var(--font-ui); font-weight: 600; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1);">Repeat structure, not words</p>
-          <p style="font-size: 0.88rem; color: var(--color-text); line-height: 1.6; font-style: italic;">"The domain changes. The approach doesn't." &nbsp;·&nbsp; "The scale changes. The instinct doesn't." &nbsp;·&nbsp; "The technology changes. Every time, the work started the same way."</p>
-          <p style="font-size: 0.82rem; color: var(--color-body); line-height: 1.6; margin-top: var(--space-2);">The parallel structure is a signature. Use it deliberately — it communicates that she thinks in patterns, which is exactly the point.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="card card-sm">
-        <p class="card-label">What celebration sounds like here</p>
-        <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Recognition is named plainly: "Fulbright Scholar." "Department of the Army Medal." "Three-time national keynote speaker." No hedging, no false modesty — and no trumpet fanfare either. State it. Move on. The weight is in the fact, not the framing.</p>
-      </div>
-      <div class="card card-sm">
-        <p class="card-label">What to do with ADHD + dyslexia</p>
-        <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Not a disclaimer. Not an inspiration story. It's evidence: she had to build systems because the standard ones didn't work for her, and now she's exceptionally good at building systems. Lead with the capability, not the diagnosis.</p>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: var(--space-4);">
-      <p class="card-label">First-person rules</p>
-      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7; margin-bottom: var(--space-2);">Use "I" freely. This is a personal portfolio, not a corporate brochure. Starting sentences with "I" is fine — the voice is direct and first-person is appropriate. What to avoid is strings of "I did X, I built Y, I led Z" without connective tissue showing the thinking.</p>
-      <p style="font-size: 0.88rem; color: var(--color-body); line-height: 1.7;">Vary the structure: sometimes lead with the observation ("Nobody trusted the outputs"), then bring in the action. Sometimes lead with the outcome ("The result was a model the team actually used"), then trace back. The "I" is present — it just doesn't have to be first every time.</p>
-    </div>
-  </div>
 
 </div>
 </body>
