@@ -15,17 +15,19 @@
     html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 
     :root {
-      --color-text: #1C2826;
-      --color-body: #4A5A54;
-      --color-accent: #376E5A;
+      --color-text:         #1C2826;
+      --color-body:         #4A5A54;
+      --color-accent:       #376E5A;
       --color-accent-light: #8DB8A0;
-      --color-muted: #8A9690;
-      --color-ground: #F7F5F0;
-      --color-surface: #FEFEFE;
-      --color-border: #E0DDD8;
+      --color-muted:        #8A9690;
+      --color-ground:       #F7F5F0;
+      --color-surface:      #FEFEFE;
+      --color-border:       #E0DDD8;
+      --color-border-light: #EDEAE6;
       --color-hover-accent: #2D5A49;
+      --color-accent-tint:  rgba(55,110,90,0.08);
       --font-display: 'Lora', Georgia, serif;
-      --font-body: 'DM Sans', system-ui, sans-serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
     }
 
     body {
@@ -42,14 +44,16 @@
       transform: translateY(18px);
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
-    .anim.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .anim.visible { opacity: 1; transform: translateY(0); }
     .anim[data-delay="0.1"] { transition-delay: 0.1s; }
+    .anim[data-delay="0.15"] { transition-delay: 0.15s; }
     .anim[data-delay="0.2"] { transition-delay: 0.2s; }
+    .anim[data-delay="0.25"] { transition-delay: 0.25s; }
     .anim[data-delay="0.3"] { transition-delay: 0.3s; }
+    .anim[data-delay="0.35"] { transition-delay: 0.35s; }
     .anim[data-delay="0.4"] { transition-delay: 0.4s; }
+    .anim[data-delay="0.45"] { transition-delay: 0.45s; }
+    .anim[data-delay="0.5"] { transition-delay: 0.5s; }
 
     /* ── Header ── */
     .header-band {
@@ -60,9 +64,7 @@
       align-items: center;
       height: 58px;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
     }
     .header-name {
@@ -73,11 +75,7 @@
       letter-spacing: -0.01em;
       text-decoration: none;
     }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-link {
       color: rgba(247,245,240,0.65);
       text-decoration: none;
@@ -111,11 +109,17 @@
 
     /* ── Page intro ── */
     .page-intro {
-      max-width: 800px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 7rem 2.5rem 3.5rem;
+      padding: 6.5rem 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
       border-bottom: 1px solid var(--color-border);
     }
+    .intro-text { max-width: 580px; }
     .eyebrow {
       font-size: 0.68rem;
       font-weight: 600;
@@ -131,136 +135,253 @@
       color: var(--color-text);
       letter-spacing: -0.02em;
       line-height: 1.15;
-      margin-bottom: 1.1rem;
+      margin-bottom: 1rem;
     }
     .page-subtitle {
       font-size: 1.0625rem;
       color: var(--color-body);
       line-height: 1.75;
-      max-width: 580px;
     }
+    .intro-count {
+      font-family: var(--font-display);
+      font-size: 0.875rem;
+      color: var(--color-muted);
+      white-space: nowrap;
+      padding-bottom: 0.25rem;
+      text-align: right;
+    }
+    .intro-count strong { color: var(--color-text); font-weight: 600; }
 
-    /* ── Project index ── */
-    .project-index {
-      max-width: 800px;
+    /* ── Magazine grid ── */
+    .work-grid-wrap {
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 0 2.5rem 6rem;
+      padding: 3rem 2.5rem 6rem;
     }
 
-    /* Each row is a full-width link */
-    .project-row {
+    .work-grid {
       display: grid;
-      grid-template-columns: 4.5rem 1fr auto;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--color-border);
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .wcard {
+      display: block;
       text-decoration: none;
       color: inherit;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .wcard:hover {
+      box-shadow: 0 8px 32px rgba(28,40,38,0.1);
+      transform: translateY(-3px);
+    }
+    .wcard-featured { grid-column: 1 / 3; }
+
+    /* ── Card image area ── */
+    .wcard-img {
+      width: 100%;
       position: relative;
-      transition: background 0.2s;
+      height: 180px;
+      overflow: hidden;
     }
-    .project-row:first-child {
-      border-top: 1px solid var(--color-border);
-    }
-    /* Hover: subtle tint behind full row */
-    .project-row::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(55, 110, 90, 0.05);
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-    }
-    .project-row:hover::before {
-      opacity: 1;
+    .wcard-featured .wcard-img { height: 240px; }
+
+    /* Gradient overlay for all cards */
+    .wcard-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(28,40,38,0.72) 0%, rgba(28,40,38,0.1) 55%, transparent 100%);
+      z-index: 1;
     }
 
-    /* Left col: number */
-    .row-num {
+    /* Stat in bottom-left of image */
+    .wcard-img-stat {
+      position: absolute; bottom: 1rem; left: 1.5rem;
       font-family: var(--font-display);
-      font-size: 2.5rem;
       font-weight: 700;
-      color: var(--color-text);
-      opacity: 0.08;
+      color: #F7F5F0;
       line-height: 1;
-      text-align: right;
-      flex-shrink: 0;
-      user-select: none;
+      z-index: 2;
+    }
+    .wcard-img-stat-num { font-size: 1.5rem; }
+    .wcard-featured .wcard-img-stat-num { font-size: 2.25rem; }
+    .wcard-img-stat-label {
+      font-size: 0.63rem;
+      font-weight: 400;
+      color: rgba(247,245,240,0.65);
+      margin-top: 0.25rem;
+      letter-spacing: 0.03em;
+      font-family: var(--font-body);
     }
 
-    /* Middle col */
-    .row-middle {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
+    /* ── Card image: real photo cards ── */
+    .wcard-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
     }
-    .row-title {
+
+    /* ── CSS art treatments (cards without real photos) ── */
+
+    /* PH360 — pulse line on grid, vivid accent */
+    .wimg-ph360 { background: #1C2826; }
+    .wimg-ph360::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(141,184,160,0.12) 0px, rgba(141,184,160,0.12) 1px, transparent 1px, transparent 48px),
+        repeating-linear-gradient(0deg,  rgba(141,184,160,0.12) 0px, rgba(141,184,160,0.12) 1px, transparent 1px, transparent 48px);
+    }
+    .wimg-ph360::after {
+      content: '';
+      position: absolute; left: 6%; right: 6%; top: 50%; height: 3px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        #8DB8A0 15%, #376E5A 30%,
+        #8DB8A0 42%, #F7F5F0 48%, #8DB8A0 54%,
+        #376E5A 65%, #8DB8A0 80%,
+        transparent 100%);
+      transform: translateY(-50%);
+      box-shadow: 0 0 18px rgba(141,184,160,0.5), 0 0 40px rgba(55,110,90,0.3);
+    }
+
+    /* ENSITE — topographic rings, visible green */
+    .wimg-ensite { background: #152820; overflow: hidden; }
+    .wimg-ensite::before {
+      content: '';
+      position: absolute; inset: -20px;
+      background:
+        repeating-radial-gradient(ellipse at 62% 42%, transparent 26px, rgba(141,184,160,0.35) 27px, transparent 28px, transparent 50px),
+        repeating-radial-gradient(ellipse at 62% 42%, transparent 52px, rgba(141,184,160,0.2)  53px, transparent 54px, transparent 76px),
+        repeating-radial-gradient(ellipse at 62% 42%, transparent 78px, rgba(141,184,160,0.1)  79px, transparent 80px, transparent 104px);
+    }
+    .wimg-ensite::after {
+      content: 'GEOSPATIAL DATA';
+      position: absolute; bottom: 0.875rem; right: 1.25rem;
+      font-size: 0.57rem; font-weight: 700; letter-spacing: 0.2em;
+      color: rgba(141,184,160,0.55); text-transform: uppercase;
+      z-index: 2;
+    }
+
+    /* Peapod — supply chain flow, visible diagonals */
+    .wimg-peapod { background: #1C2826; }
+    .wimg-peapod::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(135deg,
+        transparent 0px, transparent 14px,
+        rgba(55,110,90,0.25) 14px, rgba(55,110,90,0.25) 15px);
+    }
+    .wimg-peapod::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 25% 50%, rgba(141,184,160,0.3) 0%, transparent 45%),
+        radial-gradient(ellipse at 75% 50%, rgba(55,110,90,0.4)  0%, transparent 40%);
+    }
+
+    /* Post-fire — uses real screenshot */
+    /* (no CSS art needed — img tag used) */
+
+    /* Puerto Rico — uses real screenshot */
+    /* (no CSS art needed — img tag used) */
+
+    /* Cemetery — survey grid, punchy */
+    .wimg-cemetery { background: #1C2826; }
+    .wimg-cemetery::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(141,184,160,0.18) 0px, rgba(141,184,160,0.18) 1px, transparent 1px, transparent 28px),
+        repeating-linear-gradient(0deg,  rgba(141,184,160,0.18) 0px, rgba(141,184,160,0.18) 1px, transparent 1px, transparent 28px);
+    }
+    .wimg-cemetery::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 42%, rgba(141,184,160,0.28) 0%, transparent 48%);
+    }
+
+    /* Green Infrastructure — uses real screenshot */
+    /* (no CSS art needed — img tag used) */
+
+    /* Library — binary pattern, visible */
+    .wimg-library { background: #1C2826; }
+    .wimg-library::before {
+      content: '01 10 11 00 10 01 11\A00 11 01 10 00 11 10\A10 01 00 11 01 10 00\A11 10 01 00 11 01 10';
+      white-space: pre;
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body), monospace;
+      font-size: 0.78rem; font-weight: 600;
+      color: rgba(141,184,160,0.3);
+      letter-spacing: 0.25em; line-height: 2.4;
+      padding: 1rem 1.5rem;
+      text-align: center;
+    }
+    .wimg-library::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 110%, rgba(55,110,90,0.55) 0%, transparent 60%);
+    }
+
+    /* ── Card body ── */
+    .wcard-body {
+      padding: 1.1rem 1.5rem 1.4rem;
+    }
+    .wcard-featured .wcard-body {
+      padding: 1.25rem 1.75rem 1.6rem;
+    }
+    .wcard-domain {
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      margin-bottom: 0.45rem;
+    }
+    .wcard-title {
       font-family: var(--font-display);
-      font-size: 1.0625rem;
-      font-weight: 600;
+      font-size: 0.9375rem;
+      font-weight: 700;
       color: var(--color-text);
       line-height: 1.35;
       letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
       transition: color 0.2s;
     }
-    .project-row:hover .row-title {
-      color: var(--color-accent);
+    .wcard-featured .wcard-title { font-size: 1.125rem; }
+    .wcard:hover .wcard-title { color: var(--color-accent); }
+    .wcard-tags {
+      display: flex; flex-wrap: wrap; gap: 0.35rem;
+      margin-bottom: 0.75rem;
     }
-    .row-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .row-domain {
-      font-size: 0.75rem;
-      color: var(--color-muted);
-      font-weight: 400;
-    }
-    .row-divider {
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--color-accent-light);
-      flex-shrink: 0;
-    }
-    .row-tag {
-      font-size: 0.68rem;
+    .wcard-tag {
+      font-size: 0.62rem;
       font-weight: 600;
       color: var(--color-accent);
-      background: rgba(55, 110, 90, 0.08);
-      padding: 0.15rem 0.6rem;
+      background: var(--color-accent-tint);
+      padding: 0.15rem 0.55rem;
       border-radius: 100px;
     }
-
-    /* Right col: stat + arrow */
-    .row-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.35rem;
-      flex-shrink: 0;
-    }
-    .row-stat {
-      font-family: var(--font-display);
-      font-size: 1rem;
+    .wcard-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
       font-weight: 600;
       color: var(--color-accent);
-      letter-spacing: -0.01em;
-      white-space: nowrap;
+      transition: color 0.2s, gap 0.2s;
     }
-    .row-arrow {
-      font-size: 1rem;
-      color: var(--color-accent-light);
-      transition: transform 0.2s, color 0.2s;
-      line-height: 1;
+    .wcard:hover .wcard-cta { color: var(--color-hover-accent); gap: 0.5rem; }
+
+    /* "Coming soon" state for cards without case studies yet */
+    .wcard-soon .wcard-cta {
+      color: var(--color-muted);
+      cursor: default;
     }
-    .project-row:hover .row-arrow {
-      transform: translateX(5px);
-      color: var(--color-accent);
-    }
+    .wcard-soon:hover { transform: none; box-shadow: none; }
+    .wcard-soon:hover .wcard-title { color: var(--color-text); }
+    .wcard-soon:hover .wcard-cta { color: var(--color-muted); gap: 0.3rem; }
 
     /* ── Footer ── */
     .site-footer {
@@ -306,7 +427,6 @@
       color: rgba(247,245,240,0.65);
       text-decoration: none;
       font-size: 0.875rem;
-      font-weight: 400;
       transition: color 0.2s;
     }
     .footer-nav-link:hover { color: var(--color-ground); }
@@ -332,39 +452,23 @@
     }
 
     /* ── Responsive ── */
-    @media (max-width: 720px) {
+    @media (max-width: 860px) {
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .wcard-featured { grid-column: 1 / 3; }
+    }
+
+    @media (max-width: 600px) {
       .header-band { padding: 0 1.25rem; }
       .nav-links { gap: 1rem; }
       .nav-link { font-size: 0.7rem; letter-spacing: 0.04em; }
 
-      .page-intro { padding: 6rem 1.25rem 2.5rem; }
-      .project-index { padding: 0 1.25rem 4rem; }
+      .page-intro { padding: 5.5rem 1.25rem 2rem; flex-direction: column; }
+      .intro-count { text-align: left; }
 
-      /* Stack rows on mobile */
-      .project-row {
-        grid-template-columns: 2.5rem 1fr;
-        grid-template-rows: auto auto;
-        row-gap: 0.75rem;
-        column-gap: 1rem;
-        padding: 1.5rem 0;
-      }
-      .row-num {
-        font-size: 1.75rem;
-        grid-row: 1;
-        grid-column: 1;
-        text-align: left;
-      }
-      .row-middle {
-        grid-row: 1;
-        grid-column: 2;
-      }
-      .row-right {
-        grid-row: 2;
-        grid-column: 2;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
+      .work-grid-wrap { padding: 2rem 1.25rem 4rem; }
+      .work-grid { grid-template-columns: 1fr; }
+      .wcard-featured { grid-column: 1; }
+      .wcard-featured .wcard-img { height: 200px; }
 
       .footer-inner { grid-template-columns: 1fr; }
     }
@@ -387,82 +491,201 @@
 
   <!-- Page intro -->
   <div class="page-intro">
-    <div class="eyebrow anim">Selected Work</div>
-    <h1 class="page-h1 anim" data-delay="0.1">The pattern, across four domains</h1>
-    <p class="page-subtitle anim" data-delay="0.2">Different problems. Different organizations. Same approach: go toward the people, find the real problem, build the fix.</p>
+    <div class="intro-text">
+      <div class="eyebrow anim">Selected Work</div>
+      <h1 class="page-h1 anim" data-delay="0.1">The pattern, across every domain</h1>
+      <p class="page-subtitle anim" data-delay="0.2">Different problems. Different organizations. Same approach: go toward the people, find the real problem, build the fix.</p>
+    </div>
+    <div class="intro-count anim" data-delay="0.25">
+      <strong>8 projects</strong> across public health,<br>defense, supply chain, civic tech &amp; more
+    </div>
   </div>
 
-  <!-- Project index -->
-  <div class="project-index">
+  <!-- Magazine grid -->
+  <div class="work-grid-wrap">
+    <div class="work-grid">
 
-    <a href="cases/ph360.html" class="project-row anim" data-delay="0.1">
-      <div class="row-num">01</div>
-      <div class="row-middle">
-        <div class="row-title">50 interviews to find the real problem: not missing tools, missing policy</div>
-        <div class="row-meta">
-          <span class="row-domain">F&amp;T Labs &middot; Public Health AI</span>
-          <span class="row-divider"></span>
-          <span class="row-tag">HIPAA</span>
-          <span class="row-tag">AWS Bedrock</span>
+      <!-- ── ROW 1 ── -->
+
+      <!-- PH360 — featured, spans 2 cols -->
+      <a href="cases/ph360.html" class="wcard wcard-featured anim" data-delay="0.1">
+        <div class="wcard-img wimg-ph360">
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">30m &rarr; 5m</div>
+            <div class="wcard-img-stat-label">Routine task time, Sauk County Health Dept</div>
+          </div>
         </div>
-      </div>
-      <div class="row-right">
-        <span class="row-stat">30m &rarr; 5m</span>
-        <span class="row-arrow">&rarr;</span>
-      </div>
-    </a>
-
-    <a href="cases/ensite.html" class="project-row anim" data-delay="0.2">
-      <div class="row-num">02</div>
-      <div class="row-middle">
-        <div class="row-title">The military didn&rsquo;t need a better database. It needed data standards that worked globally</div>
-        <div class="row-meta">
-          <span class="row-domain">Army Corps of Engineers &middot; Defense</span>
-          <span class="row-divider"></span>
-          <span class="row-tag">ArcGIS</span>
-          <span class="row-tag">Data Governance</span>
+        <div class="wcard-body">
+          <div class="wcard-domain">F&amp;T Labs &middot; Public Health AI &middot; 2023&ndash;Present</div>
+          <div class="wcard-title">50 interviews to find the real problem: not missing tools, missing policy</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">HIPAA</span>
+            <span class="wcard-tag">AWS Bedrock</span>
+            <span class="wcard-tag">RAG</span>
+            <span class="wcard-tag">Policy Design</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
         </div>
-      </div>
-      <div class="row-right">
-        <span class="row-stat">3 theaters</span>
-        <span class="row-arrow">&rarr;</span>
-      </div>
-    </a>
+      </a>
 
-    <a href="cases/peapod.html" class="project-row anim" data-delay="0.3">
-      <div class="row-num">03</div>
-      <div class="row-middle">
-        <div class="row-title">The dashboard wasn&rsquo;t the problem. Nobody trusted the model behind it</div>
-        <div class="row-meta">
-          <span class="row-domain">Peapod Digital Labs &middot; Supply Chain</span>
-          <span class="row-divider"></span>
-          <span class="row-tag">Alteryx</span>
-          <span class="row-tag">PCA</span>
+      <!-- ENSITE — single col -->
+      <a href="cases/ensite.html" class="wcard anim" data-delay="0.15">
+        <div class="wcard-img">
+          <img src="cases/img/ensite-screenshot.png" alt="ENSITE global site location tool — siting scenario map interface" />
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">Global</div>
+            <div class="wcard-img-stat-label">First military site location tool — 3 deployment theaters</div>
+          </div>
         </div>
-      </div>
-      <div class="row-right">
-        <span class="row-stat">8h &rarr; 30m</span>
-        <span class="row-arrow">&rarr;</span>
-      </div>
-    </a>
-
-    <a href="cases/library.html" class="project-row anim" data-delay="0.4">
-      <div class="row-num">04</div>
-      <div class="row-middle">
-        <div class="row-title">A small problem. Automated</div>
-        <div class="row-meta">
-          <span class="row-domain">Personal &middot; Automation</span>
-          <span class="row-divider"></span>
-          <span class="row-tag">Python</span>
-          <span class="row-tag">Selenium</span>
+        <div class="wcard-body">
+          <div class="wcard-domain">Army Corps of Engineers &middot; Defense &middot; 2013&ndash;2019</div>
+          <div class="wcard-title">The military didn&rsquo;t need a better database. It needed data standards that worked globally</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">ArcGIS</span>
+            <span class="wcard-tag">Data Governance</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
         </div>
-      </div>
-      <div class="row-right">
-        <span class="row-stat">2,400+ books</span>
-        <span class="row-arrow">&rarr;</span>
-      </div>
-    </a>
+      </a>
 
+      <!-- ── ROW 2 ── -->
+
+      <!-- Peapod -->
+      <a href="cases/peapod.html" class="wcard anim" data-delay="0.2">
+        <div class="wcard-img wimg-peapod">
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">8h &rarr; 30m</div>
+            <div class="wcard-img-stat-label">Dashboard reporting time</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">Peapod Digital Labs &middot; Supply Chain &middot; 2020&ndash;2023</div>
+          <div class="wcard-title">The dashboard wasn&rsquo;t the problem. Nobody trusted the model behind it</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">Alteryx</span>
+            <span class="wcard-tag">PCA</span>
+            <span class="wcard-tag">Tableau</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Post-fire / DroneSeed -->
+      <a href="cases/post-fire.html" class="wcard anim" data-delay="0.25">
+        <div class="wcard-img">
+          <img src="cases/img/parcel-postfire.png" alt="Parcel-level suitability analysis after wildfire — grayscale parcels shaded by score" />
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">Days &rarr; hrs</div>
+            <div class="wcard-img-stat-label">Parcel identification after wildfire</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">Post-Disaster &middot; Reforestation &middot; DroneSeed</div>
+          <div class="wcard-title">After a wildfire, every day matters. We built a tool to find the right parcels in hours, not weeks</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">QGIS</span>
+            <span class="wcard-tag">Parcel Analysis</span>
+            <span class="wcard-tag">Fire Boundary</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Puerto Rico -->
+      <a href="cases/puerto-rico.html" class="wcard anim" data-delay="0.3">
+        <div class="wcard-img">
+          <img src="cases/img/pr-dashboard.png" alt="Puerto Rico power restoration dashboard — transmission line energization status map" />
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">6 months</div>
+            <div class="wcard-img-stat-label">On the ground after Hurricane Maria</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">Disaster Response &middot; Puerto Rico &middot; 2017&ndash;2018</div>
+          <div class="wcard-title">After Hurricane Maria, the hardest problem was knowing what you didn&rsquo;t know</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">ArcGIS</span>
+            <span class="wcard-tag">Crisis Mapping</span>
+            <span class="wcard-tag">Data Standards</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- ── ROW 3 ── -->
+
+      <!-- Cemetery Mapping -->
+      <a href="cases/cemetery.html" class="wcard anim" data-delay="0.35">
+        <div class="wcard-img">
+          <img src="cases/img/cemetery-tool-ui.png" alt="ArcGIS Pro cemetery mapping toolset — geoprocessing UI" />
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">Days &rarr; min</div>
+            <div class="wcard-img-stat-label">Record lookup time</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">Civic Tech &middot; Historical GIS &middot; 2019</div>
+          <div class="wcard-title">County records were fine. Nobody could find them. A spatial index solved it</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">ArcGIS Pro</span>
+            <span class="wcard-tag">Model Builder</span>
+            <span class="wcard-tag">ArcPy</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Green Infrastructure -->
+      <a href="cases/green-infra.html" class="wcard anim" data-delay="0.4">
+        <div class="wcard-img">
+          <img src="cases/img/green-infra-viewer.jpg" alt="St. Louis Parcel Assessment — green-shaded parcels by permeability score" />
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">Every parcel</div>
+            <div class="wcard-img-stat-label">St. Louis — permeability scored city-wide</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">Urban Planning &middot; Environmental &middot; St. Louis</div>
+          <div class="wcard-title">The engineers had the data. The planners had the priorities. Nobody had connected them</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">QGIS</span>
+            <span class="wcard-tag">ArcGIS Online</span>
+            <span class="wcard-tag">NAIP Imagery</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Library Automation -->
+      <a href="cases/library.html" class="wcard anim" data-delay="0.5">
+        <div class="wcard-img">
+          <img src="cases/img/grayslake-library.png" alt="Grayslake Area Public Library" />
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">2,400+</div>
+            <div class="wcard-img-stat-label">Books automated, 0 manual holds</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">Personal &middot; Automation &middot; Ongoing</div>
+          <div class="wcard-title">A small problem. Automated.</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">Python</span>
+            <span class="wcard-tag">Selenium</span>
+            <span class="wcard-tag">OCR</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+    </div>
   </div>
 
   <footer class="site-footer">
@@ -501,7 +724,7 @@
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.06 });
+    }, { threshold: 0.05 });
     document.querySelectorAll('.anim').forEach(el => obs.observe(el));
   </script>
 

@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peapod — Juliana McMillan-Wilhoit</title>
+  <title>Post-Fire Reforestation Site Selection — Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="After a wildfire, the window for reforestation is narrow. I embedded with DroneSeed's geospatial team and built a repeatable parcel-selection tool that cut candidate identification from days to hours." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
-    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; -webkit-font-smoothing: antialiased; }
     body { font-family: 'DM Sans', system-ui, sans-serif; color: #1C2826; background: #F7F5F0; min-height: 100vh; line-height: 1.7; }
 
-    /* ── Animations ── */
     .anim { opacity: 0; transform: translateY(18px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .anim.visible { opacity: 1; transform: translateY(0); }
     .anim[data-delay="0.1"] { transition-delay: 0.1s; }
     .anim[data-delay="0.2"] { transition-delay: 0.2s; }
     .anim[data-delay="0.3"] { transition-delay: 0.3s; }
     .anim[data-delay="0.4"] { transition-delay: 0.4s; }
+    .anim[data-delay="0.5"] { transition-delay: 0.5s; }
 
-    /* ── Header ── */
+    /* Header */
     .header-band { background: #1C2826; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
     .header-name { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.05rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
@@ -31,12 +31,12 @@
     .nav-link-btn { color: rgba(247,245,240,0.9) !important; border: 1px solid rgba(247,245,240,0.3); padding: 0.3rem 0.75rem; border-radius: 6px; }
     .nav-link-dl { color: rgba(247,245,240,0.9) !important; background: rgba(247,245,240,0.1); padding: 0.3rem 0.75rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.35rem; }
 
-    /* ── Breadcrumb ── */
+    /* Breadcrumb */
     .breadcrumb { max-width: 800px; margin: 0 auto; padding: 5rem 2.5rem 0; }
     .breadcrumb a { font-size: 0.8rem; font-weight: 600; color: #376E5A; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; }
     .breadcrumb a:hover { color: #2D5A49; }
 
-    /* ── Hero ── */
+    /* Hero */
     .hero { max-width: 800px; margin: 0 auto; padding: 2.5rem 2.5rem 0; }
     .project-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
     .project-eyebrow-divider { width: 24px; height: 1px; background: #8DB8A0; display: inline-block; }
@@ -47,18 +47,17 @@
     .context-item i { color: #8DB8A0; font-size: 0.9rem; }
     .context-tag { font-size: 0.72rem; font-weight: 600; background: rgba(55,110,90,0.08); color: #376E5A; padding: 0.2rem 0.7rem; border-radius: 100px; }
 
-    /* ── Metrics ── */
+    /* Metrics */
     .metrics-band { max-width: 800px; margin: 0 auto; padding: 0 2.5rem; }
     .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #E0DDD8; border-radius: 10px; background: #FEFEFE; overflow: hidden; margin: 2.5rem 0; }
     .metric-block { padding: 1.5rem 1.25rem; border-right: 1px solid #E0DDD8; }
     .metric-block:last-child { border-right: none; }
-    .metric-num { font-size: 1.625rem; font-weight: 700; color: #376E5A; line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+    .metric-num { font-family: 'Lora', Georgia, serif; font-size: 1.625rem; font-weight: 700; color: #376E5A; line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
     .metric-label { font-size: 0.75rem; color: #4A5A54; line-height: 1.4; }
 
-    /* ── Body ── */
+    /* Body */
     .case-body { max-width: 800px; margin: 0 auto; padding: 0 2.5rem 6rem; }
 
-    /* ── Sections ── */
     .case-section { margin-bottom: 3rem; }
     .case-section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
     .case-section-label::after { content: ''; flex: 1; height: 1px; background: #E0DDD8; }
@@ -67,44 +66,62 @@
     .case-p:last-child { margin-bottom: 0; }
     .case-p strong { color: #1C2826; font-weight: 600; }
 
-    /* ── Pull quote ── */
+    /* Screenshot */
+    .case-screenshot {
+      margin: 2rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #E0DDD8;
+      background: #1C2826;
+    }
+    .case-screenshot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .case-screenshot-caption {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.78rem;
+      color: #8A9690;
+      background: #FEFEFE;
+      border-top: 1px solid #E0DDD8;
+      line-height: 1.5;
+    }
+    .case-screenshot-caption em { font-style: normal; color: #376E5A; font-weight: 600; }
+
+    /* Pull quote */
     .pull-quote { margin: 2rem 0; padding: 1.5rem 1.75rem; background: rgba(55,110,90,0.04); border-left: 3px solid #376E5A; border-radius: 0 8px 8px 0; }
     .pull-quote-text { font-family: 'Lora', Georgia, serif; font-size: 1.0625rem; font-style: italic; color: #1C2826; line-height: 1.65; margin-bottom: 0.5rem; }
     .pull-quote-cite { font-size: 0.78rem; font-weight: 600; color: #376E5A; }
 
-    /* ── What I built list ── */
+    /* Built list */
     .built-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1rem 0; }
     .built-item { display: flex; gap: 1rem; align-items: flex-start; }
     .built-dot { width: 6px; height: 6px; border-radius: 50%; background: #376E5A; flex-shrink: 0; margin-top: 0.65rem; }
     .built-text { font-size: 0.9375rem; color: #4A5A54; line-height: 1.7; }
     .built-text strong { color: #1C2826; font-weight: 600; }
 
-    /* ── What changed ── */
+    /* Outcome */
     .outcome-section { background: #1C2826; border-radius: 10px; padding: 2.5rem; margin: 3rem 0; }
     .outcome-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8DB8A0; margin-bottom: 1rem; }
     .outcome-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.2rem; font-weight: 700; color: #F7F5F0; margin-bottom: 1rem; line-height: 1.3; }
     .outcome-p { font-size: 0.9375rem; color: rgba(247,245,240,0.75); line-height: 1.8; margin-bottom: 0.75rem; }
     .outcome-p:last-child { margin-bottom: 0; }
 
-    /* ── Tools ── */
+    /* Tools */
     .tools-section { margin: 2.5rem 0; }
     .tools-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.85rem; }
     .tools-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .tool-pill { font-size: 0.75rem; font-weight: 600; color: #376E5A; background: rgba(55,110,90,0.08); padding: 0.3rem 0.85rem; border-radius: 100px; }
 
-    /* ── Screenshot ── */
-    .case-screenshot { margin: 2.5rem 0; }
-    .case-screenshot img { width: 100%; border-radius: 8px; border: 1px solid #E0DDD8; display: block; }
-    .case-screenshot-caption { font-size: 0.78rem; color: #8A9690; margin-top: 0.6rem; line-height: 1.55; font-style: italic; }
-
-    /* ── Next project ── */
+    /* Next project */
     .next-project { border-top: 1px solid #E0DDD8; padding: 2.5rem 0 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
     .next-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.35rem; }
     .next-title { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #1C2826; }
     .next-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #376E5A; text-decoration: none; transition: gap 0.2s, color 0.2s; }
     .next-link:hover { color: #2D5A49; gap: 0.75rem; }
 
-    /* ── Footer ── */
+    /* Footer */
     .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; margin-top: 4rem; }
     .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12); }
     .footer-brand { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
@@ -118,7 +135,6 @@
     .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
     .footer-tagline { font-family: 'Lora', Georgia, serif; font-size: 0.9375rem; font-style: italic; color: rgba(247,245,240,0.35); }
 
-    /* ── Responsive ── */
     @media (max-width: 720px) {
       .header-band { padding: 0 1.25rem; }
       .nav-links { gap: 1rem; }
@@ -148,141 +164,139 @@
     </nav>
   </header>
 
-  <!-- Breadcrumb -->
   <div class="breadcrumb anim">
     <a href="../work.html"><i class="ti ti-arrow-left"></i> Back to Work</a>
   </div>
 
-  <!-- Hero -->
   <div class="hero">
     <div class="project-eyebrow anim" data-delay="0.1">
-      <span>03</span>
+      <span>Post-Disaster Site Selection &middot; Reforestation</span>
       <span class="project-eyebrow-divider"></span>
-      <span>Peapod Digital Labs (ADUSA Supply Chain Services) · Supply Chain · 2020–2023</span>
+      <span>Tabulae Spatial Services / DroneSeed</span>
     </div>
-    <h1 class="hero-h1 anim" data-delay="0.2">The dashboard wasn't the problem. Nobody trusted the model behind it.</h1>
-    <p class="hero-turn anim" data-delay="0.3">Everyone wanted a faster dashboard. I went and talked to the people who used it. Nobody trusted the outputs they were getting. The speed problem was real. But fixing it wouldn't have changed anything.</p>
+    <h1 class="hero-h1 anim" data-delay="0.2">After a wildfire, every day matters. We built a tool to find the right parcels in hours, not weeks.</h1>
+    <p class="hero-turn anim" data-delay="0.3">After a wildfire tears through a landscape, the window for reforestation is narrow. An organization contracting with DroneSeed needed to find candidate parcels fast — the right ownership type, the right tree cover loss, inside the fire boundary. Their process for doing that was slow and manual. I embedded with their geospatial team for six months and rebuilt it from scratch.</p>
     <div class="context-strip anim" data-delay="0.4">
-      <span class="context-item"><i class="ti ti-truck"></i> Peapod Digital Labs / ADUSA Supply Chain</span>
-      <span class="context-item"><i class="ti ti-map-pin"></i> Remote</span>
-      <span class="context-tag">Alteryx</span>
-      <span class="context-tag">Tableau</span>
-      <span class="context-tag">PCA</span>
-      <span class="context-tag">Demand Forecasting</span>
+      <span class="context-item"><i class="ti ti-map-pin"></i> Western U.S. (multiple fire sites)</span>
+      <span class="context-item"><i class="ti ti-building-community"></i> DroneSeed / reforestation organization</span>
+      <span class="context-item"><i class="ti ti-user-check"></i> Embedded GIS consultant (6 months)</span>
+      <span class="context-tag">QGIS</span>
+      <span class="context-tag">Carto</span>
+      <span class="context-tag">QGIS Graphical Modeler</span>
+      <span class="context-tag">Parcel Analysis</span>
+      <span class="context-tag">Fire Boundary</span>
+      <span class="context-tag">Land Ownership</span>
     </div>
   </div>
 
-  <!-- Metrics -->
   <div class="metrics-band">
     <div class="metrics-grid anim">
       <div class="metric-block">
-        <div class="metric-num">8h → 30m</div>
-        <div class="metric-label">Dashboard reporting time — routine reports</div>
+        <div class="metric-num">6 months</div>
+        <div class="metric-label">Embedded with the client's geospatial team — became part of their workflow, not a vendor</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">First</div>
-        <div class="metric-label">Validation the demand model had ever received</div>
+        <div class="metric-num">Parcel-level</div>
+        <div class="metric-label">Analysis run at individual parcel resolution across fire-affected areas</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">Block-group</div>
-        <div class="metric-label">Demand forecasting granularity — census block-group level</div>
+        <div class="metric-num">Repeatable</div>
+        <div class="metric-label">Automated tool built to run on any new fire event — not a one-time analysis</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">Multi-year</div>
-        <div class="metric-label">E-commerce facility network investment decisions set by model outputs</div>
+        <div class="metric-num">Days &rarr; hours</div>
+        <div class="metric-label">Candidate identification time cut dramatically — crews could begin outreach faster</div>
       </div>
     </div>
   </div>
 
-  <!-- Body -->
   <div class="case-body">
 
-    <!-- The Diagnosis -->
     <div class="case-section anim">
-      <div class="case-section-label">The diagnosis</div>
-      <p class="case-p">Consultants had built the model. The business had adopted it. Multi-million dollar e-commerce facility network decisions — where to build warehouses, which stores to use for fulfillment — ran on it. The presenting problem was dashboard speed: 8 hours to produce routine reports.</p>
-      <p class="case-p">I went and talked to the people using the outputs. The real problem: they didn't trust the model. Not the speed. Not the format. The underlying conclusions. Esri consumer spending data looked like a strong predictor of e-commerce demand — until you asked whether it actually was. Nobody had. I ran PCA. It was the first validation the model had ever received.</p>
+      <div class="case-section-label">The situation</div>
+      <p class="case-p">When a wildfire ends, the clock starts. Native tree cover that burned needs to be replanted before invasive species take hold. The window is measured in weeks, not years. An organization working with DroneSeed on post-fire reforestation needed to identify candidate parcels quickly after each fire event: parcels inside the fire perimeter, with significant tree cover loss, that were privately owned and reachable for outreach.</p>
+      <p class="case-p">Their existing process for finding those parcels was slow, manual, and had to be rebuilt from scratch for each new fire. I was brought in to fix that.</p>
     </div>
 
-    <!-- Pull quote 1 -->
+    <div class="case-section anim">
+      <div class="case-section-label">What I found</div>
+      <p class="case-p">I embedded with their geospatial team for six months — not as a consultant who showed up with a proposal, but as a working member of the team. I learned their data sources, their workflows, their constraints. What fire boundary data they had access to. How they obtained land ownership records. What the field crews actually needed on a candidate list before they could begin outreach.</p>
+      <p class="case-p">The problem wasn't that the data didn't exist. It was that pulling it together required a GIS analyst to manually run the same set of operations for every new fire — and that process took time the mission didn't have.</p>
+    </div>
+
     <div class="pull-quote anim">
-      <div class="pull-quote-text">"Multi-million dollar facility decisions. Made on a model. That nobody had ever stress-tested."</div>
+      <div class="pull-quote-text">"The goal wasn't to do the analysis once. It was to build a tool the team could run themselves on the next fire, and the one after that."</div>
     </div>
 
-    <!-- What the interviews surfaced -->
-    <div class="case-section anim">
-      <div class="case-section-label">What the interviews surfaced</div>
-      <p class="case-p">Before touching anything, I conducted user assessments and led focus groups to understand how the model was actually being used versus how it was supposed to be used. The gap was significant. People trusted outputs they didn't fully understand because there was nothing better.</p>
-      <p class="case-p">The dashboard situation was the same story: ad-hoc requests, constant stress, no repeatable process. I ran interviews to understand what decisions people were actually trying to make — and built backward from there.</p>
-    </div>
-
-    <!-- What I built -->
     <div class="case-section anim">
       <div class="case-section-label">What I built</div>
-      <p class="case-p">Once I understood the real problem, I worked on two fronts simultaneously: rebuild trust in the model, and make the reporting process something the team actually wanted to use.</p>
       <div class="built-list">
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text">Cleaned up the codebase: relative paths, proper date handling, updated model logic</div>
+          <div class="built-text"><strong>QGIS Graphical Modeler automation tool</strong> — packaged the entire site identification workflow into a single repeatable tool that could be run on any new fire event with minimal manual steps</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text">Brought in new spatial data sources as better predictors of e-commerce demand than the originals</div>
+          <div class="built-text"><strong>Fire boundary integration</strong> — tool automatically intersected parcel data with fire perimeter boundaries to identify affected parcels</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text"><strong>Ran PCA</strong> — the first validation the model had ever received — to build stakeholder confidence and expand adoption</div>
+          <div class="built-text"><strong>Tree cover loss analysis</strong> — incorporated satellite-derived tree cover loss data to score parcels by reforestation need</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text"><strong>Systematic dashboard process:</strong> SQL → Alteryx → Tableau, cut reporting time from 8 hours to 30 minutes</div>
+          <div class="built-text"><strong>Land ownership filtering</strong> — integrated parcel ownership data to identify privately-held parcels accessible for outreach, distinguishing federal, state, and private land</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text">Set investment priorities for multi-year e-commerce facility network decisions</div>
+          <div class="built-text"><strong>Ranked candidate output</strong> — tool produced a scored, ranked spreadsheet of candidate parcels with owner name, contact address, parcel characteristics, and suitability score — ready for the outreach team to use immediately</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Designed for non-technical users</strong> — the tool was built so less-technical members of the geospatial team could run it, modify parameters, and adapt it as needs evolved</div>
         </div>
       </div>
     </div>
 
-    <!-- Pull quote 2 -->
-    <div class="pull-quote anim">
-      <div class="pull-quote-text">"I don't trust a dataset until I understand its limitations. Esri consumer spending data looks like a strong predictor of e-commerce demand — until you ask whether it actually is."</div>
-    </div>
-
-    <!-- Alteryx workflow screenshot -->
     <div class="case-screenshot anim">
-      <img src="img/alteryx-workflow.png" alt="Example Alteryx workflow showing data pipeline logic" />
-      <p class="case-screenshot-caption">Note: Illustrative example of an Alteryx workflow. This is not the actual L-Trix workflow used at Peapod Digital Labs.</p>
+      <img src="img/parcel-postfire.png" alt="Parcel-level suitability analysis after a wildfire — parcels shaded by composite suitability score including fire boundary intersection, tree cover loss, land ownership type, and terrain characteristics" />
+      <div class="case-screenshot-caption"><em>Parcel-level suitability analysis</em> after a wildfire — each parcel shaded by composite suitability score (fire boundary intersection, tree cover loss, land ownership type, terrain characteristics). Darker = higher priority for reforestation outreach. Analysis run at individual parcel resolution across the full fire-affected area.</div>
     </div>
 
-    <!-- What changed -->
+    <div class="case-section anim">
+      <div class="case-section-label">Why six months mattered</div>
+      <p class="case-p">A lot of consulting engagements produce a deliverable and leave. This one was different — six months embedded with the team meant I understood the operational reality, not just the stated requirements. I saw what broke. I saw what the field crews actually asked for. I understood the data limitations well enough to design around them rather than pretend they didn't exist.</p>
+      <p class="case-p">The tool that came out of that time wasn't built to spec — it was built to survive contact with the real workflow. That's a different kind of product.</p>
+    </div>
+
     <div class="outcome-section anim">
       <div class="outcome-label">What changed</div>
-      <div class="outcome-h2">Stakeholders who had quietly doubted the outputs now had documented evidence they could trust.</div>
-      <p class="outcome-p">The ad-hoc dashboard chaos became a repeatable, user-centric process that the team actually wanted to use.</p>
-      <p class="outcome-p">The real change: multi-million dollar facility decisions started being made on a model that had actually been validated. That's not a small thing.</p>
+      <div class="outcome-h2">A repeatable tool for every future fire event — not a one-time analysis.</div>
+      <p class="outcome-p">Before: a GIS analyst spent days pulling together the same analysis for each new fire. After: the team ran the tool, got a ranked candidate list, and handed it to the outreach team the same day. The speed improvement wasn't the main thing — the repeatability was. The organization could now respond to new fire events with a consistent, reliable process instead of rebuilding from scratch each time.</p>
+      <p class="outcome-p">The documentation and knowledge transfer ensured the team could adapt the tool as their work evolved — new data sources, new fire geographies, new parameters. They owned it.</p>
     </div>
 
-    <!-- Tools -->
     <div class="tools-section anim">
       <div class="tools-label">Tools &amp; Stack</div>
       <div class="tools-pills">
-        <span class="tool-pill">Alteryx</span>
-        <span class="tool-pill">Tableau</span>
-        <span class="tool-pill">Python</span>
-        <span class="tool-pill">SQL</span>
-        <span class="tool-pill">ArcGIS</span>
-        <span class="tool-pill">PCA / Validation</span>
+        <span class="tool-pill">QGIS</span>
+        <span class="tool-pill">QGIS Graphical Modeler</span>
+        <span class="tool-pill">Carto</span>
+        <span class="tool-pill">Parcel Data Analysis</span>
+        <span class="tool-pill">Fire Boundary GIS</span>
+        <span class="tool-pill">NLCD Tree Cover Data</span>
+        <span class="tool-pill">Land Ownership Records</span>
+        <span class="tool-pill">Process Automation</span>
+        <span class="tool-pill">THRIVE Consulting Methodology</span>
       </div>
     </div>
 
-    <!-- Next project -->
     <div class="next-project anim">
       <div>
         <div class="next-label">Next project</div>
-        <div class="next-title">A small problem. Automated.</div>
+        <div class="next-title">After Hurricane Maria, the hardest problem was knowing what you didn&rsquo;t know.</div>
       </div>
-      <a href="library.html" class="next-link">Library Automation <i class="ti ti-arrow-right"></i></a>
+      <a href="puerto-rico.html" class="next-link">Puerto Rico <i class="ti ti-arrow-right"></i></a>
     </div>
 
   </div>
@@ -306,12 +320,12 @@
       </div>
       <div>
         <div class="footer-nav-label">Get in touch</div>
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
-        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn → julianamapper</a>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch &rarr;</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn &rarr; julianamapper</a>
       </div>
     </div>
     <div class="footer-tagline-row">
-      <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+      <div class="footer-tagline">The domain changes. The approach doesn&rsquo;t.</div>
     </div>
   </footer>
 

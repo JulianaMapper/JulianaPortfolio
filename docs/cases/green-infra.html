@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peapod — Juliana McMillan-Wilhoit</title>
+  <title>Green Infrastructure — Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="How I calculated the permeability of every parcel in St. Louis city and county — and built a spatial prospecting tool that replaced Google Earth and drive-bys with a filterable database." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <style>
-    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; -webkit-font-smoothing: antialiased; }
     body { font-family: 'DM Sans', system-ui, sans-serif; color: #1C2826; background: #F7F5F0; min-height: 100vh; line-height: 1.7; }
 
-    /* ── Animations ── */
     .anim { opacity: 0; transform: translateY(18px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .anim.visible { opacity: 1; transform: translateY(0); }
     .anim[data-delay="0.1"] { transition-delay: 0.1s; }
     .anim[data-delay="0.2"] { transition-delay: 0.2s; }
     .anim[data-delay="0.3"] { transition-delay: 0.3s; }
     .anim[data-delay="0.4"] { transition-delay: 0.4s; }
+    .anim[data-delay="0.5"] { transition-delay: 0.5s; }
 
-    /* ── Header ── */
+    /* Header */
     .header-band { background: #1C2826; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
     .header-name { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.05rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
@@ -31,12 +31,12 @@
     .nav-link-btn { color: rgba(247,245,240,0.9) !important; border: 1px solid rgba(247,245,240,0.3); padding: 0.3rem 0.75rem; border-radius: 6px; }
     .nav-link-dl { color: rgba(247,245,240,0.9) !important; background: rgba(247,245,240,0.1); padding: 0.3rem 0.75rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.35rem; }
 
-    /* ── Breadcrumb ── */
+    /* Breadcrumb */
     .breadcrumb { max-width: 800px; margin: 0 auto; padding: 5rem 2.5rem 0; }
     .breadcrumb a { font-size: 0.8rem; font-weight: 600; color: #376E5A; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; }
     .breadcrumb a:hover { color: #2D5A49; }
 
-    /* ── Hero ── */
+    /* Hero */
     .hero { max-width: 800px; margin: 0 auto; padding: 2.5rem 2.5rem 0; }
     .project-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
     .project-eyebrow-divider { width: 24px; height: 1px; background: #8DB8A0; display: inline-block; }
@@ -47,18 +47,17 @@
     .context-item i { color: #8DB8A0; font-size: 0.9rem; }
     .context-tag { font-size: 0.72rem; font-weight: 600; background: rgba(55,110,90,0.08); color: #376E5A; padding: 0.2rem 0.7rem; border-radius: 100px; }
 
-    /* ── Metrics ── */
+    /* Metrics */
     .metrics-band { max-width: 800px; margin: 0 auto; padding: 0 2.5rem; }
     .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #E0DDD8; border-radius: 10px; background: #FEFEFE; overflow: hidden; margin: 2.5rem 0; }
     .metric-block { padding: 1.5rem 1.25rem; border-right: 1px solid #E0DDD8; }
     .metric-block:last-child { border-right: none; }
-    .metric-num { font-size: 1.625rem; font-weight: 700; color: #376E5A; line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+    .metric-num { font-family: 'Lora', Georgia, serif; font-size: 1.625rem; font-weight: 700; color: #376E5A; line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
     .metric-label { font-size: 0.75rem; color: #4A5A54; line-height: 1.4; }
 
-    /* ── Body ── */
+    /* Body */
     .case-body { max-width: 800px; margin: 0 auto; padding: 0 2.5rem 6rem; }
 
-    /* ── Sections ── */
     .case-section { margin-bottom: 3rem; }
     .case-section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
     .case-section-label::after { content: ''; flex: 1; height: 1px; background: #E0DDD8; }
@@ -67,44 +66,62 @@
     .case-p:last-child { margin-bottom: 0; }
     .case-p strong { color: #1C2826; font-weight: 600; }
 
-    /* ── Pull quote ── */
+    /* Screenshot */
+    .case-screenshot {
+      margin: 2rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #E0DDD8;
+      background: #1C2826;
+    }
+    .case-screenshot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .case-screenshot-caption {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.78rem;
+      color: #8A9690;
+      background: #FEFEFE;
+      border-top: 1px solid #E0DDD8;
+      line-height: 1.5;
+    }
+    .case-screenshot-caption em { font-style: normal; color: #376E5A; font-weight: 600; }
+
+    /* Pull quote */
     .pull-quote { margin: 2rem 0; padding: 1.5rem 1.75rem; background: rgba(55,110,90,0.04); border-left: 3px solid #376E5A; border-radius: 0 8px 8px 0; }
     .pull-quote-text { font-family: 'Lora', Georgia, serif; font-size: 1.0625rem; font-style: italic; color: #1C2826; line-height: 1.65; margin-bottom: 0.5rem; }
     .pull-quote-cite { font-size: 0.78rem; font-weight: 600; color: #376E5A; }
 
-    /* ── What I built list ── */
+    /* Built list */
     .built-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1rem 0; }
     .built-item { display: flex; gap: 1rem; align-items: flex-start; }
     .built-dot { width: 6px; height: 6px; border-radius: 50%; background: #376E5A; flex-shrink: 0; margin-top: 0.65rem; }
     .built-text { font-size: 0.9375rem; color: #4A5A54; line-height: 1.7; }
     .built-text strong { color: #1C2826; font-weight: 600; }
 
-    /* ── What changed ── */
+    /* Outcome */
     .outcome-section { background: #1C2826; border-radius: 10px; padding: 2.5rem; margin: 3rem 0; }
     .outcome-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8DB8A0; margin-bottom: 1rem; }
     .outcome-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.2rem; font-weight: 700; color: #F7F5F0; margin-bottom: 1rem; line-height: 1.3; }
     .outcome-p { font-size: 0.9375rem; color: rgba(247,245,240,0.75); line-height: 1.8; margin-bottom: 0.75rem; }
     .outcome-p:last-child { margin-bottom: 0; }
 
-    /* ── Tools ── */
+    /* Tools */
     .tools-section { margin: 2.5rem 0; }
     .tools-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.85rem; }
     .tools-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .tool-pill { font-size: 0.75rem; font-weight: 600; color: #376E5A; background: rgba(55,110,90,0.08); padding: 0.3rem 0.85rem; border-radius: 100px; }
 
-    /* ── Screenshot ── */
-    .case-screenshot { margin: 2.5rem 0; }
-    .case-screenshot img { width: 100%; border-radius: 8px; border: 1px solid #E0DDD8; display: block; }
-    .case-screenshot-caption { font-size: 0.78rem; color: #8A9690; margin-top: 0.6rem; line-height: 1.55; font-style: italic; }
-
-    /* ── Next project ── */
+    /* Next project */
     .next-project { border-top: 1px solid #E0DDD8; padding: 2.5rem 0 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
     .next-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.35rem; }
     .next-title { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #1C2826; }
     .next-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #376E5A; text-decoration: none; transition: gap 0.2s, color 0.2s; }
     .next-link:hover { color: #2D5A49; gap: 0.75rem; }
 
-    /* ── Footer ── */
+    /* Footer */
     .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; margin-top: 4rem; }
     .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12); }
     .footer-brand { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
@@ -118,7 +135,6 @@
     .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
     .footer-tagline { font-family: 'Lora', Georgia, serif; font-size: 0.9375rem; font-style: italic; color: rgba(247,245,240,0.35); }
 
-    /* ── Responsive ── */
     @media (max-width: 720px) {
       .header-band { padding: 0 1.25rem; }
       .nav-links { gap: 1rem; }
@@ -148,141 +164,141 @@
     </nav>
   </header>
 
-  <!-- Breadcrumb -->
   <div class="breadcrumb anim">
     <a href="../work.html"><i class="ti ti-arrow-left"></i> Back to Work</a>
   </div>
 
-  <!-- Hero -->
   <div class="hero">
     <div class="project-eyebrow anim" data-delay="0.1">
-      <span>03</span>
+      <span>Green Infrastructure &middot; St. Louis</span>
       <span class="project-eyebrow-divider"></span>
-      <span>Peapod Digital Labs (ADUSA Supply Chain Services) · Supply Chain · 2020–2023</span>
+      <span>Tabulae Spatial Services</span>
     </div>
-    <h1 class="hero-h1 anim" data-delay="0.2">The dashboard wasn't the problem. Nobody trusted the model behind it.</h1>
-    <p class="hero-turn anim" data-delay="0.3">Everyone wanted a faster dashboard. I went and talked to the people who used it. Nobody trusted the outputs they were getting. The speed problem was real. But fixing it wouldn't have changed anything.</p>
+    <h1 class="hero-h1 anim" data-delay="0.2">The engineers had the data. The planners had the priorities. Nobody had connected them.</h1>
+    <p class="hero-turn anim" data-delay="0.3">A green infrastructure company was prospecting for investment sites in St. Louis by driving around and eyeballing parcels on Google Earth. There were hundreds of thousands of parcels in the city and county. They needed a smarter way in. I calculated the permeability of every single one.</p>
     <div class="context-strip anim" data-delay="0.4">
-      <span class="context-item"><i class="ti ti-truck"></i> Peapod Digital Labs / ADUSA Supply Chain</span>
-      <span class="context-item"><i class="ti ti-map-pin"></i> Remote</span>
-      <span class="context-tag">Alteryx</span>
-      <span class="context-tag">Tableau</span>
-      <span class="context-tag">PCA</span>
-      <span class="context-tag">Demand Forecasting</span>
+      <span class="context-item"><i class="ti ti-map-pin"></i> St. Louis, MO &middot; City &amp; County</span>
+      <span class="context-item"><i class="ti ti-building-community"></i> Green infrastructure company (via Tabulae Spatial)</span>
+      <span class="context-item"><i class="ti ti-user-check"></i> Lead analyst &amp; product builder</span>
+      <span class="context-tag">QGIS</span>
+      <span class="context-tag">ArcGIS Online</span>
+      <span class="context-tag">Semi-Automatic Classification Plugin</span>
+      <span class="context-tag">NAIP Imagery</span>
+      <span class="context-tag">Spatial Analysis</span>
+      <span class="context-tag">Stormwater</span>
     </div>
   </div>
 
-  <!-- Metrics -->
   <div class="metrics-band">
     <div class="metrics-grid anim">
       <div class="metric-block">
-        <div class="metric-num">8h → 30m</div>
-        <div class="metric-label">Dashboard reporting time — routine reports</div>
+        <div class="metric-num">Every parcel</div>
+        <div class="metric-label">Permeability calculated for every parcel in St. Louis city and county — individually</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">First</div>
-        <div class="metric-label">Validation the demand model had ever received</div>
+        <div class="metric-num">Google Earth &rarr; GIS</div>
+        <div class="metric-label">Replaced manual drive-by site visits with a filterable spatial database</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">Block-group</div>
-        <div class="metric-label">Demand forecasting granularity — census block-group level</div>
+        <div class="metric-num">1 app</div>
+        <div class="metric-label">Custom ArcGIS Online web application with CRM-style lead tracking built in</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">Multi-year</div>
-        <div class="metric-label">E-commerce facility network investment decisions set by model outputs</div>
+        <div class="metric-num">Days &rarr; clicks</div>
+        <div class="metric-label">Prospecting time cut from days of manual research to a filtered search</div>
       </div>
     </div>
   </div>
 
-  <!-- Body -->
   <div class="case-body">
 
-    <!-- The Diagnosis -->
     <div class="case-section anim">
-      <div class="case-section-label">The diagnosis</div>
-      <p class="case-p">Consultants had built the model. The business had adopted it. Multi-million dollar e-commerce facility network decisions — where to build warehouses, which stores to use for fulfillment — ran on it. The presenting problem was dashboard speed: 8 hours to produce routine reports.</p>
-      <p class="case-p">I went and talked to the people using the outputs. The real problem: they didn't trust the model. Not the speed. Not the format. The underlying conclusions. Esri consumer spending data looked like a strong predictor of e-commerce demand — until you asked whether it actually was. Nobody had. I ran PCA. It was the first validation the model had ever received.</p>
+      <div class="case-section-label">The situation</div>
+      <p class="case-p">A green infrastructure company was doing important work — planting trees, managing stormwater, improving urban permeability. But to do that work, they needed to find the right parcels: the ones with poor drainage, the right ownership type, the right proximity to schools and roads. Their process for finding those parcels was to look at Google Earth and drive around. In a city with hundreds of thousands of parcels, that wasn't a process. It was a guess.</p>
+      <p class="case-p">I started with listening sessions — sitting with the team, understanding their actual workflow, mapping what they needed to know about a parcel before they'd pursue it. Ownership type. Property classification. Distance to key features. And most critically: permeability — how well could water actually infiltrate the soil?</p>
+      <p class="case-p">That data didn't exist for St. Louis. I would have to create it.</p>
     </div>
 
-    <!-- Pull quote 1 -->
+    <div class="case-section anim">
+      <div class="case-section-label">The hard part: calculating permeability for every parcel</div>
+      <p class="case-p">Permeability data for individual parcels in St. Louis wasn't available anywhere. No dataset to download, no shortcut. So I used NAIP imagery (high-resolution aerial photography) and the Semi-Automatic Classification Plugin for QGIS to classify land cover across the entire city and county — distinguishing impervious surfaces (concrete, asphalt, buildings) from pervious ones (soil, grass, tree canopy) at the parcel level.</p>
+      <p class="case-p">Then I matched those classifications to the parcel dataset, assigning each parcel a permeability profile. Hundreds of thousands of parcels. Every one calculated individually.</p>
+    </div>
+
     <div class="pull-quote anim">
-      <div class="pull-quote-text">"Multi-million dollar facility decisions. Made on a model. That nobody had ever stress-tested."</div>
+      <div class="pull-quote-text">"The data they needed didn't exist. So I built it from aerial imagery, parcel by parcel, across the entire city."</div>
     </div>
 
-    <!-- What the interviews surfaced -->
-    <div class="case-section anim">
-      <div class="case-section-label">What the interviews surfaced</div>
-      <p class="case-p">Before touching anything, I conducted user assessments and led focus groups to understand how the model was actually being used versus how it was supposed to be used. The gap was significant. People trusted outputs they didn't fully understand because there was nothing better.</p>
-      <p class="case-p">The dashboard situation was the same story: ad-hoc requests, constant stress, no repeatable process. I ran interviews to understand what decisions people were actually trying to make — and built backward from there.</p>
-    </div>
-
-    <!-- What I built -->
     <div class="case-section anim">
       <div class="case-section-label">What I built</div>
-      <p class="case-p">Once I understood the real problem, I worked on two fronts simultaneously: rebuild trust in the model, and make the reporting process something the team actually wanted to use.</p>
+      <p class="case-p">With the permeability layer in hand, I built a complete prospecting system around it.</p>
       <div class="built-list">
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text">Cleaned up the codebase: relative paths, proper date handling, updated model logic</div>
+          <div class="built-text"><strong>Permeability classification layer</strong> — NAIP imagery analyzed via Semi-Automatic Classification Plugin for QGIS, assigned to every parcel in St. Louis city and county</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text">Brought in new spatial data sources as better predictors of e-commerce demand than the originals</div>
+          <div class="built-text"><strong>Parcel database</strong> — permeability data matched to ownership type, property classification, zoning, and other filterable attributes</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text"><strong>Ran PCA</strong> — the first validation the model had ever received — to build stakeholder confidence and expand adoption</div>
+          <div class="built-text"><strong>Custom ArcGIS Online web application</strong> — enabled the client to filter and sort parcels by any combination of characteristics: ownership, property type, permeability score, proximity to schools, roads, and other features</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text"><strong>Systematic dashboard process:</strong> SQL → Alteryx → Tableau, cut reporting time from 8 hours to 30 minutes</div>
+          <div class="built-text"><strong>Distance calculation tools</strong> — built-in proximity analysis so the client could instantly see how far any parcel was from target features</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text">Set investment priorities for multi-year e-commerce facility network decisions</div>
+          <div class="built-text"><strong>Site visit tracker</strong> — the app functioned as a lightweight CRM: the client could mark which parcels they'd visited, track lead status, and manage their prospecting pipeline spatially</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Consensus workshop process</strong> — before building anything, I ran workshops to map the current process and the ideal process, so the tool matched how they actually worked</div>
         </div>
       </div>
     </div>
 
-    <!-- Pull quote 2 -->
-    <div class="pull-quote anim">
-      <div class="pull-quote-text">"I don't trust a dataset until I understand its limitations. Esri consumer spending data looks like a strong predictor of e-commerce demand — until you ask whether it actually is."</div>
-    </div>
-
-    <!-- Alteryx workflow screenshot -->
     <div class="case-screenshot anim">
-      <img src="img/alteryx-workflow.png" alt="Example Alteryx workflow showing data pipeline logic" />
-      <p class="case-screenshot-caption">Note: Illustrative example of an Alteryx workflow. This is not the actual L-Trix workflow used at Peapod Digital Labs.</p>
+      <img src="img/green-infra-viewer.jpg" alt="St. Louis Parcel Assessment web application showing parcels shaded by permeability score" />
+      <div class="case-screenshot-caption"><em>St. Louis Parcel Assessment web application</em> — developed by Tabulae Spatial Services. Each parcel shaded by permeability score; darker green = higher permeability = stronger investment candidate. The client could filter by ownership, property type, proximity, and more — then track site visits directly in the map.</div>
     </div>
 
-    <!-- What changed -->
+    <div class="case-section anim">
+      <div class="case-section-label">From prospecting by driving around to prospecting by filtering</div>
+      <p class="case-p">Before this tool, finding a candidate parcel meant someone physically drove to a neighborhood, looked at it, and made a judgment call. After, the client could open the web app, apply filters — permeability above a threshold, ownership type, distance to a school under a mile — and get a ranked list of candidates in seconds.</p>
+      <p class="case-p">The prospecting cycle that used to take days of field time was reduced to a few clicks. The tool also integrated with their CRM, so lead tracking and spatial analysis happened in the same place for the first time.</p>
+    </div>
+
     <div class="outcome-section anim">
       <div class="outcome-label">What changed</div>
-      <div class="outcome-h2">Stakeholders who had quietly doubted the outputs now had documented evidence they could trust.</div>
-      <p class="outcome-p">The ad-hoc dashboard chaos became a repeatable, user-centric process that the team actually wanted to use.</p>
-      <p class="outcome-p">The real change: multi-million dollar facility decisions started being made on a model that had actually been validated. That's not a small thing.</p>
+      <div class="outcome-h2">Replaced Google Earth and drive-bys with a filterable, spatial prospecting system.</div>
+      <p class="outcome-p">The company could now work systematically through the city. Every parcel had a permeability score. Every parcel could be filtered, ranked, and tracked. The guesswork was gone.</p>
+      <p class="outcome-p">What made this work wasn't just the technology — it was starting with the listening sessions. Understanding that the real problem wasn't "we need a map" but "we need to know which parcels are worth pursuing, and we need to be able to track what we've done." The tool solved that problem because we'd mapped the right problem first.</p>
+      <p class="outcome-p">That's the pattern. Go toward the people. Find what they actually need. Build that.</p>
     </div>
 
-    <!-- Tools -->
     <div class="tools-section anim">
       <div class="tools-label">Tools &amp; Stack</div>
       <div class="tools-pills">
-        <span class="tool-pill">Alteryx</span>
-        <span class="tool-pill">Tableau</span>
-        <span class="tool-pill">Python</span>
-        <span class="tool-pill">SQL</span>
-        <span class="tool-pill">ArcGIS</span>
-        <span class="tool-pill">PCA / Validation</span>
+        <span class="tool-pill">QGIS</span>
+        <span class="tool-pill">Semi-Automatic Classification Plugin</span>
+        <span class="tool-pill">NAIP Imagery</span>
+        <span class="tool-pill">ArcGIS Online</span>
+        <span class="tool-pill">ArcGIS Web App Builder</span>
+        <span class="tool-pill">Spatial Analysis</span>
+        <span class="tool-pill">Land Cover Classification</span>
+        <span class="tool-pill">Consensus Workshop Methodology</span>
       </div>
     </div>
 
-    <!-- Next project -->
     <div class="next-project anim">
       <div>
         <div class="next-label">Next project</div>
-        <div class="next-title">A small problem. Automated.</div>
+        <div class="next-title">County records were fine. Nobody could find them. A spatial index solved it.</div>
       </div>
-      <a href="library.html" class="next-link">Library Automation <i class="ti ti-arrow-right"></i></a>
+      <a href="cemetery.html" class="next-link">Cemetery Mapping <i class="ti ti-arrow-right"></i></a>
     </div>
 
   </div>
@@ -306,12 +322,12 @@
       </div>
       <div>
         <div class="footer-nav-label">Get in touch</div>
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
-        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn → julianamapper</a>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch &rarr;</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn &rarr; julianamapper</a>
       </div>
     </div>
     <div class="footer-tagline-row">
-      <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+      <div class="footer-tagline">The domain changes. The approach doesn&rsquo;t.</div>
     </div>
   </footer>
 
