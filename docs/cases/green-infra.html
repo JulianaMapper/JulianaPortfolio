@@ -213,14 +213,14 @@
   <div class="case-body">
 
     <div class="case-section anim">
-      <div class="case-section-label">The situation</div>
+      <div class="case-section-label">Listen</div>
       <p class="case-p">A green infrastructure company was doing important work — planting trees, managing stormwater, improving urban permeability. But to do that work, they needed to find the right parcels: the ones with poor drainage, the right ownership type, the right proximity to schools and roads. Their process for finding those parcels was to look at Google Earth and drive around. In a city with hundreds of thousands of parcels, that wasn't a process. It was a guess.</p>
       <p class="case-p">I started with listening sessions — sitting with the team, understanding their actual workflow, mapping what they needed to know about a parcel before they'd pursue it. Ownership type. Property classification. Distance to key features. And most critically: permeability — how well could water actually infiltrate the soil?</p>
       <p class="case-p">That data didn't exist for St. Louis. I would have to create it.</p>
     </div>
 
     <div class="case-section anim">
-      <div class="case-section-label">The hard part: calculating permeability for every parcel</div>
+      <div class="case-section-label">Ask Why</div>
       <p class="case-p">Permeability data for individual parcels in St. Louis wasn't available anywhere. No dataset to download, no shortcut. So I used NAIP imagery (high-resolution aerial photography) and the Semi-Automatic Classification Plugin for QGIS to classify land cover across the entire city and county — distinguishing impervious surfaces (concrete, asphalt, buildings) from pervious ones (soil, grass, tree canopy) at the parcel level.</p>
       <p class="case-p">Then I matched those classifications to the parcel dataset, assigning each parcel a permeability profile. Hundreds of thousands of parcels. Every one calculated individually.</p>
     </div>
@@ -230,7 +230,7 @@
     </div>
 
     <div class="case-section anim">
-      <div class="case-section-label">What I built</div>
+      <div class="case-section-label">Build</div>
       <p class="case-p">With the permeability layer in hand, I built a complete prospecting system around it.</p>
       <div class="built-list">
         <div class="built-item">
@@ -266,13 +266,13 @@
     </div>
 
     <div class="case-section anim">
-      <div class="case-section-label">From prospecting by driving around to prospecting by filtering</div>
+      <div class="case-section-label">Ask Why</div>
       <p class="case-p">Before this tool, finding a candidate parcel meant someone physically drove to a neighborhood, looked at it, and made a judgment call. After, the client could open the web app, apply filters — permeability above a threshold, ownership type, distance to a school under a mile — and get a ranked list of candidates in seconds.</p>
       <p class="case-p">The prospecting cycle that used to take days of field time was reduced to a few clicks. The tool also integrated with their CRM, so lead tracking and spatial analysis happened in the same place for the first time.</p>
     </div>
 
     <div class="outcome-section anim">
-      <div class="outcome-label">What changed</div>
+      <div class="outcome-label">Impact</div>
       <div class="outcome-h2">Replaced Google Earth and drive-bys with a filterable, spatial prospecting system.</div>
       <p class="outcome-p">The company could now work systematically through the city. Every parcel had a permeability score. Every parcel could be filtered, ranked, and tracked. The guesswork was gone.</p>
       <p class="outcome-p">What made this work wasn't just the technology — it was starting with the listening sessions. Understanding that the real problem wasn't "we need a map" but "we need to know which parcels are worth pursuing, and we need to be able to track what we've done." The tool solved that problem because we'd mapped the right problem first.</p>

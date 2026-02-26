@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>North Chicago CBPR — Juliana McMillan-Wilhoit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1C2826; background: #F7F5F0; min-height: 100vh; line-height: 1.7; }
+
+    /* ── Animations ── */
+    .anim { opacity: 0; transform: translateY(18px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .anim.visible { opacity: 1; transform: translateY(0); }
+    .anim[data-delay="0.1"] { transition-delay: 0.1s; }
+    .anim[data-delay="0.2"] { transition-delay: 0.2s; }
+    .anim[data-delay="0.3"] { transition-delay: 0.3s; }
+    .anim[data-delay="0.4"] { transition-delay: 0.4s; }
+
+    /* ── Header ── */
+    .header-band { background: #1C2826; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+    .header-name { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.05rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-link:hover { color: #F7F5F0; }
+    .nav-link-btn { color: rgba(247,245,240,0.9) !important; border: 1px solid rgba(247,245,240,0.3); padding: 0.3rem 0.75rem; border-radius: 6px; }
+    .nav-link-dl { color: rgba(247,245,240,0.9) !important; background: rgba(247,245,240,0.1); padding: 0.3rem 0.75rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.35rem; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb { max-width: 800px; margin: 0 auto; padding: 5rem 2.5rem 0; }
+    .breadcrumb a { font-size: 0.8rem; font-weight: 600; color: #376E5A; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; }
+    .breadcrumb a:hover { color: #2D5A49; }
+
+    /* ── Hero ── */
+    .hero { max-width: 800px; margin: 0 auto; padding: 2.5rem 2.5rem 0; }
+    .project-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .project-eyebrow-divider { width: 24px; height: 1px; background: #8DB8A0; display: inline-block; }
+    .hero-h1 { font-family: 'Lora', Georgia, serif; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; color: #1C2826; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-turn { font-size: 1.125rem; color: #4A5A54; line-height: 1.7; max-width: 640px; margin-bottom: 2rem; border-left: 3px solid #8DB8A0; padding-left: 1.25rem; }
+    .context-strip { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; padding-bottom: 2rem; border-bottom: 1px solid #E0DDD8; }
+    .context-item { font-size: 0.8rem; color: #8A9690; display: flex; align-items: center; gap: 0.4rem; }
+    .context-item i { color: #8DB8A0; font-size: 0.9rem; }
+    .context-tag { font-size: 0.72rem; font-weight: 600; background: rgba(55,110,90,0.08); color: #376E5A; padding: 0.2rem 0.7rem; border-radius: 100px; }
+
+    /* ── Metrics ── */
+    .metrics-band { max-width: 800px; margin: 0 auto; padding: 0 2.5rem; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #E0DDD8; border-radius: 10px; background: #FEFEFE; overflow: hidden; margin: 2.5rem 0; }
+    .metric-block { padding: 1.5rem 1.25rem; border-right: 1px solid #E0DDD8; }
+    .metric-block:last-child { border-right: none; }
+    .metric-num { font-size: 1.625rem; font-weight: 700; color: #376E5A; line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+    .metric-label { font-size: 0.75rem; color: #4A5A54; line-height: 1.4; }
+
+    /* ── Body ── */
+    .case-body { max-width: 800px; margin: 0 auto; padding: 0 2.5rem 6rem; }
+
+    /* ── Sections ── */
+    .case-section { margin-bottom: 3rem; }
+    .case-section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    .case-section-label::after { content: ''; flex: 1; height: 1px; background: #E0DDD8; }
+    .case-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.25rem; font-weight: 700; color: #1C2826; margin-bottom: 0.85rem; line-height: 1.3; }
+    .case-p { font-size: 0.9375rem; color: #4A5A54; line-height: 1.8; margin-bottom: 0.85rem; }
+    .case-p:last-child { margin-bottom: 0; }
+    .case-p strong { color: #1C2826; font-weight: 600; }
+
+    /* ── Pull quote ── */
+    .pull-quote { margin: 2rem 0; padding: 1.5rem 1.75rem; background: rgba(55,110,90,0.04); border-left: 3px solid #376E5A; border-radius: 0 8px 8px 0; }
+    .pull-quote-text { font-family: 'Lora', Georgia, serif; font-size: 1.0625rem; font-style: italic; color: #1C2826; line-height: 1.65; margin-bottom: 0.5rem; }
+    .pull-quote-cite { font-size: 0.78rem; font-weight: 600; color: #376E5A; }
+
+    /* ── What I built list ── */
+    .built-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1rem 0; }
+    .built-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .built-dot { width: 6px; height: 6px; border-radius: 50%; background: #376E5A; flex-shrink: 0; margin-top: 0.65rem; }
+    .built-text { font-size: 0.9375rem; color: #4A5A54; line-height: 1.7; }
+    .built-text strong { color: #1C2826; font-weight: 600; }
+
+    /* ── What changed ── */
+    .outcome-section { background: #1C2826; border-radius: 10px; padding: 2.5rem; margin: 3rem 0; }
+    .outcome-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8DB8A0; margin-bottom: 1rem; }
+    .outcome-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.2rem; font-weight: 700; color: #F7F5F0; margin-bottom: 1rem; line-height: 1.3; }
+    .outcome-p { font-size: 0.9375rem; color: rgba(247,245,240,0.75); line-height: 1.8; margin-bottom: 0.75rem; }
+    .outcome-p:last-child { margin-bottom: 0; }
+
+    /* ── Tools ── */
+    .tools-section { margin: 2.5rem 0; }
+    .tools-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.85rem; }
+    .tools-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tool-pill { font-size: 0.75rem; font-weight: 600; color: #376E5A; background: rgba(55,110,90,0.08); padding: 0.3rem 0.85rem; border-radius: 100px; }
+
+    /* ── Screenshot ── */
+    .case-screenshot { margin: 2.5rem 0; }
+    .case-screenshot img { width: 100%; border-radius: 8px; border: 1px solid #E0DDD8; display: block; }
+    .case-screenshot-caption { font-size: 0.78rem; color: #8A9690; margin-top: 0.6rem; line-height: 1.55; font-style: italic; }
+
+    /* ── Video ── */
+    .case-video { margin: 2.5rem 0; }
+
+    /* ── Next project ── */
+    .next-project { border-top: 1px solid #E0DDD8; padding: 2.5rem 0 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .next-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.35rem; }
+    .next-title { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #1C2826; }
+    .next-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #376E5A; text-decoration: none; transition: gap 0.2s, color 0.2s; }
+    .next-link:hover { color: #2D5A49; gap: 0.75rem; }
+
+    /* ── Footer ── */
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; margin-top: 4rem; }
+    .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12); }
+    .footer-brand { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.45); line-height: 1.6; }
+    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.4); margin-bottom: 0.75rem; }
+    .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
+    .footer-nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .footer-nav-link:hover { color: #F7F5F0; }
+    .footer-contact-link { display: block; color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; margin-bottom: 0.5rem; transition: color 0.2s; }
+    .footer-contact-link:hover { color: #F7F5F0; }
+    .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
+    .footer-tagline { font-family: 'Lora', Georgia, serif; font-size: 0.9375rem; font-style: italic; color: rgba(247,245,240,0.35); }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .nav-link { font-size: 0.7rem; letter-spacing: 0.04em; }
+      .hero, .metrics-band, .case-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .breadcrumb { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .metric-block:nth-child(2) { border-right: none; }
+      .metric-block:nth-child(3), .metric-block:nth-child(4) { border-top: 1px solid #E0DDD8; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .outcome-section { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-band">
+    <a href="../index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+    <nav class="nav-links">
+      <a href="../index-ai.html" class="nav-link">Home</a>
+      <a href="../work.html" class="nav-link">Work</a>
+      <a href="../thinking.html" class="nav-link">How I Think</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link nav-link-btn">Contact</a>
+      <a href="../Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link nav-link-dl"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
+    </nav>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb anim">
+    <a href="../work.html"><i class="ti ti-arrow-left"></i> Back to Work</a>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="project-eyebrow anim" data-delay="0.1">
+      <span>05</span>
+      <span class="project-eyebrow-divider"></span>
+      <span>F&amp;T Labs · Community-Based Research · 2023</span>
+    </div>
+    <h1 class="hero-h1 anim" data-delay="0.2">"You don't find out what a community needs by sitting at your desk."</h1>
+    <p class="hero-turn anim" data-delay="0.3">On a Saturday. At a parade. Waiting with residents as floats went by and asking what mattered to them. That's how this research worked. Fifty interviews. 180 surveys. Six weeks. Because the data you get from people who trust you is different from any other kind.</p>
+    <div class="context-strip anim" data-delay="0.4">
+      <span class="context-item"><i class="ti ti-users"></i> North Chicago Hispanic Community / Lake County Nonprofit</span>
+      <span class="context-item"><i class="ti ti-map-pin"></i> North Chicago, IL</span>
+      <span class="context-tag">CBPR</span>
+      <span class="context-tag">Mixed Methods</span>
+      <span class="context-tag">Bilingual</span>
+      <span class="context-tag">Civic Research</span>
+    </div>
+  </div>
+
+  <!-- Metrics -->
+  <div class="metrics-band">
+    <div class="metrics-grid anim">
+      <div class="metric-block">
+        <div class="metric-num">~25</div>
+        <div class="metric-label">In-depth interviews, English &amp; Spanish</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">180+</div>
+        <div class="metric-label">Survey responses at community events</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">6 wks</div>
+        <div class="metric-label">Full research cycle, delivery + community report-back</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">Bilingual</div>
+        <div class="metric-label">English + Spanish executive summary</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="case-body">
+
+    <!-- The context -->
+    <div class="case-section anim">
+      <div class="case-section-label">Listen</div>
+      <p class="case-p">North Chicago's Hispanic population is more than 30% of residents — 16% foreign-born, roughly 21% of adult US citizens. In 2025, the school board was transitioning from an appointed to an elected model. A Lake County nonprofit wanted to understand one thing: what were the barriers to civic participation for this community? Not from the outside. From the inside.</p>
+    </div>
+
+    <!-- The approach -->
+    <div class="case-section anim">
+      <div class="case-section-label">Ask Why</div>
+      <p class="case-p">Standard research methods weren't going to work here. You don't send a survey link to a community that doesn't trust institutions and expect honest answers. So we went to where people already were: community festivals, a parade, gatherings. I conducted ~25 in-depth interviews in English and Spanish — with residents, community leaders, school board members, city employees, nonprofit workers. We deployed surveys with 180+ responses through community events and partner organizations.</p>
+      <p class="case-p">But the most distinctive piece: we developed <strong>novel community engagement boards</strong> placed around North Chicago. Physical boards in the neighborhood asking "Where do you turn for help?" and mapping where residents work, play, and engage. The kind of question that reveals the actual trust networks in a community — not the official ones.</p>
+    </div>
+
+    <!-- Pull quote 1 -->
+    <div class="pull-quote anim">
+      <div class="pull-quote-text">"The data you get from people who trust you is different from any other kind. You have to earn that first."</div>
+    </div>
+
+    <!-- What we found -->
+    <div class="case-section anim">
+      <div class="case-section-label">Ask Why</div>
+      <p class="case-p">The research surfaced the actual gap between demographic presence and civic representation — and why it existed. Barriers weren't just about information access. They were about trust, language, institutional memory, and the specific ways civic participation had (or hadn't) been designed to include this community.</p>
+    </div>
+
+    <!-- What I built -->
+    <div class="case-section anim">
+      <div class="case-section-label">Build</div>
+      <div class="built-list">
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text">~25 in-depth interviews in English and Spanish</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text">180+ survey responses collected at live community events</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Novel community engagement boards</strong> placed in the neighborhood</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text">Written research report with findings and recommendations</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Bilingual (English/Spanish) executive summary</strong> shared back with community participants</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text">Board presentation delivered to the commissioning nonprofit</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pull quote 2 -->
+    <div class="pull-quote anim">
+      <div class="pull-quote-text">"Something that's really close to our home and close to our hearts. We get to be a partner who is trusted in this work."</div>
+      <div class="pull-quote-cite">— Juliana, filmed on-site at a North Chicago community festival</div>
+    </div>
+
+    <!-- Video embed -->
+    <div class="case-video anim">
+      <video controls muted playsinline style="width:100%;border-radius:8px;border:1px solid #E0DDD8;display:block;">
+        <source src="img/north-chicago-work.mp4" type="video/mp4">
+      </video>
+      <p class="case-screenshot-caption">Filmed on-site at a North Chicago community festival — Juliana on community-based research as a methodology</p>
+    </div>
+
+    <!-- Outcome -->
+    <div class="outcome-section anim">
+      <div class="outcome-label">Impact</div>
+      <div class="outcome-h2">Mixed methods isn't a research style. It's a commitment to finding what's actually true.</div>
+      <p class="outcome-p">Surveys tell you what people are willing to say in a structured format. Interviews tell you what they'll say when someone is listening. Community engagement boards tell you what they'll say when it feels safe and low-stakes. You need all three, in a community that's been studied before and is tired of it.</p>
+      <p class="outcome-p">This work matters to me specifically because North Chicago is close to home. The research was delivered back to the community — not just to the client. That's what community-based participatory research means: the community is a partner, not a subject.</p>
+    </div>
+
+    <!-- Tools -->
+    <div class="tools-section anim">
+      <div class="tools-label">Tools &amp; Methods</div>
+      <div class="tools-pills">
+        <span class="tool-pill">CBPR Methodology</span>
+        <span class="tool-pill">Qualitative Interviews</span>
+        <span class="tool-pill">Survey Design</span>
+        <span class="tool-pill">Bilingual Research</span>
+        <span class="tool-pill">Community Engagement</span>
+        <span class="tool-pill">Mixed Methods</span>
+        <span class="tool-pill">Thematic Analysis</span>
+      </div>
+    </div>
+
+    <!-- Next project -->
+    <div class="next-project anim">
+      <div>
+        <div class="next-label">Next project</div>
+        <div class="next-title">A small problem. Automated.</div>
+      </div>
+      <a href="library.html" class="next-link">Library Automation <i class="ti ti-arrow-right"></i></a>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Juliana McMillan-Wilhoit</div>
+        <div class="footer-brand-sub">Chief Product Officer &amp; Co-Founder, F&amp;T Labs<br />Northern Illinois</div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Pages</div>
+        <div class="footer-nav-links">
+          <a href="../index-ai.html" class="footer-nav-link">Home</a>
+          <a href="../work.html" class="footer-nav-link">Work</a>
+          <a href="../thinking.html" class="footer-nav-link">How I Think</a>
+          <a href="../about.html" class="footer-nav-link">About</a>
+          <a href="../references.html" class="footer-nav-link">References</a>
+          <a href="../tools.html" class="footer-nav-link">Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Get in touch</div>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn → julianamapper</a>
+      </div>
+    </div>
+    <div class="footer-tagline-row">
+      <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

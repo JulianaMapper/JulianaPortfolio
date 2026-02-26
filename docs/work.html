@@ -307,6 +307,24 @@
     /* Green Infrastructure — uses real screenshot */
     /* (no CSS art needed — img tag used) */
 
+    /* North Chicago — community / human warmth */
+    .wimg-northchicago { background: #1C2826; }
+    .wimg-northchicago::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(212,160,122,0.35) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 35%, rgba(55,110,90,0.4) 0%, transparent 45%),
+        radial-gradient(ellipse at 55% 80%, rgba(141,184,160,0.2) 0%, transparent 40%);
+    }
+    .wimg-northchicago::after {
+      content: 'LISTEN · ASK · BUILD';
+      position: absolute; bottom: 0.875rem; right: 1.25rem;
+      font-size: 0.57rem; font-weight: 700; letter-spacing: 0.2em;
+      color: rgba(212,160,122,0.6); text-transform: uppercase;
+      z-index: 2;
+    }
+
     /* Library — binary pattern, visible */
     .wimg-library { background: #1C2826; }
     .wimg-library::before {
@@ -493,11 +511,11 @@
   <div class="page-intro">
     <div class="intro-text">
       <div class="eyebrow anim">Selected Work</div>
-      <h1 class="page-h1 anim" data-delay="0.1">The pattern, across every domain</h1>
-      <p class="page-subtitle anim" data-delay="0.2">Different problems. Different organizations. Same approach: go toward the people, find the real problem, build the fix.</p>
+      <h1 class="page-h1 anim" data-delay="0.1">I listen. I ask why. Then I build.</h1>
+      <p class="page-subtitle anim" data-delay="0.2">I'm a builder who listens first. I see broken processes, I go toward the people, and I find the real problem underneath the one they described. Then I build the fix — sometimes enterprise-scale, sometimes a Python script. The domain changes. The approach doesn't.</p>
     </div>
     <div class="intro-count anim" data-delay="0.25">
-      <strong>8 projects</strong> across public health,<br>defense, supply chain, civic tech &amp; more
+      <strong>9 projects</strong> across public health,<br>defense, supply chain, civic tech &amp; more
     </div>
   </div>
 
@@ -659,6 +677,27 @@
             <span class="wcard-tag">QGIS</span>
             <span class="wcard-tag">ArcGIS Online</span>
             <span class="wcard-tag">NAIP Imagery</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- North Chicago CBPR -->
+      <a href="cases/north-chicago.html" class="wcard anim" data-delay="0.45">
+        <div class="wcard-img wimg-northchicago">
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">180+</div>
+            <div class="wcard-img-stat-label">Community voices, 6 weeks, bilingual</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">Community Research &middot; North Chicago &middot; 2023</div>
+          <div class="wcard-title">You don&rsquo;t find out what a community needs by sitting at your desk</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">CBPR</span>
+            <span class="wcard-tag">Mixed Methods</span>
+            <span class="wcard-tag">Bilingual</span>
           </div>
           <span class="wcard-cta">Read case study <span>&rarr;</span></span>
         </div>
