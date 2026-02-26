@@ -133,7 +133,25 @@
       .footer-inner { grid-template-columns: 1fr; }
       .outcome-section { padding: 1.75rem; }
     }
-  </style>
+      /* ── Metrics eyebrow ── */
+    .metrics-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #376E5A;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .metrics-eyebrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #E0DDD8;
+    }
+</style>
 </head>
 <body>
 
@@ -176,6 +194,7 @@
 
   <!-- Metrics -->
   <div class="metrics-band">
+    <div class="metrics-eyebrow anim">Impact</div>
     <div class="metrics-grid anim">
       <div class="metric-block">
         <div class="metric-num">30m → 5m</div>
