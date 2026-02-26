@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PH360 — Juliana McMillan-Wilhoit</title>
+  <title>Sauk County Food Code Assistant — Juliana McMillan-Wilhoit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
@@ -160,13 +160,13 @@
     <div class="project-eyebrow anim" data-delay="0.1">
       <span>01</span>
       <span class="project-eyebrow-divider"></span>
-      <span>F&amp;T Labs · Public Health AI · 2023–Present</span>
+      <span>F&amp;T Labs · Public Health Sauk County · 2023–2024</span>
     </div>
     <h1 class="hero-h1 anim" data-delay="0.2">50 interviews to find the real problem: not missing tools, missing policy.</h1>
-    <p class="hero-turn anim" data-delay="0.3">Health departments weren't failing at AI because they lacked tools. They were failing because they had no policy framework to use them safely. 50 interviews to find that. Then we built the fix.</p>
+    <p class="hero-turn anim" data-delay="0.3">We went in to help Sauk County solve an AI problem. What we built for them became something bigger. But first: 50 interviews, a policy framework, and one very specific food code chatbot.</p>
     <div class="context-strip anim" data-delay="0.4">
-      <span class="context-item"><i class="ti ti-building-hospital"></i> Local public health departments</span>
-      <span class="context-item"><i class="ti ti-map-pin"></i> Illinois + nationwide</span>
+      <span class="context-item"><i class="ti ti-building-hospital"></i> Public Health Sauk County, Wisconsin</span>
+      <span class="context-item"><i class="ti ti-map-pin"></i> Baraboo, WI</span>
       <span class="context-tag">HIPAA</span>
       <span class="context-tag">AWS Bedrock</span>
       <span class="context-tag">RAG</span>
@@ -202,60 +202,49 @@
     <!-- The Diagnosis -->
     <div class="case-section anim">
       <div class="case-section-label">The diagnosis</div>
-      <p class="case-p">Everyone assumed health departments needed better AI tools. I ran 50 interviews and found the actual problem: staff were copying protected health information into free consumer chatbots. Directors trusted outputs they hadn't validated. Legal teams didn't know the exposure. <strong>The technology wasn't the problem. The policy vacuum was.</strong></p>
-      <p class="case-p">Nobody had built a HIPAA-compliant AI platform specifically for local health departments. That gap was the product.</p>
+      <p class="case-p">Sauk County Health Department came to us with an AI question. Before touching anything, I ran 50 interviews across local health departments to understand the actual landscape. What I found wasn't a tools problem.</p>
+      <p class="case-p">Staff were copying protected health information into free consumer chatbots. Directors trusted AI outputs for grant writing without understanding the limitations. Legal teams didn't know the exposure. <strong>The technology wasn't the problem. The policy vacuum was.</strong></p>
     </div>
 
     <!-- Pull quote 1 -->
     <div class="pull-quote anim">
-      <div class="pull-quote-text">"Directors trusted AI outputs they hadn't validated. Staff used free consumer tools with PHI. Legal teams didn't know. The biggest thing I built before the product was a policy framework."</div>
+      <div class="pull-quote-text">"The most valuable thing I built before writing a single line of code was a policy framework. Health departments couldn't safely use any AI tool without one."</div>
     </div>
 
-    <!-- What the interviews found -->
+    <!-- What we built for Sauk County -->
     <div class="case-section anim">
-      <div class="case-section-label">What the interviews actually found</div>
-      <p class="case-p">The presenting problem was capacity. The real problem was policy. Every organization I talked to had the same gap: people were using AI tools they didn't have governance for, with data they shouldn't have been sharing, in ways nobody had officially sanctioned. Before a single line of code, I built the policy framework. That became its own deliverable.</p>
-      <p class="case-p">Staff were using Gmail and free ChatGPT accounts with PHI. Directors trusted AI outputs for grant writing without understanding limitations. Legal and privacy teams didn't know the exposure. The most valuable thing I built before the product was an AI policy framework — which I now deliver as a training and workshop.</p>
+      <div class="case-section-label">What we built for Sauk County</div>
+      <p class="case-p">Once the policy framework was in place, we built the tool: a HIPAA-compliant, RAG-based food code assistant for Sauk County's environmental health inspectors. Ask a question in plain language, get a citation from the actual food code in seconds — not 30 minutes of PDF hunting.</p>
+      <p class="case-p">I hand-coded the first prototype in HTML — not to ship it, but to get something real in front of users fast. Then iterated side-by-side with inspectors: tightening prompt phrasing, aligning tone with departmental style, and discovering that inspectors wanted to use it for drafting follow-up emails too.</p>
+      <div class="built-list">
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>AI policy framework</strong> — built before the product, now a standalone training offering</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>HIPAA-compliant RAG architecture on AWS Bedrock</strong> — data stays within the county's own AWS environment</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Food code chat interface</strong> — natural language questions, citations in seconds, full audit trail</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Sunshine Law compliance layer</strong> — every AI interaction logged, survives public records requests</div>
+        </div>
+      </div>
     </div>
 
     <!-- Model selection -->
     <div class="case-section anim">
-      <div class="case-section-label">Model selection — the part nobody talks about</div>
-      <p class="case-p">I tested 5+ LLMs against real public health tasks before choosing a stack: OpenRouter for API-swappable comparison, all available Gemini models, all Anthropic models. I ran five benchmarks per model — public health grant writing, policy summarization, data interpretation, response drafting, and a technical ArcPy task — and scored outputs blind.</p>
-      <p class="case-p"><strong>AWS Bedrock won for one non-negotiable reason: HIPAA compliance.</strong> Bedrock keeps data within your AWS org instance, which makes it possible to sign a BAA. No other commercial LLM provider offered that for our use case at the time. Once I committed to Bedrock, I continued testing Claude Sonnet, Haiku, and Opus within that environment to find the right tradeoffs between cost and output quality.</p>
+      <div class="case-section-label">The model selection nobody skips past</div>
+      <p class="case-p">I tested 5+ LLMs against real public health tasks — grant writing, policy summarization, data interpretation, response drafting — and scored outputs blind. <strong>AWS Bedrock won for one non-negotiable reason: HIPAA compliance.</strong> It keeps data within your AWS org and makes it possible to sign a BAA. The test results didn't matter if the data couldn't stay inside the customer's environment.</p>
     </div>
 
     <!-- Pull quote 2 -->
     <div class="pull-quote anim">
-      <div class="pull-quote-text">"Five benchmarks. Five LLMs. Scored blind. Then one non-negotiable: HIPAA. The test results didn't matter if the data couldn't stay inside the customer's environment."</div>
-    </div>
-
-    <!-- What I built -->
-    <div class="case-section anim">
-      <div class="case-section-label">What I built</div>
-      <p class="case-p">I hand-coded the first prototype in HTML — not to ship it, but to get something in front of real users fast. That prototype became the basis for our MVP feedback cycle. I used SAFe to structure the build, which let us move iteratively while keeping compliance documentation in sync.</p>
-      <div class="built-list">
-        <div class="built-item">
-          <div class="built-dot"></div>
-          <div class="built-text"><strong>HIPAA-compliant RAG architecture on AWS Bedrock</strong> — data stays within the customer's AWS org</div>
-        </div>
-        <div class="built-item">
-          <div class="built-dot"></div>
-          <div class="built-text"><strong>Knowledge base builder</strong> — departments upload their own policies, data, and procedures</div>
-        </div>
-        <div class="built-item">
-          <div class="built-dot"></div>
-          <div class="built-text"><strong>AI policy workshop and training</strong> — now a standalone offering</div>
-        </div>
-        <div class="built-item">
-          <div class="built-dot"></div>
-          <div class="built-text"><strong>Multi-LLM testing framework</strong> — built and documented so future model updates are systematic, not ad hoc</div>
-        </div>
-        <div class="built-item">
-          <div class="built-dot"></div>
-          <div class="built-text"><strong>Sunshine Law compliance layer</strong> — ensures AI-generated outputs can survive public records requests</div>
-        </div>
-      </div>
+      <div class="pull-quote-text">"What we built for Sauk County became something bigger. But that only happened because we solved one real problem first — for one real client — and got it right."</div>
     </div>
 
     <!-- Product screenshots -->
@@ -272,11 +261,12 @@
 
     <!-- What changed -->
     <div class="outcome-section anim">
-      <div class="outcome-label">What changed</div>
+      <div class="outcome-label">What changed at Sauk County</div>
       <div class="outcome-h2">"It's like having a really smart colleague who has read every policy we've ever written and never forgets anything."</div>
       <p class="outcome-p" style="font-size:0.78rem; color: #8DB8A0; margin-bottom: 1.5rem;">— Sauk County Health Department</p>
-      <p class="outcome-p">At Sauk County, routine tasks that took 30 minutes now take 5. That's not "AI made things faster" — that's staff getting back hours per week to do the work that actually requires a human.</p>
-      <p class="outcome-p">The AI policy framework became its own deliverable. Health departments needed a policy before they could safely use any AI tool, and we're now the ones who help them build it.</p>
+      <p class="outcome-p">Routine tasks that took 30 minutes now take 5. 83% of inspectors reported reduced workload. 67% rated the tool as very or somewhat effective in early testing.</p>
+      <p class="outcome-p">That's not "AI made things faster" — that's inspectors getting hours back per week to do the work that actually requires a human. And it only happened because we solved the policy problem first.</p>
+      <p class="outcome-p" style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(247,245,240,0.12); font-style: italic;">What we built for Sauk County became the foundation for PH360 — F&amp;T Labs' platform for AI in local public health. One client, one real problem, solved right. Then productized.</p>
     </div>
 
     <!-- Tools -->
