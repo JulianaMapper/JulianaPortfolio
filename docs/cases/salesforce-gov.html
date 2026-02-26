@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>State Agency Case Management — Juliana McMillan-Wilhoit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1C2826; background: #F7F5F0; min-height: 100vh; line-height: 1.7; }
+
+    /* ── Animations ── */
+    .anim { opacity: 0; transform: translateY(18px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .anim.visible { opacity: 1; transform: translateY(0); }
+    .anim[data-delay="0.1"] { transition-delay: 0.1s; }
+    .anim[data-delay="0.2"] { transition-delay: 0.2s; }
+    .anim[data-delay="0.3"] { transition-delay: 0.3s; }
+    .anim[data-delay="0.4"] { transition-delay: 0.4s; }
+
+    /* ── Header ── */
+    .header-band { background: #1C2826; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+    .header-name { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.05rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-link:hover { color: #F7F5F0; }
+    .nav-link-btn { color: rgba(247,245,240,0.9) !important; border: 1px solid rgba(247,245,240,0.3); padding: 0.3rem 0.75rem; border-radius: 6px; }
+    .nav-link-dl { color: rgba(247,245,240,0.9) !important; background: rgba(247,245,240,0.1); padding: 0.3rem 0.75rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.35rem; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb { max-width: 800px; margin: 0 auto; padding: 5rem 2.5rem 0; }
+    .breadcrumb a { font-size: 0.8rem; font-weight: 600; color: #376E5A; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; }
+    .breadcrumb a:hover { color: #2D5A49; }
+
+    /* ── Hero ── */
+    .hero { max-width: 800px; margin: 0 auto; padding: 2.5rem 2.5rem 0; }
+    .project-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .project-eyebrow-divider { width: 24px; height: 1px; background: #8DB8A0; display: inline-block; }
+    .hero-h1 { font-family: 'Lora', Georgia, serif; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; color: #1C2826; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-turn { font-size: 1.125rem; color: #4A5A54; line-height: 1.7; max-width: 640px; margin-bottom: 2rem; border-left: 3px solid #8DB8A0; padding-left: 1.25rem; }
+    .context-strip { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; padding-bottom: 2rem; border-bottom: 1px solid #E0DDD8; }
+    .context-item { font-size: 0.8rem; color: #8A9690; display: flex; align-items: center; gap: 0.4rem; }
+    .context-item i { color: #8DB8A0; font-size: 0.9rem; }
+    .context-tag { font-size: 0.72rem; font-weight: 600; background: rgba(55,110,90,0.08); color: #376E5A; padding: 0.2rem 0.7rem; border-radius: 100px; }
+
+    /* ── Metrics ── */
+    .metrics-band { max-width: 800px; margin: 0 auto; padding: 0 2.5rem; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #E0DDD8; border-radius: 10px; background: #FEFEFE; overflow: hidden; margin: 2.5rem 0; }
+    .metric-block { padding: 1.5rem 1.25rem; border-right: 1px solid #E0DDD8; }
+    .metric-block:last-child { border-right: none; }
+    .metric-num { font-size: 1.625rem; font-weight: 700; color: #376E5A; line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+    .metric-label { font-size: 0.75rem; color: #4A5A54; line-height: 1.4; }
+
+    /* ── Body ── */
+    .case-body { max-width: 800px; margin: 0 auto; padding: 0 2.5rem 6rem; }
+
+    /* ── Sections ── */
+    .case-section { margin-bottom: 3rem; }
+    .case-section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    .case-section-label::after { content: ''; flex: 1; height: 1px; background: #E0DDD8; }
+    .case-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.25rem; font-weight: 700; color: #1C2826; margin-bottom: 0.85rem; line-height: 1.3; }
+    .case-p { font-size: 0.9375rem; color: #4A5A54; line-height: 1.8; margin-bottom: 0.85rem; }
+    .case-p:last-child { margin-bottom: 0; }
+    .case-p strong { color: #1C2826; font-weight: 600; }
+
+    /* ── Pull quote ── */
+    .pull-quote { margin: 2rem 0; padding: 1.5rem 1.75rem; background: rgba(55,110,90,0.04); border-left: 3px solid #376E5A; border-radius: 0 8px 8px 0; }
+    .pull-quote-text { font-family: 'Lora', Georgia, serif; font-size: 1.0625rem; font-style: italic; color: #1C2826; line-height: 1.65; margin-bottom: 0.5rem; }
+    .pull-quote-cite { font-size: 0.78rem; font-weight: 600; color: #376E5A; }
+
+    /* ── What I built list ── */
+    .built-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1rem 0; }
+    .built-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .built-dot { width: 6px; height: 6px; border-radius: 50%; background: #376E5A; flex-shrink: 0; margin-top: 0.65rem; }
+    .built-text { font-size: 0.9375rem; color: #4A5A54; line-height: 1.7; }
+    .built-text strong { color: #1C2826; font-weight: 600; }
+
+    /* ── What changed ── */
+    .outcome-section { background: #1C2826; border-radius: 10px; padding: 2.5rem; margin: 3rem 0; }
+    .outcome-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8DB8A0; margin-bottom: 1rem; }
+    .outcome-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.2rem; font-weight: 700; color: #F7F5F0; margin-bottom: 1rem; line-height: 1.3; }
+    .outcome-p { font-size: 0.9375rem; color: rgba(247,245,240,0.75); line-height: 1.8; margin-bottom: 0.75rem; }
+    .outcome-p:last-child { margin-bottom: 0; }
+
+    /* ── Tools ── */
+    .tools-section { margin: 2.5rem 0; }
+    .tools-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.85rem; }
+    .tools-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tool-pill { font-size: 0.75rem; font-weight: 600; color: #376E5A; background: rgba(55,110,90,0.08); padding: 0.3rem 0.85rem; border-radius: 100px; }
+
+    /* ── Screenshot ── */
+    .case-screenshot { margin: 2.5rem 0; }
+    .case-screenshot img { width: 100%; border-radius: 8px; border: 1px solid #E0DDD8; display: block; }
+    .case-screenshot-caption { font-size: 0.78rem; color: #8A9690; margin-top: 0.6rem; line-height: 1.55; font-style: italic; }
+
+    /* ── Two-column screenshot layout ── */
+    .case-screenshots { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+    @media (max-width: 600px) { .case-screenshots { grid-template-columns: 1fr; } }
+
+    /* ── Next project ── */
+    .next-project { border-top: 1px solid #E0DDD8; padding: 2.5rem 0 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .next-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.35rem; }
+    .next-title { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #1C2826; }
+    .next-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #376E5A; text-decoration: none; transition: gap 0.2s, color 0.2s; }
+    .next-link:hover { color: #2D5A49; gap: 0.75rem; }
+
+    /* ── Footer ── */
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; margin-top: 4rem; }
+    .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12); }
+    .footer-brand { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.45); line-height: 1.6; }
+    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.4); margin-bottom: 0.75rem; }
+    .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
+    .footer-nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .footer-nav-link:hover { color: #F7F5F0; }
+    .footer-contact-link { display: block; color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.875rem; margin-bottom: 0.5rem; transition: color 0.2s; }
+    .footer-contact-link:hover { color: #F7F5F0; }
+    .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
+    .footer-tagline { font-family: 'Lora', Georgia, serif; font-size: 0.9375rem; font-style: italic; color: rgba(247,245,240,0.35); }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .nav-link { font-size: 0.7rem; letter-spacing: 0.04em; }
+      .hero, .metrics-band, .case-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .breadcrumb { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .metric-block:nth-child(2) { border-right: none; }
+      .metric-block:nth-child(3), .metric-block:nth-child(4) { border-top: 1px solid #E0DDD8; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .outcome-section { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-band">
+    <a href="../index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+    <nav class="nav-links">
+      <a href="../index-ai.html" class="nav-link">Home</a>
+      <a href="../work.html" class="nav-link">Work</a>
+      <a href="../thinking.html" class="nav-link">How I Think</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link nav-link-btn">Contact</a>
+      <a href="../Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link nav-link-dl"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
+    </nav>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb anim">
+    <a href="../work.html"><i class="ti ti-arrow-left"></i> Back to Work</a>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="project-eyebrow anim" data-delay="0.1">
+      <span class="project-eyebrow-divider"></span>
+      <span>F&amp;T Labs · Custom Development · Salesforce · 2024–2025</span>
+    </div>
+    <h1 class="hero-h1 anim" data-delay="0.2">Three years to get the budget approved. Six months to build it. One day to win the team over.</h1>
+    <p class="hero-turn anim" data-delay="0.3">A state agency managing 1,200–1,400 employee grievance cases a year was running on email threads and spreadsheets. They'd spent three years securing funding. We had six months. On go-live day, a settlement officer said: "To be here at this point, with a functioning system from the 2020s after what we have been stuck with for so long, is incredible."</p>
+    <div class="context-strip anim" data-delay="0.4">
+      <span class="context-item"><i class="ti ti-building"></i> A State Agency (Employee Appeal &amp; Grievance Division)</span>
+      <span class="context-item"><i class="ti ti-map-pin"></i> Mid-Atlantic</span>
+      <span class="context-tag">Salesforce</span>
+      <span class="context-tag">Scrum</span>
+      <span class="context-tag">Custom Dev</span>
+      <span class="context-tag">AI</span>
+      <span class="context-tag">Government</span>
+    </div>
+  </div>
+
+  <!-- Metrics -->
+  <div class="metrics-band">
+    <div class="metrics-grid anim">
+      <div class="metric-block">
+        <div class="metric-num">127</div>
+        <div class="metric-label">Requirements delivered across 13 feature areas</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">6 mo</div>
+        <div class="metric-label">Kickoff to go-live</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">1,200+</div>
+        <div class="metric-label">Employee grievance cases processed annually</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-num">AI</div>
+        <div class="metric-label">One-click case summarization built in</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="case-body">
+
+    <!-- Listen -->
+    <div class="case-section anim">
+      <div class="case-section-label">Listen</div>
+      <h2 class="case-h2">The situation nobody had fixed</h2>
+      <p class="case-p">The agency managed employee grievances and disciplinary appeals across multiple state departments. Their process: employee emails a form → intake specialist downloads attachment → manually types every field into a tracking spreadsheet. Scheduling a settlement conference meant checking availability for settlement officers, union reps, management, and conference rooms through back-and-forth emails and phone calls.</p>
+      <p class="case-p">Staff spent days on administrative overhead. Backlogs grew. Employees waited longer for resolution. Status updates required digging through spreadsheets and email threads. They'd been living with this for years. They finally had budget to fix it.</p>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="pull-quote anim">
+      <div class="pull-quote-text">"To be here at this point, with a functioning system from the 2020s after what we have been stuck with for so long, is incredible. And we could not have done it without your knowledge, commitment, and creativity."</div>
+      <div class="pull-quote-cite">— Settlement Officer, Go-Live Day</div>
+    </div>
+
+    <!-- Ask Why -->
+    <div class="case-section anim">
+      <div class="case-section-label">Ask Why</div>
+      <h2 class="case-h2">Workflows before wireframes</h2>
+      <p class="case-p">We spent significant time upfront in stakeholder interviews with intake specialists, schedulers, settlement officers, and supervisors. Not to gather requirements for a spec document — to understand how work actually flowed, where it broke down, and what "fixed" would feel like to the people doing the job.</p>
+      <p class="case-p">The coordination bottleneck wasn't an accident. It was structural: no shared visibility into availability, no automated handoffs, no way to see the full pipeline at a glance. Every step required a human to touch it manually, which meant every step was a place the case could stall.</p>
+      <p class="case-p">We mapped 127 requirements across 13 feature areas before writing a line of configuration. That foundation meant we weren't building and guessing — we were building and confirming.</p>
+    </div>
+
+    <!-- Process transformation screenshot -->
+    <div class="case-screenshot anim">
+      <img src="img/salesforce-process-transformation.png" alt="Process transformation: manual coordination to automated workflow — before and after comparison" />
+      <p class="case-screenshot-caption">The before/after: five manual steps replaced by five automated ones</p>
+    </div>
+
+    <!-- Build -->
+    <div class="case-section anim">
+      <div class="case-section-label">Build</div>
+      <h2 class="case-h2">What we built</h2>
+      <p class="case-p">Built on Salesforce Government Cloud. Chose it for security credentials, flexibility, and long-term sustainability — the agency would own a system on a widely-supported platform, not a proprietary black box.</p>
+      <p class="case-p">Operated on two-week development cycles with continuous demonstrations of working functionality. Validated design decisions early. Adjusted based on user feedback.</p>
+      <div class="built-list">
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Employee self-service portal</strong> — grievances submitted directly, data flows into Salesforce automatically, no manual re-entry</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Email-to-case</strong> — employees can still submit by email; system creates the case record automatically</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Visual drag-and-drop scheduling interface</strong> — all settlement officer calendars and pending cases in one view; drag a case to an open slot; Google Meet links generated automatically</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Automated notifications</strong> — intake confirmations, conference notices, calendar invites, reminders; no manual composition</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>AI-powered case summarization</strong> — one click generates a 2–3 paragraph summary of case details, key issues, and requested remedies; staff review and edit before saving</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>Role-based dashboards</strong> — real-time visibility into case volumes, workload, and processing times for supervisors and staff</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scheduling screenshot -->
+    <div class="case-screenshot anim">
+      <img src="img/salesforce-scheduling.png" alt="Visual drag-and-drop settlement conference scheduling interface" />
+      <p class="case-screenshot-caption">The scheduling interface: pending cases in the sidebar, drag to an available slot — coordination that used to take hours now takes minutes</p>
+    </div>
+
+    <!-- Case management screenshot -->
+    <div class="case-screenshot anim">
+      <img src="img/salesforce-case-management.png" alt="Salesforce case management interface showing grievance record with status tracking" />
+      <p class="case-screenshot-caption">The case record: every detail, status, and history in one place — no more spreadsheet hunting</p>
+    </div>
+
+    <!-- Impact -->
+    <div class="outcome-section anim">
+      <div class="outcome-label">Impact</div>
+      <div class="outcome-h2">On the first day, the scheduler used the drag-and-drop interface and loved it. On the first day.</div>
+      <p class="outcome-p">Settlement officers called the system user-friendly. Intake staff described it as something they loved working in. Staff who had operated on a legacy system for years were enthusiastic about handling conferences, closing cases, and managing escalations through the new platform.</p>
+      <p class="outcome-p">The coordination bottleneck that had capped how many conferences the team could schedule per day — gone. The hours intake specialists spent re-typing data — redirected to actual case review. The manual report compilation — replaced by a dashboard click.</p>
+      <p class="outcome-p">We also planned for the end from the start. Complete documentation, role-based user guides, administrator training. Any Salesforce partner can support future development. The agency owns this — they don't depend on us to run it. That independence was always the goal.</p>
+    </div>
+
+    <!-- Tools -->
+    <div class="tools-section anim">
+      <div class="tools-label">Tools &amp; Stack</div>
+      <div class="tools-pills">
+        <span class="tool-pill">Salesforce Government Cloud</span>
+        <span class="tool-pill">Lightning Web Components</span>
+        <span class="tool-pill">Flow Automation</span>
+        <span class="tool-pill">Email-to-Case</span>
+        <span class="tool-pill">AI Case Summarization</span>
+        <span class="tool-pill">Scrum</span>
+        <span class="tool-pill">Requirements Traceability</span>
+        <span class="tool-pill">Process Mapping</span>
+        <span class="tool-pill">Google Meet Integration</span>
+      </div>
+    </div>
+
+    <!-- Next project -->
+    <div class="next-project anim">
+      <div>
+        <div class="next-label">Next project</div>
+        <div class="next-title">You don't find out what a community needs by sitting at your desk</div>
+      </div>
+      <a href="north-chicago.html" class="next-link">North Chicago CBPR <i class="ti ti-arrow-right"></i></a>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Juliana McMillan-Wilhoit</div>
+        <div class="footer-brand-sub">Chief Product Officer &amp; Co-Founder, F&amp;T Labs<br />Northern Illinois</div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Pages</div>
+        <div class="footer-nav-links">
+          <a href="../index-ai.html" class="footer-nav-link">Home</a>
+          <a href="../work.html" class="footer-nav-link">Work</a>
+          <a href="../thinking.html" class="footer-nav-link">How I Think</a>
+          <a href="../about.html" class="footer-nav-link">About</a>
+          <a href="../references.html" class="footer-nav-link">References</a>
+          <a href="../tools.html" class="footer-nav-link">Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Get in touch</div>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn → julianamapper</a>
+      </div>
+    </div>
+    <div class="footer-tagline-row">
+      <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
