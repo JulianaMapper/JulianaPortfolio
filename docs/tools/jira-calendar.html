@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jira Time-Blocking Calendar — Juliana McMillan-Wilhoit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1C2826; background: #F7F5F0; min-height: 100vh; line-height: 1.7; }
+
+    /* ── Header ── */
+    .header-band { background: #1C2826; padding: 0 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+    .header-name { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: 1.05rem; color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-link:hover { color: #F7F5F0; }
+    .nav-link-btn { color: rgba(247,245,240,0.9) !important; border: 1px solid rgba(247,245,240,0.3); padding: 0.3rem 0.75rem; border-radius: 6px; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb { max-width: 860px; margin: 0 auto; padding: 5rem 2.5rem 0; }
+    .breadcrumb a { font-size: 0.8rem; font-weight: 600; color: #376E5A; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; }
+    .breadcrumb a:hover { color: #2D5A49; }
+
+    /* ── Hero ── */
+    .hero { max-width: 860px; margin: 0 auto; padding: 2.5rem 2.5rem 0; }
+    .eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .eyebrow-divider { width: 24px; height: 1px; background: #8DB8A0; display: inline-block; }
+    .hero-h1 { font-family: 'Lora', Georgia, serif; font-size: clamp(1.75rem, 4vw, 2.6rem); font-weight: 700; color: #1C2826; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+    .hero-sub { font-size: 1.1rem; color: #4A5A54; line-height: 1.7; max-width: 640px; margin-bottom: 2rem; border-left: 3px solid #8DB8A0; padding-left: 1.25rem; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid #E0DDD8; }
+    .tag { font-size: 0.72rem; font-weight: 600; background: rgba(55,110,90,0.08); color: #376E5A; padding: 0.2rem 0.7rem; border-radius: 100px; }
+
+    /* ── Body ── */
+    .body { max-width: 860px; margin: 0 auto; padding: 0 2.5rem 5rem; }
+
+    /* ── Section label ── */
+    .section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #376E5A; margin-bottom: 0.75rem; margin-top: 3rem; display: flex; align-items: center; gap: 0.6rem; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: #E0DDD8; }
+    .section-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.25rem; font-weight: 700; color: #1C2826; margin-bottom: 0.85rem; line-height: 1.3; }
+    .section-p { font-size: 0.9375rem; color: #4A5A54; line-height: 1.8; margin-bottom: 0.85rem; }
+    .section-p strong { color: #1C2826; font-weight: 600; }
+
+    /* ── Step list ── */
+    .steps { display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0; }
+    .step { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; align-items: start; }
+    .step-num { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: rgba(55,110,90,0.1); color: #376E5A; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-content { padding-top: 0.35rem; }
+    .step-title { font-size: 0.9375rem; font-weight: 600; color: #1C2826; margin-bottom: 0.3rem; }
+    .step-desc { font-size: 0.875rem; color: #4A5A54; line-height: 1.65; }
+
+    /* ── Features grid ── */
+    .features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .feature { background: #FEFEFE; border: 1px solid #E0DDD8; border-radius: 10px; padding: 1.25rem; }
+    .feature-icon { font-size: 1.25rem; color: #376E5A; margin-bottom: 0.5rem; }
+    .feature-title { font-size: 0.875rem; font-weight: 600; color: #1C2826; margin-bottom: 0.3rem; }
+    .feature-desc { font-size: 0.8rem; color: #4A5A54; line-height: 1.55; }
+
+    /* ── CTA block ── */
+    .cta-block { background: #1C2826; border-radius: 12px; padding: 2.5rem; margin: 3rem 0; }
+    .cta-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8DB8A0; margin-bottom: 0.75rem; }
+    .cta-h2 { font-family: 'Lora', Georgia, serif; font-size: 1.25rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.85rem; line-height: 1.3; }
+    .cta-p { font-size: 0.9375rem; color: rgba(247,245,240,0.7); line-height: 1.8; margin-bottom: 1.5rem; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #376E5A; color: #F7F5F0; font-size: 0.875rem; font-weight: 600; padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+    .cta-btn:hover { background: #2D5A49; }
+
+    /* ── Prompt box ── */
+    .prompt-box { background: #FEFEFE; border: 1px solid #E0DDD8; border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+    .prompt-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .prompt-label i { color: #376E5A; }
+    .prompt-text { font-size: 0.875rem; color: #1C2826; line-height: 1.7; font-style: italic; border-left: 3px solid #8DB8A0; padding-left: 1rem; }
+
+    /* ── Tools pills ── */
+    .tools-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A9690; margin-bottom: 0.85rem; margin-top: 2.5rem; }
+    .tools-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tool-pill { font-size: 0.75rem; font-weight: 600; color: #376E5A; background: rgba(55,110,90,0.08); padding: 0.3rem 0.85rem; border-radius: 100px; }
+
+    /* ── Back nav ── */
+    .back-nav { border-top: 1px solid #E0DDD8; padding: 2.5rem 0 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #376E5A; text-decoration: none; transition: color 0.2s, gap 0.2s; }
+    .back-link:hover { color: #2D5A49; gap: 0.75rem; }
+
+    /* ── Footer ── */
+    .site-footer { background: #1C2826; padding: 3rem 2.5rem 2rem; margin-top: 4rem; }
+    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 2rem; border-bottom: 1px solid rgba(247,245,240,0.12); }
+    .footer-brand { font-family: 'Lora', Georgia, serif; font-size: 1rem; font-weight: 700; color: #F7F5F0; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-link { color: rgba(247,245,240,0.55); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+    .footer-link:hover { color: #F7F5F0; }
+    .footer-tagline { max-width: 860px; margin: 1.5rem auto 0; font-family: 'Lora', Georgia, serif; font-size: 0.9rem; font-style: italic; color: rgba(247,245,240,0.3); text-align: center; }
+
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .nav-link { font-size: 0.7rem; }
+      .hero, .body, .breadcrumb { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .features { grid-template-columns: 1fr; }
+      .cta-block { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-band">
+    <a href="../index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+    <nav class="nav-links">
+      <a href="../index-ai.html" class="nav-link">Home</a>
+      <a href="../work.html" class="nav-link">Work</a>
+      <a href="../thinking.html" class="nav-link">How I Think</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link nav-link-btn">Contact</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumb">
+    <a href="../tools.html"><i class="ti ti-arrow-left"></i> Back to Tools</a>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">
+      <span>AI Tool</span>
+      <span class="eyebrow-divider"></span>
+      <span>Jira · Outlook · Claude</span>
+    </div>
+    <h1 class="hero-h1">Jira Time-Blocking Calendar</h1>
+    <p class="hero-sub">My backlog and my calendar lived in separate worlds. I planned my week in my head — and watched it fall apart by Tuesday. So I built a Claude-powered workflow that bridges them: pull your Jira tasks, read your calendar, time-block your week, export to Outlook.</p>
+    <div class="tag-row">
+      <span class="tag">Claude AI</span>
+      <span class="tag">Jira</span>
+      <span class="tag">Outlook</span>
+      <span class="tag">Drag & Drop</span>
+      <span class="tag">ICS Export</span>
+      <span class="tag">MCP Integration</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="section-label">The Problem</div>
+    <h2 class="section-h2">Every Monday I had the same 20-minute planning problem.</h2>
+    <p class="section-p">I'd open Jira. I'd open Outlook. I'd try to hold both in my head at once and figure out what could actually get done this week. Half the tasks would slip because I never actually put them on the calendar. The other half would get bumped by meetings I forgot to account for.</p>
+    <p class="section-p">The fix wasn't a better to-do app. It was closing the gap between "what needs to happen" and "when it's actually happening."</p>
+
+    <div class="section-label">How It Works</div>
+    <h2 class="section-h2">Screenshot your calendar. Claude does the rest.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Upload your Outlook calendar screenshot</div>
+          <div class="step-desc">Claude reads your existing meetings — times, titles, durations — and extracts the week's dates. No manual entry.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">Claude fetches your Jira backlog</div>
+          <div class="step-desc">Via the Atlassian MCP integration, Claude pulls all your open, assigned tasks — sorted by due date, with priorities intact. Photo of a paper to-do list? That works too.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Drag tasks onto your week</div>
+          <div class="step-desc">An interactive calendar appears with your meetings already blocked. Drag Jira tasks into time slots, set durations (30 min to 4 hrs), toggle Free/Busy, add notes.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">Export as ICS, import into Outlook</div>
+          <div class="step-desc">One click generates a .ics file. Double-click to import into Outlook. Every task block appears with the Jira link, notes, and Free/Busy status built in.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">What It Does</div>
+    <h2 class="section-h2">A drag-and-drop week planner powered by your real data.</h2>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon"><i class="ti ti-calendar-stats"></i></div>
+        <div class="feature-title">Reads your calendar automatically</div>
+        <div class="feature-desc">Upload a screenshot — Claude extracts meetings, dates, and today's date without any manual input.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="ti ti-brand-asana"></i></div>
+        <div class="feature-title">Live Jira integration</div>
+        <div class="feature-desc">Pulls your actual open tasks via Atlassian MCP — not a copy-paste, your real backlog in real time.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="ti ti-drag-drop"></i></div>
+        <div class="feature-title">Drag-and-drop time blocking</div>
+        <div class="feature-desc">Place tasks into 30-minute slots, resize durations, move them around until the week makes sense.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="ti ti-file-export"></i></div>
+        <div class="feature-title">ICS export to Outlook</div>
+        <div class="feature-desc">Export all blocks as a single .ics file. Imports into Outlook with Jira links, notes, and Free/Busy status intact.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="ti ti-notes"></i></div>
+        <div class="feature-title">Block-level notes</div>
+        <div class="feature-desc">Double-click any time block to add prep notes — they travel with the event into Outlook.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="ti ti-camera"></i></div>
+        <div class="feature-title">Photo to-do list support</div>
+        <div class="feature-desc">Take a photo of a paper list or sticky note — Claude reads the handwriting and adds those tasks alongside Jira items.</div>
+      </div>
+    </div>
+
+    <div class="section-label">How to Use It</div>
+    <h2 class="section-h2">Start a conversation with Claude.</h2>
+    <p class="section-p">This tool runs inside Claude (claude.ai) with the Atlassian MCP integration enabled. Open a new conversation and paste the prompt below to get started. Claude will walk you through the rest.</p>
+
+    <div class="prompt-box">
+      <div class="prompt-label"><i class="ti ti-robot"></i> Starter prompt</div>
+      <div class="prompt-text">
+        "I want to time-block my week. I'll upload a screenshot of my Outlook calendar. Please read my existing meetings and dates from the screenshot, fetch my open Jira tasks, and then build me an interactive drag-and-drop calendar where I can schedule my work. When I'm done, I want to export it as an ICS file to import into Outlook."
+      </div>
+    </div>
+
+    <p class="section-p">You'll need Claude with the <strong>Atlassian MCP integration</strong> connected to your Jira workspace. Once connected, Claude can read your real backlog directly — no copy-pasting required.</p>
+
+    <div class="cta-block">
+      <div class="cta-label">Try it</div>
+      <h2 class="cta-h2">Open Claude and plan your week.</h2>
+      <p class="cta-p">Screenshot your Outlook calendar, open a new Claude conversation, paste the prompt above, and upload the screenshot. Claude will fetch your Jira tasks and build your interactive calendar in under two minutes.</p>
+      <a href="https://claude.ai" target="_blank" rel="noopener" class="cta-btn">
+        Open Claude <i class="ti ti-external-link" style="font-size:0.85rem;"></i>
+      </a>
+    </div>
+
+    <div class="tools-label">Built with</div>
+    <div class="tools-pills">
+      <span class="tool-pill">Claude AI</span>
+      <span class="tool-pill">Atlassian MCP</span>
+      <span class="tool-pill">Jira API</span>
+      <span class="tool-pill">React (artifact)</span>
+      <span class="tool-pill">ICS / iCal</span>
+      <span class="tool-pill">Outlook</span>
+    </div>
+
+    <div class="back-nav">
+      <a href="../tools.html" class="back-link"><i class="ti ti-arrow-left"></i> Back to all tools</a>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Juliana McMillan-Wilhoit</div>
+      <div class="footer-links">
+        <a href="../index-ai.html" class="footer-link">Home</a>
+        <a href="../work.html" class="footer-link">Work</a>
+        <a href="../about.html" class="footer-link">About</a>
+        <a href="../tools.html" class="footer-link">Tools</a>
+      </div>
+    </div>
+    <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+  </footer>
+
+</body>
+</html>
