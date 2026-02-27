@@ -469,6 +469,92 @@
       color: rgba(247,245,240,0.35);
     }
 
+    /* ── Methodology strip ── */
+    .method-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 2.5rem 3.5rem;
+    }
+    .method-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0;
+      align-items: start;
+    }
+    .method-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      cursor: default;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .method-card:hover {
+      box-shadow: 0 6px 24px rgba(28,40,38,0.09);
+      transform: translateY(-2px);
+      border-color: var(--color-accent-light);
+    }
+    .method-step-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--color-accent-light);
+      margin-bottom: 0.5rem;
+    }
+    .method-step-label {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 0.85rem;
+    }
+    .method-step-desc {
+      font-size: 0.875rem;
+      color: var(--color-body);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+      min-height: 4.5rem;
+    }
+    .method-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .method-chip {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      background: var(--color-accent-tint);
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      line-height: 1.4;
+      transition: background 0.2s, color 0.2s;
+    }
+    .method-card:hover .method-chip {
+      background: rgba(55,110,90,0.13);
+    }
+    .method-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.5rem;
+      margin-top: 3rem;
+      gap: 0.1rem;
+    }
+    .method-connector-line {
+      width: 1px;
+      height: 18px;
+      background: var(--color-border);
+    }
+    .method-connector-arrow {
+      font-size: 1rem;
+      color: var(--color-accent-light);
+      line-height: 1;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 860px) {
       .work-grid { grid-template-columns: 1fr 1fr; }
@@ -482,6 +568,11 @@
 
       .page-intro { padding: 5.5rem 1.25rem 2rem; flex-direction: column; }
       .intro-count { text-align: left; }
+
+      .method-wrap { padding: 0 1.25rem 2.5rem; }
+      .method-grid { grid-template-columns: 1fr; }
+      .method-connector { flex-direction: row; margin-top: 0; padding: 0.75rem 0; }
+      .method-connector-line { width: 18px; height: 1px; }
 
       .work-grid-wrap { padding: 2rem 1.25rem 4rem; }
       .work-grid { grid-template-columns: 1fr; }
@@ -513,6 +604,64 @@
       <div class="eyebrow anim">Selected Work</div>
       <h1 class="page-h1 anim" data-delay="0.1">I listen. I ask why. Then I build.</h1>
       <p class="page-subtitle anim" data-delay="0.2">I'm a builder who listens first. I see broken processes, I go toward the people, and I find the real problem underneath the one they described. Then I build the fix — sometimes enterprise-scale, sometimes a Python script. The domain changes. The approach doesn't.</p>
+    </div>
+  </div>
+
+  <!-- Methodology -->
+  <div class="method-wrap anim">
+    <div class="method-grid">
+
+      <div class="method-card" data-step="listen">
+        <div class="method-step-num">01</div>
+        <div class="method-step-label">Listen</div>
+        <div class="method-step-desc">Before I touch anything, I go toward the people. Not to gather requirements. To understand what's actually broken — which is almost never what they said at first.</div>
+        <div class="method-chips">
+          <span class="method-chip">50 interviews before building at Sauk County</span>
+          <span class="method-chip">At a parade in North Chicago</span>
+          <span class="method-chip">Focus groups at Peapod before touching the dashboard</span>
+          <span class="method-chip">Stakeholder interviews that rewrote the Salesforce scope</span>
+          <span class="method-chip">Fort Leonard Wood — talking to operators, not specs</span>
+        </div>
+      </div>
+
+      <div class="method-connector">
+        <div class="method-connector-line"></div>
+        <div class="method-connector-arrow">→</div>
+        <div class="method-connector-line"></div>
+      </div>
+
+      <div class="method-card" data-step="askwhy">
+        <div class="method-step-num">02</div>
+        <div class="method-step-label">Ask Why</div>
+        <div class="method-step-desc">The presenting problem is rarely the real one. I keep asking until I find the thing underneath — the policy vacuum, the broken trust, the data standard nobody questioned.</div>
+        <div class="method-chips">
+          <span class="method-chip">Policy vacuum, not a tools problem — Sauk County</span>
+          <span class="method-chip">Nobody trusted the model — Peapod</span>
+          <span class="method-chip">Data standards don't transfer globally — ENSITE</span>
+          <span class="method-chip">Training approach was wrong — Salesforce Gov</span>
+          <span class="method-chip">Civic participation gap wasn't about information — North Chicago</span>
+        </div>
+      </div>
+
+      <div class="method-connector">
+        <div class="method-connector-line"></div>
+        <div class="method-connector-arrow">→</div>
+        <div class="method-connector-line"></div>
+      </div>
+
+      <div class="method-card" data-step="build">
+        <div class="method-step-num">03</div>
+        <div class="method-step-label">Build</div>
+        <div class="method-step-desc">Then I build the fix. Sometimes enterprise-scale. Sometimes a Python script. Sometimes a policy framework that has to exist before any technology can. The scale changes. The instinct doesn't.</div>
+        <div class="method-chips">
+          <span class="method-chip">HIPAA-compliant RAG on AWS Bedrock</span>
+          <span class="method-chip">127-requirement Salesforce implementation</span>
+          <span class="method-chip">Global data standards for the US Military</span>
+          <span class="method-chip">2,400-book library automation in Python</span>
+          <span class="method-chip">Bilingual community research report</span>
+        </div>
+      </div>
+
     </div>
   </div>
 
