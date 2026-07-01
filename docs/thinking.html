@@ -328,16 +328,25 @@
       .section { padding: 3.5rem 1.5rem; }
       .community-grid { grid-template-columns: 1fr !important; }
     }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .will-animate, .anim { opacity: 1 !important; transform: none !important; }
+    }
   </style>
 </head>
 <body>
 
   <header class="header-band" role="banner">
     <div style="display:flex;align-items:baseline;">
-      <a href="index-ai.html" class="header-name">Juliana McMillan-Wilhoit</a>
+      <a href="index.html" class="header-name">Juliana McMillan-Wilhoit</a>
     </div>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="index-ai.html" class="nav-link">Home</a>
+      <a href="index.html" class="nav-link">Home</a>
       <a href="work.html" class="nav-link">Work</a>
       <a href="thinking.html" class="nav-link active">How I Think</a>
       <a href="about.html" class="nav-link">About</a>
@@ -546,6 +555,24 @@
     </div>
   </section>
 
+  <!-- What I'm still working on -->
+  <section class="section" id="still-working" style="background:#F7F5F0;">
+    <div class="section-inner">
+      <div class="section-label anim">What I'm still working on</div>
+      <div style="max-width:760px;" class="anim" data-delay="0.1">
+        <p class="body-p" style="font-size:1rem;line-height:1.85;margin-bottom:1.25rem;">
+          I'd rather tell you where I get it wrong than pretend I don't. My hardest lesson isn't technical — it's about clarity. Not long ago a client relationship got tense over whether we'd overstepped what we were hired to do. In the end everyone agreed no line had been crossed. But I still went home frustrated at myself, because I knew the whole thing was avoidable.
+        </p>
+        <div class="pullquote">
+          I could have said one more sentence — made it clear from the start exactly what we were providing and what we weren't. Instead I assumed a clarity I'd never actually said out loud.
+        </div>
+        <p class="body-p" style="font-size:1rem;line-height:1.85;color:#4A5A54;font-style:italic;">
+          The instinct that makes me good at listening — assuming I already understand the room — is the same one that bites me when I skip saying the obvious thing plainly. So that's the discipline I'm still building: naming the boundary out loud, early, even when I think everyone already knows it.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-strip">
     <div class="cta-strip-inner anim">
@@ -565,7 +592,7 @@
       <div>
         <div class="footer-nav-label">Pages</div>
         <div class="footer-nav-links">
-          <a href="index-ai.html" class="footer-nav-link">Home</a>
+          <a href="index.html" class="footer-nav-link">Home</a>
           <a href="work.html" class="footer-nav-link">Work</a>
           <a href="thinking.html" class="footer-nav-link">How I Think</a>
           <a href="about.html" class="footer-nav-link">About</a>

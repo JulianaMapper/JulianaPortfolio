@@ -319,13 +319,22 @@
       .tool-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; gap: 1rem; }
     }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .will-animate, .anim { opacity: 1 !important; transform: none !important; }
+    }
   </style>
 </head>
 <body>
 
   <header>
     <div class="nav-inner">
-      <a href="index-ai.html" class="nav-wordmark">Juliana McMillan-Wilhoit</a>
+      <a href="index.html" class="nav-wordmark">Juliana McMillan-Wilhoit</a>
       <nav>
         <ul>
           <li><a href="work.html">Work</a></li>
@@ -418,7 +427,7 @@
     <div class="footer-inner">
       <span>© 2025 Juliana McMillan-Wilhoit</span>
       <div class="footer-links">
-        <a href="index-ai.html">Home</a>
+        <a href="index.html">Home</a>
         <a href="work.html">Work</a>
         <a href="thinking.html">Thinking</a>
         <a href="about.html">About</a>
