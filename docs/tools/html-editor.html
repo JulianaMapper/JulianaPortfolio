@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HTML Editor — PH360</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;700;900&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green-darkest: #1A4220;
+    --green-dark: #255B2C;
+    --green: #356B45;
+    --green-soft: #6B9276;
+    --green-pale: #A8C5AD;
+    --surface: #FEFEFE;
+    --surface-warm: #F7F5F2;
+    --surface-mint: #EFF6EF;
+    --line: #E9E9E9;
+    --muted: #505050;
+    --text: #323232;
+    --error: #8B3047;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    background: var(--surface-warm);
+    color: var(--text);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* HEADER */
+  header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 28px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+  header img { height: 30px; width: auto; }
+  .title-block h1 {
+    font-family: 'Crimson Pro', serif;
+    font-weight: 900;
+    color: var(--green-dark);
+    font-size: 1.5rem;
+    line-height: 1.05;
+  }
+  .title-block p {
+    font-weight: 300;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  input[type="text"] {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    width: 180px;
+  }
+  input[type="text"]:focus {
+    outline: 3px solid var(--green-pale);
+    outline-offset: 1px;
+    border-color: var(--green);
+  }
+  .btn {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn svg { width: 17px; height: 17px; }
+  .btn-primary { background: var(--green-dark); color: #fff; }
+  .btn-primary:hover { background: var(--green-darkest); }
+  .btn-ghost { background: var(--surface-mint); color: var(--green-dark); }
+  .btn-ghost:hover { background: var(--green-pale); }
+  .btn:focus-visible { outline: 3px solid var(--green-soft); outline-offset: 2px; }
+  .btn[disabled] { opacity: 0.55; cursor: default; }
+
+  /* NOTICE BANNER */
+  .notice-banner {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 28px;
+    background: #FFF8E7;
+    border-bottom: 1px solid #E8D9A0;
+    font-size: 0.82rem;
+    color: #5A4A1A;
+    line-height: 1.4;
+  }
+  .notice-banner svg { flex-shrink: 0; width: 16px; height: 16px; color: #A07800; }
+  .notice-banner strong { font-weight: 600; }
+  .notice-banner-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #7A6A2A;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  .notice-banner-close:hover { background: #F0E0A0; }
+
+  /* FORMAT SELECT */
+  select.format-sel {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--green-dark);
+    background: var(--surface-mint);
+    border: none;
+    border-radius: 8px;
+    padding: 11px 12px;
+    cursor: pointer;
+  }
+  select.format-sel:focus-visible { outline: 3px solid var(--green-soft); outline-offset: 2px; }
+
+  /* MODE TOGGLE */
+  .toolbar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 28px;
+    background: var(--surface-mint);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.85rem;
+  }
+  .detected { color: var(--muted); font-weight: 300; }
+  .detected.active { color: var(--green-dark); font-weight: 600; }
+  .toolbar .spacer { flex: 1 1 auto; }
+  .toolbar .clear { color: var(--green-dark); font-weight: 600; cursor: pointer; background: none; border: none; font-family: inherit; font-size: 0.85rem; }
+  .toolbar .clear:hover { text-decoration: underline; }
+
+  /* WORKSPACE */
+  .workspace {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    min-height: 0;
+  }
+  .pane { background: var(--surface); display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+  .pane-head {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 18px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+  .pane-head .label { font-weight: 600; color: var(--green-dark); font-size: 0.85rem; }
+  .pane-head .meta { font-weight: 300; color: var(--muted); font-size: 0.78rem; }
+
+  /* PASTE / source area */
+  .dropzone {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    position: relative;
+  }
+  .paste-target {
+    flex: 1 1 auto;
+    width: 100%;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--text);
+    background: var(--surface);
+    border: none;
+    padding: 16px 18px;
+    resize: none;
+    min-height: 0;
+    overflow: auto;
+  }
+  .paste-target:focus { outline: none; }
+  .placeholder-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 28px;
+    pointer-events: none;
+    color: var(--muted);
+  }
+  .placeholder-overlay .inner { max-width: 320px; }
+  .placeholder-overlay svg { width: 34px; height: 34px; color: var(--green-soft); margin-bottom: 12px; }
+  .placeholder-overlay strong { color: var(--green-dark); font-weight: 600; display: block; margin-bottom: 4px; }
+  .placeholder-overlay span { font-weight: 300; font-size: 0.88rem; }
+
+  .preview-frame { flex: 1 1 auto; width: 100%; border: none; background: #fff; min-height: 0; }
+  .preview-empty {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--muted);
+    font-weight: 300;
+    font-size: 0.9rem;
+    padding: 24px;
+  }
+
+  /* EDIT HINT BAR */
+  .edit-hint {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 18px;
+    background: var(--surface-mint);
+    border-bottom: 1px solid var(--green-pale);
+    color: var(--green-dark);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .edit-hint svg { width: 17px; height: 17px; flex: 0 0 auto; }
+  .edit-hint .note { font-weight: 300; color: var(--muted); }
+  .edit-hint[hidden] { display: none; }
+
+  .status {
+    flex: 0 0 auto;
+    padding: 8px 18px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-top: 1px solid var(--line);
+    background: var(--surface-warm);
+    min-height: 2.4em;
+    display: flex;
+    align-items: center;
+  }
+  .status.ok { color: var(--green-dark); }
+  .status.err { color: var(--error); }
+
+  @media (max-width: 760px) {
+    body { overflow: auto; height: auto; }
+    .workspace { grid-template-columns: 1fr; }
+    header, .toolbar { flex-wrap: wrap; }
+    .header-actions { width: 100%; margin-left: 0; }
+    .header-actions input[type="text"] { flex: 1 1 auto; width: auto; }
+    .paste-target, .preview-frame, .preview-empty { min-height: 320px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="notice-banner" id="noticeBanner" role="note">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span><strong>Generic utility tool.</strong> This is not part of the official PH360™ system. Your content is not logged or saved — but this tool is also not fully secured. Do not paste sensitive or personally identifiable information.</span>
+    <button class="notice-banner-close" aria-label="Dismiss notice" onclick="document.getElementById('noticeBanner').style.display='none'">✕</button>
+  </div>
+
+  <header>
+    <img src="https://fandtlabs.com/wp-content//uploads/2025/09/PH360-WordMark.png" alt="PH360" />
+    <div class="title-block">
+      <h1>HTML Editor</h1>
+      <p>Paste your content, preview it instantly, then click any text to edit it.</p>
+    </div>
+    <div class="header-actions">
+      <input type="text" id="filename" value="document.html" aria-label="File name" />
+      <button class="btn btn-ghost" id="openBtn" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"/><path d="M11 13l9 -9"/><path d="M15 4h5v5"/></svg>
+        Open in new tab
+      </button>
+      <button class="btn btn-ghost" id="copyBtn" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/></svg>
+        Copy HTML
+      </button>
+      <select class="format-sel" id="formatSel" aria-label="Download format">
+        <option value="html">HTML (.html)</option>
+        <option value="pptx">PowerPoint · picture (.pptx)</option>
+        <option value="pptx-edit">PowerPoint · editable, beta (.pptx)</option>
+        <option value="pdf">PDF (.pdf)</option>
+      </select>
+      <button class="btn btn-primary" id="downloadBtn" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
+        Download
+      </button>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <span class="detected" id="detected">Auto-detects rich text, escaped, or plain HTML on paste.</span>
+    <span class="spacer"></span>
+    <button class="clear" id="clearBtn" type="button">Clear</button>
+  </div>
+
+  <div class="workspace">
+
+    <!-- LEFT: rich paste capture + source view -->
+    <section class="pane">
+      <div class="pane-head">
+        <span class="label">Paste here</span>
+        <span class="meta" id="inputMeta">empty</span>
+      </div>
+      <div class="dropzone">
+        <!-- contenteditable captures the rich (text/html) clipboard flavor -->
+        <div class="paste-target" id="capture" contenteditable="true" spellcheck="false" aria-label="Paste area"></div>
+        <div class="placeholder-overlay" id="placeholder">
+          <div class="inner">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+            <strong>Paste your content here (⌘V)</strong>
+            <span>Copy from anywhere — the rich formatting comes through and gets cleaned into HTML automatically.</span>
+          </div>
+        </div>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite">Waiting for paste…</div>
+    </section>
+
+    <!-- RIGHT: preview -->
+    <section class="pane">
+      <div class="pane-head">
+        <span class="label">Preview &amp; Edit</span>
+        <span class="meta" id="previewMeta">cleaned output</span>
+      </div>
+      <div class="edit-hint" id="editHint" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"/><path d="M13.5 6.5l4 4"/></svg>
+        <span>Click any text below to edit it.</span>
+        <span class="note">Your changes save when you Download, Copy, or Open in new tab.</span>
+      </div>
+      <iframe class="preview-frame" id="preview" title="HTML preview" sandbox="allow-scripts allow-same-origin" style="display:none;"></iframe>
+      <div class="preview-empty" id="previewEmpty">Paste content on the left — it renders here, then you can click any text to edit it.</div>
+    </section>
+
+  </div>
+
+<script>
+  /* =====================================================================
+     HTML EDITOR — overview
+     ---------------------------------------------------------------------
+     A paste-to-clean-HTML tool, embedded in Divi on WordPress. Everything
+     runs in the browser; nothing is sent to a server.
+
+     What it does, end to end:
+       1. PASTE (left pane) — a contenteditable grabs the rich text/html
+          clipboard flavor when you paste from Word, a chat app, etc.
+       2. CLEAN (the pipeline) — buildCleanFrom() runs three stages:
+            Stage 1 unwrapCarrier()    strip the wrapper around the artifact
+            Stage 2 unescapeToMarkup() turn &lt;div&gt; back into <div>
+            Stage 3 extractHtml()      slice out the real document/fragment
+          A RESCUE pass handles chat exports that ship escaped HTML inside
+          plain paragraphs (no <pre>/<code> to grab).
+       3. PREVIEW + EDIT (right pane) — the cleaned HTML renders in a
+          sandboxed iframe with designMode on, so you can click any text
+          and type. currentHtml() serializes those live edits back out.
+       4. EXPORT — Download as HTML, or (lazy-loading 3 CDN libraries):
+            • PowerPoint · picture   rasterize each slide → full-bleed image
+            • PowerPoint · editable  rebuild each slide as native text+shapes
+            • PDF                    one rasterized page per slide
+
+     Key state lives in three module-level vars: originalRaw (what was
+     pasted), lastClean (the cleaned output shown), filenameTouched.
+     ===================================================================== */
+
+  // ---- Cached DOM references (all the elements the script touches) -----
+  const capture = document.getElementById('capture');
+  const placeholder = document.getElementById('placeholder');
+  const filenameInput = document.getElementById('filename');
+  const statusEl = document.getElementById('status');
+  const inputMeta = document.getElementById('inputMeta');
+  const previewMeta = document.getElementById('previewMeta');
+  const frame = document.getElementById('preview');
+  const previewEmpty = document.getElementById('previewEmpty');
+  const detectedEl = document.getElementById('detected');
+  const editHint = document.getElementById('editHint');
+
+  let originalRaw = ''; // exact pasted source (html or plain)
+  let lastClean = '';   // the cleaned result currently shown/previewed
+  let filenameTouched = false; // true once the user types their own filename
+
+  // Write the bottom-left status line. kind = 'ok' (green) | 'err' (red) | ''.
+  function setStatus(msg, kind) {
+    statusEl.textContent = msg;
+    statusEl.className = 'status' + (kind ? ' ' + kind : '');
+  }
+  // Update the "Detected: …" note in the toolbar; active = highlight green.
+  function setDetected(msg, active) {
+    detectedEl.textContent = msg;
+    detectedEl.className = 'detected' + (active ? ' active' : '');
+  }
+
+  // ---- WYSIWYG editing: make the rendered preview editable -------------
+  // Each time the iframe (re)loads its srcdoc, turn on designMode so the
+  // user can click any rendered text and type. Edits live in the iframe's
+  // DOM; we serialize that DOM when saving (see currentHtml).
+  frame.addEventListener('load', () => {
+    try {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      doc.designMode = 'on';
+      // Visual cue that text is editable: text cursor + a subtle dashed
+      // highlight on hover. Tagged so currentHtml() strips it before saving.
+      if (doc.head && !doc.getElementById('__edit_affordance')) {
+        const aff = doc.createElement('style');
+        aff.id = '__edit_affordance';
+        aff.textContent =
+          'html{cursor:text}' +
+          'body *:hover{outline:1.5px dashed rgba(53,107,69,.55) !important;outline-offset:2px;}';
+        doc.head.appendChild(aff);
+      }
+      doc.addEventListener('input', () => {
+        setStatus('Edited in preview — changes are captured. Download / Copy / Open to save them.', 'ok');
+      });
+    } catch (e) { /* cross-origin / unavailable — preview stays read-only */ }
+  });
+
+  // The HTML to SAVE = the live, possibly-edited preview DOM if reachable,
+  // otherwise the clean extracted source.
+  function currentHtml() {
+    try {
+      const doc = frame.contentDocument;
+      if (frame.style.display !== 'none' && doc && doc.documentElement) {
+        // Clone so we can drop the edit-affordance style without touching the
+        // live preview — the saved file stays exactly as the artifact intended.
+        const root = doc.documentElement.cloneNode(true);
+        const aff = root.querySelector('#__edit_affordance');
+        if (aff) aff.remove();
+        return '<!DOCTYPE html>\n' + root.outerHTML;
+      }
+    } catch (e) { /* fall through */ }
+    return lastClean;
+  }
+
+  // Decode one level of HTML entities (&lt; -> <, &amp; -> &, &#x27; -> ').
+  function decodeEntities(str) {
+    const ta = document.createElement('textarea');
+    ta.innerHTML = str;
+    return ta.value;
+  }
+
+  // Count real vs. escaped opening angle brackets.
+  const countReal = (s) => (s.match(/</g) || []).length;
+  const countEsc  = (s) => (s.match(/&lt;/gi) || []).length;
+
+  // ---- STAGE 1: unwrap the carrier -------------------------------------
+  // An Office-style rich paste, or a chat export, carries the real artifact as TEXT
+  // inside <pre>/<code>. Parsing and reading that block's textContent strips
+  // all wrapper markup at once (and decodes one entity level for free).
+  function unwrapCarrier(src) {
+    const looksOffice = /xmlns:o=|urn:schemas-microsoft-com|mso-|Word\.Document/i.test(src);
+    const hasRealTags = /<(html|body|div|section|pre|code|p)\b/i.test(src);
+    if (!hasRealTags) return { text: src, note: null }; // already plain text/markup
+
+    let doc;
+    try { doc = new DOMParser().parseFromString(src, 'text/html'); }
+    catch (e) { return { text: src, note: null }; }
+
+    // Prefer the largest <pre>/<code> block — that's where escaped HTML lives.
+    const blocks = Array.from(doc.querySelectorAll('pre, code'));
+    let best = null;
+    for (const b of blocks) {
+      const t = b.textContent || '';
+      if (countEsc(t) >= 1 && (!best || t.length > best.length)) best = t;
+    }
+    if (best) {
+      return { text: best, note: (looksOffice ? 'rich text clipboard' : 'code block') + ' → unwrapped <pre><code>' };
+    }
+    // Office wrapper but no code block: take body text content.
+    if (looksOffice) {
+      return { text: doc.body ? doc.body.textContent : src, note: 'rich text clipboard → took body text' };
+    }
+    return { text: src, note: null }; // real HTML document pasted directly — leave it
+  }
+
+  // ---- STAGE 2: un-escape to real markup (iterative) -------------------
+  // Handles single-, double-, or triple-escaped input. Stops as soon as real
+  // tags outnumber escaped ones, so legit entities (&mdash;, &#x27;,
+  // &display=swap) in the FINAL document are never over-decoded.
+  function unescapeToMarkup(text) {
+    let levels = 0;
+    while (countEsc(text) > countReal(text) && levels < 5) {
+      const next = decodeEntities(text);
+      if (next === text) break;
+      text = next;
+      levels++;
+    }
+    return { text, levels };
+  }
+
+  // ---- STAGE 3: extract the artifact boundaries ------------------------
+  function extractHtml(text) {
+    text = (text || '').trim();
+    if (!text) return { html: '', mode: 'empty' };
+
+    // Strip a Markdown code fence if the whole thing is wrapped in one.
+    const fence = text.match(/```(?:html?|xml)?\s*\n?([\s\S]*?)```/i);
+    if (fence && fence[1].trim()) text = fence[1].trim();
+    else text = text.replace(/```[a-zA-Z]*\s*/g, '').trim();
+
+    const docStart = text.search(/<!DOCTYPE\s+html/i);
+    const htmlStart = text.search(/<html[\s>]/i);
+    const htmlEndMatch = text.match(/<\/html\s*>/i);
+    let start = docStart !== -1 ? docStart : htmlStart;
+    if (start !== -1 && htmlEndMatch) {
+      const endIdx = htmlEndMatch.index + htmlEndMatch[0].length;
+      return { html: text.slice(start, endIdx).trim(), mode: docStart !== -1 ? 'full document' : 'html element' };
+    }
+
+    // Fragment fallback: slice first structural tag → last closing tag, wrap it.
+    const fragStart = text.search(/<(section|div|article|main|style|header|h1|table|ul|ol)\b/i);
+    const lastClose = text.search(/<\/(section|div|article|main|body|html)\s*>[^<]*$/i);
+    if (fragStart !== -1) {
+      let frag = (lastClose !== -1) ? text.slice(fragStart) : text.slice(fragStart);
+      frag = frag.trim();
+      const wrapped = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n'
+        + '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n</head>\n<body>\n'
+        + frag + '\n</body>\n</html>';
+      return { html: wrapped, mode: 'fragment (wrapped)' };
+    }
+    return { html: '', mode: 'none' };
+  }
+
+  // ---- The pipeline -----------------------------------------------------
+  // Run the raw paste through all three stages and return the cleaned HTML
+  // plus human-readable `notes` describing what was done (shown in toolbar).
+  function buildCleanFrom(src) {
+    const notes = [];
+    const s1 = unwrapCarrier(src || '');
+    if (s1.note) notes.push(s1.note);
+
+    const s2 = unescapeToMarkup(s1.text);
+    if (s2.levels > 0) notes.push('un-escaped ' + s2.levels + ' level' + (s2.levels > 1 ? 's' : ''));
+
+    const s3 = extractHtml(s2.text);
+
+    // RESCUE: some chat UIs ship the artifact as escaped text inside plain
+    // paragraph markup (no <pre>/<code>), so the carrier's real tags drown
+    // out the escaped ones and Stage 2 never decodes. If extraction failed —
+    // or what it found still contains an escaped document — flatten the
+    // carrier to its visible text (decodes one entity level) and re-run.
+    if (!s3.html || ESCAPED_DOC.test(s3.html)) {
+      const flat = carrierVisibleText(src || '');
+      if (flat) {
+        const r2 = unescapeToMarkup(flat);
+        const x2 = extractHtml(r2.text);
+        if (x2.html && (x2.mode === 'full document' || x2.mode === 'html element')
+            && !ESCAPED_DOC.test(x2.html)) {
+          notes.push('rescued escaped HTML from rich wrapper'
+            + (r2.levels ? ' · un-escaped ' + r2.levels + ' level' + (r2.levels > 1 ? 's' : '') : ''));
+          return { html: x2.html, mode: x2.mode, notes };
+        }
+      }
+    }
+    return { html: s3.html, mode: s3.mode, notes };
+  }
+
+  // Matches an escaped document opener at any escaping depth:
+  // &lt;!DOCTYPE, &amp;lt;html, &amp;amp;lt;!DOCTYPE, ...
+  const ESCAPED_DOC = /&(amp;)*lt;\s*(!DOCTYPE\b|html[\s&>])/i;
+
+  // The carrier's visible text, with <br> and block-level closers kept as
+  // line breaks (textContent alone would glue lines together and break any
+  // JS line comments inside the artifact).
+  function carrierVisibleText(src) {
+    if (!/<(html|body|div|section|pre|code|p|span|br)\b/i.test(src)) return '';
+    const withBreaks = src
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/(p|div|li|tr|h[1-6]|pre)\s*>/gi, '\n');
+    try {
+      const doc = new DOMParser().parseFromString(withBreaks, 'text/html');
+      return doc.body ? doc.body.textContent : '';
+    } catch (e) { return ''; }
+  }
+
+  // Re-run the pipeline and sync the whole UI to the result: paste box,
+  // toolbar note, preview iframe, status line, and suggested filename.
+  // echoToBox = write the cleaned HTML back into the left box (true on paste
+  // and clear; false when the user is hand-typing so we don't fight the caret).
+  function refresh(echoToBox) {
+    const has = !!(originalRaw && originalRaw.trim());
+    const result = has ? buildCleanFrom(originalRaw) : { html: '', mode: 'empty', notes: [] };
+    lastClean = result.html;
+
+    if (echoToBox) capture.textContent = lastClean;
+    placeholder.style.display = (capture.textContent || '').trim() ? 'none' : 'flex';
+    inputMeta.textContent = has ? originalRaw.length.toLocaleString() + ' chars in' : 'empty';
+
+    if (!has) {
+      setDetected('Auto-detects rich text, escaped, or plain HTML on paste.', false);
+    } else if (result.notes.length) {
+      setDetected('Detected: ' + result.notes.join(' · '), true);
+    } else {
+      setDetected('Detected: clean HTML — passed through', true);
+    }
+
+    if (!lastClean) {
+      frame.style.display = 'none';
+      previewEmpty.style.display = 'flex';
+      editHint.hidden = true;
+      previewMeta.textContent = 'cleaned output';
+      setStatus(has ? 'No HTML found after unwrapping/un-escaping.' : 'Waiting for paste…', has ? 'err' : '');
+      return;
+    }
+
+    frame.srcdoc = lastClean;
+    frame.style.display = 'block';
+    previewEmpty.style.display = 'none';
+    editHint.hidden = false;
+    previewMeta.textContent = lastClean.length.toLocaleString() + ' chars out';
+
+    // Auto-suggest a filename from the document title (unless the user set one).
+    if (!filenameTouched) {
+      const proposed = proposeFilename(lastClean);
+      if (proposed) filenameInput.value = proposed;
+    }
+
+    const removed = originalRaw.length - lastClean.length;
+    const bits = ['Extracted ' + result.mode + ' (' + lastClean.length.toLocaleString() + ' chars)'];
+    if (removed > 0) bits.push('stripped ' + removed.toLocaleString() + ' chars of wrapper');
+    setStatus(bits.join(' · ') + '. Open in new tab to verify the real render.', 'ok');
+  }
+
+  // ---- Paste handler: grab the rich text/html version ------------------
+  capture.addEventListener('paste', (e) => {
+    e.preventDefault();
+    const cd = e.clipboardData || window.clipboardData;
+    const html = cd.getData('text/html');
+    const plain = cd.getData('text/plain');
+    originalRaw = (html && html.trim()) ? html : (plain || '');
+    refresh(true);
+  });
+
+  // Hand-editing the left box: treat what's there as the final HTML directly.
+  capture.addEventListener('input', () => {
+    originalRaw = capture.textContent || '';
+    refresh(false);
+  });
+
+  // Once the user edits the filename, stop auto-proposing. Blank re-enables it.
+  filenameInput.addEventListener('input', () => {
+    filenameTouched = filenameInput.value.trim() !== '';
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    originalRaw = ''; lastClean = ''; capture.textContent = '';
+    filenameTouched = false; filenameInput.value = 'document.html';
+    refresh(true);
+    capture.focus();
+  });
+
+  // Propose a filename from the document's <title> (or first <h1>), slugified.
+  function proposeFilename(html) {
+    let raw = '';
+    const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    if (t && t[1]) raw = t[1];
+    if (!raw.trim()) {
+      const h = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+      if (h && h[1]) raw = h[1];
+    }
+    raw = decodeEntities(raw).replace(/<[^>]+>/g, ' ').trim();
+    const slug = raw.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .replace(/-{2,}/g, '-')
+      .slice(0, 80);
+    return slug ? slug + '.html' : null;
+  }
+
+  function ensureFilename(name) {
+    name = (name || '').trim() || 'document.html';
+    if (!/\.html?$/i.test(name)) name += '.html';
+    return name;
+  }
+
+  // ---- Filename helpers per format -------------------------------------
+  const formatSel = document.getElementById('formatSel');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  // Swap the filename extension to match the chosen format.
+  function nameForFormat(fmt) {
+    const base = (filenameInput.value || 'document').trim().replace(/\.(html?|pptx|pdf)$/i, '') || 'document';
+    if (fmt && fmt.indexOf('pptx') === 0) return base + '.pptx';
+    return base + (fmt === 'pdf' ? '.pdf' : '.html');
+  }
+  formatSel.addEventListener('change', () => {
+    // Reflect the format in the filename field so the user sees the extension.
+    filenameInput.value = nameForFormat(formatSel.value);
+    filenameTouched = true;
+  });
+
+  function triggerHtmlDownload() {
+    const html = currentHtml();
+    const name = ensureFilename(filenameInput.value);
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setStatus('Downloaded "' + name + '" (' + html.length.toLocaleString() + ' characters, including your edits).', 'ok');
+  }
+
+  document.getElementById('downloadBtn').addEventListener('click', async () => {
+    if (!lastClean) { setStatus('Nothing to download — paste some content first.', 'err'); return; }
+    const fmt = formatSel.value;
+    if (fmt === 'html') { triggerHtmlDownload(); return; }
+    if (fmt === 'pptx-edit') { await exportEditablePptx(); return; }
+    // pptx / pdf are picture-based — capture each slide, then build the file.
+    await exportSlides(fmt);
+  });
+
+  // ---- Lazy CDN loader (only fetched when PPTX/PDF is first used) -------
+  const CDN = {
+    html2canvas: 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js',
+    pptxgen:     'https://cdn.jsdelivr.net/npm/pptxgenjs@4.0.1/dist/pptxgen.bundle.js',
+    jspdf:       'https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js',
+  };
+  // Inject a <script> once and cache the load Promise per URL, so repeated
+  // exports reuse the already-loaded library instead of re-fetching it.
+  const _loaded = {};
+  function loadScript(src) {
+    if (_loaded[src]) return _loaded[src];
+    _loaded[src] = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = src; s.async = true;
+      s.onload = resolve;
+      s.onerror = () => reject(new Error('Failed to load ' + src));
+      document.head.appendChild(s);
+    });
+    return _loaded[src];
+  }
+
+  // ---- Slide detection -------------------------------------------------
+  // Returns the nodes (inside the preview doc) to rasterize, one per slide.
+  // Priority: carousel track children → .slide elements → top-level <section>s
+  // → whole <body> as a single slide.
+  function findSlideNodes(doc) {
+    const body = doc.body;
+    if (!body) return [];
+    const isEl = (n) => n.nodeType === 1;
+
+    const track = doc.querySelector('.slides-track, .slides, .carousel-track, .carousel-inner');
+    if (track) {
+      const kids = Array.from(track.children).filter(isEl);
+      if (kids.length >= 1) return kids;
+    }
+    const slideClass = Array.from(doc.querySelectorAll('.slide'));
+    if (slideClass.length >= 2) return slideClass;
+
+    const sections = Array.from(body.querySelectorAll(':scope > section'));
+    if (sections.length >= 2) return sections;
+
+    return [body];
+  }
+
+  // Rasterize every slide node to a PNG data URL. Neutralizes the carousel
+  // transform during capture so off-screen slides still render, then restores.
+  async function captureSlides() {
+    const doc = frame.contentDocument;
+    if (!doc) throw new Error('Preview not reachable for capture.');
+    const nodes = findSlideNodes(doc);
+    if (!nodes.length) throw new Error('No content found to capture.');
+
+    // Drop any carousel sliding transform so each slide sits at its true size.
+    const tracks = Array.from(doc.querySelectorAll('.slides-track, .slides, .carousel-track, .carousel-inner'));
+    const saved = tracks.map((t) => t.style.transform);
+    tracks.forEach((t) => { t.style.transform = 'none'; });
+
+    const images = [];
+    try {
+      for (let i = 0; i < nodes.length; i++) {
+        setStatus('Rendering slide ' + (i + 1) + ' of ' + nodes.length + '…', 'ok');
+        const canvas = await html2canvas(nodes[i], {
+          useCORS: true,
+          backgroundColor: null,
+          scale: 2,
+          logging: false,
+        });
+        images.push({
+          data: canvas.toDataURL('image/png'),
+          // JPEG copy keeps PDFs small (PNG slides can balloon to tens of MB).
+          jpeg: canvas.toDataURL('image/jpeg', 0.85),
+          w: canvas.width,
+          h: canvas.height,
+        });
+      }
+    } finally {
+      tracks.forEach((t, i) => { t.style.transform = saved[i]; });
+    }
+    return images;
+  }
+
+  // Picture-based export: capture each slide as a PNG, then drop one full-bleed
+  // image per slide/page into a .pptx (PptxGenJS) or .pdf (jsPDF). Pixel-exact
+  // match to the preview, but the result is flat — no editable text.
+  async function exportSlides(fmt) {
+    downloadBtn.disabled = true;
+    try {
+      setStatus('Preparing ' + (fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ' — loading tools…', 'ok');
+      await loadScript(CDN.html2canvas);
+      if (fmt === 'pptx') await loadScript(CDN.pptxgen);
+      else await loadScript(CDN.jspdf);
+
+      const images = await captureSlides();
+      const name = nameForFormat(fmt);
+      // Aspect ratio of the first slide drives the page/layout shape.
+      const aspect = images[0].w / images[0].h;
+
+      if (fmt === 'pptx') {
+        const pptx = new PptxGenJS();
+        const W = 10, H = +(10 / aspect).toFixed(3); // inches, matched to the deck
+        pptx.defineLayout({ name: 'DECK', width: W, height: H });
+        pptx.layout = 'DECK';
+        images.forEach((img) => {
+          const slide = pptx.addSlide();
+          slide.background = { color: '000000' };
+          slide.addImage({ data: img.data, x: 0, y: 0, w: W, h: H });
+        });
+        await pptx.writeFile({ fileName: name });
+      } else {
+        const { jsPDF } = window.jspdf;
+        const w = images[0].w, h = images[0].h;
+        const pdf = new jsPDF({ orientation: aspect >= 1 ? 'landscape' : 'portrait', unit: 'px', format: [w, h], compress: true });
+        images.forEach((img, i) => {
+          if (i > 0) pdf.addPage([img.w, img.h], img.w >= img.h ? 'landscape' : 'portrait');
+          pdf.addImage(img.jpeg, 'JPEG', 0, 0, img.w, img.h, undefined, 'FAST');
+        });
+        pdf.save(name);
+      }
+      setStatus('Downloaded "' + name + '" — ' + images.length + ' slide' + (images.length > 1 ? 's' : '') + ' (picture-based; matches the preview).', 'ok');
+    } catch (err) {
+      setStatus((fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ' export failed: ' + (err && err.message ? err.message : err) + ' — try Download as HTML.', 'err');
+    } finally {
+      downloadBtn.disabled = false;
+    }
+  }
+
+  // ====================================================================
+  // EDITABLE PPTX (beta) — reconstruct each slide as native PowerPoint
+  // text boxes + shapes by measuring the rendered DOM. Generic: it places
+  // text where it visually sits and copies computed colors/fonts/sizes.
+  // Lossy by nature — gradients are flattened, fonts may substitute, and
+  // PowerPoint re-wraps text so positions can drift a little.
+  // ====================================================================
+  const INLINE_TAGS = new Set(['SPAN','STRONG','EM','B','I','A','SMALL','MARK','CODE','SUB','SUP','U','FONT','LABEL','ABBR','TIME','S','DEL','INS']);
+
+  function rgbToHex(c) {
+    if (!c) return null;
+    const m = c.match(/rgba?\(([^)]+)\)/i);
+    if (!m) return null;
+    const p = m[1].split(',').map((s) => parseFloat(s));
+    const a = p.length > 3 ? p[3] : 1;
+    const h = (n) => ('0' + Math.max(0, Math.min(255, Math.round(n))).toString(16)).slice(-2);
+    return { hex: (h(p[0]) + h(p[1]) + h(p[2])).toUpperCase(), a };
+  }
+
+  // Flatten a CSS gradient to a single representative colour (blend of the
+  // first and last colour stops). PptxGenJS can't render CSS gradients cleanly.
+  function blendGradient(bgImage) {
+    const cols = (bgImage || '').match(/rgba?\([^)]+\)/g);
+    if (!cols || !cols.length) return null;
+    const a = rgbToHex(cols[0]);
+    const b = rgbToHex(cols[cols.length - 1]);
+    if (!a) return null;
+    if (!b) return a.hex;
+    const pa = [parseInt(a.hex.slice(0,2),16), parseInt(a.hex.slice(2,4),16), parseInt(a.hex.slice(4,6),16)];
+    const pb = [parseInt(b.hex.slice(0,2),16), parseInt(b.hex.slice(2,4),16), parseInt(b.hex.slice(4,6),16)];
+    const hh = (n) => ('0' + Math.round(n).toString(16)).slice(-2);
+    return (hh((pa[0]+pb[0])/2) + hh((pa[1]+pb[1])/2) + hh((pa[2]+pb[2])/2)).toUpperCase();
+  }
+
+  function elemFill(cs) {
+    if (/gradient/i.test(cs.backgroundImage)) {
+      const g = blendGradient(cs.backgroundImage);
+      if (g) return { hex: g, transparency: 0 };
+    }
+    const bc = rgbToHex(cs.backgroundColor);
+    if (bc && bc.a > 0.02) return { hex: bc.hex, transparency: Math.round((1 - bc.a) * 100) };
+    return null;
+  }
+
+  // px → points for font sizes (1px = 0.75pt at 96dpi).
+  function styleToRun(cs) {
+    const col = rgbToHex(cs.color);
+    const fw = parseInt(cs.fontWeight, 10);
+    return {
+      fontSize: Math.max(6, Math.round(parseFloat(cs.fontSize) * 0.75)),
+      bold: (fw >= 600) || cs.fontWeight === 'bold',
+      italic: cs.fontStyle === 'italic',
+      color: col ? col.hex : '000000',
+      fontFace: (cs.fontFamily || '').split(',')[0].replace(/["']/g, '').trim() || undefined,
+    };
+  }
+
+  // A "text block" = an element whose children are all inline/text (so it maps
+  // to a single text box). Elements with block-level children get recursed into.
+  function collectTextBlocks(root, win, out) {
+    for (const child of Array.from(root.children)) {
+      const cs = win.getComputedStyle(child);
+      if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+      const hasBlockChild = Array.from(child.children).some((c) => !INLINE_TAGS.has(c.tagName) && c.tagName !== 'BR');
+      const hasText = (child.textContent || '').trim().length > 0;
+      if (hasText && !hasBlockChild) out.push(child);
+      else collectTextBlocks(child, win, out);
+    }
+  }
+
+  // Build PptxGenJS rich-text runs from a block element's inline children,
+  // preserving per-span colour/weight (e.g. a highlighted word) and <br>.
+  function buildRuns(el, win) {
+    const runs = [];
+    const walk = (node, styleEl) => {
+      if (node.nodeType === 3) {
+        const t = node.textContent.replace(/\s+/g, ' ');
+        if (t.trim()) runs.push({ text: t, options: styleToRun(win.getComputedStyle(styleEl)) });
+        else if (t === ' ' && runs.length) runs.push({ text: ' ', options: styleToRun(win.getComputedStyle(styleEl)) });
+      } else if (node.nodeType === 1) {
+        if (node.tagName === 'BR') { if (runs.length) runs[runs.length - 1].options.breakLine = true; return; }
+        if (node.childNodes.length) Array.from(node.childNodes).forEach((c) => walk(c, node));
+      }
+    };
+    Array.from(el.childNodes).forEach((c) => walk(c, el));
+    return runs;
+  }
+
+  // Every visible element with a background → a shape, largest first so smaller
+  // ones (badges, cards) layer on top.
+  function collectBackgrounds(slide, win) {
+    const out = [];
+    Array.from(slide.querySelectorAll('*')).forEach((el) => {
+      const cs = win.getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden') return;
+      const r = el.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) return;
+      const fill = elemFill(cs);
+      if (!fill) return;
+      const radius = parseFloat(cs.borderTopLeftRadius) || 0;
+      const bw = parseFloat(cs.borderTopWidth) || 0;
+      let line = null;
+      if (bw > 0) {
+        const lc = rgbToHex(cs.borderTopColor);
+        if (lc && lc.a > 0.05) line = { color: lc.hex, width: Math.max(0.5, bw * 0.75), transparency: Math.round((1 - lc.a) * 100) };
+      }
+      out.push({ el, r, fill, line, rounded: radius > 6, area: r.width * r.height });
+    });
+    out.sort((a, b) => b.area - a.area);
+    return out;
+  }
+
+  async function exportEditablePptx() {
+    if (!lastClean) { setStatus('Nothing to export — paste some content first.', 'err'); return; }
+    downloadBtn.disabled = true;
+    try {
+      setStatus('Preparing editable PowerPoint — loading tools…', 'ok');
+      await loadScript(CDN.pptxgen);
+      const doc = frame.contentDocument, win = frame.contentWindow;
+      if (!doc || !win) throw new Error('Preview not reachable.');
+
+      const nodes = findSlideNodes(doc);
+      if (!nodes.length) throw new Error('No content found.');
+
+      // All geometry below comes from getBoundingClientRect() in CSS px; we
+      // multiply by `scale` (inches-per-px) to convert into PptxGenJS inches.
+      // Lay slides out at true size during measurement.
+      const tracks = Array.from(doc.querySelectorAll('.slides-track, .slides, .carousel-track, .carousel-inner'));
+      const saved = tracks.map((t) => t.style.transform);
+      tracks.forEach((t) => { t.style.transform = 'none'; });
+
+      let pptx;
+      try {
+        pptx = new PptxGenJS();
+        const r0 = nodes[0].getBoundingClientRect();
+        const Win = 10, Hin = +(Win * (r0.height / r0.width)).toFixed(3);
+        const scale = Win / r0.width;
+        pptx.defineLayout({ name: 'DECK', width: Win, height: Hin });
+        pptx.layout = 'DECK';
+        const RECT = pptx.ShapeType.rect, RR = pptx.ShapeType.roundRect;
+
+        nodes.forEach((node, i) => {
+          setStatus('Rebuilding slide ' + (i + 1) + ' of ' + nodes.length + '…', 'ok');
+          const base = node.getBoundingClientRect();
+          const slide = pptx.addSlide();
+
+          // Slide base background (gradient flattened to a solid).
+          const cs0 = win.getComputedStyle(node);
+          const baseFill = elemFill(cs0);
+          slide.background = { color: baseFill ? baseFill.hex : 'FFFFFF' };
+
+          // Descendant backgrounds → shapes. Drawn largest-first (see
+          // collectBackgrounds sort) so badges/cards stack above the panels
+          // they sit on, then the text boxes go on top of everything.
+          collectBackgrounds(node, win).forEach((b) => {
+            slide.addShape(b.rounded ? RR : RECT, {
+              x: (b.r.left - base.left) * scale, y: (b.r.top - base.top) * scale,
+              w: b.r.width * scale, h: b.r.height * scale,
+              fill: { color: b.fill.hex, transparency: b.fill.transparency },
+              line: b.line || { type: 'none' },
+              rectRadius: b.rounded ? 0.08 : undefined,
+            });
+          });
+
+          // Text blocks → text boxes.
+          const blocks = [];
+          collectTextBlocks(node, win, blocks);
+          blocks.forEach((el) => {
+            const r = el.getBoundingClientRect();
+            if (r.width < 2 || r.height < 2) return;
+            const runs = buildRuns(el, win);
+            if (!runs.length) return;
+            const cs = win.getComputedStyle(el);
+            const align = cs.textAlign === 'center' ? 'center' : cs.textAlign === 'right' ? 'right' : cs.textAlign === 'justify' ? 'justify' : 'left';
+            slide.addText(runs, {
+              x: (r.left - base.left) * scale, y: (r.top - base.top) * scale,
+              w: r.width * scale, h: r.height * scale,
+              align: align, valign: 'middle', margin: 0, wrap: true,
+              fontSize: Math.max(6, Math.round(parseFloat(cs.fontSize) * 0.75)),
+            });
+          });
+        });
+      } finally {
+        tracks.forEach((t, i) => { t.style.transform = saved[i]; });
+      }
+
+      const name = nameForFormat('pptx-edit');
+      await pptx.writeFile({ fileName: name });
+      setStatus('Downloaded "' + name + '" — ' + nodes.length + ' editable slide' + (nodes.length > 1 ? 's' : '') + ' (beta · text is editable; gradients/fonts may differ). For a pixel-exact copy use “PowerPoint · picture”.', 'ok');
+    } catch (err) {
+      setStatus('Editable PowerPoint failed: ' + (err && err.message ? err.message : err) + ' — try “PowerPoint · picture”.', 'err');
+    } finally {
+      downloadBtn.disabled = false;
+    }
+  }
+
+  document.getElementById('openBtn').addEventListener('click', () => {
+    if (!lastClean) { setStatus('Nothing to open — paste some content first.', 'err'); return; }
+    // Open the REAL file (un-sandboxed) in a new tab — the true render, with edits.
+    const blob = new Blob([currentHtml()], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const w = window.open(url, '_blank');
+    if (!w) { setStatus('Pop-up blocked — allow pop-ups, or use Download.', 'err'); URL.revokeObjectURL(url); return; }
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+    setStatus('Opened the real file in a new tab. This is the true render.', 'ok');
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', async () => {
+    if (!lastClean) { setStatus('Nothing to copy — paste some content first.', 'err'); return; }
+    try {
+      await navigator.clipboard.writeText(currentHtml());
+      setStatus('HTML copied to clipboard (including your edits).', 'ok');
+    } catch (err) {
+      setStatus('Copy blocked by the browser — use Download instead.', 'err');
+    }
+  });
+
+  refresh(true);
+  capture.focus();
+</script>
+</body>
+</html>
