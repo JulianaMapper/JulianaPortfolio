@@ -144,6 +144,11 @@
       height: 1px;
       background: #E0DDD8;
     }
+    /* ── Case screenshots ── */
+    .case-screenshots { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+    .case-screenshot img { width: 100%; border-radius: 8px; border: 1px solid #E0DDD8; display: block; }
+    .case-screenshot-caption { font-size: 0.78rem; color: #8A9690; margin-top: 0.6rem; line-height: 1.55; }
+    @media (max-width: 720px) { .case-screenshots { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -275,6 +280,16 @@
         <div class="built-item">
           <div class="built-dot"></div>
           <div class="built-text"><strong>Multiple ERDC/CERL technical reports</strong> and a peer-reviewed journal article</div>
+        </div>
+      </div>
+      <div class="case-screenshots">
+        <div class="case-screenshot">
+          <img src="img/ensite-framework.jpeg" alt="ENSITE site-selection framework diagram showing Physical, Built, and Social evaluation layers" />
+          <p class="case-screenshot-caption">The framework I built ENSITE around: every candidate site gets evaluated across physical, built, and social factors, from terrain and infrastructure to who already lives there and what resources they rely on.</p>
+        </div>
+        <div class="case-screenshot">
+          <img src="img/ensite-screenshot.png" alt="ENSITE site-analysis interface running a scenario, showing a mapped area with an analysis overlay" />
+          <p class="case-screenshot-caption">ENSITE running a live scenario. Planners set the constraints that matter for a given mission, and the tool ranks the ground accordingly.</p>
         </div>
       </div>
     </div>
