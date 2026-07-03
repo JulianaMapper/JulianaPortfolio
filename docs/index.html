@@ -3,12 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juliana McMillan-Wilhoit</title>
+  <title>Juliana McMillan-Wilhoit — Product Leader · AI, Geospatial &amp; Public Health</title>
   <meta name="description" content="Product leader who listens first, diagnoses the real problem, and builds solutions that work. 15 years across AI, geospatial, public health, and supply chain. The domain changes. The approach doesn't." />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://julianamapper.com/" />
+  <meta property="og:title" content="Juliana McMillan-Wilhoit — Product Leader · AI, Geospatial &amp; Public Health" />
+  <meta property="og:description" content="Product leader who listens first, diagnoses the real problem, and builds solutions that work. 15 years across AI, geospatial, public health, and supply chain." />
+  <meta property="og:image" content="https://julianamapper.com/assets/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Juliana McMillan-Wilhoit — Product Leader" />
+  <meta name="twitter:description" content="Listens first, diagnoses the real problem, builds solutions that work." />
+  <meta name="twitter:image" content="https://julianamapper.com/assets/og-card.jpg" />
+
+  <!-- Favicon: forest-green "J" -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23376E5A'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='40'%20font-weight='700'%20fill='%23F7F5F0'%20text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -43,7 +59,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     }
     .header-name {
-      font-family: 'Lora', Georgia, serif;
+      font-family: 'Fraunces', Georgia, serif;
       font-weight: 700; font-size: 1.125rem;
       color: #F7F5F0; letter-spacing: -0.01em;
       text-decoration: none;
@@ -142,7 +158,7 @@
     }
 
     .hero-h1 {
-      font-family: 'Lora', Georgia, serif;
+      font-family: 'Fraunces', Georgia, serif;
       font-size: clamp(2.75rem, 6vw, 4.5rem);
       font-weight: 700; line-height: 1.1;
       color: #1C2826; letter-spacing: -0.02em;
@@ -267,7 +283,7 @@
       color: #376E5A; margin-bottom: 0.5rem;
     }
     .section-h2 {
-      font-family: 'Lora', Georgia, serif;
+      font-family: 'Fraunces', Georgia, serif;
       font-size: clamp(1.75rem, 3vw, 2.5rem);
       font-weight: 700; color: #1C2826;
       letter-spacing: -0.01em; line-height: 1.15;
@@ -513,6 +529,10 @@
     }
 
     /* ── Mobile ── */
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      color: #F7F5F0; font-size: 1.5rem; padding: 0.25rem; line-height: 1;
+    }
     @media (max-width: 720px) {
       .hero-section { padding: 7rem 1.5rem 4rem; }
       .stats-bar { grid-template-columns: repeat(2, 1fr); }
@@ -520,8 +540,16 @@
       .stat-item:nth-child(3), .stat-item:nth-child(4) { border-top: 1px solid #E0DDD8; }
       .work-grid { grid-template-columns: 1fr; }
       .header-band { padding: 0 1.25rem; }
-      .nav-links { gap: 1.25rem; }
-      .nav-link { font-size: 0.7rem; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: fixed; top: 58px; left: 0; right: 0;
+        background: #1C2826; flex-direction: column; align-items: flex-start;
+        gap: 0; padding: 0.5rem 1.25rem 1.25rem;
+        border-bottom: 1px solid rgba(254,254,254,0.15);
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { font-size: 0.85rem; padding: 0.7rem 0; width: 100%; }
       .thesis-section, .work-section { padding: 3.5rem 1.5rem; }
       .domain-strip { padding: 2rem 1.5rem; }
     }
@@ -534,7 +562,8 @@
     <div style="display:flex;align-items:baseline;gap:0;">
       <a href="index.html" class="header-name">Juliana McMillan-Wilhoit</a>
     </div>
-    <nav class="nav-links" aria-label="Main navigation">
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav" onclick="const n=document.getElementById('main-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);">&#9776;</button>
+    <nav class="nav-links" id="main-nav" aria-label="Main navigation">
       <a href="index.html" class="nav-link active">Home</a>
       <a href="work.html" class="nav-link">Work</a>
       <a href="thinking.html" class="nav-link">How I Think</a>
@@ -551,7 +580,7 @@
     <div class="hero-orb hero-orb-2"></div>
     <div class="hero-inner">
       <div class="hero-text">
-      <div class="hero-eyebrow anim">Product Leader · AI · Geospatial · Public Health · Community Builder</div>
+      <div class="hero-eyebrow anim">Product leader · AI people actually adopt</div>
       <h1 class="hero-h1 anim" data-delay="0.1">
         I see broken processes<br />
         and I <span class="cycle-wrap"><span id="cycle-text" class="cycle-phrase in">listen first.</span></span>
@@ -591,12 +620,12 @@
       <div class="stat-label">Public health professionals interviewed before writing a line of code</div>
     </div>
     <div class="stat-item anim" data-delay="0.2">
-      <div class="stat-num">8h → 30m</div>
-      <div class="stat-label">Dashboard reporting time cut — Peapod</div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Staff adoption within 30 days — PH360's first county rollout</div>
     </div>
     <div class="stat-item anim" data-delay="0.3">
-      <div class="stat-num">3 Conflicts</div>
-      <div class="stat-label">ENSITE deployed — Iraq, Afghanistan, Poland</div>
+      <div class="stat-num">8h → 30m</div>
+      <div class="stat-label">Daily crisis reporting — Hurricane Maria power restoration</div>
     </div>
   </div>
 
@@ -641,35 +670,35 @@
   <section class="work-section">
     <div class="anim">
       <div class="section-tag">Selected Work</div>
-      <h2 class="section-h2">The pattern, across four domains</h2>
-      <p class="section-desc">Different problems, different organizations, and the same way in every time: go find the people who live with the problem, and build from what they tell you.</p>
+      <h2 class="section-h2">The pattern, in the work I do now</h2>
+      <p class="section-desc">Different problems, different organizations, and the same way in every time: go find the people who live with the problem, and build from what they tell you. The recent work first — <a href="work.html" style="color:#376E5A;">fifteen years of it underneath</a>.</p>
     </div>
     <div class="work-grid">
       <a href="work.html#ph360" class="work-card anim" data-delay="0.1">
         <div class="work-ghost">5m</div>
         <div class="work-domain">F&amp;T Labs · Public Health AI</div>
-        <div class="work-title">PH360: Built for the people running local public health</div>
+        <div class="work-title">PH360™: Built for the people running local public health</div>
         <div class="work-sub">Tested 5+ LLMs, hand-coded the first prototype, interviewed 50+ users before writing a line of product code. HIPAA-compliant, Sunshine Law-ready, built on AWS Bedrock.</div>
         <div class="work-metric">30m → 5m</div>
         <div class="work-metric-label">Time to answer a routine question — Sauk County</div>
         <div class="work-arrow">Full story →</div>
       </a>
-      <a href="work.html#ensite" class="work-card anim" data-delay="0.2">
-        <div class="work-ghost">DA</div>
-        <div class="work-domain">U.S. Army Corps of Engineers · Defense</div>
-        <div class="work-title">ENSITE: "Zillow for base camps"</div>
-        <div class="work-sub">PM for a product that had never existed. Set global data standards, built commander's-intent-driven UX, deployed to Iraq, Afghanistan, and Poland.</div>
-        <div class="work-metric">DA Medal</div>
-        <div class="work-metric-label">Department of the Army Medal for Civilian Service</div>
+      <a href="cases/change-management.html" class="work-card anim" data-delay="0.2">
+        <div class="work-ghost">1:1</div>
+        <div class="work-domain">F&amp;T Labs · State Health Department · Change Management</div>
+        <div class="work-title">The technology wasn't the risk. The people were wary — and right to be</div>
+        <div class="work-sub">A state health department's data modernization was going to live or die on its people. I interviewed the data stewards themselves, then built the change plan around their values — empathy-led, not template-driven.</div>
+        <div class="work-metric">Theirs to run</div>
+        <div class="work-metric-label">A plan the department carries without us — capacity-building was the point</div>
         <div class="work-arrow">Full story →</div>
       </a>
-      <a href="work.html#peapod" class="work-card anim" data-delay="0.1">
-        <div class="work-ghost">10×</div>
-        <div class="work-domain">Peapod Digital Labs (ADUSA) · Supply Chain</div>
-        <div class="work-title">The demand model nobody had validated</div>
-        <div class="work-sub">Inherited a model driving multi-million dollar facility decisions. Nobody had ever stress-tested it.</div>
-        <div class="work-metric">8h → 30m</div>
-        <div class="work-metric-label">Dashboard reporting time cut</div>
+      <a href="cases/ai-stack.html" class="work-card anim" data-delay="0.1">
+        <div class="work-ghost">2p</div>
+        <div class="work-domain">F&amp;T Labs · AI Operations · Ongoing</div>
+        <div class="work-title">The AI stack I run my own company on</div>
+        <div class="work-sub">A transcript-driven video pipeline, a voice-memo research database, and a security audit for every integration before it's adopted. Not a project that ended — the way I work, every week.</div>
+        <div class="work-metric">2-person team</div>
+        <div class="work-metric-label">That ships video, content, and research like it has a studio behind it</div>
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="cases/north-chicago.html" class="work-card anim" data-delay="0.2">
@@ -697,12 +726,7 @@
           <div class="t-role">Colleague, U.S. Army Corps of Engineers / University of Illinois</div>
         </div>
         <div class="t-slide">
-          <div class="t-quote">"She was the rare student who was willing and able to step into a completely new assignment and totally own the work — with minimal input completing the analysis, software development, publications, and presentations."</div>
-          <div class="t-name">Dr. Jim Westervelt</div>
-          <div class="t-role">Creator of GRASS GIS · U.S. Army Corps of Engineers</div>
-        </div>
-        <div class="t-slide">
-          <div class="t-quote">"A few people in every work environment provide that combination of passion, positiveness, and genius that makes coming to work fun for others."</div>
+          <div class="t-quote">"She doesn't just build what you ask for. She figures out what you actually need, and they're often not the same thing."</div>
           <div class="t-name">Dr. Jim Westervelt</div>
           <div class="t-role">Creator of GRASS GIS · U.S. Army Corps of Engineers</div>
         </div>
@@ -711,32 +735,11 @@
           <div class="t-name">Anna Fuselier</div>
           <div class="t-role">Vice Chair, BEST Foundation</div>
         </div>
-        <div class="t-slide">
-          <div class="t-quote">"She doesn't just build what you ask for. She figures out what you actually need — and they're often not the same thing."</div>
-          <div class="t-name">Dr. Jim Westervelt</div>
-          <div class="t-role">Creator of GRASS GIS · U.S. Army Corps of Engineers</div>
-        </div>
       </div>
       <div class="t-dots" id="t-dots"></div>
       <a href="references.html" class="t-ref-link">See all references →</a>
     </div>
   </div>
-
-  <!-- Connect -->
-  <section class="connect-section">
-    <div class="anim">
-      <div class="section-tag">Get in touch</div>
-      <h2 class="section-h2">Juliana McMillan-Wilhoit</h2>
-      <p class="section-desc" style="margin:0 auto 2rem;text-align:center;">
-        Chief Product Officer &amp; Co-Founder, F&amp;T Labs · Northern Illinois.<br />
-        Always happy to talk research, AI, public health, or product.
-      </p>
-      <div>
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="cta-btn">Get in touch →</a>
-        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="cta-link">LinkedIn</a>
-      </div>
-    </div>
-  </section>
 
   <!-- Recognition -->
   <section class="recognition-section">
@@ -760,6 +763,22 @@
         <div class="rec-icon"><i class="ti ti-users"></i></div>
         <div class="rec-title">Community Builder</div>
         <div class="rec-sub">2,000-person geospatial audience · AI for Public Health CoP</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Connect -->
+  <section class="connect-section">
+    <div class="anim">
+      <div class="section-tag">Get in touch</div>
+      <h2 class="section-h2">Let's figure out what's actually broken</h2>
+      <p class="section-desc" style="margin:0 auto 2rem;text-align:center;">
+        Chief Product Officer &amp; Co-Founder, F&amp;T Labs · Northern Illinois.<br />
+        Always happy to talk research, AI, public health, or product.
+      </p>
+      <div>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="cta-btn">Get in touch →</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="cta-link">LinkedIn</a>
       </div>
     </div>
   </section>
@@ -822,6 +841,8 @@
       }, { threshold: 0.07 });
 
       document.querySelectorAll('.anim').forEach(el => {
+        // Hero is above the fold: paint it immediately, no fade-in flash.
+        if (el.closest('.hero-section')) return;
         el.classList.add('will-animate');
         observer.observe(el);
       });

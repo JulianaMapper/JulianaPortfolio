@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23376E5A'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='40'%20font-weight='700'%20fill='%23F7F5F0'%20text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Work — Juliana McMillan-Wilhoit</title>
   <meta name="description" content="Case studies from 15 years of product leadership across AI, geospatial, supply chain, and defense." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
   <style>
     /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +27,7 @@
       --color-border-light: #EDEAE6;
       --color-hover-accent: #2D5A49;
       --color-accent-tint:  rgba(55,110,90,0.08);
-      --font-display: 'Lora', Georgia, serif;
+      --font-display: 'Fraunces', Georgia, serif;
       --font-body:    'DM Sans', system-ui, sans-serif;
     }
 
@@ -309,6 +310,24 @@
 
     /* North Chicago — community / human warmth */
     .wimg-northchicago { background: #1C2826; }
+    .wimg-abstract-green { background: #24513B; }
+    .wimg-abstract-green::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 25% 30%, rgba(141,184,160,0.45) 0%, transparent 50%),
+        radial-gradient(ellipse at 75% 70%, rgba(212,160,122,0.25) 0%, transparent 45%),
+        radial-gradient(ellipse at 60% 20%, rgba(247,245,240,0.12) 0%, transparent 40%);
+    }
+    .wimg-abstract-dark { background: #1C2826; }
+    .wimg-abstract-dark::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 25%, rgba(55,110,90,0.5) 0%, transparent 50%),
+        radial-gradient(ellipse at 25% 75%, rgba(141,184,160,0.3) 0%, transparent 45%),
+        radial-gradient(ellipse at 45% 45%, rgba(212,160,122,0.15) 0%, transparent 40%);
+    }
     .wimg-northchicago::before {
       content: '';
       position: absolute; inset: 0;
@@ -732,8 +751,8 @@
           <img src="cases/img/alteryx-workflow.png" alt="Alteryx workflow — data pipeline for supply chain demand modeling" />
           <div class="wcard-img-overlay"></div>
           <div class="wcard-img-stat">
-            <div class="wcard-img-stat-num">8h &rarr; 30m</div>
-            <div class="wcard-img-stat-label">Dashboard reporting time</div>
+            <div class="wcard-img-stat-num">Multi&#8209;$M</div>
+            <div class="wcard-img-stat-label">Facility-network decisions, finally stress-tested</div>
           </div>
         </div>
         <div class="wcard-body">
@@ -743,6 +762,69 @@
             <span class="wcard-tag">Alteryx</span>
             <span class="wcard-tag">PCA</span>
             <span class="wcard-tag">Tableau</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Change management — state health department -->
+      <a href="cases/change-management.html" class="wcard anim" data-delay="0.25">
+        <div class="wcard-img wimg-abstract-green">
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">Theirs to run</div>
+            <div class="wcard-img-stat-label">A change plan the department carries without us</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">F&amp;T Labs &middot; State Health Dept &middot; Change Management</div>
+          <div class="wcard-title">The technology wasn&rsquo;t the risk. The people were wary &mdash; and right to be</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">Prosci</span>
+            <span class="wcard-tag">Stakeholder Research</span>
+            <span class="wcard-tag">Data Modernization</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- AI stack — ongoing internal practice -->
+      <a href="cases/ai-stack.html" class="wcard anim" data-delay="0.3">
+        <div class="wcard-img wimg-abstract-dark">
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">2-person</div>
+            <div class="wcard-img-stat-label">Company that ships like it has a studio</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">F&amp;T Labs &middot; AI Operations &middot; Ongoing</div>
+          <div class="wcard-title">The AI stack I run my own company on</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">Build vs. Buy</span>
+            <span class="wcard-tag">RAG</span>
+            <span class="wcard-tag">Security Review</span>
+          </div>
+          <span class="wcard-cta">Read case study <span>&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Growth engine — ongoing -->
+      <a href="cases/growth-engine.html" class="wcard anim" data-delay="0.35">
+        <div class="wcard-img wimg-abstract-green">
+          <div class="wcard-img-overlay"></div>
+          <div class="wcard-img-stat">
+            <div class="wcard-img-stat-num">$0 ads</div>
+            <div class="wcard-img-stat-label">Behind a 1,000+ organic mailing list</div>
+          </div>
+        </div>
+        <div class="wcard-body">
+          <div class="wcard-domain">F&amp;T Labs &middot; Growth &amp; Brand &middot; Ongoing</div>
+          <div class="wcard-title">No marketing budget. So I built the growth engine myself</div>
+          <div class="wcard-tags">
+            <span class="wcard-tag">Content Strategy</span>
+            <span class="wcard-tag">Community</span>
+            <span class="wcard-tag">SEO</span>
           </div>
           <span class="wcard-cta">Read case study <span>&rarr;</span></span>
         </div>

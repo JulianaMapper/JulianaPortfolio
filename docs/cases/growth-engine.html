@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sauk County Food Code Assistant — Juliana McMillan-Wilhoit</title>
+  <title>Growth With No Budget — Juliana McMillan-Wilhoit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet" />
@@ -92,11 +92,13 @@
     .tools-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .tool-pill { font-size: 0.75rem; font-weight: 600; color: #376E5A; background: rgba(55,110,90,0.08); padding: 0.3rem 0.85rem; border-radius: 100px; }
 
-    /* ── Screenshots ── */
-    .case-screenshots { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
-    .case-screenshot { }
+    /* ── Screenshot ── */
+    .case-screenshot { margin: 2.5rem 0; }
     .case-screenshot img { width: 100%; border-radius: 8px; border: 1px solid #E0DDD8; display: block; }
-    .case-screenshot-caption { font-size: 0.78rem; color: #8A9690; margin-top: 0.6rem; line-height: 1.55; }
+    .case-screenshot-caption { font-size: 0.78rem; color: #8A9690; margin-top: 0.6rem; line-height: 1.55; font-style: italic; }
+
+    /* ── Two-column screenshot layout ── */
+    .case-screenshots { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
     @media (max-width: 600px) { .case-screenshots { grid-template-columns: 1fr; } }
 
     /* ── Next project ── */
@@ -168,49 +170,43 @@
     </nav>
   </header>
 
-  <!-- Breadcrumb -->
   <div class="breadcrumb anim">
     <a href="../work.html"><i class="ti ti-arrow-left"></i> Back to Work</a>
   </div>
 
-  <!-- Hero -->
+    <!-- Hero -->
   <div class="hero">
     <div class="project-eyebrow anim" data-delay="0.1">
-      <span>01</span>
       <span class="project-eyebrow-divider"></span>
-      <span>F&amp;T Labs · Public Health Sauk County · 2023–2024</span>
+      <span>F&amp;T Labs &middot; Growth &amp; Brand &middot; Ongoing</span>
     </div>
-    <h1 class="hero-h1 anim" data-delay="0.2">50 interviews to find the real problem: not missing tools, missing policy.</h1>
-    <p class="hero-turn anim" data-delay="0.3">We went in to help Sauk County solve an AI problem. What we built for them became something bigger. But first: 50 interviews, a policy framework, and one very specific food code chatbot.</p>
+    <h1 class="hero-h1 anim" data-delay="0.2">No marketing budget. So I built the growth engine myself &mdash; and still run it.</h1>
+    <p class="hero-turn anim" data-delay="0.3">A bootstrapped company doesn&rsquo;t get a marketing department. It gets whoever is willing to learn. I taught myself the whole stack &mdash; web, SEO, long- and short-form content, email &mdash; and treated growth like any other product: listen to the audience, find the real problem, build the fix, measure, adjust.</p>
     <div class="context-strip anim" data-delay="0.4">
-      <span class="context-item"><i class="ti ti-building-hospital"></i> Public Health Sauk County, Wisconsin</span>
-      <span class="context-item"><i class="ti ti-map-pin"></i> Baraboo, WI</span>
-      <span class="context-tag">HIPAA</span>
-      <span class="context-tag">AWS Bedrock</span>
-      <span class="context-tag">RAG</span>
-      <span class="context-tag">Policy Design</span>
+      <span class="context-item"><i class="ti ti-building"></i> Flourish &amp; Thrive Labs</span>
+      <span class="context-tag">Content Strategy</span>
+      <span class="context-tag">Community Building</span>
+      <span class="context-tag">SEO</span>
+      <span class="context-tag">Email</span>
+      <span class="context-tag">Speaking</span>
     </div>
   </div>
 
   <!-- Metrics -->
   <div class="metrics-band">
-    <div class="metrics-eyebrow anim">Impact</div>
-    <div class="metrics-grid anim">
+    <div class="metrics-eyebrow anim">The shape of it</div>
+    <div class="metrics-grid anim" style="grid-template-columns:repeat(3,1fr);">
       <div class="metric-block">
-        <div class="metric-num">30m → 5m</div>
-        <div class="metric-label">Routine task time at Sauk County Health Dept</div>
+        <div class="metric-num">$0 ads</div>
+        <div class="metric-label">Behind a 1,000+ mailing list, built entirely organically</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">50+</div>
-        <div class="metric-label">Public health professionals interviewed before building</div>
+        <div class="metric-num">3&times;</div>
+        <div class="metric-label">National keynote invitations earned through the work itself</div>
       </div>
       <div class="metric-block">
-        <div class="metric-num">5+</div>
-        <div class="metric-label">LLMs tested before committing to AWS Bedrock</div>
-      </div>
-      <div class="metric-block">
-        <div class="metric-num">HIPAA</div>
-        <div class="metric-label">Compliant + Sunshine Law-ready from day one</div>
+        <div class="metric-num">2,000+</div>
+        <div class="metric-label">Geospatial community audience built and led</div>
       </div>
     </div>
   </div>
@@ -218,110 +214,80 @@
   <!-- Body -->
   <div class="case-body">
 
-    <!-- The Diagnosis -->
+    <!-- Listen -->
     <div class="case-section anim">
       <div class="case-section-label">Listen</div>
-      <p class="case-p">Sauk County Health Department came to us with an AI question. Before touching anything, I ran 50 interviews across local health departments to understand the actual landscape. What I found wasn't a tools problem.</p>
-      <p class="case-p">Staff were copying protected health information into free consumer chatbots. Directors trusted AI outputs for grant writing without understanding the limitations. Legal teams didn't know the exposure. <strong>The technology wasn't the problem. The policy vacuum was.</strong></p>
+      <h2 class="case-h2">Growth is a listening problem before it&rsquo;s a distribution problem.</h2>
+      <p class="case-p">The audience &mdash; public health practitioners, local government staff, the geospatial community &mdash; wasn&rsquo;t asking to be marketed to. They were asking real questions about AI, data, and their own overloaded workflows. So the content strategy became simple: answer the actual questions, in public, consistently, and let trust compound.</p>
     </div>
 
-    <!-- Pull quote 1 -->
-    <div class="pull-quote anim">
-      <div class="pull-quote-text">"The most valuable thing I built before writing a single line of code was a policy framework. Health departments couldn't safely use any AI tool without one."</div>
+    <!-- Ask Why -->
+    <div class="case-section anim">
+      <div class="case-section-label">Ask Why</div>
+      <h2 class="case-h2">Know, like, trust is a pipeline stage &mdash; treat it like one.</h2>
+      <p class="case-p">B2G sales cycles are long and trust-gated. Advertising can&rsquo;t shortcut that; a body of useful work can. The bet: if prospects arrive already trusting you &mdash; because they&rsquo;ve read your posts, attended your community of practice, or seen you keynote &mdash; the first sales conversation starts in the middle instead of at the beginning. That&rsquo;s exactly how it has played out.</p>
     </div>
 
-    <!-- What we built for Sauk County -->
+    <!-- Build -->
     <div class="case-section anim">
       <div class="case-section-label">Build</div>
-      <p class="case-p">Once the policy framework was in place, we built the tool: a HIPAA-compliant, RAG-based food code assistant for Sauk County's environmental health inspectors. Ask a question in plain language, get a citation from the actual food code in seconds — not 30 minutes of PDF hunting.</p>
-      <p class="case-p">I hand-coded the first prototype in HTML — not to ship it, but to get something real in front of users fast. Then iterated side-by-side with inspectors: tightening prompt phrasing, aligning tone with departmental style, and discovering that inspectors wanted to use it for drafting follow-up emails too.</p>
+      <h2 class="case-h2">The engine, part by part</h2>
       <div class="built-list">
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text"><strong>AI policy framework</strong> — built before the product, now a standalone training offering</div>
+          <div class="built-text"><strong>The self-taught stack</strong> &mdash; website, SEO, email, long-form writing, and short-form video, learned because no one else was going to do it</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text"><strong>HIPAA-compliant RAG architecture on AWS Bedrock</strong> — data stays within the county's own AWS environment</div>
+          <div class="built-text"><strong>An organic mailing list</strong> &mdash; 1,000+ subscribers at zero ad spend, grown through content, events, and giveaways that people actually wanted</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text"><strong>Food code chat interface</strong> — natural language questions, citations in seconds, full audit trail</div>
+          <div class="built-text"><strong>The AI for Public Health Community of Practice</strong> &mdash; a recurring, no-sales-pitch room where the field learns together; the most trusted channel we have</div>
         </div>
         <div class="built-item">
           <div class="built-dot"></div>
-          <div class="built-text"><strong>Sunshine Law compliance layer</strong> — every AI interaction logged, survives public records requests</div>
+          <div class="built-text"><strong>Content as a product with a feedback loop</strong> &mdash; formats tested, performance measured, strategy adjusted; the same experiment discipline as any product I&rsquo;ve run</div>
+        </div>
+        <div class="built-item">
+          <div class="built-dot"></div>
+          <div class="built-text"><strong>A personal brand that compounds</strong> &mdash; consistent public work turned into invited keynotes at national and state conferences, which turn into inbound trust</div>
         </div>
       </div>
     </div>
 
-    <!-- Model selection -->
-    <div class="case-section anim">
-      <div class="case-section-label">Ask Why</div>
-      <p class="case-p">I tested 5+ LLMs against real public health tasks — grant writing, policy summarization, data interpretation, response drafting — and scored outputs blind. <strong>AWS Bedrock won for one non-negotiable reason: HIPAA compliance.</strong> It keeps data within your AWS org and makes it possible to sign a BAA. The test results didn't matter if the data couldn't stay inside the customer's environment.</p>
-    </div>
-
-    <!-- Pull quote 2 -->
-    <div class="pull-quote anim">
-      <div class="pull-quote-text">"What we built for Sauk County became something bigger. But that only happened because we solved one real problem first — for one real client — and got it right."</div>
-    </div>
-
-    <!-- Product screenshots -->
-    <div class="case-screenshots anim">
-      <div class="case-screenshot">
-        <img src="img/sauk-county-home.png" alt="Sauk County Food Code Assistant — login screen" />
-        <p class="case-screenshot-caption">The Food Code Assistant, deployed for Sauk County Health Department</p>
-      </div>
-      <div class="case-screenshot">
-        <img src="img/sauk-county-chat.png" alt="Sauk County Food Code Assistant — Ask the Food Code chat interface" />
-        <p class="case-screenshot-caption">The chat interface: inspectors ask questions, get answers grounded in the actual food code</p>
-      </div>
-    </div>
-
-    <!-- What changed -->
+    <!-- Impact -->
     <div class="outcome-section anim">
       <div class="outcome-label">Impact</div>
-      <div class="outcome-h2">"It's like having a really smart colleague who has read every policy we've ever written and never forgets anything."</div>
-      <p class="outcome-p" style="font-size:0.78rem; color: #8DB8A0; margin-bottom: 1.5rem;">— Sauk County Health Department</p>
-      <p class="outcome-p">Routine tasks that took 30 minutes now take 5. 83% of inspectors reported reduced workload. 67% rated the tool as very or somewhat effective in early testing.</p>
-      <p class="outcome-p">That's not "AI made things faster" — that's inspectors getting hours back per week to do the work that actually requires a human. And it only happened because we solved the policy problem first.</p>
-      <p class="outcome-p" style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(247,245,240,0.12); font-style: italic;">What we built for Sauk County became the foundation for PH360 — F&amp;T Labs' platform for AI in local public health. One client, one real problem, solved right. Then productized.</p>
+      <div class="outcome-h2">Prospects arrive already trusting us. That&rsquo;s the whole point.</div>
+      <p class="outcome-p">The engine runs every week: content ships, the list grows, the community meets, and the speaking invitations keep coming &mdash; three national keynotes earned, not bought. For a two-person company selling into government, that trust is the growth strategy.</p>
+      <p class="outcome-p">And it&rsquo;s transferable. The playbook &mdash; answer real questions in public, build the room where your field learns, treat content like a product &mdash; works in any domain where trust gates the sale.</p>
     </div>
 
     <!-- Tools -->
     <div class="tools-section anim">
-      <div class="tools-label">Tools &amp; Stack</div>
+      <div class="tools-label">Stack &amp; Practices</div>
       <div class="tools-pills">
-        <span class="tool-pill">AWS Bedrock</span>
-        <span class="tool-pill">HIPAA Compliance</span>
-        <span class="tool-pill">RAG / Knowledge Base</span>
-        <span class="tool-pill">Multi-LLM Testing</span>
-        <span class="tool-pill">SAFe</span>
-        <span class="tool-pill">Sunshine Law</span>
-        <span class="tool-pill">Python</span>
-        <span class="tool-pill">Embeddings</span>
+        <span class="tool-pill">Content Strategy</span>
+        <span class="tool-pill">SEO</span>
+        <span class="tool-pill">Email Marketing</span>
+        <span class="tool-pill">Community of Practice</span>
+        <span class="tool-pill">Short-form Video</span>
+        <span class="tool-pill">Analytics</span>
+        <span class="tool-pill">Public Speaking</span>
       </div>
     </div>
-    <!-- The trust arc -->
-    <div class="case-section anim">
-      <div class="case-section-label">How the engagement grew</div>
-      <h2 class="case-h2">A strategic plan became a proving ground &mdash; and a shared stage.</h2>
-      <p class="case-p">Sauk County didn&rsquo;t start as an AI engagement. It started as a strategic plan: I led their full planning process &mdash; every focus group, the retreat, the plan itself. Doing that work well earned the next conversation. Process mapping followed. Then a data storytelling workshop. Then their first AI tool &mdash; the food code assistant on this page.</p>
-      <p class="case-p"><strong>Small engagements become big ones when you keep solving the real problem in front of you.</strong> By 2024, we were sharing a plenary stage with the department whose strategic plan was the whole original scope. That trust arc &mdash; not any single deliverable &mdash; is what turned one county&rsquo;s question into PH360.</p>
-    </div>
-
 
     <!-- Next project -->
     <div class="next-project anim">
       <div>
         <div class="next-label">Next project</div>
-        <div class="next-title">The military didn't need a better database. It needed data standards that worked globally.</div>
+        <div class="next-title">The AI stack I run my own company on</div>
       </div>
-      <a href="ensite.html" class="next-link">ENSITE <i class="ti ti-arrow-right"></i></a>
+      <a href="ai-stack.html" class="next-link">AI Operations <i class="ti ti-arrow-right"></i></a>
     </div>
 
   </div>
-
   <footer class="site-footer">
     <div class="footer-inner">
       <div>
@@ -341,8 +307,8 @@
       </div>
       <div>
         <div class="footer-nav-label">Get in touch</div>
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
-        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn → julianamapper</a>
+        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch &rarr;</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener" class="footer-contact-link">LinkedIn &rarr; julianamapper</a>
       </div>
     </div>
     <div class="footer-tagline-row">
