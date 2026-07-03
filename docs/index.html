@@ -268,7 +268,7 @@
       font-family: 'DM Sans', system-ui, sans-serif;
       font-weight: 400;
       line-height: 1.4;
-      margin-top: 0.25rem;
+      margin: 0.25rem auto 0;
       max-width: 160px;
     }
     .rec-desc {
@@ -499,6 +499,38 @@
     }
 
 
+    /* ── Work card image headers ── */
+    .work-card-img {
+      margin: -1.75rem -1.75rem 1.25rem;
+      height: 180px; position: relative; overflow: hidden;
+      border-bottom: 1px solid #E0DDD8;
+      background: #1C2826;
+    }
+    .work-card-img img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      display: block;
+    }
+    .work-card-img-grad-green, .work-card-img-grad-dark { position: absolute; inset: 0; }
+    .work-card-img-grad-green {
+      background:
+        radial-gradient(ellipse at 25% 30%, rgba(141,184,160,0.45) 0%, transparent 50%),
+        radial-gradient(ellipse at 75% 70%, rgba(212,160,122,0.25) 0%, transparent 45%),
+        #24513B;
+    }
+    .work-card-img-grad-dark {
+      background:
+        radial-gradient(ellipse at 70% 25%, rgba(55,110,90,0.5) 0%, transparent 50%),
+        radial-gradient(ellipse at 25% 75%, rgba(141,184,160,0.3) 0%, transparent 45%),
+        #1C2826;
+    }
+    .work-card-img-word {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', Georgia, serif; font-style: italic;
+      font-size: 1.35rem; color: rgba(247,245,240,0.9);
+      padding: 0 1.5rem; text-align: center; line-height: 1.4;
+    }
+
     /* ── Work cards with ghost metric ── */
     .work-card { position: relative; overflow: hidden; }
     .work-ghost {
@@ -675,6 +707,7 @@
     </div>
     <div class="work-grid">
       <a href="work.html#ph360" class="work-card anim" data-delay="0.1">
+        <div class="work-card-img"><img src="cases/img/sauk-county-chat.png" alt="PH360 food code assistant — chat interface answering an inspector's question with a citation" loading="lazy" /></div>
         <div class="work-ghost">5m</div>
         <div class="work-domain">F&amp;T Labs · Public Health AI</div>
         <div class="work-title">PH360™: Built for the people running local public health</div>
@@ -684,6 +717,7 @@
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="cases/change-management.html" class="work-card anim" data-delay="0.2">
+        <div class="work-card-img"><div class="work-card-img-grad-green"></div><div class="work-card-img-word">"A plan its own people recognized themselves in."</div></div>
         <div class="work-ghost">1:1</div>
         <div class="work-domain">F&amp;T Labs · State Health Department · Change Management</div>
         <div class="work-title">The technology wasn't the risk. The people were wary — and right to be</div>
@@ -693,6 +727,7 @@
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="cases/ai-stack.html" class="work-card anim" data-delay="0.1">
+        <div class="work-card-img"><div class="work-card-img-grad-dark"></div><div class="work-card-img-word">"If the workflow is deterministic, build it."</div></div>
         <div class="work-ghost">2p</div>
         <div class="work-domain">F&amp;T Labs · AI Operations · Ongoing</div>
         <div class="work-title">The AI stack I run my own company on</div>
@@ -702,6 +737,7 @@
         <div class="work-arrow">Full story →</div>
       </a>
       <a href="cases/north-chicago.html" class="work-card anim" data-delay="0.2">
+        <div class="work-card-img"><img src="cases/img/north-chicago-community.jpg" alt="Land-use map of North Chicago, Illinois — the study area for the community-based research" loading="lazy" /></div>
         <div class="work-ghost">180+</div>
         <div class="work-domain">F&amp;T Labs · Community-Based Research</div>
         <div class="work-title">CBPR in North Chicago: 25 interviews, 180+ surveys, 6 weeks</div>
@@ -745,6 +781,16 @@
   <section class="recognition-section">
     <div class="recognition-inner anim">
       <div class="rec-item">
+        <div class="rec-icon"><i class="ti ti-microphone"></i></div>
+        <div class="rec-title">3× National Keynote</div>
+        <div class="rec-sub">MCH Conference 2026 · WV GeoCon 2024 · KS Mappers 2023</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-icon"><i class="ti ti-users"></i></div>
+        <div class="rec-title">Community Builder</div>
+        <div class="rec-sub">AI for Public Health CoP · 2,000-person geospatial audience</div>
+      </div>
+      <div class="rec-item">
         <div class="rec-icon"><i class="ti ti-world"></i></div>
         <div class="rec-title">Fulbright Scholar</div>
         <div class="rec-sub">Bulgaria · built a speech tournament that grew from 6 schools to 35+</div>
@@ -753,16 +799,6 @@
         <div class="rec-icon"><i class="ti ti-star"></i></div>
         <div class="rec-title">Geospatial Rising Star</div>
         <div class="rec-sub">Awarded for ENSITE and geospatial community leadership</div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-icon"><i class="ti ti-microphone"></i></div>
-        <div class="rec-title">3× National Keynote</div>
-        <div class="rec-sub">MCH Conference 2026 · WV GeoCon 2024 · KS Mappers 2023</div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-icon"><i class="ti ti-users"></i></div>
-        <div class="rec-title">Community Builder</div>
-        <div class="rec-sub">2,000-person geospatial audience · AI for Public Health CoP</div>
       </div>
     </div>
   </section>
