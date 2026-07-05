@@ -5,7 +5,18 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23376E5A'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='40'%20font-weight='700'%20fill='%23F7F5F0'%20text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Juliana McMillan-Wilhoit</title>
-  <meta name="description" content="15 years. Five domains. One approach. The career arc of Juliana McMillan-Wilhoit — product leader, Fulbright Scholar, tools builder, keynote speaker." />
+  <meta name="description" content="A social scientist who also gets the technology. Juliana McMillan-Wilhoit trained in the liberal arts to understand people first — then learned to build. 15 years across geospatial, supply chain, and public health." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://julianamapper.com/about.html" />
+  <meta property="og:title" content="About — Juliana McMillan-Wilhoit" />
+  <meta property="og:description" content="A social scientist who also gets the technology. Trained in the liberal arts to understand people first — then to build. 15 years across geospatial, supply chain, and public health." />
+  <meta property="og:image" content="https://julianamapper.com/assets/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="About — Juliana McMillan-Wilhoit" />
+  <meta name="twitter:description" content="A social scientist who also gets the technology. Understands people first, then builds the tools." />
+  <meta name="twitter:image" content="https://julianamapper.com/assets/og-card.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet" />
@@ -51,6 +62,10 @@
     }
     .nav-link:hover { color: #F7F5F0; }
     .nav-link.active { color: #F7F5F0; border-bottom: 1px solid rgba(247,245,240,0.5); padding-bottom: 1px; }
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      color: #F7F5F0; font-size: 1.5rem; padding: 0.25rem; line-height: 1;
+    }
 
     /* Page header */
     .page-header {
@@ -223,8 +238,16 @@
 
     @media (max-width: 720px) {
       .header-band { padding: 0 1.25rem; }
-      .nav-links { gap: 1.25rem; }
-      .nav-link { font-size: 0.7rem; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: fixed; top: 58px; left: 0; right: 0;
+        background: #1C2826; flex-direction: column; align-items: flex-start;
+        gap: 0; padding: 0.5rem 1.25rem 1.25rem;
+        border-bottom: 1px solid rgba(254,254,254,0.15);
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { font-size: 0.85rem; padding: 0.7rem 0; width: 100%; }
       .page-header { padding: 6rem 1.5rem 3rem; }
       .content-section { padding: 3.5rem 1.5rem; }
       .content-section.alt { padding: 3.5rem 1.5rem; }
@@ -275,13 +298,14 @@
     <div style="display:flex;align-items:baseline;">
       <a href="index.html" class="header-name">Juliana McMillan-Wilhoit</a>
     </div>
-    <nav class="nav-links" aria-label="Main navigation">
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav" onclick="const n=document.getElementById('main-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);">&#9776;</button>
+    <nav class="nav-links" id="main-nav" aria-label="Main navigation">
       <a href="index.html" class="nav-link">Home</a>
       <a href="work.html" class="nav-link">Work</a>
       <a href="thinking.html" class="nav-link">How I Think</a>
       <a href="about.html" class="nav-link active">About</a>
       <a href="tools.html" class="nav-link">Tools</a>
-      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
+      <a href="mailto:juliana@fandtlabs.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
       <a href="Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link" style="color:rgba(254,254,254,0.9);background:rgba(254,254,254,0.1);padding:0.3rem 0.75rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.35rem;"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
     </nav>
   </header>
@@ -291,7 +315,7 @@
     <div class="page-header-inner">
       <div class="section-tag anim">About</div>
       <h1 class="page-h1 anim" data-delay="0.1">15 years. Five domains.<br />One approach.</h1>
-      <p class="page-desc anim" data-delay="0.2">The career arc isn't random. Every stop was another room with a problem nobody had fully solved. I went in, listened, and built the fix.</p>
+      <p class="page-desc anim" data-delay="0.2">I'm a product of the liberal arts — trained as a social scientist first, then I learned to build. The career arc isn't random: every stop was another room where people had a problem they couldn't fully name yet. I went in, listened, and built the fix.</p>
     </div>
   </div>
 
@@ -300,9 +324,9 @@
     <div class="two-col">
       <div>
         <div class="section-label anim">Who I am</div>
-        <h2 class="section-h2 anim" data-delay="0.1">I go toward the hard rooms.</h2>
+        <h2 class="section-h2 anim" data-delay="0.1">A social scientist who also gets the technology.</h2>
         <p class="body-p anim" data-delay="0.2">
-          I'm a product leader with deep roots in geospatial analytics, supply chain, and public health. I've spent 15 years in rooms where people had problems they couldn't fully articulate yet — and I've learned that the right tool for the problem is rarely the first one anyone suggests.
+          I trained in the liberal arts — political science and interdisciplinary studies — to understand people first, and then I taught myself to build. That order matters. For 15 years I've gone into rooms where people had a problem they couldn't fully articulate yet, in geospatial analytics, supply chain, and public health — and I've learned that the right tool is rarely the first one anyone suggests.
         </p>
         <p class="body-p anim" data-delay="0.2">
           <strong>My superpower isn't technology</strong> — it's the combination of genuine curiosity, deep listening, and the ability to translate what I hear into something that actually gets built. I ask better questions than most. I stay until I understand what's actually broken. Then I build the fix.
@@ -343,6 +367,13 @@
       <div class="timeline anim" data-delay="0.2">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
+          <div class="timeline-date">Through 2011</div>
+          <div class="timeline-org">Wheaton College — Illinois</div>
+          <div class="timeline-role">BA, Political Science &amp; Interdisciplinary Studies — Summa Cum Laude</div>
+          <div class="timeline-p">Where the social scientist was trained. I studied how people and institutions actually behave — the questions that come before any tool. I graduated at the top of my class and carried one instinct into every role since: understand the people before you build anything for them.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
           <div class="timeline-date">2011 – 2012</div>
           <div class="timeline-org">Esri — Redlands, CA</div>
           <div class="timeline-role">Desktop Support Analyst</div>
@@ -374,14 +405,14 @@
           <div class="timeline-date">2020 – 2023</div>
           <div class="timeline-org">Peapod Digital Labs (ADUSA Supply Chain Services)</div>
           <div class="timeline-role">Product Manager / Senior Network Strategy Analyst</div>
-          <div class="timeline-p">PM for the demand model driving multi-million dollar e-commerce facility decisions. Ran the first validation the model had ever received. Built a systematic dashboard process that cut reporting time from 8 hours to 30 minutes. Ran this concurrently with Tabulae Spatial consulting work.</div>
+          <div class="timeline-p">PM for the demand model driving multi-million dollar e-commerce facility decisions. Ran the first validation the model had ever received. Built a systematic, repeatable dashboard process that replaced a slow manual reporting cycle. Ran this concurrently with Tabulae Spatial consulting work.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-date">2020 – Present</div>
           <div class="timeline-org">Flourish &amp; Thrive Labs (formerly Tabulae Spatial)</div>
           <div class="timeline-role">Chief Product Officer &amp; Co-Founder</div>
-          <div class="timeline-p">Built PH360 — a HIPAA-compliant, Sunshine Law-ready AI platform for local public health departments on AWS Bedrock. Interviewed 50+ public health professionals before writing a line of code. Achieved 83% workload reduction for Sauk County. WBE and SBA 8(a) certified. Also developed the MAP framework for AI adoption and lead trainings on it in our AI Community of Practice and at AOHC. Three-time national keynote speaker on AI in public health.</div>
+          <div class="timeline-p">Built PH360&trade; — a HIPAA-compliant, Sunshine Law-ready AI platform for local public health departments on AWS Bedrock. Interviewed 50+ public health professionals before writing a line of code. Achieved 83% workload reduction for Sauk County. WBE and SBA 8(a) certified. Also developed the MAP framework for AI adoption and lead trainings on it in our AI Community of Practice and at AOHC. Three-time national keynote speaker on AI in public health.</div>
         </div>
       </div>
     </div>
@@ -483,7 +514,7 @@
       </div>
     </div>
     <div class="anim" data-delay="0.4" style="margin-top:2rem;">
-      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com?subject=Speaking%20Inquiry" class="btn-speaking">Invite me to speak →</a>
+      <a href="mailto:juliana@fandtlabs.com?subject=Speaking%20Inquiry" class="btn-speaking">Invite me to speak →</a>
     </div>
   </section>
 
@@ -495,7 +526,7 @@
           <div class="section-label anim">How I work</div>
           <h2 class="section-h2 anim" data-delay="0.1">The instincts behind the approach</h2>
           <p class="body-p anim" data-delay="0.2">I'm a verbal processor — I think out loud, I use voice memos constantly, I work through problems in conversation. My best insights come from talking through a problem with a real person, not staring at a document.</p>
-          <p class="body-p anim" data-delay="0.2">I'm diagnosed with ADHD and dyslexia. I didn't read at grade level until fourth grade. My career has been defined by having big ideas and thinking well — and having to work very hard to build the systems that help me execute on them. That's made me excellent at building systems. For myself, and for the organizations I work with.</p>
+          <p class="body-p anim" data-delay="0.2">I learned early how to work around obstacles. I have ADHD and dyslexia. I didn't read at grade level until fourth grade, and my whole career has run on the same engine: big ideas and sharp thinking, paired with the systems I've had to build to execute on them. That discipline isn't something I apply only to myself; it's exactly what I bring to the organizations I work with. It's also why I go toward the people first. I know what it's like to be the person the standard process wasn't designed for, so I build for the ones everyone else overlooks.</p>
           <p class="body-p anim" data-delay="0.3">I categorize tasks by focus level. I built an automation for my family's library holds because I couldn't tolerate a broken process at home any more than at work. I apply the same problem-solving instinct to my own kitchen table that I bring to enterprise-scale work. The scale changes. The instinct doesn't.</p>
         </div>
         <div>
@@ -542,7 +573,7 @@
     <div class="cta-strip-inner anim">
       <h2 class="cta-h">Let's talk</h2>
       <p class="cta-p">I'm looking for a full-time product leadership role where I can commit to one team for the long haul.<br />Based in Northern Illinois, open to remote.</p>
-      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="btn-primary">Email me →</a>
+      <a href="mailto:juliana@fandtlabs.com" class="btn-primary">Email me →</a>
       <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="btn-ghost-light">LinkedIn</a>
       <a href="work.html" class="btn-ghost-light">See the work</a>
     </div>
@@ -562,11 +593,12 @@
           <a href="thinking.html" class="footer-nav-link">How I Think</a>
           <a href="about.html" class="footer-nav-link">About</a>
           <a href="references.html" class="footer-nav-link">References</a>
+          <a href="tools.html" class="footer-nav-link">Tools</a>
         </div>
       </div>
       <div>
         <div class="footer-nav-label">Get in touch</div>
-        <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="footer-contact-link">Get in touch →</a>
+        <a href="mailto:juliana@fandtlabs.com" class="footer-contact-link">Get in touch →</a>
         <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn → julianamapper</a>
       </div>
     </div>

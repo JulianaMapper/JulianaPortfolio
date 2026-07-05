@@ -20,6 +20,7 @@
     .nav-link { color: rgba(247,245,240,0.65); text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
     .nav-link:hover { color: #F7F5F0; }
     .nav-link-btn { color: rgba(247,245,240,0.9) !important; border: 1px solid rgba(247,245,240,0.3); padding: 0.3rem 0.75rem; border-radius: 6px; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; color: #F7F5F0; font-size: 1.5rem; padding: 0.25rem; line-height: 1; }
 
     /* ── Breadcrumb ── */
     .breadcrumb { max-width: 860px; margin: 0 auto; padding: 5rem 2.5rem 0; }
@@ -95,8 +96,10 @@
 
     @media (max-width: 720px) {
       .header-band { padding: 0 1.25rem; }
-      .nav-links { gap: 1rem; }
-      .nav-link { font-size: 0.7rem; }
+      .nav-toggle { display: block; }
+      .nav-links { display: none; position: fixed; top: 58px; left: 0; right: 0; background: #1C2826; flex-direction: column; align-items: flex-start; gap: 0; padding: 0.5rem 1.25rem 1.25rem; border-bottom: 1px solid rgba(254,254,254,0.15); }
+      .nav-links.open { display: flex; }
+      .nav-link { font-size: 0.85rem; padding: 0.7rem 0; width: 100%; }
       .hero, .body, .breadcrumb { padding-left: 1.25rem; padding-right: 1.25rem; }
       .features { grid-template-columns: 1fr; }
       .cta-block { padding: 1.75rem; }
@@ -107,13 +110,14 @@
 
   <header class="header-band">
     <a href="../index.html" class="header-name">Juliana McMillan-Wilhoit</a>
-    <nav class="nav-links">
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav" onclick="const n=document.getElementById('main-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);">&#9776;</button>
+    <nav class="nav-links" id="main-nav" aria-label="Main navigation">
       <a href="../index.html" class="nav-link">Home</a>
       <a href="../work.html" class="nav-link">Work</a>
       <a href="../thinking.html" class="nav-link">How I Think</a>
       <a href="../about.html" class="nav-link">About</a>
       <a href="../tools.html" class="nav-link">Tools</a>
-      <a href="mailto:JulianaMcMillanWilhoit@Gmail.com" class="nav-link nav-link-btn">Contact</a>
+      <a href="mailto:juliana@fandtlabs.com" class="nav-link nav-link-btn">Contact</a>
     </nav>
   </header>
 
