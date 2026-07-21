@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Text Reformatter — Still Water</title>
+  <title>AI Text Reformatter | Still Water</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -612,7 +612,7 @@
     <div class="header">
       <div class="tool-badge"><i class="ti ti-sparkles"></i> Personal Tool</div>
       <h1>AI Text Reformatter</h1>
-      <p class="subtitle">Paste AI-generated markdown and get clean, Word-ready HTML in seconds. Handles headers, tables, lists, and bold formatting — no manual cleanup required.</p>
+      <p class="subtitle">Paste AI-generated markdown and get clean, Word-ready HTML in seconds. Handles headers, tables, lists, and bold formatting: no manual cleanup required.</p>
     </div>
 
     <div class="main-content">
@@ -663,7 +663,7 @@
       <div class="footer-grid">
         <div>
           <div class="footer-section-title">What this does</div>
-          <p class="footer-text">Converts markdown (as returned by ChatGPT, Claude, Gemini, etc.) into styled HTML that pastes cleanly into Microsoft Word. Headings map to Word's built-in heading styles. Tables retain alternating row colors. No formatting lost in translation.</p>
+          <p class="footer-text">Converts markdown (as returned by AI assistants) into styled HTML that pastes cleanly into Microsoft Word. Headings map to Word's built-in heading styles. Tables retain alternating row colors. No formatting lost in translation.</p>
         </div>
         <div>
           <div class="footer-section-title">Privacy</div>
@@ -678,12 +678,12 @@
         </div>
         <div class="dev-notes-content" id="dev-notes-content">
           <h4>Preview vs. Word output</h4>
-          <p>The preview uses Still Water colors. When you paste into Word, content adopts your document's Heading 1–6 styles. Table inline styles (row colors) carry over regardless of Word theme.</p>
+          <p>The preview uses Still Water colors. When you paste into Word, content adopts your document's Heading 1-6 styles. Table inline styles (row colors) carry over regardless of Word theme.</p>
 
           <h4>Format vs. Smart Cleanup</h4>
           <ul>
-            <li><strong>Format</strong> — minimal processing: bullet normalization, line break cleanup, markdown parse. Preserves your text structure.</li>
-            <li><strong>Smart Cleanup</strong> — aggressive: removes LLM preamble phrases, converts all-caps headers, detects table formats (pipe, TSV, space-aligned), normalizes typography.</li>
+            <li><strong>Format</strong>: minimal processing (bullet normalization, line break cleanup, markdown parse). Preserves your text structure.</li>
+            <li><strong>Smart Cleanup</strong>: aggressive processing that removes LLM preamble phrases, converts all-caps headers, detects table formats (pipe, TSV, space-aligned), and normalizes typography.</li>
           </ul>
 
           <h4>Technical stack</h4>
@@ -949,7 +949,7 @@ ${cleanHtml}
         const textBlob = new Blob([textContent], { type: 'text/plain' });
 
         navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
-          .then(() => showStatus('Copied! Paste into Word — headings and formatting should transfer correctly.', 'success', 5000))
+          .then(() => showStatus('Copied! Paste into Word, headings and formatting should transfer correctly.', 'success', 5000))
           .catch(() => fallbackCopy());
       } catch (error) {
         fallbackCopy();
@@ -966,10 +966,10 @@ ${cleanHtml}
         if (document.execCommand('copy')) {
           showStatus('Copied to clipboard.', 'success');
         } else {
-          showStatus('Copy failed — please select and copy manually.', 'error');
+          showStatus('Copy failed: please select and copy manually.', 'error');
         }
       } catch (err) {
-        showStatus('Copy failed — please select and copy manually.', 'error');
+        showStatus('Copy failed: please select and copy manually.', 'error');
       }
       selection.removeAllRanges();
     }

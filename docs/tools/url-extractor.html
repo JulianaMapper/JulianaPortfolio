@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL Extractor — Still Water</title>
+  <title>URL Extractor | Still Water</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
@@ -484,17 +484,17 @@
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <div class="step-text"><strong>Select and copy</strong> any webpage, email, or document — anything with links in it.</div>
+        <div class="step-text"><strong>Select and copy</strong> any webpage, email, or document (anything with links in it).</div>
       </div>
       <div class="step-divider"></div>
       <div class="step">
         <div class="step-num">2</div>
-        <div class="step-text"><strong>Paste below</strong> using Ctrl+V / ⌘+V — the tool captures the hidden HTML clipboard content.</div>
+        <div class="step-text"><strong>Paste below</strong> using Ctrl+V / ⌘+V, the tool captures the hidden HTML clipboard content.</div>
       </div>
       <div class="step-divider"></div>
       <div class="step">
         <div class="step-num">3</div>
-        <div class="step-text"><strong>Extract &amp; filter</strong> — copy individual URLs or all at once as plain text.</div>
+        <div class="step-text"><strong>Extract &amp; filter</strong>: copy individual URLs or all at once as plain text.</div>
       </div>
     </div>
 
@@ -503,7 +503,7 @@
       id="paste-target"
       class="paste-zone"
       contenteditable="true"
-      data-placeholder="Paste anything here — webpage, email, document, AI output…"
+      data-placeholder="Paste anything here: webpage, email, document, AI output…"
       style="min-height: 100px;"
     ></div>
 
@@ -583,7 +583,7 @@
       const text = pasteTarget.textContent || pasteTarget.innerText || '';
 
       if (!html.trim() && !text.trim()) {
-        showStatus('Nothing to extract — paste some content first.', 'error');
+        showStatus('Nothing to extract: paste some content first.', 'error');
         return;
       }
 

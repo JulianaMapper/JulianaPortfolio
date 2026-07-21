@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Build a Professional Portfolio Using AI · Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="The exact process I used to build this portfolio with Claude Code and GitHub Pages: build a content database, develop a brand, define your story, and ship a live site you own. Prompts included." />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://julianamapper.com/portfolio-prompt" />
+  <meta property="og:title" content="How to Build a Professional Portfolio Using AI" />
+  <meta property="og:description" content="The exact process I used to build this portfolio with Claude Code and GitHub Pages. Prompts included. Take what's useful, adapt what isn't, and make it your own." />
+  <meta property="og:image" content="https://julianamapper.com/assets/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Build a Professional Portfolio Using AI" />
+  <meta name="twitter:description" content="The exact process I used to build this portfolio with Claude Code and GitHub Pages. Prompts included." />
+  <meta name="twitter:image" content="https://julianamapper.com/assets/og-card.jpg" />
+
+  <!-- Favicon: forest-green "J" -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23376E5A'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='40'%20font-weight='700'%20fill='%23F7F5F0'%20text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: #1C2826;
+      background: #F7F5F0;
+      min-height: 100vh;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* ── Header (shared site shell) ── */
+    .header-band {
+      background: #1C2826;
+      padding: 0 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 58px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    }
+    .header-name {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700; font-size: 1.125rem;
+      color: #F7F5F0; letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link {
+      color: rgba(254,254,254,0.65); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover { color: #FEFEFE; }
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      color: #F7F5F0; font-size: 1.5rem; padding: 0.25rem; line-height: 1;
+    }
+
+    /* ── Article ── */
+    .article-hero {
+      padding: 9rem 2.5rem 3rem;
+      max-width: 1040px; margin: 0 auto;
+    }
+    .article-eyebrow {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #376E5A; margin-bottom: 1.1rem;
+    }
+    .article-h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600; font-size: clamp(2.1rem, 5.5vw, 3.6rem);
+      line-height: 1.06; letter-spacing: -0.015em; color: #1C2826;
+      margin-bottom: 1.4rem; max-width: 15ch;
+    }
+    .article-lede {
+      font-size: 1.2rem; line-height: 1.6; color: #4A5A54;
+      font-weight: 300; max-width: 40em;
+    }
+    .article-byline {
+      margin-top: 1.6rem; font-size: 0.85rem; color: #8A9690;
+      letter-spacing: 0.02em;
+    }
+
+    .article-wrap {
+      max-width: 720px; margin: 0 auto;
+      padding: 1rem 1.5rem 5rem;
+    }
+    .article-wrap h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600; font-size: 1.85rem; line-height: 1.2;
+      letter-spacing: -0.01em; color: #1C2826;
+      margin: 3.2rem 0 1.1rem;
+      padding-top: 1.6rem; border-top: 1px solid #E0DDD8;
+      scroll-margin-top: 80px;
+    }
+    .article-wrap h2:first-of-type { border-top: none; padding-top: 0; }
+    .article-wrap h3 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600; font-size: 1.28rem; line-height: 1.3;
+      color: #2D5A49; margin: 2.2rem 0 0.75rem;
+      scroll-margin-top: 80px;
+    }
+    .article-wrap p { margin: 0 0 1.15rem; color: #34433E; }
+    .article-wrap ul { margin: 0 0 1.3rem; padding-left: 1.3rem; }
+    .article-wrap li { margin-bottom: 0.55rem; color: #34433E; }
+    .article-wrap ul ul { margin: 0.5rem 0 0.5rem; }
+    .article-wrap strong { color: #1C2826; font-weight: 600; }
+    .article-wrap a {
+      color: #376E5A; text-decoration: none;
+      border-bottom: 1px solid rgba(55,110,90,0.35);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .article-wrap a:hover { color: #2D5A49; border-color: #2D5A49; }
+
+    /* Prompt callout — the payload of the guide */
+    .prompt {
+      background: #FEFEFE; border: 1px solid #E0DDD8;
+      border-left: 3px solid #376E5A; border-radius: 8px;
+      padding: 1.25rem 1.4rem; margin: 1.4rem 0 1.6rem;
+      box-shadow: 0 1px 2px rgba(28,40,38,0.04);
+    }
+    .prompt-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #376E5A;
+      display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.65rem;
+    }
+    .prompt-copy {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 0.3rem;
+      background: none; border: 1px solid rgba(55,110,90,0.3); color: #376E5A;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.28rem 0.6rem; border-radius: 5px; cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .prompt-copy:hover { background: #376E5A; color: #FEFEFE; }
+    .prompt p {
+      font-family: 'Fraunces', Georgia, serif; font-style: italic;
+      font-size: 1.02rem; line-height: 1.6; color: #2b3a35;
+      margin: 0 0 0.7rem;
+    }
+    .prompt p:last-child { margin-bottom: 0; }
+
+    /* Code blocks */
+    pre {
+      background: #1C2826; color: #E7ECE8; border-radius: 8px;
+      padding: 1rem 1.15rem; margin: 1rem 0 1.5rem;
+      overflow-x: auto; font-size: 0.86rem; line-height: 1.55;
+      font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    }
+    code {
+      font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+      font-size: 0.86em; background: #ECE9E2; color: #2D5A49;
+      padding: 0.1rem 0.35rem; border-radius: 4px;
+    }
+    pre code { background: none; color: inherit; padding: 0; font-size: 1em; }
+
+    /* "A tool I built" spotlight */
+    .toolbox {
+      background: rgba(55,110,90,0.06);
+      border: 1px solid rgba(55,110,90,0.22); border-radius: 10px;
+      padding: 1.4rem 1.5rem; margin: 1.8rem 0;
+    }
+    .toolbox-head {
+      display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem;
+    }
+    .toolbox-head i { color: #376E5A; font-size: 1.3rem; }
+    .toolbox-title {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 600;
+      font-size: 1.1rem; color: #1C2826;
+    }
+    .toolbox-tag {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #fff; background: #376E5A;
+      padding: 0.18rem 0.5rem; border-radius: 100px; margin-left: auto;
+    }
+    .toolbox p { margin-bottom: 0.7rem; color: #34433E; }
+    .toolbox p:last-child { margin-bottom: 0; }
+    .toolbox-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* Disclaimer / note blocks */
+    .note {
+      background: #EFEDE7; border-radius: 8px;
+      padding: 1rem 1.25rem; margin: 1.4rem 0;
+      font-size: 0.95rem; color: #4A5A54;
+    }
+    .note strong { color: #2D5A49; }
+
+    /* Table of contents */
+    .toc {
+      background: #FEFEFE; border: 1px solid #E0DDD8; border-radius: 10px;
+      padding: 1.5rem 1.75rem; margin: 0 0 2.5rem;
+    }
+    .toc-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #8A9690; margin-bottom: 1rem;
+    }
+    .toc ol { list-style: none; counter-reset: toc; margin: 0; padding: 0; }
+    .toc li { counter-increment: toc; margin-bottom: 0.5rem; }
+    .toc li::before {
+      content: counter(toc) ". ";
+      color: #8DB8A0; font-weight: 700; font-variant-numeric: tabular-nums;
+    }
+    .toc a {
+      color: #34433E; text-decoration: none; border: none;
+      font-size: 0.98rem; font-weight: 500;
+    }
+    .toc a:hover { color: #376E5A; }
+    .toc .toc-intro { counter-increment: none; }
+    .toc .toc-intro::before { content: "→ "; color: #8DB8A0; }
+
+    /* ── Support band ── */
+    .support-band {
+      max-width: 720px; margin: 1rem auto 0; padding: 0 1.5rem 4rem;
+    }
+    .support-inner {
+      background: #FEFEFE; border: 1px solid #E0DDD8; border-radius: 12px;
+      padding: 2rem 2rem; display: flex; align-items: center;
+      gap: 1.5rem 2rem; flex-wrap: wrap;
+      box-shadow: 0 1px 3px rgba(28,40,38,0.05);
+    }
+    .support-msg { flex: 1 1 280px; }
+    .support-title {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 600;
+      font-size: 1.25rem; line-height: 1.25; color: #1C2826; margin-bottom: 0.4rem;
+    }
+    .support-sub { font-size: 0.95rem; color: #4A5A54; margin: 0; }
+    .support-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .support-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em;
+      padding: 0.65rem 1.15rem; border-radius: 8px; border: 1.5px solid #376E5A;
+      text-decoration: none; transition: background 0.2s ease, color 0.2s ease;
+    }
+    .support-btn.primary { background: #376E5A; color: #FEFEFE; border: none; }
+    .support-btn.primary:hover { background: #2D5A49; }
+    .support-btn.secondary { background: transparent; color: #376E5A; }
+    .support-btn.secondary:hover { background: rgba(55,110,90,0.08); }
+    @media (max-width: 640px) {
+      .support-actions { width: 100%; }
+      .support-btn { flex: 1 1 auto; justify-content: center; }
+    }
+
+    /* ── Footer ── */
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; }
+    .footer-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem; align-items: start;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(254,254,254,0.12);
+    }
+    .footer-brand {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.125rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem;
+    }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(254,254,254,0.45); font-weight: 300; line-height: 1.6; }
+    .footer-nav-label {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(254,254,254,0.4); margin-bottom: 0.75rem;
+    }
+    .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
+    .footer-nav-link {
+      color: rgba(254,254,254,0.65); text-decoration: none;
+      font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease;
+    }
+    .footer-nav-link:hover { color: #FEFEFE; }
+    .footer-contact-link {
+      display: block; color: rgba(254,254,254,0.65); text-decoration: none;
+      font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease;
+    }
+    .footer-contact-link:hover { color: #FEFEFE; }
+    .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
+    .footer-tagline {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1rem; font-style: italic; color: rgba(247,245,240,0.35);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.001ms !important; }
+    }
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; position: fixed; top: 58px; left: 0; right: 0;
+        background: #1C2826; flex-direction: column; align-items: flex-start;
+        gap: 0; padding: 0.5rem 1.25rem 1.25rem;
+        border-bottom: 1px solid rgba(254,254,254,0.15);
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { font-size: 0.85rem; padding: 0.7rem 0; width: 100%; }
+      .article-hero { padding-top: 7.5rem; }
+    }
+    @media (max-width: 640px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header-band" role="banner">
+    <div style="display:flex;align-items:baseline;gap:0;">
+      <a href="index.html" class="header-name">Juliana McMillan-Wilhoit</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav" onclick="const n=document.getElementById('main-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);">&#9776;</button>
+    <nav class="nav-links" id="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="thinking.html" class="nav-link">How I Think</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="tools.html" class="nav-link">Tools</a>
+      <a href="mailto:juliana@fandtlabs.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
+      <a href="Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link" style="color:rgba(254,254,254,0.9);background:rgba(254,254,254,0.1);padding:0.3rem 0.75rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.35rem;"><i class="ti ti-download" style="font-size:0.9rem;"></i>Resume</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <div class="article-hero">
+    <div class="article-eyebrow">A guide · Written by Juliana McMillan-Wilhoit</div>
+    <h1 class="article-h1">How to Build a Professional Portfolio Using AI</h1>
+    <p class="article-lede">
+      I built the site you're reading right now using this exact process: Claude Code,
+      GitHub Pages, and a lot of talking out loud on walks. Here is the whole method,
+      prompts and all. Take what is useful, adapt what is not, and make it your own.
+    </p>
+    <p class="article-byline">A living document. Last revised July 2026.</p>
+  </div>
+
+  <main class="article-wrap">
+
+    <div class="note">
+      <strong>Disclaimer:</strong> This is a process that worked for me. It may not work exactly
+      the same way for you. Use it at your own risk. Take what is useful, adapt what is not, and
+      make it your own.
+    </div>
+
+    <!-- Table of Contents -->
+    <nav class="toc" aria-label="Contents">
+      <div class="toc-label">Contents</div>
+      <ol>
+        <li class="toc-intro"><a href="#why">Why build a portfolio?</a></li>
+        <li class="toc-intro"><a href="#before">Before you start &amp; the tools</a></li>
+        <li><a href="#phase1">Build your content database</a></li>
+        <li><a href="#phase2">Develop your brand identity</a></li>
+        <li><a href="#phase3">Define your story</a></li>
+        <li><a href="#phase4">Create your resume</a></li>
+        <li><a href="#phase5">Gather your visual evidence</a></li>
+        <li><a href="#phase6">Refine your story</a></li>
+        <li><a href="#phase7">Build the site</a></li>
+        <li><a href="#phase8">Deploy, review, get feedback, and keep iterating</a></li>
+        <li><a href="#phase9">Share your work</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="why">Why Build a Portfolio?</h2>
+    <p>A lot of professional work is visual. You build dashboards, design systems, create maps, develop interfaces, write reports that drive decisions. A portfolio provides demonstrable proof of what you put on your resume. It shows the quality of your work, the way you think through problems, and the results you deliver. A strong portfolio can set you apart. A weak one can actively hurt you.</p>
+    <p>Here is the challenge: most professionals who would benefit from a portfolio do not have one. They work in government, public health, operations, data, product management, consulting. They have spent years solving hard problems in complex organizations. They have never had a reason to package that work for an audience. And when they finally sit down to build a portfolio, they stare at a blank screen because they do not know where to start, they are not designers, and they do not code.</p>
+    <p>AI has changed that equation. You do not need to hire a designer or learn to code. You can focus your energy on showcasing your work instead of figuring out how to lay it out. The AI handles the layout, the code, and the deployment. You use AI as a tool to augment your workflow, not replace your thinking.</p>
+    <p>This still takes real work. The thinking, the reflection, the decisions about what to include and how to frame it: that is all you. What you get at the end is a live, professional website that you own and control, hosted for free, built on your actual thinking. No templates. No drag-and-drop builders. No monthly fees.</p>
+    <p>More importantly: the process of building the portfolio will change how you talk about your work. The reflection, the voice memos, the hard decisions about what to include and what to cut will sharpen how you present yourself in every professional context, whether or not anyone ever visits the site.</p>
+
+    <h3>A Note on Industry-Specific Portfolios</h3>
+    <p>This is a generalized portfolio approach that works well for articulating your value and your projects across many industries. Some industries and professions have particular expectations for how a portfolio is organized. Architecture, UX design, and graphic design, for example, each have conventions about what to include and how to present it.</p>
+    <p>I come at this from GIS, where I ran a GIS portfolio challenge to help other people build theirs. I know this approach works, because it has worked for me. That is the whole reason I wrote this down.</p>
+    <p>This approach still applies. Where it stands apart is in the belief that your professional and personal experiences all connect, and that the most compelling portfolios tell a narrative story about how your different experiences add up to something meaningful. Your unique story matters, and this process helps you develop a clear and comprehensive through line.</p>
+    <p>If you work in a field with specific portfolio conventions, you can feed this entire document to an AI tool and ask it to generate an adapted version for your industry. The content-first philosophy and the iterative process transfer directly.</p>
+
+    <h3>Why Context and Iteration Matter</h3>
+    <p>Two ideas run through every phase of this process: context and iteration.</p>
+    <p><strong>Context</strong> is what separates a forgettable portfolio from one that sounds like you. The more raw material you give the AI, the better it can capture your voice, your values, and the way you actually think about your work. A thin database produces generic output. A rich database produces something that reads like you wrote it. That is why the content database phase takes the longest and matters the most.</p>
+    <p><strong>Iteration</strong> is what separates a good portfolio from a great one. You will not get the right answer on the first try for any part of this process. Not the brand identity, not the thesis, not the page layouts, not the case studies. The people who build the strongest portfolios are the ones who go back, rethink, ask for feedback, and refine. Every phase in this guide is designed to be revisited. At every stage, this process encourages you to generate multiple options and compare them. You do this with brand identity options. You do this with homepage layouts. You do this with case study page designs. Seeing your choices side by side is how you develop a point of view about your own work.</p>
+
+    <h3>How to Read This Guide</h3>
+    <p>This guide is organized in phases, and the phases are roughly sequential. You will move through them in order, but you will also loop back. Building a portfolio is not a straight line.</p>
+    <p>The first few phases, building the content database and developing your brand identity, take the most time. Once you have those, you can build the actual portfolio site very quickly.</p>
+    <p>The phases are:</p>
+    <ol style="padding-left:1.3rem;margin-bottom:1.3rem;">
+      <li>Build your content database</li>
+      <li>Develop your brand identity</li>
+      <li>Define your story</li>
+      <li>Create your resume</li>
+      <li>Gather your visual evidence</li>
+      <li>Refine your story</li>
+      <li>Build the site</li>
+      <li>Deploy, review, get feedback, and keep iterating</li>
+      <li>Share your work</li>
+    </ol>
+
+    <h2 id="before">Before You Start</h2>
+    <p>Before diving into Phase 1, make sure you have the following accounts and tools set up. Discovering you need something mid-process breaks your momentum.</p>
+    <p><strong>Accounts you need:</strong></p>
+    <ul>
+      <li>A free <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a> account (for hosting your site)</li>
+      <li>An <a href="https://anthropic.com/" target="_blank" rel="noopener noreferrer">Anthropic</a> account (for Claude Code access, either API pay-per-use or a Pro/Team subscription)</li>
+    </ul>
+    <p><strong>Software to install:</strong></p>
+    <ul>
+      <li><a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">Node.js</a> (version 20 or higher, required for Claude Code)</li>
+      <li>Claude Code (installed via <code>npm install -g @anthropic-ai/claude-code</code> after Node.js is set up)</li>
+      <li>Git (for version control and deployment; GitHub's guide at <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">pages.github.com</a> walks you through installation)</li>
+    </ul>
+    <p><strong>Other things you will want:</strong></p>
+    <ul>
+      <li>A phone with a voice recording app (Voice Memos on iPhone, or any recording app on Android)</li>
+      <li>A transcription tool (<a href="https://otter.ai/referrals/4J25V862" target="_blank" rel="noopener noreferrer">Otter.ai</a> (referral link), Apple's built-in transcription, or Whisper via Claude Code)</li>
+      <li>A way to take and organize screenshots</li>
+      <li>Optionally, a fast way to review pages and pipe feedback straight back to Claude Code. I built a small open-source tool, <a href="https://github.com/JulianaMapper/Simple-HTML-Editor" target="_blank" rel="noopener noreferrer">html-review</a>, for exactly this while making my own portfolio &mdash; more on it in Phase 7.</li>
+    </ul>
+
+    <div class="toolbox">
+      <div class="toolbox-head">
+        <i class="ti ti-cursor-text"></i>
+        <span class="toolbox-title">A tool I built for this: html-review</span>
+        <span class="toolbox-tag">Optional</span>
+      </div>
+      <p>When you build a portfolio this way, you spend a lot of time reviewing HTML pages in your browser and then translating what you see into instructions for Claude Code. That round-trip got tedious, so I built a small open-source tool to shorten it. It serves your page locally with an overlay that lets you <strong>click any element to edit the text directly</strong>, or drop a <strong>comment or a drawing</strong> on it &mdash; and your comments flow straight back into your Claude Code session as feedback to act on. It is completely optional; a browser and voice memos work fine. But if you want it, it is free and it is the same tool I used to build this site.</p>
+      <a class="toolbox-cta" href="https://github.com/JulianaMapper/Simple-HTML-Editor" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-github"></i> View html-review on GitHub</a>
+    </div>
+
+    <p><strong>Rough cost estimate:</strong> GitHub Pages is free. A custom domain costs roughly $12 per year. Claude Code access depends on your plan: if you use the Anthropic API, a project like this typically costs $10&ndash;30 in total API usage. If you use a Claude Pro subscription ($20/month) or Team plan, the usage is included. Otter.ai has a free tier that covers basic transcription needs.</p>
+
+    <h3>The Tools</h3>
+    <p>To complete this process, you can use many different tools. These are the tools I used, and I will reference them throughout this guide. You can substitute whatever works best for you.</p>
+    <p><strong>A note on these prompts:</strong> The prompts in this guide were developed and tested using Claude Code on a Mac using Terminal. Many of the processes should work on Windows, but the specific commands may be slightly different. The prompts themselves are starting points, not scripts. The best results come from chatting back and forth. Copy the prompt, send it, and then give more context as Claude asks follow-up questions or as you think of more to say. The more context you provide, the better the output. You will see [bracketed placeholders] throughout the prompts. You can fill those in before sending the prompt, or you can just send the prompt as-is and provide that information at the end or in a follow-up message. Claude Code will ask for what it needs.</p>
+
+    <h3>Claude Code</h3>
+    <p>Claude Code is a command-line tool from Anthropic that lets you work with Claude directly from your terminal. Instead of copying and pasting code between a chat window and your files, Claude Code reads your project files, writes code, runs commands, and manages your entire project in place. You describe what you want. It builds it.</p>
+    <p>One of the biggest reasons to use a tool like Claude Code: if you need to make one small change, it can make that change across every page of your site at once. You do not have to download files, edit them individually, and re-upload them. This saves an enormous amount of time, especially as your portfolio grows.</p>
+    <p>You have two options for access. You can use the Anthropic API, where you pay per use. For a project like this, the cost is relatively low. Or you can pay for one of the Claude memberships (Pro or Team), which gives you a set amount of usage without paying per query.</p>
+    <p><strong>A note on choosing the right model for the job.</strong> Claude Code lets you switch between models with the <code>/model</code> command, and not every task needs the most powerful (and most expensive) one. Think of it like matching the tool to the task. Use a top-tier model like Opus for the work that benefits from real reasoning: shaping your thesis, drafting case studies in your voice, designing the homepage, making judgment calls about what to include. For mechanical, well-defined work, like renaming files, reorganizing folders, converting a document, or making a small repetitive change across pages, a lighter, faster model handles it perfectly well and costs less. Setting yourself a simple rule, "reasoning-heavy work gets the big model, busywork gets a lighter one," keeps you from burning your best model (and your budget) on tasks that do not need it. If you are on a subscription rather than the API, this also stretches your usage further.</p>
+    <p>Install Claude Code by running this in your terminal:</p>
+    <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+    <p>You will need a Node.js installation (version 20+) and an Anthropic account. Full setup instructions live at <a href="https://docs.anthropic.com/" target="_blank" rel="noopener noreferrer">docs.anthropic.com</a>.</p>
+    <p>If you have never used a terminal before: the terminal is a text-based way to talk to your computer. On a Mac, open the app called "Terminal." On Windows, open "Command Prompt" or "PowerShell." You type commands, press enter, and things happen. Claude Code turns this into a conversation. You type what you want in plain English, and Claude Code does the technical work.</p>
+    <p><strong>A note on permissions and modes:</strong> By default, Claude Code asks you to approve actions at various points, so you need to keep your terminal visible and approve them as they come up. You can change how much it asks by cycling through its <strong>permission modes</strong>, and the single key you use for this is <strong>Shift+Tab</strong>. Each press moves you to the next mode, and the current mode is always shown at the bottom of your terminal so you can see where you are. There are three modes worth knowing:</p>
+    <ul>
+      <li><strong>Normal (ask-first) mode.</strong> The default. Claude Code pauses and asks before it makes edits or runs commands. Safest, slowest, most hands-on.</li>
+      <li><strong>Auto-accept mode (often called "auto mode").</strong> Claude Code makes edits and runs the routine commands of a step without stopping to ask for each one. It still works inside Claude Code's normal guardrails; it just stops interrupting you for the ordinary stuff. This is the mode that lets you step away and come back to real progress, and it is the one you will use most for portfolio work, since you are creating and editing files in your own project folder.</li>
+      <li><strong>Plan mode.</strong> Claude Code researches and proposes a plan for how it will do something, then waits for your approval before touching anything. Best when you want to think through an approach before it builds. We come back to plan mode in Phase 7.</li>
+    </ul>
+    <p>You are always just one or two Shift+Tab presses away from switching. A good rhythm: use plan mode to agree on an approach, auto-accept mode to let the building happen, and normal mode any time you want to slow down and review each step closely.</p>
+    <p><strong>A note on file locks:</strong> Depending on how your computer is set up, if you have a file open in a text editor, Claude Code may not be able to write to it because the editor locks the file. If you have a file open in your browser (like an HTML preview), you are unlikely to run into this issue. If Claude Code reports that it cannot write to a file, close it in your editor and try again.</p>
+    <p>There are other tools that can accomplish similar things. ChatGPT, Cursor, and other AI-powered development tools all offer ways to build websites through conversation. The core process in this guide applies regardless of which tool you choose.</p>
+
+    <h3>GitHub Pages</h3>
+    <p>GitHub is a version control platform. It tracks every change you make to your code, lets you revert mistakes, and keeps a full history of your project. One of its features, GitHub Pages, lets you turn any repository into a live website. You push your files to GitHub, and your site goes live at yourusername.github.io.</p>
+    <p>This is one of the easiest ways to quickly publish your work. I recommend purchasing a custom domain (like yourname.com) and connecting it to your GitHub Pages site. It is inexpensive (roughly $12/year from a registrar like Namecheap or Cloudflare) and makes a real difference in how your portfolio comes across. Claude Code can help you set up a custom domain:</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>I purchased the domain [yourdomain.com] from [registrar name]. Help me connect it to my GitHub Pages site. Walk me through the DNS configuration and the GitHub repository settings. I want this as automated as possible.</p>
+    </div>
+    <p>Beyond GitHub Pages, you can host your site on Amazon Web Services, Netlify, Vercel, or any number of other platforms. GitHub Pages is free and simple, which is why I recommend starting there.</p>
+    <p>You will need a free GitHub account and Git installed on your computer. GitHub's own guide walks you through both: <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">pages.github.com</a>. Claude Code can also walk you through the setup process directly:</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>I need help connecting to GitHub. I have an account. Help walk me through setting up a repo and connecting to it. I want this as automated as possible. We will be using GitHub Pages.</p>
+    </div>
+
+    <h3>Why This Combination</h3>
+    <p>Claude Code reads every file in your project folder. It makes changes across multiple pages at once. It pushes updates directly to GitHub. When you want to change a font across your entire site, you describe the change once and Claude Code updates every file. When you want to deploy, Claude Code runs the Git commands for you. You stay focused on decisions. It handles syntax.</p>
+
+    <h2 id="phase1">Phase 1: Build Your Content Database</h2>
+    <p>This is the most important phase, and it is the one most people want to skip. Do not skip it.</p>
+    <p>Context is the thing that really matters. Your portfolio will only ever be as compelling as the raw material behind it. If you sit down to write case studies from memory, you will default to vague, resume-style language. "Led a team." "Improved efficiency." "Delivered on time." That language is forgettable because it does not capture how you actually think.</p>
+    <p>The database is different. It is a messy, honest, comprehensive collection of everything you know about your own work. It captures the specifics: the problem that nobody else wanted to touch, the moment you realized the original approach would not work, the workaround you invented at 2am, the metric that proved it mattered. You will not use all of it. You will use the best of it, and the best of it will be things you would never have written down if you were trying to be polished from the start.</p>
+    <p>The database also captures who you are beyond your job title. If you are a marathon runner, there are ways that endurance and persistence show up in how you approach your work. If you taught yourself woodworking or learned a new language, that says something about how you learn. The best portfolios paint a complete picture of a person, and the interview process should go there.</p>
+    <p>Budget several days for this phase. It is not a single sitting. It is an ongoing, iterative process that you chip away at. Keep coming back to update the database throughout the entire portfolio-building process. New insights will surface as you work through later phases.</p>
+
+    <h3>How Claude Code Sessions Work</h3>
+    <p>Every time you close your terminal, your Claude Code session ends. When you open a new terminal and start Claude Code again, it is like starting a brand new chat. Claude Code does not remember your previous conversation. This is why the CLAUDE.md file is so important: Claude Code reads it at the start of every session, so it picks up context about your project without you having to re-explain everything.</p>
+    <p>To start a new Claude Code session, navigate to your project folder and start Claude Code. For example:</p>
+    <pre><code>cd /Users/yourname/Documents/portfolio
+claude</code></pre>
+    <p>Claude Code will open in that folder, read the CLAUDE.md, and be ready to work.</p>
+    <p>Over the course of a long session, Claude Code may run out of context space. When this happens, it will "compact" the conversation, which means it summarizes what you have discussed so far and continues with that summary. You do not need to do anything when this happens. It is automatic. If a session is getting very long and you notice Claude Code losing track of details, it can help to end the session and start a fresh one. The CLAUDE.md will bring it back up to speed.</p>
+
+    <h3>Set Up Your Project</h3>
+    <p>Create a project folder on your computer. Drop your resume in it. Before you do anything else, set up your folder structure and give Claude Code the context it needs to help you effectively throughout this process. Here is a recommended structure:</p>
+    <ul>
+      <li><strong>database/</strong> &mdash; Your content database. Voice memo transcripts, interview answers, project writeups, and any raw material about your work and thinking.</li>
+      <li><strong>resume/</strong> &mdash; Your resume HTML file, PDF export, and any cover letter variations.</li>
+      <li><strong>portfolio/</strong> &mdash; The actual site files. HTML, CSS, and JavaScript for your portfolio website.
+        <ul><li><strong>portfolio/images/</strong> &mdash; Visual evidence. Screenshots, diagrams, photos, and any visual materials for your case studies.</li></ul>
+      </li>
+      <li><strong>inspiration/</strong> &mdash; Mood boards, screenshots of portfolios you admire, notes about what you like and why.</li>
+      <li><strong>fonts/</strong> &mdash; Downloaded font files for your brand identity.</li>
+      <li><strong>style-guide/</strong> &mdash; Your brand identity explorations and final style guide HTML.</li>
+      <li><strong>linkedin/</strong> &mdash; Social media graphics and any content you create for sharing your work.</li>
+    </ul>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>My resume is at [file path, e.g., /Users/yourname/Documents/portfolio/resume.pdf]. I am building a professional portfolio website. The end goal is a live site hosted on GitHub Pages that showcases how I think, how I work, and the impact I have had. The site will be built as static HTML and CSS. Over the next few weeks, I will be building a content database about my work, developing a visual brand identity, defining my personal thesis, creating a resume, gathering visual evidence, and then building and deploying the site. Set up the following folder structure for this project: database (for voice memo transcripts, interview answers, and project writeups), resume (for resume files), portfolio (for the site HTML/CSS/JS, with an images subfolder for visual evidence and screenshots), inspiration (for mood boards and example portfolios I admire), fonts (for downloaded font files), style-guide (for brand identity explorations), and linkedin (for social media graphics). Create a CLAUDE.md file with an overview of our project, its goals, and the folder structure. The CLAUDE.md should include key file paths so you can always find what you need.</p>
+    </div>
+    <p>A CLAUDE.md file is a documentation file that Claude Code reads every time it starts a session. It helps Claude remember context about your project. Keep it updated throughout the entire process. When you make decisions about your brand, your story, or your target roles, add that information to the CLAUDE.md so Claude Code always has the full picture.</p>
+    <p><strong>Make updating it a habit.</strong> The single best way to keep a multi-day project coherent is to end each phase by telling Claude Code: <em>"Update the CLAUDE.md and the project database with what we decided in this phase."</em> Because every new session starts fresh, the CLAUDE.md is the memory that carries your decisions forward. A stale CLAUDE.md is the most common reason a later session drifts away from choices you already made. You will see this instruction built into many of the prompts below; treat it as a ritual even when a prompt does not spell it out.</p>
+
+    <h3>Start the Interview</h3>
+    <p>Now begin building your database.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>My resume is in this folder. I am building a professional portfolio. The end goal is a website that showcases how I think, how I work, and the impact I have had. I need you to act as an interviewer and ask me deep, probing questions about my career, my projects, and how I think. Ask 15&ndash;20 questions. Cover: what problems I solved, what I built, what I learned, what I would do differently, what I value, and what patterns connect my work. Also ask some personal questions: what is something I recently taught myself? What are my hobbies? What do I deeply care about? What do I do outside of work that shapes how I show up professionally? Write these questions to a markdown file called interview-questions.md so I can reference them later. Also open this file on my computer and copy the questions to my clipboard. Ask the questions one at a time and wait for my response before moving on. After you ask all of them, tell me which questions you think I should spend more time on, and which of my answers did not make sense or need more detail. Save all of my answers to the project database.</p>
+    </div>
+    <p>A markdown file is a simple text document (ending in .md) that you can open in any text editor. It uses plain text with minimal formatting symbols. Claude Code will create it for you.</p>
+    <p>I always copy the interview questions directly into my notes app on my phone so I can access them easily when I am away from my computer.</p>
+    <p>You do not have to answer every question right away. Answer the ones that come easily first. Come back to the harder ones later. This is iterative. You can stop a session, come back the next day, and pick up where you left off.</p>
+
+    <h3>Record Voice Memos</h3>
+    <p>One of the best ways to answer those questions easily is to record voice memos. What I did is I copied all the questions into a note on my phone, and I also printed them out. Then I went on walks, did chores, and worked on answering the questions out loud. You will say things in spoken form that you would never sit down and type. That is the point. The spoken version of your story is often more honest and more specific than the written version.</p>
+    <p><strong>Transcription options:</strong> There are plenty of voice transcription tools available. If you use an Apple device, the built-in Voice Memos app does transcription. You can also use <a href="https://otter.ai/referrals/4J25V862" target="_blank" rel="noopener noreferrer">Otter.ai</a> (referral link). Another option is to record the audio files and ask Claude Code to use the Whisper model locally to transcribe them. You have lots of choices here.</p>
+    <p><strong>My workflow:</strong> I keep Voice Memos on my phone and record throughout the course of a day. At the end of the day, I transfer the transcripts to my computer and drop them into the project folder.</p>
+    <p><strong>One caution:</strong> I do not recommend using Claude's web interface (claude.ai) for recording or transcribing voice memos. If it loses a blip of internet connectivity, your voice memo and its transcription can be lost. Use a dedicated recording tool on your device, then bring the transcripts into your project folder.</p>
+    <p>This process is iterative. You will not answer every question in one sitting, and new thoughts will come to you days later. Keep recording. One project per memo, or one question per memo, whatever feels natural. Drop the transcripts into your project folder.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Here are voice memo transcripts of me talking about my work and answering the interview questions. Keep as much of my original language as possible and add this to the project database. After reviewing this, what additional questions do you have that you think would be really helpful for both building out resumes and a portfolio? Write any new questions to the interview-questions.md file. Please update the project database with everything we have learned.</p>
+    </div>
+    <p>Then answer those new questions. Record more memos. Add them. This back-and-forth is where the database gets rich.</p>
+
+    <h3>Push for Specific, Grounded Questions</h3>
+    <p>The first round of interview questions is necessarily broad, because Claude Code does not know much about you yet. But once you have answered some questions and dropped in a few voice memos, Claude knows real specifics: the jobs you held, the projects you led, the tools you built. That is the moment to have it generate a much sharper set of questions, ones grounded in your actual history. Generic questions produce generic answers. Specific questions produce the details that make a portfolio unforgettable.</p>
+    <p>The difference is night and day. A generic question is "Tell me about a challenging project." A grounded, specific question is "You said you worked at the Army Corps of Engineers. What was one specific moment there where your work made a real difference?" or "You mentioned the demand model at Peapod. Walk me through the day you realized the original approach would not work." The specific version forces you to reach for a concrete memory, and concrete memories are where the good material lives.</p>
+    <p>Do not shy away from questions that get at hard or uncomfortable moments, either. "Tell me about a time in that job when you felt humiliated, and what you did next." "What is a project you are still a little embarrassed by, and what did it teach you?" Those answers are often the most honest and the most human, and they surface the growth and self-awareness that hiring managers actually remember.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Based on everything you now know about me from my resume, my interview answers, and my voice memos, generate a new round of much more specific, probing questions. Do not ask generic questions. Ground every question in something specific I have already told you: a particular job, project, tool, or moment. For each of my major roles and projects, ask me to go deeper on a specific moment. Include questions that dig into specific turning points, decisions I second-guessed, moments my work made a real difference, and even moments I found difficult or humiliating and what I learned from them. The goal is to pull out concrete, specific stories, not summaries. Write these to interview-questions.md and open the file. Ask them one at a time and save my answers to the project database.</p>
+    </div>
+    <p>Answer these the same way: out loud, in voice memos, whenever they come to you. This is usually the round that turns a decent database into a rich one.</p>
+
+    <h3>Ask Friends to Interview You</h3>
+    <p>Ask the people who are close to you: what are some of the projects that stood out to them? What are some of the ways they have heard you talk about your work? How do they think you think about your work? The more they can serve as a mirror to you, the better your portfolio will be.</p>
+    <p>Other people surface the things you take for granted about your own expertise. The thing you consider obvious, the skill you assume everyone has, the insight you think is unremarkable: those are often the most compelling parts of your story. You need someone else to draw them out.</p>
+    <p>Record the conversations. Transcribe them. Add them to the folder.</p>
+
+    <h3>A Longer-Term Option: Retrieval-Augmented Generation</h3>
+    <p>As your database grows into dozens of voice-memo transcripts, interview answers, and project writeups, a practical problem shows up: every time Claude Code starts a session, it has to read through all of that material to find what is relevant. That gets slower and uses more of your budget over time.</p>
+    <p>In the long run, building a <strong>retrieval-augmented generation (RAG)</strong> database is the right call. Instead of handing Claude your entire database every time, a RAG setup stores your content in a searchable index and pulls only the most relevant pieces for whatever you are working on. It is more consistent, it scales as your material grows, and it will end up saving you money over time. It is out of scope for this guide, so we leave the setup out here, but it is worth knowing as the direction to grow toward.</p>
+    <p>Worth mentioning: <strong>Public Health 360</strong>, developed by F&amp;T Labs, lets you create retrieval-augmented generation databases easily using drag-and-drop tools, without extensive configuration. If you want the benefits of a RAG database without building the pipeline yourself, that is one option to explore.</p>
+    <p>For the scope of this guide, a well-organized folder of Markdown files is more than enough to build an excellent portfolio.</p>
+
+    <h3>What You Are Building Toward</h3>
+    <p>By the end of this phase, your project folder should contain a sprawling, unpolished document (or collection of documents) that captures the depth of your experience. It should feel like too much. That is exactly right.</p>
+
+    <h2 id="phase2">Phase 2: Develop Your Brand Identity</h2>
+    <p>With your database growing, start exploring your visual identity. You are developing a consistent visual brand that will carry across everything: your portfolio site, your resume, your LinkedIn presence, your conference slides, your interview presentations. Everything should feel like it comes from the same person.</p>
+    <p>Before you run any prompts, do some homework. Browse portfolios you admire. Save screenshots into a document where you can take clear notes about each one. Note what you like: a specific color, a layout choice, the way text feels on a page. Be as specific as possible. "I like how this site uses a lot of white space" is helpful. "I like this site" is not. Say things like "I like how this site lays out their case studies." Going on Pinterest and developing a "mood board," which is a collection of images that capture how you want to feel when you interact with a site, is also a great step.</p>
+    <p>Drop those reference images and notes into your project folder so Claude Code can see them.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt to generate brand options</div>
+      <p>I need you to develop 3&ndash;5 brand identity options for my personal portfolio. Each option should include: a color palette (primary, accent, background, and text colors), font pairings, and a description of the feeling it communicates. I want to position myself as [describe how you want to be perceived, e.g., "a senior product leader who is strategic and approachable"]. I want the overall feel to be [e.g., "clean, warm, professional, not corporate"]. The generated palette needs to have WCAG AA (AAA where feasible) compatibility. Output all brand identity options in a SINGLE HTML file so I can preview them all together in a browser. Include sample text: a headline, a short bio paragraph, a project card with a title and description, and a button. Include the same text across all options. Open the file in my browser when you are done.</p>
+    </div>
+    <p><strong>A note on accessibility targets:</strong> You will see accessibility called out in many prompts throughout this guide. Aim for WCAG AA as your floor: it is a realistic, professional standard that covers color contrast, readable text, and keyboard navigation. AAA is stricter and genuinely hard to hit for many real designs, especially color contrast on anything other than near-black text on a near-white background. Reach for AAA where it does not force you into a palette you dislike, but do not let a perfect accessibility score override a design that looks like you. An accessible AA site beats an inaccessible one that was chasing AAA.</p>
+    <p><strong>A note on fonts:</strong> When you settle on your fonts, download the font files and include them in your project's fonts folder. This ensures your fonts render correctly everywhere, including when generating PDFs from your resume or other materials. Claude Code can help you download and set up the font files. If you use Canva or other design tools, check that the fonts you choose are available in those tools so your brand stays consistent across platforms. If you have a Canva Pro subscription, you can upload your own fonts. If you are using Canva Free, finding a complete list of available fonts is difficult. One workaround: point Claude Code to <a href="https://www.canva.com/learn/best-free-fonts/" target="_blank" rel="noopener noreferrer">this Canva blog post listing 100 of the best free fonts</a> and have it use that as a starting point for font selection, then verify that the fonts it recommends are actually available in Canva Free.</p>
+    <p>Review the HTML file in your browser. Be specific about what works and what does not.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt to refine</div>
+      <p>I like Option 2's color palette and Option 4's typography. I do not like how dark Option 2's background feels. I want lighter backgrounds. Combine the best elements into a single refined direction and output an updated HTML file. Open it in my browser.</p>
+    </div>
+    <p>Iterate until it feels right. Do not be afraid to sketch your ideas on paper, take a photo, and share it with Claude Code. Rough sketches help Claude understand what you are going for much faster than words alone. This is what it means to use AI as a tool to augment your thinking.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt to create your style guide</div>
+      <p>Based on the direction we have settled on, create a comprehensive brand style guide as an HTML file. This should be the single source of truth for every visual decision going forward. Include: all colors with hex values, rgba tints, and usage rules (what each color is for and when not to use it). Font families with weights and sizes for every use case (hero headlines, page headings, section headings, card headings, body text, small body, section labels, button labels, tags, captions). A complete spacing scale based on an 8px grid. Border radius values for different element types. Border styles and shadow definitions. Button styles (primary, secondary, tertiary) with padding, radius, font, and hover states. Tag/chip styles. Inline highlight styles. Layout principles: max content width, max text width, card grid behavior, and responsive breakpoints. Accessibility notes: contrast ratios for key color pairs, line length limits, paragraph spacing, and text alignment rules. CSS custom properties I can drop into any page. Also download the font files we are using and add them to our fonts folder. Please add in any additional elements that you think are needed for a complete style system. Output the style guide as an HTML file and open it in my browser. Then update the CLAUDE.md and README documentation to ensure you follow the guidelines outlined in the style guide for all future work. Include the file path to the style guide in the CLAUDE.md.</p>
+    </div>
+    <p>This style guide becomes the single source of truth for everything Claude Code builds. Every page, every component, every design decision will reference this document.</p>
+
+    <h2 id="phase3">Phase 3: Define Your Story</h2>
+    <p>This is where the database pays off. You have spent days building a comprehensive picture of your work. Now you find the thread that connects it.</p>
+    <p>Every strong portfolio has a thesis. Not a job title. A point of view. A storyline is the narrative that connects your individual projects into a coherent picture of who you are and the value you bring. It answers the question: "What do you do, and why does it matter?"</p>
+    <p>A good thesis is specific enough that not everyone in your field could claim it, and broad enough that it covers the range of your best work. For example:</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-quote"></i> Example thesis</div>
+      <p>"Most tools fail not because the technology is wrong, but because nobody listened to the people who would use them. I have built tools for public health departments, the U.S. military, and Fortune 500 supply chains. AI, geospatial models, automation scripts, data pipelines: the technology changes. Every time, the work started the same way: I went to the people first. I am not an AI evangelist. I am a tools person. I am interested in what is actually broken and what the right tool is to fix it. Sometimes that is AI. Sometimes it is a Python script and a better process. That gap between what the technology can do and what the team can absorb is where I do my best work."</p>
+    </div>
+    <p>That is not a job title. That is a point of view. It tells you what this person does, how they think, and why they are different.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Review my complete project database. I think my core story is: [your best guess, e.g., "I build data products that help organizations make better decisions"]. What patterns do you see across my work? What storylines emerge? I want a clear thesis statement and a value proposition. Suggest 3 options for each, and tell me which projects best evidence each one. Update the project database with our thesis exploration.</p>
+    </div>
+    <p>Go back and forth. Push on the options. Ask what Claude Code sees that you might be missing. Ask which projects to feature and which to cut. A portfolio with 4&ndash;6 strong case studies beats one with 12 shallow ones. Every project you include should earn its place by supporting your thesis.</p>
+
+    <h3>Deciding What to Leave Out</h3>
+    <p>This is just as important as deciding what to include. You will have projects in your database that do not belong in the portfolio. Old work that no longer represents your skill level. Projects that were fine but unremarkable. Work that pulls in a different direction from your thesis. Things you did because you had to, not because they showcase who you are.</p>
+    <p>Give yourself permission to cut them. A focused portfolio with 4&ndash;6 strong case studies that all reinforce a clear thesis will always outperform a comprehensive portfolio with 12 projects that dilute your story. If a project does not earn its place by supporting your thesis, it does not belong. You can always add it back later if your thesis evolves.</p>
+    <p><strong>Decide on your case study format.</strong> Think about how you want to talk about your work. There are some common structures:</p>
+    <ul>
+      <li>Context, Challenge, Approach, Outcome</li>
+      <li>Problem, Process, Solution, Impact</li>
+      <li>Summary, Role, What I Did, Results</li>
+    </ul>
+    <p>Determine what structure makes the most sense for the kind of work you do and how you naturally describe it. You can ask Claude or your AI tool of choice for help thinking through which format fits best. Pick one and use it consistently across all your projects. Consistency signals that you think in systems.</p>
+
+    <h2 id="phase4">Phase 4: Create Your Resume</h2>
+    <p>Now that you have a brand identity and a clear thesis, create a resume that matches. Your resume and your portfolio should look like they come from the same person.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Using our brand style guide, create a professional resume for me as an HTML file. Use the content from our project database and align it with the thesis we have defined. The resume should be formatted for 8.5 x 11 inch pages. Use local font files (not CDN links) so the fonts embed correctly when we convert to PDF. Ensure the design is ATS-friendly: use semantic HTML, no tables for layout, no images for text. Open it in my browser.</p>
+    </div>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt to validate the resume against your database</div>
+      <p>Review this resume against my full project database. Does this resume showcase who I am and what I do well? Are there accomplishments or skills in the database that should be on the resume and are not? Are there things on the resume that feel vague compared to what is in the database? Ask me any additional questions you need to strengthen the resume. Update the project database and the CLAUDE.md with information about what kinds of roles I am targeting.</p>
+    </div>
+    <p>Once you approve the resume, convert it to PDF using Chrome headless so the fonts embed correctly.</p>
+
+    <h2 id="phase5">Phase 5: Gather Your Visual Evidence</h2>
+    <p>Now that you have a clear story and know which projects you want to showcase, collect the visual proof of your work. Create an images folder inside your project.</p>
+    <p>Start by asking Claude Code to help you assess what you have and what you need.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>I am working on developing out my portfolio and looking for visual evidence to add. Based on everything in my project database and the thesis we have defined, what do you think my strongest projects are for the portfolio? What visual evidence would best support each one? What additional questions do you have about the projects before we start gathering images? Please update the project database with your assessment.</p>
+    </div>
+    <p>Then go collect. Save screenshots of dashboards, tools, reports, maps, or interfaces you created. Name each image descriptively: project-name-dashboard-overview.jpg, project-name-user-flow.jpg.</p>
+
+    <h3>When You Cannot Show the Original</h3>
+    <p>Some of your best work may live behind NDAs, security clearances, or client agreements. That does not mean you cannot showcase it. You have options:</p>
+    <ul>
+      <li><strong>Blur sensitive information.</strong> Take a screenshot and blur out names, numbers, or other identifying details. The layout, the design thinking, and the structure of the work are still visible and still valuable.</li>
+      <li><strong>Recreate it with dummy data.</strong> This is where AI becomes especially useful. If you built a dashboard, describe it to Claude Code and have it generate a version with synthetic data. The result looks like your work, demonstrates your skills, and shares nothing confidential. You can do this with maps, data visualizations, reports, and interfaces.</li>
+      <li><strong>Describe the constraints.</strong> Sometimes the best way to show the work is to explain what you could not show and why. Hiring managers understand confidentiality. A clear description of the problem, your approach, and the outcome can be just as compelling as a screenshot.</li>
+    </ul>
+    <p>Do not let confidentiality stop you from including your strongest projects. Find a way to show the thinking, even if you cannot show the data.</p>
+    <p>Not everything needs a screenshot. Some projects are better represented by a diagram, a data visualization, or a before-and-after comparison. Claude Code can help you create Mermaid diagrams, process maps, flow charts, and other visual elements directly in HTML. Some projects have no visual artifact at all, and that is fine. You can describe the work. The point is to show your thinking, and images help when they are available.</p>
+    <p>Your portfolio is not limited to paid work. Side projects, volunteer work, and personal explorations all count. If it demonstrates how you think and what you can do, it belongs in the conversation.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Here is the visual evidence I have gathered so far. Please review each image. What images seem to be working? What am I missing? For [project name] I do not have much to share. Based on what you know about the project, help me think about what we could show using HTML or other interactive elements: a process map, a Mermaid diagram, a flow chart, a before/after comparison, something we can visually present. Additionally, as you look at all of the images, do you notice any gaps? What are some "staged" images that support my value proposition that I should create? Think speaking engagements, training sessions, or whatever supports the thesis about who I am and the value I bring. Please update the project database with our visual evidence inventory.</p>
+    </div>
+
+    <h2 id="phase6">Phase 6: Refine Your Story</h2>
+    <p>With your visual evidence collected, come back to your story. The process of gathering visuals often reveals gaps or surfaces new connections.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Now that we have gathered our visual evidence, review the full picture: our project database, our thesis, and the visual materials. Does the story still hold? Are there projects that look stronger visually than we expected? Are there any that are weaker? Should we adjust which projects we feature or how we frame any of them? Update our case study outlines based on what we now have to work with. Update the CLAUDE.md and project database with any changes to our direction.</p>
+    </div>
+
+    <h2 id="phase7">Phase 7: Build the Site</h2>
+    <p>Now you build. Your project folder should contain your style guide, your content database, your images, and a clear thesis. Everything that follows is assembly.</p>
+    <p><strong>Plan before you build.</strong> For the bigger builds in this phase, especially the homepage and the case study template, it is worth having Claude Code think through the approach before it writes a single file. Press <strong>Shift+Tab</strong> to cycle into <strong>plan mode</strong>. In plan mode, Claude Code researches your files and proposes a plan for how it will build the page, then waits for you to approve it before doing anything. This is your chance to catch a wrong assumption early, when it costs nothing to fix, instead of after a page is built. Read the plan, push back on anything that feels off, and only then let it build. Once you approve, cycle back to auto-accept mode and let it work.</p>
+    <p><strong>Turn on auto-accept mode for the build.</strong> This phase involves a lot of file creation and editing. Press <strong>Shift+Tab</strong> to put Claude Code into auto-accept mode so it can build pages without stopping to ask permission for every edit. You will still review each page in your browser as it is finished, so you stay in control of the output. If you ever want Claude Code to slow down and talk through an approach before touching files, press Shift+Tab again to cycle into plan mode, where it proposes a plan and waits for your go-ahead.</p>
+    <p><strong>Commit early and often.</strong> Before you start building pages, initialize your Git repository and make your first commit. Then commit after every major milestone: homepage done, case study template done, about page done. If Claude Code ever breaks something or takes a page in a direction you do not like, you can roll back to the last good version. Version control is your safety net, not just your deployment tool.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Initialize a Git repository in this project folder and make an initial commit with everything we have so far.</p>
+    </div>
+    <p>From this point forward, ask Claude Code to commit after each major page or change: "Commit this with the message 'homepage v1 complete'."</p>
+
+    <h3>Build Your Homepage</h3>
+    <p>Start by generating multiple options for your homepage. You want to see different approaches side by side before committing to one direction.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt to outline and build homepage options</div>
+      <p>We are building my portfolio website. The site will be hosted on GitHub Pages as static HTML/CSS. Use our brand style guide for all visual decisions. Please update the CLAUDE.md with key information about our build process. Based on what you know about me in our database, create an outline of all the pages we need. Then build 2&ndash;3 different versions of our index/homepage as separate HTML files so I can compare approaches. Each version should have a different layout and way of presenting my thesis and work. Think about what interactive elements would make the page feel alive: scroll effects, animated transitions, interactive process diagrams, or other elements that reinforce my point of view. Ensure all pages meet WCAG AA (AAA where feasible) accessibility standards and are fully responsive across desktop, tablet, and mobile. Please make sure that you keep as much of my tone, voice, and style as possible from the database. Open them in my browser.</p>
+    </div>
+    <p>Review the homepage options. Pick what works. Combine elements if you like pieces from different versions.</p>
+
+    <h3>Build Your Case Study Template</h3>
+    <p>Then do the same for your case study page template. You do not need to build out every case study yet. Build one case study page with real content, and create a second version with placeholder text so you can evaluate the layout independently of the content.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt to build case study options</div>
+      <p>Now let's build 2&ndash;3 different versions of a case study page template. Use [project name] as the real example for one version. For the other versions, use the same layout with placeholder text so I can evaluate the structure. I want to see different ways to present the case study format we chose: [your format]. Think about how to visually show the problem, the process, and the outcome. Ensure full mobile responsiveness. Open them in my browser.</p>
+    </div>
+    <p>Pick the direction you like.</p>
+
+    <h3>Write Your Case Studies</h3>
+    <p>Now draft the actual narrative text for each case study. This is where the database pays off most directly. You have all the raw material. Claude Code turns it into polished prose in your voice.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Using our case study format and the content in our project database, draft the full case study text for [project name]. Keep my voice and tone from the database. Show me three options for the opening hook. For each option, write the complete case study: the context, the challenge, what I did, and the outcome. I want to read these and pick the one that sounds most like me. Do not make it sound generic. Use the specific details from the database.</p>
+    </div>
+    <p>Review the options. Pick the strongest opening. Ask Claude Code to refine it. Repeat for each case study. This is the most writing-intensive part of the build, and it is worth taking your time. Each case study should read like a short, compelling story that proves your thesis.</p>
+    <p><strong>Make the writing sound like a person, not an AI.</strong> Even with a rich database, AI-drafted text can drift into telltale patterns: overuse of em dashes, "not just X but Y" constructions, phrases like "in today's fast-paced world," and a rhythm where everything comes in threes. Readers, and especially hiring managers, notice. One good tool for this is <a href="https://github.com/blader/humanizer" target="_blank" rel="noopener noreferrer">Humanizer</a>, a free skill for Claude Code that detects and strips out common signs of AI writing so your text reads more naturally. You install it once and then invoke it with <code>/humanizer</code> on any draft. Whether you use that tool or just ask Claude Code directly to "remove anything that sounds AI-generated and keep my voice from the database," always do a human pass yourself at the end. You know what sounds like you. Read every case study out loud; if a sentence is not something you would actually say, change it.</p>
+
+    <h3>Build Your About Page</h3>
+    <p>The About page is often the hardest page to write because it requires you to synthesize everything: your thesis, your personality, your professional history, and the personal details that make you memorable. Most people either write something too formal or too casual. The database gives you the raw material to get it right.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Let's build the About page. This is where my thesis, my professional background, and my personality all come together. Based on everything in the database, draft 2&ndash;3 versions of the About page text. One should lead with my thesis and professional positioning. One should lead with something personal that connects to my professional work. Keep my voice. Do not make it sound like a LinkedIn summary. Then build the page using our style guide and case study template design language. Ensure full mobile responsiveness and WCAG AA (AAA where feasible) accessibility. Open it in my browser.</p>
+    </div>
+
+    <h3>Build the Remaining Pages</h3>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt to build each page</div>
+      <p>Let's build the [page name] page. I think we should have [your ideas for the page]. What do you think? How do we best highlight my thesis on this page? I think we should take [angle or approach]. What do you think? We need to ensure that our point of view is very clear. Keep my tone and voice from the database. Ensure WCAG AA (AAA where feasible) accessibility and full mobile responsiveness. Open the file in my browser when you are done.</p>
+    </div>
+    <p>Review each page in your browser before moving to the next one. Open the HTML file, read it, click around. Then tell Claude Code what to adjust. Use a voice memo if that is easier than typing out detailed feedback. Record your reactions as you look at the page, then transcribe and share the feedback with Claude Code.</p>
+
+    <div class="toolbox">
+      <div class="toolbox-head">
+        <i class="ti ti-cursor-text"></i>
+        <span class="toolbox-title">Reviewing pages with html-review</span>
+        <span class="toolbox-tag">A tool I built</span>
+      </div>
+      <p>This review-and-adjust loop is the part I ran most often, so it is the part I built a tool for. <strong>html-review</strong> serves the page Claude Code just built at a local address with a small overlay on top. You can <strong>click any text to edit it in place</strong> (it saves straight to the file, no tokens spent), or leave a <strong>comment</strong> or a quick <strong>drawing</strong> on any element. The comments and drawings flow back into your Claude Code session automatically, so instead of typing "the third card's heading is too big and the spacing under the hero feels tight," you just point at the thing and say it. It is free and open source. If you would rather not add another tool, a plain browser and a voice memo do the same job &mdash; this just makes the loop faster.</p>
+      <a class="toolbox-cta" href="https://github.com/JulianaMapper/Simple-HTML-Editor" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-github"></i> html-review on GitHub &rarr; github.com/JulianaMapper/Simple-HTML-Editor</a>
+    </div>
+
+    <h3>Build Your Navigation and Layout Shell</h3>
+    <p>Once you have your pages built, make sure the site holds together as a whole. Navigation, footer, and the overall flow between pages matter as much as the individual pages themselves.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Now let's make sure the site works as a cohesive whole. Build a consistent navigation bar and footer that appear on every page. The navigation should clearly show all the main sections. The footer should include contact information or a way to get in touch. Make sure the navigation works well on mobile (a hamburger menu or similar pattern). Ensure that clicking between pages feels smooth and that the overall site has a clear flow. Review all pages to make sure the layout shell is consistent everywhere.</p>
+    </div>
+    <p><strong>Tip:</strong> If Claude Code generates something useful in the terminal, like a summary or a list, you can ask it to copy the result to your clipboard: "Copy that to my clipboard."</p>
+
+    <h2 id="phase8">Phase 8: Deploy, Review, Get Feedback, and Keep Iterating</h2>
+    <p>This is not a linear finish line. You deploy, you get feedback, you make changes, you deploy again. The beauty of this setup is that iteration is cheap and fast.</p>
+
+    <h3>Deploy</h3>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Create a GitHub repository called [your-portfolio-name] and push the site to GitHub Pages. Walk me through any steps that require my input, like authentication.</p>
+    </div>
+    <p>Claude Code handles the Git commands. You may need to authenticate with GitHub the first time. Your site will be live at yourusername.github.io/your-portfolio-name within a few minutes. If you purchased a custom domain, now is the time to connect it through GitHub's settings.</p>
+    <p><strong>Critical: confirm HTTPS actually works on your custom domain.</strong> This is the single most common thing people get wrong, and it is invisible until someone else catches it. When you connect a custom domain, GitHub has to provision a security certificate (HTTPS) for it, and that does not always happen automatically. If it fails, anyone who visits <code>https://yourname.com</code> (or whose browser auto-upgrades to https, which most do) gets a full-screen "Your connection is not private" security warning instead of your site. The catch is that if you have only ever visited your own site over plain <code>http://</code>, everything looks fine to you while every real visitor hits a wall. For a portfolio, that is the worst possible first impression.</p>
+    <p>After connecting your domain, do three things:</p>
+    <ol style="padding-left:1.3rem;margin-bottom:1.3rem;">
+      <li>In your GitHub repository, go to <strong>Settings &rarr; Pages</strong> and confirm the certificate has provisioned (GitHub shows a message). If it has not, remove the custom domain, save, re-add it, and save again &mdash; this re-triggers the certificate request. It can take up to an hour.</li>
+      <li>Once the certificate is ready, check the <strong>"Enforce HTTPS"</strong> box in that same settings page.</li>
+      <li><strong>Test it yourself the way a stranger would:</strong> open a fresh or incognito/private browser window and go to <code>https://yourname.com</code> (typing the <code>https://</code> explicitly). You should see your site with no warning. Do not skip this &mdash; visiting over <code>http://</code> or in your normal browser can hide the exact problem you are checking for.</li>
+    </ol>
+    <p>If the certificate stubbornly refuses to provision, ask Claude Code: <em>"My GitHub Pages custom domain will not provision an HTTPS certificate. Help me diagnose it &mdash; check my DNS records for anything blocking Let's Encrypt, like a stray CAA record, and walk me through the fix."</em></p>
+
+    <h3>Add SEO and Open Graph Tags</h3>
+    <p>When someone shares your portfolio link on LinkedIn, in a Slack message, or in an email, the link preview is the first impression. If it shows a blank card or a file path, that undermines everything you built. Add proper metadata so your links look polished everywhere they appear.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Add SEO and Open Graph meta tags to every page on the site. Each page should have a unique page title, meta description, and Open Graph tags (og:title, og:description, og:image, og:url). For the og:image, create a branded social sharing image (1200x630 pixels) using our style guide that works as a default across all pages. Also add a favicon using our brand colors. Push the changes to GitHub.</p>
+    </div>
+
+    <h3>Add Simple Analytics</h3>
+    <p>Once your site is live, you will want to know if anyone is visiting. You do not need anything complex. <a href="https://www.goatcounter.com/" target="_blank" rel="noopener noreferrer">GoatCounter</a> is free, open source, privacy-friendly, and requires no cookies. You sign up, get a single script tag, and add it to your pages. It tells you how many people visited, which pages they looked at, and where they came from.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>I have a GoatCounter account. My tracking code is [your-code].goatcounter.com. Add the GoatCounter analytics script to every page on the site. Make sure it is placed just before the closing body tag on each page. Push the changes to GitHub.</p>
+    </div>
+
+    <h3>Get Feedback from Real People</h3>
+    <p>This is one of the most important steps in the entire process. Send your portfolio to people you trust and ask specific questions. Do not just say "Can you take a look at this?" Instead, ask:</p>
+    <ul>
+      <li>Is my thesis clear? Can you tell me what I do and why it matters after reading the homepage?</li>
+      <li>When you look at the projects page, do you think I articulated what I did on each project?</li>
+      <li>Do you think I am missing anything?</li>
+      <li>Does the site feel like me?</li>
+      <li>What is the first thing you noticed?</li>
+      <li>What confused you?</li>
+      <li>If you were hiring for [role], would this portfolio make you want to talk to me?</li>
+    </ul>
+    <p>Take that feedback back to Claude Code and iterate.</p>
+
+    <div class="toolbox">
+      <div class="toolbox-head">
+        <i class="ti ti-messages"></i>
+        <span class="toolbox-title">Turning feedback into changes with html-review</span>
+        <span class="toolbox-tag">A tool I built</span>
+      </div>
+      <p>When the feedback starts coming in &mdash; from real people, from your own re-reads, from the critiques below &mdash; the bottleneck becomes translating "this section feels off" into precise instructions. This is exactly what <strong>html-review</strong> is for. Open any page in it, click the element someone flagged, and leave a comment or drawing right on it. Those notes flow back into Claude Code so it can act on them directly, element by element, instead of you re-describing the layout from memory. It keeps the deploy → feedback → change → redeploy loop tight, which is the whole point of building this way. Free and open source; a browser and a notes file work too if you would rather keep it simple.</p>
+      <a class="toolbox-cta" href="https://github.com/JulianaMapper/Simple-HTML-Editor" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-github"></i> html-review on GitHub</a>
+    </div>
+
+    <h3>Use Claude Code to Pressure-Test It</h3>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt for multi-perspective critique</div>
+      <p>Review my complete portfolio site. Critique it from three perspectives simultaneously: (1) a hiring manager scanning for 8 seconds to decide whether to keep reading, (2) a [relevant role, e.g., "GIS director"] evaluating technical depth, and (3) a designer evaluating visual consistency and accessibility. For each perspective, give me 3 specific things that work and 3 specific things to improve. Be direct.</p>
+    </div>
+    <p>You do not have to accept every piece of feedback. Decide what resonates, ask Claude Code to make those changes, and review again.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt for accessibility audit</div>
+      <p>Audit the entire site for WCAG AA (AAA where feasible) accessibility. Check color contrast, heading structure, alt text on all images, keyboard navigation, touch targets, and reading order. Fix any issues you find.</p>
+    </div>
+
+    <h3>Identify Your Gaps</h3>
+    <p>Once your portfolio is live, use it as a mirror. Look at what you have and ask yourself what is missing.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>Review my portfolio and my project database. Where are my gaps? What skills or experiences would strengthen my story? What kinds of passion projects or side projects could I take on to fill those gaps? Suggest 3&ndash;5 specific ideas that would complement my existing work and reinforce my thesis.</p>
+    </div>
+
+    <h3>Keep Iterating</h3>
+    <p>Your portfolio is never done. When you finish a new project, drop the materials in your folder and tell Claude Code:</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>I have a new project to add to my portfolio. Here are the details: [describe it or point to new files]. Create a new case study page using the same format as the existing ones. Update the home page to include it. Push the changes to GitHub. Update the project database with the new project information.</p>
+    </div>
+    <p>Claude Code reads your existing style guide, matches everything automatically, and deploys the update. One prompt, multiple files changed, live in minutes.</p>
+    <p>And if you ever decide to change your entire color palette or switch fonts, you update the style guide and tell Claude Code to propagate the changes. Every page updates at once. That is the power of building a system instead of a collection of one-off pages.</p>
+
+    <h2 id="phase9">Phase 9: Share Your Work</h2>
+    <p>A portfolio that nobody sees does not help you. Once your site is live, actively share what you have built.</p>
+
+    <h3>Build LinkedIn Graphics</h3>
+    <p>Rather than writing AI-generated LinkedIn posts, create a series of branded graphics that showcase your projects and your thinking. Write the post text in your own voice. The graphics do the visual heavy lifting.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-prompt"></i> Prompt</div>
+      <p>I want to work on showcasing the work that I have done on LinkedIn to help position me for [types of roles you are targeting]. Using our brand style guide, create a set of LinkedIn graphics as a single HTML file. Each graphic should be 1080x1080 pixels (square format). Create one graphic for each of my featured projects. Each graphic should feature a strong headline: a title, a question, or a problem statement in our heading font. Pull in a screenshot or visual from our images folder and apply a transparent color overlay using our brand palette so it feels cohesive. Include a brief value statement. The HTML file should include a download button that generates a ZIP file of all the graphics as PNGs. Generate all of them at once so I can review the full set together. Open the file in my browser.</p>
+    </div>
+    <p>Review the full set. Some will work immediately. Others will need refinement. Tell Claude Code which ones to adjust and iterate until the set feels cohesive.</p>
+
+    <h3>How to Use These on LinkedIn</h3>
+    <p>LinkedIn lets you schedule posts using its native scheduling tool. You do not have to publish everything at once. Plan a series over a few weeks. For each post:</p>
+    <ul>
+      <li>Write the text yourself in your own voice. Tell about your thought process. Show how you work. Ask a question to prompt engagement.</li>
+      <li>Attach the branded graphic.</li>
+      <li>Link to the relevant case study on your portfolio.</li>
+    </ul>
+    <p>The goal is not to just show your work. The goal is to tell people how you think, invite them to respond, and build your brand as someone worth paying attention to.</p>
+
+    <h3>Collect Social Proof</h3>
+    <p>Testimonials from real people who have worked with you are some of the most powerful things you can put on a portfolio. Reach out to past bosses, coworkers, and collaborators and ask them to write two paragraphs about you. Be specific about what you are looking for so they can speak directly to your value.</p>
+    <div class="prompt">
+      <div class="prompt-label"><i class="ti ti-mail"></i> Example outreach message</div>
+      <p>Hi [Name] &mdash; I am working on building out my professional portfolio. You can see where it is headed here: [link to your portfolio]. I was wondering if you would be willing to provide a short testimonial about me as a colleague. Would you be willing to write two paragraphs about working with me? My value proposition is [your thesis, e.g., "I build tools that work because I start with the people who will use them"], so being able to speak to that specifically would be really helpful. Anything about how I approach problems, what it is like to collaborate with me, or the impact of my work would be great. I would also love to include a photo of you alongside the testimonial if you are comfortable sharing one. Thank you!</p>
+    </div>
+    <p>You do not need dozens of testimonials. Two or three strong ones from people who can speak to different aspects of your work go a long way. Place them on your portfolio where they reinforce your case studies or your About page.</p>
+
+    <h3>Maintain a Consistent Visual Identity</h3>
+    <p>As you think about sharing your work in any context, keep your brand consistent. If you create a presentation for an interview, use your brand colors and fonts. If you share a one-pager or a proposal, match the style guide. If you use Canva or other tools, use the same fonts and colors.</p>
+    <p>This consistency compounds over time. When people see your LinkedIn graphic, then visit your portfolio, then receive your resume, it should all feel like the same person.</p>
+
+  </main>
+
+  <!-- Support band -->
+  <aside class="support-band" aria-label="Support this guide">
+    <div class="support-inner">
+      <div class="support-msg">
+        <div class="support-title">If you found this helpful&hellip;</div>
+        <p class="support-sub">Want a hand building yours? I offer 1:1 coaching to help you work through this process. I'd also love to hear what you built &mdash; reach out on LinkedIn. And if this saved you some time, you can buy me a coffee.</p>
+      </div>
+      <div class="support-actions">
+        <a class="support-btn primary" href="https://calendly.com/ft_juliana/1-map-your-future-coaching" target="_blank" rel="noopener noreferrer"><i class="ti ti-calendar-heart"></i> Work with me 1:1</a>
+        <a class="support-btn secondary" href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-linkedin"></i> Reach out on LinkedIn</a>
+        <a class="support-btn secondary" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener noreferrer"><i class="ti ti-coffee"></i> Buy me a coffee</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Juliana McMillan-Wilhoit</div>
+        <div class="footer-brand-sub">Chief Product Officer &amp; Co-Founder, F&amp;T Labs<br />Northern Illinois</div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Pages</div>
+        <div class="footer-nav-links">
+          <a href="index.html" class="footer-nav-link">Home</a>
+          <a href="work.html" class="footer-nav-link">Work</a>
+          <a href="thinking.html" class="footer-nav-link">How I Think</a>
+          <a href="about.html" class="footer-nav-link">About</a>
+          <a href="references.html" class="footer-nav-link">References</a>
+          <a href="tools.html" class="footer-nav-link">Tools</a>          <a href="portfolio-prompt.html" class="footer-nav-link">Portfolio Guide</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Get in touch</div>
+        <a href="mailto:juliana@fandtlabs.com" class="footer-contact-link">Get in touch &rarr;</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn &rarr; julianamapper</a>
+      </div>
+    </div>
+    <div class="footer-tagline-row">
+      <div class="footer-tagline">The domain changes. The approach doesn't.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Add a copy button to every prompt card
+    document.querySelectorAll('.prompt').forEach(function (card) {
+      var label = card.querySelector('.prompt-label');
+      if (!label) return;
+      var btn = document.createElement('button');
+      btn.className = 'prompt-copy';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Copy prompt to clipboard');
+      btn.innerHTML = '<i class="ti ti-copy"></i> Copy';
+      btn.addEventListener('click', function () {
+        var text = Array.prototype.map
+          .call(card.querySelectorAll('p'), function (el) { return el.textContent.trim(); })
+          .join('\n\n');
+        navigator.clipboard.writeText(text).then(function () {
+          btn.innerHTML = '<i class="ti ti-check"></i> Copied';
+          setTimeout(function () { btn.innerHTML = '<i class="ti ti-copy"></i> Copy'; }, 1600);
+        });
+      });
+      label.appendChild(btn);
+    });
+  </script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HTML Editor — PH360</title>
+<title>HTML Editor | PH360</title>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;700;900&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -280,7 +280,7 @@
 
   <div class="notice-banner" id="noticeBanner" role="note">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    <span><strong>Generic utility tool.</strong> This is not part of the official PH360™ system. Your content is not logged or saved — but this tool is also not fully secured. Do not paste sensitive or personally identifiable information.</span>
+    <span><strong>Generic utility tool.</strong> This is not part of the official PH360™ system. Your content is not logged or saved, but this tool is also not fully secured. Do not paste sensitive or personally identifiable information.</span>
     <button class="notice-banner-close" aria-label="Dismiss notice" onclick="document.getElementById('noticeBanner').style.display='none'">✕</button>
   </div>
 
@@ -334,7 +334,7 @@
           <div class="inner">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
             <strong>Paste your content here (⌘V)</strong>
-            <span>Copy from anywhere — the rich formatting comes through and gets cleaned into HTML automatically.</span>
+            <span>Copy from anywhere, the rich formatting comes through and gets cleaned into HTML automatically.</span>
           </div>
         </div>
       </div>
@@ -353,7 +353,7 @@
         <span class="note">Your changes save when you Download, Copy, or Open in new tab.</span>
       </div>
       <iframe class="preview-frame" id="preview" title="HTML preview" sandbox="allow-scripts allow-same-origin" style="display:none;"></iframe>
-      <div class="preview-empty" id="previewEmpty">Paste content on the left — it renders here, then you can click any text to edit it.</div>
+      <div class="preview-empty" id="previewEmpty">Paste content on the left, it renders here, then you can click any text to edit it.</div>
     </section>
 
   </div>
@@ -433,7 +433,7 @@
         doc.head.appendChild(aff);
       }
       doc.addEventListener('input', () => {
-        setStatus('Edited in preview — changes are captured. Download / Copy / Open to save them.', 'ok');
+        setStatus('Edited in preview, changes are captured. Download / Copy / Open to save them.', 'ok');
       });
     } catch (e) { /* cross-origin / unavailable — preview stays read-only */ }
   });
@@ -614,7 +614,7 @@
     } else if (result.notes.length) {
       setDetected('Detected: ' + result.notes.join(' · '), true);
     } else {
-      setDetected('Detected: clean HTML — passed through', true);
+      setDetected('Detected: clean HTML, passed through', true);
     }
 
     if (!lastClean) {
@@ -725,7 +725,7 @@
   }
 
   document.getElementById('downloadBtn').addEventListener('click', async () => {
-    if (!lastClean) { setStatus('Nothing to download — paste some content first.', 'err'); return; }
+    if (!lastClean) { setStatus('Nothing to download: paste some content first.', 'err'); return; }
     const fmt = formatSel.value;
     if (fmt === 'html') { triggerHtmlDownload(); return; }
     if (fmt === 'pptx-edit') { await exportEditablePptx(); return; }
@@ -820,7 +820,7 @@
   async function exportSlides(fmt) {
     downloadBtn.disabled = true;
     try {
-      setStatus('Preparing ' + (fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ' — loading tools…', 'ok');
+      setStatus('Preparing ' + (fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ': loading tools…', 'ok');
       await loadScript(CDN.html2canvas);
       if (fmt === 'pptx') await loadScript(CDN.pptxgen);
       else await loadScript(CDN.jspdf);
@@ -851,9 +851,9 @@
         });
         pdf.save(name);
       }
-      setStatus('Downloaded "' + name + '" — ' + images.length + ' slide' + (images.length > 1 ? 's' : '') + ' (picture-based; matches the preview).', 'ok');
+      setStatus('Downloaded "' + name + '", ' + images.length + ' slide' + (images.length > 1 ? 's' : '') + ' (picture-based; matches the preview).', 'ok');
     } catch (err) {
-      setStatus((fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ' export failed: ' + (err && err.message ? err.message : err) + ' — try Download as HTML.', 'err');
+      setStatus((fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ' export failed: ' + (err && err.message ? err.message : err) + '. Try Download as HTML.', 'err');
     } finally {
       downloadBtn.disabled = false;
     }
@@ -972,10 +972,10 @@
   }
 
   async function exportEditablePptx() {
-    if (!lastClean) { setStatus('Nothing to export — paste some content first.', 'err'); return; }
+    if (!lastClean) { setStatus('Nothing to export: paste some content first.', 'err'); return; }
     downloadBtn.disabled = true;
     try {
-      setStatus('Preparing editable PowerPoint — loading tools…', 'ok');
+      setStatus('Preparing editable PowerPoint: loading tools…', 'ok');
       await loadScript(CDN.pptxgen);
       const doc = frame.contentDocument, win = frame.contentWindow;
       if (!doc || !win) throw new Error('Preview not reachable.');
@@ -1047,32 +1047,32 @@
 
       const name = nameForFormat('pptx-edit');
       await pptx.writeFile({ fileName: name });
-      setStatus('Downloaded "' + name + '" — ' + nodes.length + ' editable slide' + (nodes.length > 1 ? 's' : '') + ' (beta · text is editable; gradients/fonts may differ). For a pixel-exact copy use “PowerPoint · picture”.', 'ok');
+      setStatus('Downloaded "' + name + '", ' + nodes.length + ' editable slide' + (nodes.length > 1 ? 's' : '') + ' (beta · text is editable; gradients/fonts may differ). For a pixel-exact copy use “PowerPoint · picture”.', 'ok');
     } catch (err) {
-      setStatus('Editable PowerPoint failed: ' + (err && err.message ? err.message : err) + ' — try “PowerPoint · picture”.', 'err');
+      setStatus('Editable PowerPoint failed: ' + (err && err.message ? err.message : err) + '. Try “PowerPoint · picture”.', 'err');
     } finally {
       downloadBtn.disabled = false;
     }
   }
 
   document.getElementById('openBtn').addEventListener('click', () => {
-    if (!lastClean) { setStatus('Nothing to open — paste some content first.', 'err'); return; }
+    if (!lastClean) { setStatus('Nothing to open: paste some content first.', 'err'); return; }
     // Open the REAL file (un-sandboxed) in a new tab — the true render, with edits.
     const blob = new Blob([currentHtml()], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const w = window.open(url, '_blank');
-    if (!w) { setStatus('Pop-up blocked — allow pop-ups, or use Download.', 'err'); URL.revokeObjectURL(url); return; }
+    if (!w) { setStatus('Pop-up blocked: allow pop-ups, or use Download.', 'err'); URL.revokeObjectURL(url); return; }
     setTimeout(() => URL.revokeObjectURL(url), 60000);
     setStatus('Opened the real file in a new tab. This is the true render.', 'ok');
   });
 
   document.getElementById('copyBtn').addEventListener('click', async () => {
-    if (!lastClean) { setStatus('Nothing to copy — paste some content first.', 'err'); return; }
+    if (!lastClean) { setStatus('Nothing to copy: paste some content first.', 'err'); return; }
     try {
       await navigator.clipboard.writeText(currentHtml());
       setStatus('HTML copied to clipboard (including your edits).', 'ok');
     } catch (err) {
-      setStatus('Copy blocked by the browser — use Download instead.', 'err');
+      setStatus('Copy blocked by the browser. Use Download instead.', 'err');
     }
   });
 
