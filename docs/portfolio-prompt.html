@@ -268,9 +268,51 @@
     .support-btn.primary:hover { background: #2D5A49; }
     .support-btn.secondary { background: transparent; color: #376E5A; }
     .support-btn.secondary:hover { background: rgba(55,110,90,0.08); }
+    /* Big, prominent Buy-me-a-coffee button */
+    .support-btn.coffee {
+      background: #376E5A; color: #FEFEFE; border: none;
+      font-size: 1.05rem; padding: 0.95rem 1.9rem; border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(55,110,90,0.28);
+    }
+    .support-btn.coffee i { font-size: 1.3rem; }
+    .support-btn.coffee:hover { background: #2D5A49; transform: translateY(-1px); }
     @media (max-width: 640px) {
       .support-actions { width: 100%; }
       .support-btn { flex: 1 1 auto; justify-content: center; }
+      .support-btn.coffee { flex: 1 1 100%; }
+    }
+
+    /* Scroll-triggered support popup */
+    .coffee-pop {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000;
+      max-width: 340px; background: #FEFEFE; border: 1px solid #E0DDD8;
+      border-radius: 14px; padding: 1.4rem 1.5rem 1.5rem;
+      box-shadow: 0 12px 36px rgba(28,40,38,0.18);
+      opacity: 0; transform: translateY(16px); pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .coffee-pop.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .coffee-pop-close {
+      position: absolute; top: 0.6rem; right: 0.7rem; background: none; border: none;
+      cursor: pointer; color: #8A9690; font-size: 1.3rem; line-height: 1; padding: 0.2rem;
+    }
+    .coffee-pop-close:hover { color: #1C2826; }
+    .coffee-pop-title {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 600;
+      font-size: 1.15rem; line-height: 1.25; color: #1C2826; margin: 0 1.5rem 0.4rem 0;
+    }
+    .coffee-pop-sub { font-size: 0.9rem; color: #4A5A54; margin: 0 0 1rem; }
+    .coffee-pop-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600; font-size: 1rem;
+      background: #376E5A; color: #FEFEFE; text-decoration: none;
+      padding: 0.75rem 1.4rem; border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(55,110,90,0.28);
+    }
+    .coffee-pop-btn i { font-size: 1.25rem; }
+    .coffee-pop-btn:hover { background: #2D5A49; }
+    @media (max-width: 640px) {
+      .coffee-pop { left: 1rem; right: 1rem; bottom: 1rem; max-width: none; }
     }
 
     /* ── Footer ── */
@@ -360,7 +402,7 @@
     </p>
     <p class="article-byline">A living document. Last revised July 2026.</p>
     <div class="hero-cta-row">
-      <a class="hero-cta" href="https://calendly.com/ft_juliana/1-map-your-future-coaching" target="_blank" rel="noopener noreferrer"><i class="ti ti-calendar-heart"></i> Work with me 1:1</a>
+      <a class="hero-cta" href="https://fandtlabs.com/training/gis-career-coaching/" target="_blank" rel="noopener noreferrer"><i class="ti ti-calendar-heart"></i> Work with me 1:1</a>
       <span class="hero-cta-note">Want a hand building yours? I offer 1:1 coaching to walk you through this whole process.</span>
     </div>
   </div>
@@ -862,9 +904,9 @@ claude</code></pre>
         <p class="support-sub">Want a hand building yours? I offer 1:1 coaching to help you work through this process. I'd also love to hear what you built &mdash; reach out on LinkedIn. And if this saved you some time, you can buy me a coffee.</p>
       </div>
       <div class="support-actions">
-        <a class="support-btn primary" href="https://calendly.com/ft_juliana/1-map-your-future-coaching" target="_blank" rel="noopener noreferrer"><i class="ti ti-calendar-heart"></i> Work with me 1:1</a>
+        <a class="support-btn primary" href="https://fandtlabs.com/training/gis-career-coaching/" target="_blank" rel="noopener noreferrer"><i class="ti ti-calendar-heart"></i> Work with me 1:1</a>
         <a class="support-btn secondary" href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-linkedin"></i> Reach out on LinkedIn</a>
-        <a class="support-btn secondary" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener noreferrer"><i class="ti ti-coffee"></i> Buy me a coffee</a>
+        <a class="support-btn coffee" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener noreferrer"><i class="ti ti-coffee"></i> Buy me a coffee</a>
       </div>
     </div>
   </aside>
@@ -919,7 +961,39 @@ claude</code></pre>
       });
       label.appendChild(btn);
     });
+
+    // Scroll-triggered "buy me a coffee" popup (fires once at ~50% scroll)
+    (function () {
+      var pop = document.getElementById('coffeePop');
+      if (!pop) return;
+      var dismissed = false;
+      var shown = false;
+      pop.querySelector('.coffee-pop-close').addEventListener('click', function () {
+        dismissed = true;
+        pop.classList.remove('show');
+      });
+      function onScroll() {
+        if (shown || dismissed) return;
+        var scrolled = window.scrollY + window.innerHeight;
+        var half = document.documentElement.scrollHeight * 0.5;
+        if (scrolled >= half) {
+          shown = true;
+          pop.classList.add('show');
+          window.removeEventListener('scroll', onScroll);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
   </script>
+
+  <!-- Scroll-triggered support popup -->
+  <div class="coffee-pop" id="coffeePop" role="dialog" aria-label="Support this guide">
+    <button class="coffee-pop-close" type="button" aria-label="Close">&times;</button>
+    <div class="coffee-pop-title">Finding this useful?</div>
+    <p class="coffee-pop-sub">If this guide saved you some time, a coffee keeps it free and growing. Thank you!</p>
+    <a class="coffee-pop-btn" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener noreferrer"><i class="ti ti-coffee"></i> Buy me a coffee</a>
+  </div>
 
 </body>
 </html>
