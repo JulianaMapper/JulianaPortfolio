@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23376E5A'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='40'%20font-weight='700'%20fill='%23F7F5F0'%20text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Button Shortcuts — works with Yoto | Juliana McMillan-Wilhoit</title>
+  <title>Yoto Button Shortcuts | Juliana McMillan-Wilhoit</title>
   <meta name="description" content="A free, independent tool that lets you choose what your Yoto Player's right-hand button plays, separately for Day and Night mode. Not made or endorsed by Yoto." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://julianamapper.com/tools/yoto-shortcuts.html" />
-  <meta property="og:title" content="Button Shortcuts — works with Yoto" />
+  <meta property="og:title" content="Yoto Button Shortcuts" />
   <meta property="og:description" content="Choose what your Yoto Player's right-hand button plays, for Day and Night. An independent tool by Juliana McMillan-Wilhoit. Not made or endorsed by Yoto." />
   <meta property="og:image" content="https://julianamapper.com/assets/og-card.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -407,7 +407,7 @@
   <div class="page-hero">
     <div class="page-hero-inner">
       <div class="hero-eyebrow">Personal tool · Free</div>
-      <h1>Button Shortcuts<span class="h1-sub">works with Yoto</span></h1>
+      <h1>Yoto Button Shortcuts<span class="h1-sub">an independent tool</span></h1>
       <p>Choose what your Yoto Player's right-hand button plays, with separate lists for Day and Night.</p>
     </div>
   </div>
@@ -1126,7 +1126,7 @@
         setTimeout(() => { label.textContent = orig; }, 1800);
       };
       if (navigator.share) {
-        navigator.share({ title: 'Button Shortcuts — works with Yoto', text: 'A free tool to choose what your Yoto Player’s right-hand button plays.', url: SHARE_URL }).catch(() => {});
+        navigator.share({ title: 'Yoto Button Shortcuts', text: 'A free tool to choose what your Yoto Player’s right-hand button plays.', url: SHARE_URL }).catch(() => {});
       } else if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(SHARE_URL).then(done).catch(() => window.prompt('Copy this link:', SHARE_URL));
       } else {
