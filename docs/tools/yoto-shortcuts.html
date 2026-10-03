@@ -111,26 +111,24 @@
     /* ── Hero ── */
     .page-hero {
       background: var(--ink);
-      padding: 3rem 1rem 2.5rem;
-      text-align: center;
+      padding: 2.5rem 1rem 2rem;
+      text-align: left;
       border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .page-hero-inner { max-width: 680px; margin: 0 auto; }
+    .page-hero-inner { max-width: 860px; margin: 0 auto; }
+    @media (min-width: 1000px) { .page-hero-inner { max-width: 960px; } }
+    @media (min-width: 720px) { .page-hero { padding-left: 0; padding-right: 0; } .page-hero-inner { padding: 0 2.5rem; } }
     .hero-eyebrow {
       font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
       letter-spacing: 0.1em; color: var(--light); margin-bottom: 0.75rem;
     }
     .page-hero h1 {
       font-family: "Fraunces", Georgia, serif;
-      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-size: clamp(1.75rem, 4.5vw, 2.4rem);
       font-weight: 700; color: var(--surface);
-      letter-spacing: -0.03em; line-height: 1.12; margin: 0 0 1rem 0;
+      letter-spacing: -0.03em; line-height: 1.12; margin: 0 0 1rem 0; text-wrap: balance;
     }
-    .page-hero h1 .h1-sub {
-      display: block; font-size: 0.5em; font-weight: 500; font-style: italic;
-      letter-spacing: -0.01em; color: var(--light); margin-top: 0.35rem;
-    }
-    .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.75); line-height: 1.7; margin: 0; }
+    .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.75); line-height: 1.7; margin: 0; max-width: 640px; }
 
     /* ── Main ── */
     main { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 3rem; }
@@ -138,8 +136,8 @@
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(28,40,38,0.06);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(28,40,38,0.05);
       padding: 1.25rem;
       margin-bottom: 1.5rem;
     }
@@ -185,7 +183,7 @@
     .callout.warn { background: #fff8e6; border-left-color: #b7791f; }
     .callout.warn p { color: #5c3d06; }
 
-    .detail-list { display: grid; gap: 0.75rem; margin: 1rem 0 0; }
+    .detail-list { display: grid; gap: 0.75rem; margin: 0.25rem 0 0; }
     .detail-item { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.9rem; color: var(--body); }
     .detail-item i { color: var(--accent); font-size: 1.2rem; margin-top: 0.1rem; flex-shrink: 0; }
     .detail-item strong { color: var(--ink); }
@@ -379,18 +377,31 @@
       *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; scroll-behavior: auto !important; }
     }
     @media (min-width: 1000px) {
-      main { max-width: 1120px; }
+      main { max-width: 960px; }
       .builder-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
       .builder-right h3 { margin-top: 0 !important; }
       .builder-right .picker-list { max-height: 34rem; overflow-y: auto; }
       .detail-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 2rem; }
     }
+    .caveats { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
+    .caveats summary { cursor: pointer; font-weight: 600; color: var(--ink); font-size: 0.95rem; list-style: none; display: flex; align-items: center; gap: 0.5rem; }
+    .caveats summary::-webkit-details-marker { display: none; }
+    .caveats summary::before { content: "+"; font-weight: 700; color: var(--accent); width: 1.1rem; }
+    .caveats[open] summary::before { content: "\2013"; }
+    .caveats .detail-list { margin-top: 0.9rem; }
+    .fine-print { font-size: 0.8rem; color: var(--body); line-height: 1.55; max-width: 720px; margin: 2rem 0 0; }
     .same-toggle { display: flex; gap: 0.55rem; align-items: center; margin: 0 0 0.9rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; }
     .same-toggle input { width: 1.15rem; height: 1.15rem; accent-color: var(--accent); }
     .tabs[hidden] { display: none; }
     .risk-check { display: flex; gap: 0.6rem; align-items: flex-start; margin: 0.75rem 0 1rem; padding: 0.75rem 0.9rem; border: 1px solid var(--border); border-radius: 8px; background: var(--ground); font-size: 0.92rem; line-height: 1.45; cursor: pointer; }
     .risk-check input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; flex: none; accent-color: var(--accent); }
     #save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .support-strip { background: rgba(55,110,90,0.08); border-bottom: 1px solid var(--border); }
+    .support-strip-inner { max-width: 860px; margin: 0 auto; padding: 0.6rem 1rem; font-size: 0.9rem; color: var(--body); }
+    @media (min-width: 720px) { .support-strip-inner { padding: 0.6rem 2.5rem; } }
+    @media (min-width: 1000px) { .support-strip-inner { max-width: 960px; } }
+    .support-strip a, .support-strip .link-btn { color: var(--accent); font-weight: 600; font-size: inherit; text-decoration: underline; padding: 0; }
+    .support-strip a:hover, .support-strip .link-btn:hover { color: var(--hover); }
 </style>
 </head>
 <body>
@@ -413,51 +424,18 @@
 
   <div class="page-hero">
     <div class="page-hero-inner">
-      <div class="hero-eyebrow">Personal tool · Free</div>
-      <h1>Yoto Button Shortcuts<span class="h1-sub">an independent tool</span></h1>
-      <p>Choose what your Yoto Player's right-hand button plays, with separate lists for Day and Night.</p>
+      <h1>Turn your Yoto&rsquo;s right-hand button into a playlist starter</h1>
+      <p>Pick up to four cards for Day and four for Night. A double press plays the first one. After you save, restart your Yoto so it picks up the change.</p>
     </div>
   </div>
 
-  <!-- ── Support band (top) ── -->
-  <div class="coffee-band" id="support">
-    <div class="coffee-band-inner">
-      <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee, or shared it with another Yoto parent.</p>
-      <div class="coffee-actions">
-        <a class="coffee-btn" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
-                <a class="coffee-share-btn" href="https://venmo.com/juliana-wilhoit" target="_blank" rel="noopener">Venmo @juliana-wilhoit</a>
-                <a class="coffee-share-btn" href="https://paypal.me/mcmillanwilhoit" target="_blank" rel="noopener"><i class="ti ti-brand-paypal" aria-hidden="true"></i> PayPal</a>
-        <button type="button" class="coffee-share-btn js-share">&#8599; <span class="share-label">Share with a parent</span></button>
-      </div>
+  <div class="support-strip">
+    <div class="support-strip-inner">
+      <span>If this saved you some fiddling, I&rsquo;d love it if you <a href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">bought me a coffee</a> or <button type="button" class="js-share link-btn"><span class="share-label">shared it with another Yoto parent</span></button>.</span>
     </div>
   </div>
-
 
   <main id="main">
-
-    <!-- ── Intro ── -->
-    <section class="card" aria-labelledby="intro-h">
-      <div class="callout disclaimer">
-        <p>An independent tool by Juliana McMillan-Wilhoit. Works with Yoto. Not made or endorsed by Yoto.</p>
-        <p><strong>Use at your own risk.</strong> This tool is provided free and as-is, with no warranty. It changes settings on your Yoto Player through Yoto&rsquo;s own API, and Yoto could change or remove that feature at any time. I&rsquo;m not responsible for any problems with your player, account, or cards that come from using it.</p>
-      </div>
-      <h2 id="intro-h">What this does</h2>
-      <p>Your Yoto Player has a right-hand button. With this tool you pick up to <strong>4 cards</strong> for <strong>Day</strong> mode and up to <strong>4 cards</strong> for <strong>Night</strong> mode, and the button plays them. <strong>Order matters:</strong> the first card in the list is what a double press plays.</p>
-      <p>Sign in with your own Yoto account, pick your player, choose your cards, and save. That's it.</p>
-
-      <div class="detail-list">
-        <div class="detail-item"><i class="ti ti-player-track-next" aria-hidden="true"></i>
-          <div><strong>Kids can&rsquo;t skip ahead.</strong> A card started from the button plays straight through, and the dials won&rsquo;t jump to the next chapter. If you want variety, turn on shuffle for that card in the Yoto app.</div></div>
-        <div class="detail-item"><i class="ti ti-alert-triangle" aria-hidden="true"></i>
-          <div><strong>Expect an "unverified app" warning.</strong> When you sign in, Yoto will warn you that this app isn't verified. That's expected: Yoto doesn't verify apps that change player settings. The sign-in screen lists exactly what it asks for.</div></div>
-        <div class="detail-item"><i class="ti ti-shield-lock" aria-hidden="true"></i>
-          <div><strong>Everything stays in your browser.</strong> This page talks directly to Yoto. Nothing is sent to me, and there are no analytics or trackers. Your sign-in and your last choices are saved in this browser only. Sign out clears your sign-in, and Forget saved choices clears your lists.</div></div>
-        <div class="detail-item"><i class="ti ti-flask" aria-hidden="true"></i>
-          <div><strong>It uses a feature Yoto calls beta.</strong> It worked on a 3rd-generation Yoto Player without the beta turned on. It may not work on every player.</div></div>
-        <div class="detail-item"><i class="ti ti-eye-off" aria-hidden="true"></i>
-          <div><strong>It can't show what's currently set.</strong> Yoto doesn't let this page read your player's existing shortcut list, so you'll always start from what you last saved here (in this browser), not from what the player has now.</div></div>
-      </div>
-    </section>
 
     <div id="status" class="status" role="status" aria-live="polite" tabindex="-1"></div>
 
@@ -471,7 +449,7 @@
     <section class="card" id="signin-card" hidden aria-labelledby="signin-h">
       <h2 id="signin-h">Sign in with Yoto</h2>
       <p>You'll go to Yoto's own sign-in page and come right back here. This page never sees your password.</p>
-      <p>It asks Yoto for permission to see your players and your own (Make Your Own) cards, and to change player shortcut settings.</p>
+      <p>This tool asks Yoto for permission to see your players and your Make Your Own cards, and to change the player&rsquo;s shortcut settings.</p>
       <div class="btn-row">
         <button type="button" class="btn btn-primary" id="signin-btn"><i class="ti ti-login-2" aria-hidden="true"></i> Sign in with Yoto</button>
       </div>
@@ -498,7 +476,7 @@
 
       <!-- Step 2 -->
       <section class="card" id="builder" aria-labelledby="s2-h" hidden>
-        <div class="step-label"><span class="step-num" aria-hidden="true">2</span> <span id="s2-h">Choose what the right button plays</span></div>
+        <div class="step-label"><span class="step-num" aria-hidden="true">2</span> <span id="s2-h">Choose what the right-hand button plays</span></div>
 
         <div class="builder-grid">
         <div class="builder-left">
@@ -513,7 +491,7 @@
           <ol class="slots" id="slots" aria-label="Shortcut list"></ol>
           <div class="builder-tools">
             <button type="button" class="btn btn-secondary btn-small" id="copy-btn"><i class="ti ti-copy" aria-hidden="true"></i> Copy Day to Night</button>
-            <button type="button" class="btn btn-secondary btn-small" id="clear-btn"><i class="ti ti-trash" aria-hidden="true"></i> Clear this mode</button>
+            <button type="button" class="btn btn-secondary btn-small" id="clear-btn"><i class="ti ti-trash" aria-hidden="true"></i> Clear this list</button>
           </div>
         </div>
 
@@ -524,7 +502,7 @@
         <input type="search" id="card-search" class="field" placeholder="Type part of a title" autocomplete="off" />
         <p class="hint" id="cards-hint"></p>
         <ul class="picker-list" id="picker" aria-labelledby="picker-h"></ul>
-        <div class="btn-row" style="margin-top:0.75rem;"><button type="button" class="link-btn" id="reload-cards">Reload my cards</button></div>
+        <div class="btn-row" style="margin-top:0.75rem;"><button type="button" class="link-btn" id="reload-cards">Reload your cards</button></div>
         </div>
         </div>
       </section>
@@ -532,37 +510,50 @@
       <!-- Step 3 -->
       <section class="card" id="save-card" aria-labelledby="s3-h" hidden>
         <div class="step-label"><span class="step-num" aria-hidden="true">3</span> <span id="s3-h">Save to your player</span></div>
-        <p>This replaces the right-button lists for both Day and Night on the selected player. Your list is remembered in this browser so it's pre-filled next time.</p>
+        <p>This replaces the right-hand button lists for both Day and Night on the selected player. <strong>Your Yoto won&rsquo;t use the new list until you turn it off and on again.</strong> Your lists are remembered in this browser so they&rsquo;re pre-filled next time.</p>
         <label class="risk-check"><input type="checkbox" id="risk-ok"> <span>I understand this is an independent tool, not made by Yoto, and I&rsquo;m using it at my own risk.</span></label>
         <div class="btn-row">
           <button type="button" class="btn btn-primary" id="save-btn"><i class="ti ti-device-floppy" aria-hidden="true"></i> Save shortcuts</button>
         </div>
 
         <div class="instructions" id="after-save" hidden tabindex="-1" aria-labelledby="after-h">
-          <h3 id="after-h">Saved. Now wake the player up to it.</h3>
+          <h3 id="after-h">Saved. Now restart your Yoto, or the button won&rsquo;t change.</h3>
           <ol>
-            <li>Turn your player off and on, then wait about 30 seconds.</li>
-            <li>With no card in, double-press the right button.</li>
+            <li>Turn your Yoto off and on (hold the left-hand button to power it off), then wait about 30 seconds for it to reconnect.</li>
+            <li>With no card in, double press the right-hand button.</li>
           </ol>
           <p style="margin-top:0.75rem;">Cards started this way play straight through, and the dials won&rsquo;t skip chapters. Turn on shuffle for a card in the Yoto app if you want variety.</p>
           <div class="coffee-band inline" id="support-after">
             <div class="coffee-band-inner">
-              <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee, or shared it with another Yoto parent.</p>
+              <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee or shared it with another Yoto parent.</p>
               <div class="coffee-actions">
                 <a class="coffee-btn" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
-                <a class="coffee-share-btn" href="https://venmo.com/juliana-wilhoit" target="_blank" rel="noopener">Venmo @juliana-wilhoit</a>
-                <a class="coffee-share-btn" href="https://paypal.me/mcmillanwilhoit" target="_blank" rel="noopener"><i class="ti ti-brand-paypal" aria-hidden="true"></i> PayPal</a>
                 <button type="button" class="coffee-share-btn js-share">&#8599; <span class="share-label">Share with a parent</span></button>
               </div>
             </div>
           </div>
         </div>
-
-        <h3>Want to undo this?</h3>
-        <p>There&rsquo;s no way to bring back Yoto&rsquo;s exact original setup, but you can put Yoto Daily back on the double press. Press the button below, then press Save.</p>
-        <div class="btn-row"><button type="button" class="btn btn-secondary btn-small" id="reset-btn"><i class="ti ti-restore" aria-hidden="true"></i> Go back to Yoto Daily</button></div>
       </section>
     </div>
+
+    <!-- ── Intro ── -->
+    <section class="card" aria-labelledby="intro-h">
+      <h2 id="intro-h">Good to know</h2>
+      <div class="detail-list">
+        <div class="detail-item"><i class="ti ti-alert-triangle" aria-hidden="true"></i>
+          <div><strong>Expect an &ldquo;unverified app&rdquo; warning.</strong> Yoto doesn&rsquo;t verify apps that change player settings, so the warning is normal. The sign-in screen lists exactly what it asks for.</div></div>
+        <div class="detail-item"><i class="ti ti-shield-lock" aria-hidden="true"></i>
+          <div><strong>Everything stays in your browser.</strong> This page talks directly to Yoto. Nothing is sent to me, and there are no analytics or trackers. Your sign-in and your last choices are saved in this browser only. Sign out clears your sign-in, and Forget saved choices clears your lists.</div></div>
+        <div class="detail-item"><i class="ti ti-flask" aria-hidden="true"></i>
+          <div><strong>It uses a feature Yoto calls beta.</strong> It worked on a third-generation Yoto Player without turning the beta on. It may not work on every player.</div></div>
+        <div class="detail-item"><i class="ti ti-refresh" aria-hidden="true"></i>
+          <div><strong>Restart your Yoto after every save.</strong> The player only reads its button list when it starts up, so until you turn it off and on the double press keeps doing what it did before.</div></div>
+        <div class="detail-item"><i class="ti ti-eye-off" aria-hidden="true"></i>
+          <div><strong>It can&rsquo;t show what&rsquo;s currently set.</strong> Yoto doesn&rsquo;t let this page read your player&rsquo;s existing shortcut list, so you&rsquo;ll always start from what you last saved here.</div></div>
+      </div>
+    </section>
+
+    <p class="fine-print">An independent tool by Juliana McMillan-Wilhoit. Not made or endorsed by Yoto. Provided free and as-is, with no warranty. It changes settings on your Yoto Player through Yoto&rsquo;s own API, and that feature could change or go away at any time. Use at your own risk. I&rsquo;m not responsible for any problems with your player, account, or cards that come from using it.</p>
 
   </main>
 
@@ -1133,7 +1124,7 @@
         await api('/device-v2/' + encodeURIComponent(state.deviceId) + '/shortcuts', { method: 'PUT', body });
         setJSON(ls, K_SAVED + state.deviceId, { day, night, same: state.same, savedAt: Date.now() });
         state.emptyOk = false;
-        showStatus('Saved to your player.', 'success');
+        showStatus('Saved to your player. Now turn your Yoto off and on so it picks up the new list.', 'success');
         $('after-save').hidden = false;
         $('after-save').focus();
       } catch (e) { handleError(e); }
@@ -1195,12 +1186,6 @@
       $('save-btn').addEventListener('click', save);
       $('save-btn').disabled = true;
       $('risk-ok').addEventListener('change', () => { if (!state.busy) $('save-btn').disabled = !$('risk-ok').checked; });
-      $('reset-btn').addEventListener('click', () => {
-        const mk = () => [{ kind: 'daily', cardId: DAILY.cardId, title: 'Yoto Daily', cover: '', chapters: [], chapterKey: DAILY.chapterKey, trackKey: DAILY.trackKey }];
-        state.lists = { day: mk(), night: mk() };
-        renderAll();
-        showStatus('Day and Night now show Yoto Daily. Press Save shortcuts to apply it to your player.', 'info');
-      });
       document.querySelectorAll('.js-share').forEach((b) => b.addEventListener('click', () => share(b)));
     }
 
