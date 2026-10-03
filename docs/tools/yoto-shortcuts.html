@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23376E5A'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='40'%20font-weight='700'%20fill='%23F7F5F0'%20text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Shortcuts — works with Yoto | Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="A free, independent tool that lets you choose what your Yoto Player's right-hand button plays, separately for Day and Night mode. Not made or endorsed by Yoto." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://julianamapper.com/tools/yoto-shortcuts.html" />
+  <meta property="og:title" content="Button Shortcuts — works with Yoto" />
+  <meta property="og:description" content="Choose what your Yoto Player's right-hand button plays, for Day and Night. An independent tool by Juliana McMillan-Wilhoit. Not made or endorsed by Yoto." />
+  <meta property="og:image" content="https://julianamapper.com/assets/og-card.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <style>
+    :root {
+      --ink:       #1C2826;
+      --body:      #4A5A54;
+      --accent:    #376E5A;
+      --light:     #8DB8A0;
+      --ground:    #F7F5F0;
+      --surface:   #FEFEFE;
+      --border:    #E0DDD8;
+      --hover:     #2D5A49;
+      --err-bg:    #fdeeee;
+      --err-ink:   #721c24;
+      --err-line:  #dc3545;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: "DM Sans", "Segoe UI", sans-serif;
+      line-height: 1.6;
+      padding-top: 58px;
+      overflow-x: hidden;
+    }
+
+    /* ── Header (shared chrome) ── */
+    .header-band {
+      background: #1C2826; padding: 0 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    }
+    .header-name {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700; font-size: 1.125rem;
+      color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link {
+      color: rgba(247,245,240,0.65); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s ease;
+    }
+    .nav-link:hover { color: #F7F5F0; }
+    .nav-link.active { color: #F7F5F0; border-bottom: 1px solid rgba(247,245,240,0.5); padding-bottom: 1px; }
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      color: #F7F5F0; font-size: 1.5rem; padding: 0.25rem; line-height: 1;
+    }
+    .header-band a:focus-visible, .header-band button:focus-visible,
+    .site-footer a:focus-visible { outline: 3px solid var(--light); outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Footer (shared chrome) ── */
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; }
+    .footer-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem; align-items: start;
+      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12);
+    }
+    @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .footer-brand { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.6); font-weight: 400; line-height: 1.6; }
+    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.6); margin-bottom: 0.75rem; }
+    .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
+    .footer-nav-link { color: rgba(247,245,240,0.7); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
+    .footer-nav-link:hover { color: #F7F5F0; }
+    .footer-contact-link { display: block; color: rgba(247,245,240,0.7); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
+    .footer-contact-link:hover { color: #F7F5F0; }
+    .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
+    .footer-tagline { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1rem; font-style: italic; color: rgba(247,245,240,0.5); }
+
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: fixed; top: 58px; left: 0; right: 0;
+        background: #1C2826; flex-direction: column; align-items: flex-start;
+        gap: 0; padding: 0.5rem 1.25rem 1.25rem;
+        border-bottom: 1px solid rgba(254,254,254,0.15);
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { font-size: 0.85rem; padding: 0.7rem 0; width: 100%; }
+      .site-footer { padding: 3rem 1rem 2rem; }
+    }
+
+    /* ── Hero ── */
+    .page-hero {
+      background: var(--ink);
+      padding: 3rem 1rem 2.5rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .page-hero-inner { max-width: 680px; margin: 0 auto; }
+    .hero-eyebrow {
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--light); margin-bottom: 0.75rem;
+    }
+    .page-hero h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-weight: 700; color: var(--surface);
+      letter-spacing: -0.03em; line-height: 1.12; margin: 0 0 1rem 0;
+    }
+    .page-hero h1 .h1-sub {
+      display: block; font-size: 0.5em; font-weight: 500; font-style: italic;
+      letter-spacing: -0.01em; color: var(--light); margin-top: 0.35rem;
+    }
+    .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.75); line-height: 1.7; margin: 0; }
+
+    /* ── Main ── */
+    main { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(28,40,38,0.06);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (min-width: 720px) {
+      main { padding: 3rem 2.5rem 4rem; }
+      .card { padding: 2rem 2.25rem; }
+    }
+    .card h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.25; margin: 0 0 0.75rem; color: var(--ink);
+    }
+    .card h3 { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 0.35rem; color: var(--ink); }
+    .card p { margin: 0 0 0.85rem; color: var(--body); font-size: 0.95rem; }
+    .card p strong, .card li strong { color: var(--ink); font-weight: 600; }
+    .card ol, .card ul { color: var(--body); font-size: 0.95rem; padding-left: 1.25rem; margin: 0 0 0.85rem; }
+    .card li { margin-bottom: 0.35rem; }
+    .card a { color: var(--accent); font-weight: 500; }
+    .card a:hover { color: var(--hover); }
+
+    .step-label {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--body); margin-bottom: 0.6rem;
+    }
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    .callout {
+      border-left: 3px solid var(--light);
+      background: rgba(55,110,90,0.06);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem; margin: 0 0 1rem;
+      font-size: 0.9rem; color: var(--body);
+    }
+    .callout p { margin: 0; font-size: 0.9rem; }
+    .callout.disclaimer { background: var(--ground); border-left-color: var(--accent); color: var(--ink); }
+    .callout.disclaimer p { color: var(--ink); font-weight: 500; }
+    .callout.warn { background: #fff8e6; border-left-color: #b7791f; }
+    .callout.warn p { color: #5c3d06; }
+
+    .detail-list { display: grid; gap: 0.75rem; margin: 1rem 0 0; }
+    .detail-item { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.9rem; color: var(--body); }
+    .detail-item i { color: var(--accent); font-size: 1.2rem; margin-top: 0.1rem; flex-shrink: 0; }
+    .detail-item strong { color: var(--ink); }
+
+    /* ── Buttons ── */
+    .btn {
+      font-family: "DM Sans", system-ui, sans-serif;
+      min-height: 44px;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.88rem; font-weight: 600;
+      border: 1.5px solid transparent; border-radius: 8px;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      text-decoration: none; line-height: 1.2;
+    }
+    .btn i { font-size: 1.05rem; }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(55,110,90,0.22); }
+    .btn-primary:hover:not(:disabled) { background: var(--hover); box-shadow: 0 6px 20px rgba(55,110,90,0.28); }
+    .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+    .btn-secondary:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .btn-small { min-height: 38px; padding: 0.4rem 0.8rem; font-size: 0.78rem; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn:focus-visible, .icon-btn:focus-visible, .tab:focus-visible, .link-btn:focus-visible,
+    input:focus-visible, select:focus-visible, a:focus-visible {
+      outline: 3px solid var(--accent); outline-offset: 2px;
+    }
+    .link-btn {
+      background: none; border: none; padding: 0.25rem 0; cursor: pointer;
+      font: inherit; font-size: 0.85rem; font-weight: 500; color: var(--accent);
+      text-decoration: underline;
+    }
+    .link-btn:hover { color: var(--hover); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+    /* ── Fields ── */
+    label.field-label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; }
+    .field, select.field {
+      font-family: inherit; font-size: 1rem; color: var(--ink);
+      width: 100%; min-height: 44px; padding: 0.55rem 0.75rem;
+      border: 1.5px solid #9AA39F; border-radius: 8px; background: var(--surface);
+    }
+    .field:hover { border-color: var(--accent); }
+    .hint { font-size: 0.82rem; color: var(--body); margin: 0.4rem 0 0; }
+
+    /* ── Status ── */
+    .status {
+      font-size: 0.9rem; font-weight: 500; padding: 0.7rem 1rem;
+      border-radius: 8px; margin-bottom: 1.25rem; display: none;
+    }
+    .status.show { display: block; }
+    .status.error   { background: var(--err-bg); color: var(--err-ink); border-left: 3px solid var(--err-line); }
+    .status.success { background: rgba(55,110,90,0.1); color: var(--hover); border-left: 3px solid var(--accent); }
+    .status.info    { background: rgba(55,110,90,0.06); color: var(--body); border-left: 3px solid var(--light); }
+    .status .link-btn { color: inherit; margin-left: 0.25rem; }
+
+    /* ── Session bar ── */
+    .session-bar {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; justify-content: space-between;
+      font-size: 0.85rem; color: var(--body); margin-bottom: 1rem;
+    }
+    .session-bar .who { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .session-bar .who i { color: var(--accent); }
+
+    /* ── Tabs ── */
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .tab {
+      font-family: inherit; font-size: 0.9rem; font-weight: 600;
+      min-height: 44px; padding: 0.5rem 1rem; cursor: pointer;
+      background: transparent; color: var(--body);
+      border: 1.5px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0;
+      display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: -1px;
+    }
+    .tab:hover { color: var(--accent); }
+    .tab[aria-selected="true"] {
+      color: var(--accent); background: var(--surface);
+      border-color: var(--border); border-bottom: 1px solid var(--surface);
+    }
+    .tab .count {
+      font-size: 0.72rem; font-weight: 700; background: rgba(55,110,90,0.1);
+      color: var(--accent); border-radius: 20px; padding: 0.05rem 0.5rem;
+    }
+
+    /* ── Slots ── */
+    .slots { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.6rem; }
+    .slot {
+      display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 0.75rem; align-items: center;
+      border: 1.5px solid var(--border); border-radius: 10px; padding: 0.7rem;
+      background: var(--surface);
+    }
+    .slot.empty { border-style: dashed; background: var(--ground); }
+    .slot-main { display: flex; gap: 0.75rem; align-items: center; min-width: 0; grid-column: 1 / -1; }
+    .slot-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(55,110,90,0.1); color: var(--accent);
+      font-size: 0.8rem; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .thumb {
+      width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0; object-fit: cover;
+      background: var(--ground); border: 1px solid var(--border);
+      display: inline-flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.3rem;
+    }
+    .slot-info { min-width: 0; flex: 1; }
+    .slot-title { font-weight: 600; font-size: 0.95rem; color: var(--ink); overflow-wrap: anywhere; line-height: 1.3; }
+    .slot-sub { font-size: 0.78rem; color: var(--body); }
+    .slot.empty .slot-title { font-weight: 500; color: var(--body); font-style: italic; }
+    .slot-extra { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; justify-content: space-between; }
+    .slot-extra select { min-height: 40px; font-size: 0.9rem; max-width: 100%; width: auto; flex: 1 1 180px; padding: 0.35rem 0.5rem; }
+    .slot-extra label { font-size: 0.8rem; font-weight: 600; color: var(--body); }
+    .slot-ctl { display: flex; gap: 0.35rem; margin-left: auto; }
+    .icon-btn {
+      width: 44px; height: 44px; border-radius: 8px; cursor: pointer;
+      border: 1.5px solid var(--border); background: var(--surface); color: var(--ink);
+      display: inline-flex; align-items: center; justify-content: center; font-size: 1.15rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .icon-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .icon-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .icon-btn.danger:hover:not(:disabled) { border-color: var(--err-line); color: var(--err-ink); }
+
+    .builder-tools { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; margin-bottom: 1.25rem; }
+
+    /* ── Picker ── */
+    .picker-list {
+      border: 1.5px solid var(--border); border-radius: 10px; background: var(--surface);
+      max-height: 380px; overflow-y: auto; margin-top: 0.75rem;
+      list-style: none; padding: 0;
+    }
+    .pick {
+      display: flex; gap: 0.75rem; align-items: center; padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .pick:last-child { border-bottom: none; }
+    .pick-title { flex: 1; min-width: 0; font-size: 0.92rem; font-weight: 500; overflow-wrap: anywhere; line-height: 1.3; }
+    .pick-title small { display: block; color: var(--body); font-weight: 400; font-size: 0.75rem; }
+    @media (max-width: 520px) {
+      .pick { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 0.75rem; }
+      .pick .btn { grid-column: 1 / -1; width: 100%; }
+    }
+    .empty-state { padding: 1.5rem 1rem; text-align: center; color: var(--body); font-size: 0.9rem; font-style: italic; }
+
+    .instructions { background: rgba(55,110,90,0.06); border: 1px solid rgba(55,110,90,0.25); border-radius: 12px; padding: 1.1rem 1.25rem; margin-top: 1.25rem; }
+    .instructions h3 { margin-top: 0; font-family: "Fraunces", Georgia, serif; font-size: 1.1rem; }
+    .instructions ol { margin-bottom: 0; }
+    [hidden] { display: none !important; }
+
+    /* ── Coffee band (modeled on the Library Events site, adapted to this palette) ── */
+    .coffee-band {
+      background: rgba(141,184,160,0.28);
+      border-top: 1px solid var(--light);
+      border-bottom: 1px solid var(--light);
+      padding: 1.25rem 1rem;
+    }
+    .coffee-band-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem 1.5rem; flex-wrap: wrap;
+    }
+    .coffee-msg {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.1rem; line-height: 1.4; color: var(--ink); margin: 0;
+      flex: 1 1 300px;
+    }
+    .coffee-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .coffee-btn, .coffee-share-btn {
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      min-height: 44px; padding: 0.6rem 1.1rem; border-radius: 8px;
+      border: 1.5px solid var(--accent); background: var(--accent); color: #fff;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    .coffee-btn:hover { background: var(--hover); border-color: var(--hover); color: #fff; }
+    .coffee-share-btn { background: transparent; color: var(--accent); }
+    .coffee-share-btn:hover { background: var(--accent); color: #fff; }
+    .coffee-btn:focus-visible, .coffee-share-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+    .card ol.slots, .card ul.picker-list { padding-left: 0; }
+    .card a.coffee-btn { color: #fff; font-weight: 600; }
+    .card a.coffee-btn:hover { color: #fff; }
+    .card a.coffee-share-btn { color: var(--accent); font-weight: 600; }
+    .card a.coffee-share-btn:hover { color: #fff; }
+    .coffee-band.inline { border: 1px solid var(--light); border-radius: 12px; margin-top: 1.25rem; padding: 1rem 1.1rem; }
+    @media (max-width: 640px) {
+      .coffee-msg { font-size: 1rem; }
+      .coffee-btn, .coffee-share-btn { flex: 1 1 auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; scroll-behavior: auto !important; }
+    }
+    @media (min-width: 1000px) {
+      main { max-width: 1120px; }
+      .builder-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
+      .builder-right h3 { margin-top: 0 !important; }
+      .builder-right .picker-list { max-height: 34rem; overflow-y: auto; }
+      .detail-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 2rem; }
+    }
+    .risk-check { display: flex; gap: 0.6rem; align-items: flex-start; margin: 0.75rem 0 1rem; padding: 0.75rem 0.9rem; border: 1px solid var(--border); border-radius: 8px; background: var(--ground); font-size: 0.92rem; line-height: 1.45; cursor: pointer; }
+    .risk-check input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; flex: none; accent-color: var(--accent); }
+    #save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+  <header class="header-band" role="banner">
+    <div style="display:flex;align-items:baseline;">
+      <a href="../index.html" class="header-name">Juliana McMillan-Wilhoit</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav" onclick="const n=document.getElementById('main-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);">&#9776;</button>
+    <nav class="nav-links" id="main-nav" aria-label="Main navigation">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../work.html" class="nav-link">Work</a>
+      <a href="../thinking.html" class="nav-link">How I Think</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../tools.html" class="nav-link active">Tools</a>
+      <a href="mailto:juliana@fandtlabs.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
+      <a href="../Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link" style="color:rgba(254,254,254,0.9);background:rgba(254,254,254,0.1);padding:0.3rem 0.75rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.35rem;"><i class="ti ti-download" style="font-size:0.9rem;" aria-hidden="true"></i>Resume</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="hero-eyebrow">Personal tool · Free</div>
+      <h1>Button Shortcuts<span class="h1-sub">works with Yoto</span></h1>
+      <p>Choose what your Yoto Player's right-hand button plays, with separate lists for Day and Night.</p>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ── Intro ── -->
+    <section class="card" aria-labelledby="intro-h">
+      <div class="callout disclaimer">
+        <p>An independent tool by Juliana McMillan-Wilhoit. Works with Yoto. Not made or endorsed by Yoto.</p>
+        <p><strong>Use at your own risk.</strong> This tool is provided free and as-is, with no warranty. It changes settings on your Yoto Player through Yoto&rsquo;s own API, and Yoto could change or remove that feature at any time. I&rsquo;m not responsible for any problems with your player, account, or cards that come from using it.</p>
+      </div>
+      <h2 id="intro-h">What this does</h2>
+      <p>Your Yoto Player has a right-hand button. With this tool you pick up to <strong>4 cards</strong> for <strong>Day</strong> mode and up to <strong>4 cards</strong> for <strong>Night</strong> mode, and the button plays them. <strong>Order matters:</strong> the first card in the list is what a double press plays.</p>
+      <p>Sign in with your own Yoto account, pick your player, choose your cards, and save. That's it.</p>
+
+      <div class="detail-list">
+        <div class="detail-item"><i class="ti ti-alert-triangle" aria-hidden="true"></i>
+          <div><strong>Expect an "unverified app" warning.</strong> When you sign in, Yoto will warn you that this app isn't verified. That's expected: Yoto doesn't verify apps that change player settings. You can read exactly what it asks for on the sign-in screen, and you can revoke access any time from your Yoto account.</div></div>
+        <div class="detail-item"><i class="ti ti-shield-lock" aria-hidden="true"></i>
+          <div><strong>Everything stays in your browser.</strong> This page talks directly to Yoto. Nothing is sent to me, and there are no analytics or trackers. Your sign-in and your last choices are saved in this browser only, and the Sign out button clears them.</div></div>
+        <div class="detail-item"><i class="ti ti-flask" aria-hidden="true"></i>
+          <div><strong>It uses a feature Yoto calls beta.</strong> It worked on a 3rd-generation Yoto Player without the beta turned on. It may not work on every player.</div></div>
+        <div class="detail-item"><i class="ti ti-eye-off" aria-hidden="true"></i>
+          <div><strong>It can't show what's currently set.</strong> Yoto doesn't let this page read your player's existing shortcut list, so you'll always start from what you last saved here (in this browser), not from what the player has now.</div></div>
+      </div>
+    </section>
+
+    <div id="status" class="status" role="status" aria-live="polite" tabindex="-1"></div>
+
+    <!-- ── Not configured ── -->
+    <section class="card" id="not-configured" hidden aria-labelledby="nc-h">
+      <h2 id="nc-h">Not set up yet</h2>
+      <p>This tool isn't switched on yet. Check back soon, or <a href="mailto:juliana@fandtlabs.com">email me</a> if you'd like to know when it's ready.</p>
+    </section>
+
+    <!-- ── Signed out ── -->
+    <section class="card" id="signin-card" hidden aria-labelledby="signin-h">
+      <h2 id="signin-h">Sign in with Yoto</h2>
+      <p>You'll go to Yoto's own sign-in page and come right back here. This page never sees your password.</p>
+      <p>It asks Yoto for permission to see your players and your own (Make Your Own) cards, and to change player shortcut settings.</p>
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" id="signin-btn"><i class="ti ti-login-2" aria-hidden="true"></i> Sign in with Yoto</button>
+      </div>
+    </section>
+
+    <!-- ── Signed in ── -->
+    <div id="app" hidden>
+      <div class="session-bar">
+        <span class="who"><i class="ti ti-circle-check" aria-hidden="true"></i> Signed in with Yoto</span>
+        <span>
+          <button type="button" class="link-btn" id="forget-btn">Forget saved choices</button>
+          &nbsp;·&nbsp;
+          <button type="button" class="link-btn" id="signout-btn">Sign out</button>
+        </span>
+      </div>
+
+      <!-- Step 1 -->
+      <section class="card" aria-labelledby="s1-h">
+        <div class="step-label"><span class="step-num" aria-hidden="true">1</span> <span id="s1-h">Pick a player</span></div>
+        <label class="field-label" for="device-select">Your Yoto Player</label>
+        <select id="device-select" class="field" disabled><option>Loading players…</option></select>
+        <p class="hint" id="device-hint"></p>
+      </section>
+
+      <!-- Step 2 -->
+      <section class="card" id="builder" aria-labelledby="s2-h" hidden>
+        <div class="step-label"><span class="step-num" aria-hidden="true">2</span> <span id="s2-h">Choose what the right button plays</span></div>
+
+        <div class="builder-grid">
+        <div class="builder-left">
+        <div class="tabs" role="tablist" aria-label="Player mode">
+          <button type="button" class="tab" role="tab" id="tab-day" aria-controls="slot-panel" aria-selected="true" data-mode="day"><i class="ti ti-sun" aria-hidden="true"></i> Day <span class="count" id="count-day">0/4</span></button>
+          <button type="button" class="tab" role="tab" id="tab-night" aria-controls="slot-panel" aria-selected="false" tabindex="-1" data-mode="night"><i class="ti ti-moon" aria-hidden="true"></i> Night <span class="count" id="count-night">0/4</span></button>
+        </div>
+
+        <div id="slot-panel" role="tabpanel" aria-labelledby="tab-day">
+          <p class="hint" style="margin:0 0 0.75rem;">Slot 1 is what a <strong>double press</strong> plays. Use the arrows to reorder.</p>
+          <ol class="slots" id="slots" aria-label="Shortcut list"></ol>
+          <div class="builder-tools">
+            <button type="button" class="btn btn-secondary btn-small" id="copy-btn"><i class="ti ti-copy" aria-hidden="true"></i> Copy Day to Night</button>
+            <button type="button" class="btn btn-secondary btn-small" id="clear-btn"><i class="ti ti-trash" aria-hidden="true"></i> Clear this mode</button>
+          </div>
+        </div>
+
+        </div>
+        <div class="builder-right">
+        <h3 style="margin-top:0.5rem;" id="picker-h">Add a card to <span id="picker-mode">Day</span></h3>
+        <label class="field-label" for="card-search">Search your cards</label>
+        <input type="search" id="card-search" class="field" placeholder="Type part of a title" autocomplete="off" />
+        <p class="hint" id="cards-hint"></p>
+        <ul class="picker-list" id="picker" aria-labelledby="picker-h"></ul>
+        <div class="btn-row" style="margin-top:0.75rem;"><button type="button" class="link-btn" id="reload-cards">Reload my cards</button></div>
+        </div>
+        </div>
+      </section>
+
+      <!-- Step 3 -->
+      <section class="card" id="save-card" aria-labelledby="s3-h" hidden>
+        <div class="step-label"><span class="step-num" aria-hidden="true">3</span> <span id="s3-h">Save to your player</span></div>
+        <p>This replaces the right-button lists for both Day and Night on the selected player. Your list is remembered in this browser so it's pre-filled next time.</p>
+        <label class="risk-check"><input type="checkbox" id="risk-ok"> <span>I understand this is an independent tool, not made by Yoto, and I&rsquo;m using it at my own risk.</span></label>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="save-btn"><i class="ti ti-device-floppy" aria-hidden="true"></i> Save shortcuts</button>
+        </div>
+
+        <div class="instructions" id="after-save" hidden tabindex="-1" aria-labelledby="after-h">
+          <h3 id="after-h">Saved. Now wake the player up to it.</h3>
+          <ol>
+            <li>Turn your player off and on, then wait about 30 seconds.</li>
+            <li>With no card in, double-press the right button.</li>
+          </ol>
+          <p style="margin-top:0.75rem;">Cards started this way play straight through. The dials won't skip chapters.</p>
+          <div class="coffee-band inline" id="support-after">
+            <div class="coffee-band-inner">
+              <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee &mdash; or shared it with another Yoto parent.</p>
+              <div class="coffee-actions">
+                <a class="coffee-btn" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
+                <a class="coffee-share-btn" href="https://venmo.com/juliana-wilhoit" target="_blank" rel="noopener">Venmo @juliana-wilhoit</a>
+                <a class="coffee-share-btn" href="https://paypal.me/mcmillanwilhoit" target="_blank" rel="noopener"><i class="ti ti-brand-paypal" aria-hidden="true"></i> PayPal</a>
+                <button type="button" class="coffee-share-btn js-share">&#8599; <span class="share-label">Share with a parent</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Want to undo this?</h3>
+        <p>Use the button below to put Yoto Daily back on the button for Day and Night, then press Save.</p>
+        <div class="btn-row"><button type="button" class="btn btn-secondary btn-small" id="reset-btn"><i class="ti ti-restore" aria-hidden="true"></i> Fill both modes with Yoto Daily</button></div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ── Support band (footer area) ── -->
+  <div class="coffee-band" id="support">
+    <div class="coffee-band-inner">
+      <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee &mdash; or shared it with another Yoto parent.</p>
+      <div class="coffee-actions">
+        <a class="coffee-btn" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
+                <a class="coffee-share-btn" href="https://venmo.com/juliana-wilhoit" target="_blank" rel="noopener">Venmo @juliana-wilhoit</a>
+                <a class="coffee-share-btn" href="https://paypal.me/mcmillanwilhoit" target="_blank" rel="noopener"><i class="ti ti-brand-paypal" aria-hidden="true"></i> PayPal</a>
+        <button type="button" class="coffee-share-btn js-share">&#8599; <span class="share-label">Share with a parent</span></button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Juliana McMillan-Wilhoit</div>
+        <div class="footer-brand-sub">Chief Product Officer &amp; Co-Founder, F&amp;T Labs<br />Northern Illinois</div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Pages</div>
+        <div class="footer-nav-links">
+          <a href="../index.html" class="footer-nav-link">Home</a>
+          <a href="../work.html" class="footer-nav-link">Work</a>
+          <a href="../thinking.html" class="footer-nav-link">How I Think</a>
+          <a href="../about.html" class="footer-nav-link">About</a>
+          <a href="../references.html" class="footer-nav-link">References</a>
+          <a href="../tools.html" class="footer-nav-link">Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Get in touch</div>
+        <a href="mailto:juliana@fandtlabs.com" class="footer-contact-link">Get in touch →</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn → julianamapper</a>
+      </div>
+    </div>
+    <div class="footer-tagline-row">
+      <div class="footer-tagline">An independent tool. Not made or endorsed by Yoto.</div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // ───────── Config ─────────
+    const CLIENT_ID = 'tpc_dMYnaTtH4zXjRp5oWkpoJD';
+    const AUTH_URL  = 'https://login.yotoplay.com/authorize';
+    const TOKEN_URL = 'https://login.yotoplay.com/oauth/token';
+    const API       = 'https://api.yotoplay.com';
+    const AUDIENCE  = 'https://api.yotoplay.com';
+    const SCOPE     = 'openid profile offline_access family:devices:view family:devices:manage family:library:view user:content:view';
+    const REDIRECT_URI = location.origin + location.pathname;
+    const MAX_ITEMS = 4;
+    const DAILY = { cardId: '3nC80', chapterKey: 'daily', trackKey: '<yyyymmdd>' };
+    const K_TOKENS = 'btnShortcuts.tokens', K_DEVICE = 'btnShortcuts.device',
+          K_SAVED = 'btnShortcuts.saved.', K_PKCE = 'btnShortcuts.pkce';
+
+    // ───────── Safe storage ─────────
+    const store = (area) => ({
+      get(k) { try { return window[area].getItem(k); } catch (e) { return null; } },
+      set(k, v) { try { window[area].setItem(k, v); return true; } catch (e) { return false; } },
+      del(k) { try { window[area].removeItem(k); } catch (e) {} }
+    });
+    const ls = store('localStorage'), ss = store('sessionStorage');
+    const getJSON = (s, k) => { try { const v = s.get(k); return v ? JSON.parse(v) : null; } catch (e) { return null; } };
+    const setJSON = (s, k, v) => s.set(k, JSON.stringify(v));
+
+    // ───────── DOM helpers ─────────
+    const $ = (id) => document.getElementById(id);
+    function el(tag, attrs, children) {
+      const n = document.createElement(tag);
+      if (attrs) for (const k in attrs) {
+        if (k === 'class') n.className = attrs[k];
+        else if (k === 'text') n.textContent = attrs[k];
+        else if (k.slice(0, 2) === 'on') n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] === true) n.setAttribute(k, '');
+        else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+      }
+      (children || []).forEach((c) => n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c));
+      return n;
+    }
+    const icon = (name) => el('i', { class: 'ti ti-' + name, 'aria-hidden': 'true' });
+
+    function showStatus(msg, type, actions) {
+      const s = $('status');
+      s.className = 'status show ' + (type || 'info');
+      s.textContent = msg;
+      (actions || []).forEach((a) => { s.appendChild(document.createTextNode(' ')); s.appendChild(a); });
+    }
+    function clearStatus() { $('status').className = 'status'; $('status').textContent = ''; }
+
+    // ───────── Errors ─────────
+    class ApiError extends Error {
+      constructor(kind, status, detail) { super(kind); this.kind = kind; this.status = status; this.detail = detail || ''; }
+    }
+    function friendly(err) {
+      if (err instanceof ApiError) {
+        switch (err.kind) {
+          case 'signin': return 'Your Yoto sign-in has expired. Please sign in again.';
+          case 'forbidden': return 'Yoto says this account is missing a permission. Sign out, then sign in again and approve every permission it asks for.';
+          case 'network': return 'Couldn’t reach Yoto. Check your internet connection and try again.';
+          case 'rate': return 'Yoto is asking us to slow down. Wait a minute and try again.';
+          case 'server': return 'Yoto had a problem on its side (' + err.status + '). Try again in a moment.';
+          case 'rejected': return 'Yoto rejected that request (' + err.status + ')' + (err.detail ? ': ' + err.detail : '.');
+          case 'notfound': return 'Yoto couldn’t find that. It may have been deleted.';
+          default: return err.detail || 'Something went wrong. Please try again.';
+        }
+      }
+      return 'Something went wrong. Please try again.';
+    }
+
+    // ───────── PKCE ─────────
+    function b64url(bytes) {
+      let s = '';
+      bytes.forEach((b) => { s += String.fromCharCode(b); });
+      return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+    function randomString(byteLen) {
+      const a = new Uint8Array(byteLen);
+      crypto.getRandomValues(a);
+      return b64url(a);
+    }
+    async function challengeFor(verifier) {
+      const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+      return b64url(new Uint8Array(digest));
+    }
+
+    // ───────── Tokens ─────────
+    const loadTokens = () => getJSON(ls, K_TOKENS);
+    function saveTokens(t) { setJSON(ls, K_TOKENS, t); }
+    function clearTokens() { ls.del(K_TOKENS); }
+
+    async function postToken(params) {
+      let res;
+      try {
+        res = await fetch(TOKEN_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(params).toString()
+        });
+      } catch (e) { throw new ApiError('network', 0); }
+      let data = null;
+      try { data = await res.json(); } catch (e) { /* ignore */ }
+      if (!res.ok || !data || !data.access_token) {
+        const code = data && data.error;
+        throw new ApiError(res.status >= 500 ? 'server' : (code === 'invalid_grant' ? 'signin' : 'rejected'), res.status,
+          (data && (data.error_description || data.error)) || '');
+      }
+      return data;
+    }
+    function storeTokenResponse(data, previous) {
+      // Refresh tokens rotate (single use): persist the new one immediately.
+      saveTokens({
+        access_token: data.access_token,
+        refresh_token: data.refresh_token || (previous && previous.refresh_token) || null,
+        expires_at: Date.now() + ((data.expires_in || 3600) * 1000)
+      });
+    }
+
+    let refreshing = null;
+    function refreshTokens() {
+      if (refreshing) return refreshing;
+      const t = loadTokens();
+      if (!t || !t.refresh_token) return Promise.reject(new ApiError('signin', 401));
+      refreshing = postToken({ grant_type: 'refresh_token', client_id: CLIENT_ID, refresh_token: t.refresh_token })
+        .then((data) => { storeTokenResponse(data, t); return loadTokens(); })
+        .catch((e) => {
+          if (e instanceof ApiError && e.kind !== 'network' && e.kind !== 'server') { clearTokens(); throw new ApiError('signin', 401); }
+          throw e;
+        })
+        .finally(() => { refreshing = null; });
+      return refreshing;
+    }
+    async function accessToken() {
+      let t = loadTokens();
+      if (!t) throw new ApiError('signin', 401);
+      if (t.expires_at - Date.now() < 60000) t = await refreshTokens();
+      return t.access_token;
+    }
+
+    // ───────── API ─────────
+    async function api(path, opts, retried) {
+      opts = opts || {};
+      const token = await accessToken();
+      const headers = { 'Authorization': 'Bearer ' + token };
+      if (opts.body) headers['Content-Type'] = 'application/json';
+      let res;
+      try {
+        res = await fetch(API + path, { method: opts.method || 'GET', headers, body: opts.body });
+      } catch (e) { throw new ApiError('network', 0); }
+      if (res.status === 401) {
+        if (!retried) { await refreshTokens(); return api(path, opts, true); }
+        clearTokens();
+        throw new ApiError('signin', 401);
+      }
+      const text = await res.text();
+      if (res.ok) { try { return text ? JSON.parse(text) : {}; } catch (e) { return {}; } }
+      let detail = '';
+      try { const j = JSON.parse(text); detail = j.message || j.error || ''; } catch (e) { detail = text.slice(0, 160); }
+      if (res.status === 403) throw new ApiError('forbidden', 403, detail);
+      if (res.status === 404) throw new ApiError('notfound', 404, detail);
+      if (res.status === 429) throw new ApiError('rate', 429, detail);
+      if (res.status >= 500) throw new ApiError('server', res.status, detail);
+      throw new ApiError('rejected', res.status, detail);
+    }
+
+    // Handle a failed call: if sign-in lapsed, drop back to signed-out view.
+    function handleError(err) {
+      if (err instanceof ApiError && err.kind === 'signin') {
+        showSignedOut();
+        showStatus(friendly(err), 'error');
+      } else {
+        showStatus(friendly(err), 'error');
+      }
+    }
+
+    // ───────── Sign in / out ─────────
+    async function startSignIn() {
+      clearStatus();
+      if (!(window.crypto && crypto.subtle)) {
+        showStatus('Your browser can’t do secure sign-in on this page. Try a current version of Chrome, Safari, Edge or Firefox over https.', 'error');
+        return;
+      }
+      const verifier = randomString(48), state = randomString(16);
+      if (!setJSON(ss, K_PKCE, { verifier, state })) {
+        showStatus('Your browser is blocking storage, which sign-in needs. Allow site data for this page and try again.', 'error');
+        return;
+      }
+      const challenge = await challengeFor(verifier);
+      const p = new URLSearchParams({
+        response_type: 'code', client_id: CLIENT_ID, redirect_uri: REDIRECT_URI,
+        scope: SCOPE, audience: AUDIENCE, state,
+        code_challenge: challenge, code_challenge_method: 'S256'
+      });
+      location.assign(AUTH_URL + '?' + p.toString());
+    }
+
+    async function handleRedirect() {
+      const q = new URLSearchParams(location.search);
+      if (!q.has('code') && !q.has('error')) return null;
+      const code = q.get('code'), state = q.get('state'), error = q.get('error');
+      const desc = q.get('error_description');
+      history.replaceState(null, '', location.pathname);
+      const saved = getJSON(ss, K_PKCE);
+      ss.del(K_PKCE);
+      if (error) {
+        return { error: error === 'access_denied' ? 'Sign-in was cancelled.' : 'Yoto sign-in failed' + (desc ? ': ' + desc : '.') };
+      }
+      if (!saved || !state || state !== saved.state) {
+        return { error: 'That sign-in couldn’t be verified (the security check didn’t match). Please try signing in again.' };
+      }
+      try {
+        const data = await postToken({
+          grant_type: 'authorization_code', client_id: CLIENT_ID, code,
+          redirect_uri: REDIRECT_URI, code_verifier: saved.verifier
+        });
+        storeTokenResponse(data, null);
+        return { ok: true };
+      } catch (e) { return { error: friendly(e) }; }
+    }
+
+    function signOut() {
+      clearTokens(); ss.del(K_PKCE);
+      showSignedOut();
+      showStatus('You’re signed out. Your sign-in has been cleared from this browser.', 'success');
+    }
+
+    // ───────── State ─────────
+    const state = {
+      devices: [], deviceId: null, cards: [], cardsLoaded: false,
+      mode: 'day', lists: { day: [], night: [] }, search: '', busy: false
+    };
+    const detailCache = {};
+    const MODE_LABEL = { day: 'Day', night: 'Night' };
+
+    function showSignedOut() {
+      $('app').hidden = true;
+      const configured = CLIENT_ID && CLIENT_ID.indexOf('REPLACE_WITH') !== 0;
+      $('not-configured').hidden = configured;
+      $('signin-card').hidden = !configured;
+    }
+    function showSignedIn() {
+      $('not-configured').hidden = true;
+      $('signin-card').hidden = true;
+      $('app').hidden = false;
+    }
+
+    // ───────── Devices ─────────
+    async function loadDevices() {
+      const sel = $('device-select');
+      sel.disabled = true;
+      sel.innerHTML = '';
+      sel.appendChild(el('option', { text: 'Loading players…' }));
+      try {
+        const data = await api('/device-v2/devices/mine');
+        state.devices = (data && data.devices) || [];
+      } catch (e) { handleError(e); sel.innerHTML = ''; sel.appendChild(el('option', { text: 'Couldn’t load players' })); return; }
+
+      sel.innerHTML = '';
+      if (!state.devices.length) {
+        sel.appendChild(el('option', { text: 'No players found on this account' }));
+        $('device-hint').textContent = 'We couldn’t find a Yoto Player on this account. Make sure you signed in with the account the player belongs to.';
+        $('builder').hidden = true; $('save-card').hidden = true;
+        return;
+      }
+      state.devices.forEach((d) => {
+        let label = d.name || d.deviceId;
+        if (d.deviceType) label += ' (' + d.deviceType + ')';
+        if (d.online === false) label += ' – offline';
+        sel.appendChild(el('option', { value: d.deviceId, text: label }));
+      });
+      sel.disabled = false;
+      const remembered = ls.get(K_DEVICE);
+      const pick = state.devices.some((d) => d.deviceId === remembered) ? remembered : state.devices[0].deviceId;
+      sel.value = pick;
+      $('device-hint').textContent = state.devices.length > 1 ? 'Shortcuts are set one player at a time.' : '';
+      selectDevice(pick);
+    }
+
+    function selectDevice(id) {
+      state.deviceId = id;
+      ls.set(K_DEVICE, id);
+      const saved = getJSON(ls, K_SAVED + id);
+      state.lists = {
+        day: sanitizeList(saved && saved.day),
+        night: sanitizeList(saved && saved.night)
+      };
+      $('builder').hidden = false;
+      $('save-card').hidden = false;
+      $('after-save').hidden = true;
+      if (saved) showStatus('Pre-filled with what you last saved on this browser for this player. (Yoto doesn’t let us read what’s on the player right now.)', 'info');
+      else clearStatus();
+      renderAll();
+      if (!state.cardsLoaded) loadCards();
+    }
+
+    function sanitizeList(arr) {
+      if (!Array.isArray(arr)) return [];
+      return arr.filter((i) => i && typeof i.cardId === 'string' && typeof i.chapterKey === 'string' && typeof i.trackKey === 'string')
+        .slice(0, MAX_ITEMS)
+        .map((i) => ({
+          kind: i.kind === 'daily' ? 'daily' : 'card',
+          cardId: i.cardId, title: String(i.title || i.cardId), cover: typeof i.cover === 'string' ? i.cover : '',
+          chapters: Array.isArray(i.chapters) ? i.chapters.filter((c) => c && c.key && c.trackKey).map((c) => ({ key: String(c.key), title: String(c.title || c.key), trackKey: String(c.trackKey) })) : [],
+          chapterKey: i.chapterKey, trackKey: i.trackKey
+        }));
+    }
+
+    // ───────── Cards ─────────
+    async function loadCards() {
+      $('cards-hint').textContent = 'Loading your cards…';
+      try {
+        const data = await api('/content/mine');
+        state.cards = ((data && data.cards) || []).filter((c) => c && c.cardId);
+        state.cardsLoaded = true;
+        $('cards-hint').textContent = state.cards.length
+          ? state.cards.length + ' card' + (state.cards.length === 1 ? '' : 's') + ' in your library.'
+          : 'No Make Your Own cards found on this account. You can still use Yoto Daily below.';
+      } catch (e) { $('cards-hint').textContent = 'Couldn’t load your cards.'; handleError(e); }
+      renderPicker();
+    }
+
+    function coverOf(c) {
+      const cands = [c.cover && c.cover.imageL, c.metadata && c.metadata.cover && c.metadata.cover.imageL, c.imageL, typeof c.cover === 'string' ? c.cover : ''];
+      const u = cands.find((x) => typeof x === 'string' && /^https:\/\//.test(x));
+      return u || '';
+    }
+
+    async function fetchCardDetail(cardId) {
+      if (detailCache[cardId]) return detailCache[cardId];
+      const data = await api('/content/' + encodeURIComponent(cardId));
+      const card = data && data.card;
+      const chaps = (card && card.content && card.content.chapters) || [];
+      const chapters = chaps.map((ch) => ({
+        key: ch && ch.key != null ? String(ch.key) : '',
+        title: (ch && ch.title) || '',
+        trackKey: ch && ch.tracks && ch.tracks[0] && ch.tracks[0].key != null ? String(ch.tracks[0].key) : ''
+      })).filter((c) => c.key && c.trackKey);
+      const cover = card && card.metadata && card.metadata.cover && card.metadata.cover.imageL;
+      const out = { chapters, cover: typeof cover === 'string' && /^https:\/\//.test(cover) ? cover : '', title: (card && card.title) || '' };
+      detailCache[cardId] = out;
+      return out;
+    }
+
+    async function addCard(card) {
+      if (state.busy) return;
+      const list = state.lists[state.mode];
+      if (list.length >= MAX_ITEMS) { showStatus(MODE_LABEL[state.mode] + ' already has ' + MAX_ITEMS + ' cards. Remove one to add another.', 'info'); return; }
+      state.busy = true; renderPicker();
+      try {
+        const d = await fetchCardDetail(card.cardId);
+        if (!d.chapters.length) { showStatus('“' + card.title + '” doesn’t have any playable chapters yet, so it can’t be used.', 'error'); return; }
+        list.push({
+          kind: 'card', cardId: card.cardId, title: card.title || d.title || card.cardId,
+          cover: d.cover || coverOf(card), chapters: d.chapters,
+          chapterKey: d.chapters[0].key, trackKey: d.chapters[0].trackKey
+        });
+        clearStatus();
+        announce('Added ' + (card.title || 'card') + ' to ' + MODE_LABEL[state.mode] + '.');
+      } catch (e) { handleError(e); }
+      finally { state.busy = false; renderAll(); }
+    }
+
+    function addDaily() {
+      const list = state.lists[state.mode];
+      if (list.length >= MAX_ITEMS) { showStatus(MODE_LABEL[state.mode] + ' already has ' + MAX_ITEMS + ' cards. Remove one to add another.', 'info'); return; }
+      list.push({ kind: 'daily', cardId: DAILY.cardId, title: 'Yoto Daily', cover: '', chapters: [], chapterKey: DAILY.chapterKey, trackKey: DAILY.trackKey });
+      clearStatus();
+      renderAll();
+    }
+
+    // ───────── Rendering ─────────
+    function announce(msg) { showStatus(msg, 'info'); }
+
+    function renderAll() { renderTabs(); renderSlots(); renderPicker(); }
+
+    function renderTabs() {
+      ['day', 'night'].forEach((m) => {
+        const t = $('tab-' + m);
+        const on = state.mode === m;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        $('count-' + m).textContent = state.lists[m].length + '/' + MAX_ITEMS;
+      });
+      $('slot-panel').setAttribute('aria-labelledby', 'tab-' + state.mode);
+      $('picker-mode').textContent = MODE_LABEL[state.mode];
+      $('copy-btn').hidden = state.mode !== 'night';
+      $('clear-btn').disabled = state.lists[state.mode].length === 0;
+    }
+
+    function thumb(item) {
+      if (item.cover) return el('img', { class: 'thumb', src: item.cover, alt: '', loading: 'lazy' });
+      return el('span', { class: 'thumb', 'aria-hidden': 'true' }, [icon(item.kind === 'daily' ? 'calendar-event' : 'cards')]);
+    }
+
+    function renderSlots() {
+      const ol = $('slots');
+      ol.innerHTML = '';
+      const list = state.lists[state.mode];
+      for (let i = 0; i < MAX_ITEMS; i++) {
+        const item = list[i];
+        const sub = i === 0 ? 'Double press plays this' : 'Slot ' + (i + 1);
+        if (!item) {
+          ol.appendChild(el('li', { class: 'slot empty' }, [
+            el('div', { class: 'slot-main' }, [
+              el('span', { class: 'slot-num', text: String(i + 1), 'aria-hidden': 'true' }),
+              el('div', { class: 'slot-info' }, [
+                el('div', { class: 'slot-title', text: 'Empty – pick a card below' }),
+                el('div', { class: 'slot-sub', text: sub })
+              ])
+            ])
+          ]));
+          continue;
+        }
+        const idx = i;
+        const subText = (item.kind === 'daily' ? 'Built in · ' : '') + sub;
+        const children = [
+          el('div', { class: 'slot-main' }, [
+            el('span', { class: 'slot-num', text: String(i + 1), 'aria-hidden': 'true' }),
+            thumb(item),
+            el('div', { class: 'slot-info' }, [
+              el('div', { class: 'slot-title', text: item.title }),
+              el('div', { class: 'slot-sub', text: subText })
+            ])
+          ])
+        ];
+        const extra = el('div', { class: 'slot-extra' });
+        if (item.chapters && item.chapters.length > 1) {
+          const sid = 'chap-' + state.mode + '-' + i;
+          const sel = el('select', { class: 'field', id: sid, 'aria-label': 'Start ' + item.title + ' at chapter',
+            onchange: (e) => {
+              const ch = item.chapters.find((c) => c.key === e.target.value);
+              if (ch) { item.chapterKey = ch.key; item.trackKey = ch.trackKey; }
+            } });
+          item.chapters.forEach((c, n) => {
+            const o = el('option', { value: c.key, text: (n + 1) + '. ' + ((c.title || '').replace(/^\s*\d+[.):-]?\s+/, '') || 'Chapter ' + (n + 1)) });
+            if (c.key === item.chapterKey) o.selected = true;
+            sel.appendChild(o);
+          });
+          extra.appendChild(el('label', { for: sid, text: 'Start at' }));
+          extra.appendChild(sel);
+        }
+        extra.appendChild(el('div', { class: 'slot-ctl' }, [
+          el('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Move ' + item.title + ' up', disabled: i === 0, onclick: () => move(idx, -1) }, [icon('arrow-up')]),
+          el('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Move ' + item.title + ' down', disabled: i === list.length - 1, onclick: () => move(idx, 1) }, [icon('arrow-down')]),
+          el('button', { type: 'button', class: 'icon-btn danger', 'aria-label': 'Remove ' + item.title, onclick: () => remove(idx) }, [icon('x')])
+        ]));
+        children.push(extra);
+        ol.appendChild(el('li', { class: 'slot' }, children));
+      }
+    }
+
+    function move(i, d) {
+      const list = state.lists[state.mode], j = i + d;
+      if (j < 0 || j >= list.length) return;
+      const t = list[i]; list[i] = list[j]; list[j] = t;
+      renderAll();
+      announce(list[j].title + ' is now slot ' + (j + 1) + '.');
+      // keep focus on the same control after re-render
+      const btns = $('slots').querySelectorAll('li')[j].querySelectorAll('.icon-btn');
+      const target = btns[d < 0 ? 0 : 1];
+      (target && !target.disabled ? target : btns[2]).focus();
+    }
+    function remove(i) {
+      const list = state.lists[state.mode];
+      const [gone] = list.splice(i, 1);
+      renderAll();
+      announce('Removed ' + gone.title + '.');
+    }
+
+    function renderPicker() {
+      const ul = $('picker');
+      ul.innerHTML = '';
+      const q = state.search.trim().toLowerCase();
+      const full = state.lists[state.mode].length >= MAX_ITEMS;
+      const addLabel = 'Add to ' + MODE_LABEL[state.mode];
+
+      const rows = [];
+      if (!q || 'yoto daily'.indexOf(q) !== -1) rows.push({ daily: true });
+      state.cards.forEach((c) => {
+        if (!q || (c.title || '').toLowerCase().indexOf(q) !== -1) rows.push({ card: c });
+      });
+
+      rows.forEach((r) => {
+        const title = r.daily ? 'Yoto Daily' : (r.card.title || r.card.cardId);
+        const cover = r.daily ? '' : coverOf(r.card);
+        const btn = el('button', { type: 'button', class: 'btn btn-secondary btn-small', disabled: full || state.busy,
+          'aria-label': addLabel + ': ' + title, onclick: () => (r.daily ? addDaily() : addCard(r.card)) }, [icon('plus'), addLabel]);
+        const t = el('div', { class: 'pick-title', text: title });
+        if (r.daily) t.appendChild(el('small', { text: 'Built in. A fresh daily playlist from Yoto.' }));
+        ul.appendChild(el('li', { class: 'pick' }, [thumb({ cover, kind: r.daily ? 'daily' : 'card' }), t, btn]));
+      });
+
+      if (q && rows.length === 0) ul.appendChild(el('li', { class: 'empty-state', text: 'No cards match “' + state.search.trim() + '”.' }));
+      if (full) ul.insertBefore(el('li', { class: 'empty-state', text: MODE_LABEL[state.mode] + ' is full (' + MAX_ITEMS + ' cards). Remove one to add another.' }), ul.firstChild);
+    }
+
+    // ───────── Actions ─────────
+    function setMode(m, focus) {
+      state.mode = m;
+      renderAll();
+      if (focus) $('tab-' + m).focus();
+    }
+
+    function buildItems(list) {
+      return list.map((i) => ({ cmd: 'track-play', params: { card: i.cardId, chapter: i.chapterKey, track: i.trackKey } }));
+    }
+
+    async function save() {
+      if (state.busy || !state.deviceId) return;
+      if (!$('risk-ok').checked) { showStatus('Please tick the box to confirm you\u2019re using this at your own risk.', 'error'); return; }
+      const { day, night } = state.lists;
+      if (!day.length && !night.length) {
+        showStatus('Add at least one card to Day or Night before saving.', 'error');
+        return;
+      }
+      state.busy = true;
+      const btn = $('save-btn');
+      btn.disabled = true; btn.lastChild.textContent = ' Saving…';
+      $('after-save').hidden = true;
+      try {
+        const body = JSON.stringify({ shortcuts: { modes: { day: { content: buildItems(day) }, night: { content: buildItems(night) } } } });
+        await api('/device-v2/' + encodeURIComponent(state.deviceId) + '/shortcuts', { method: 'PUT', body });
+        setJSON(ls, K_SAVED + state.deviceId, { day, night, savedAt: Date.now() });
+        showStatus('Saved to your player.', 'success');
+        $('after-save').hidden = false;
+        $('after-save').focus();
+      } catch (e) { handleError(e); }
+      finally { state.busy = false; btn.disabled = !$('risk-ok').checked; btn.lastChild.textContent = ' Save shortcuts'; renderPicker(); }
+    }
+
+    function clone(list) { return JSON.parse(JSON.stringify(list)); }
+
+    // ───────── Share ─────────
+    const SHARE_URL = REDIRECT_URI;
+    function share(btn) {
+      const label = btn.querySelector('.share-label');
+      const orig = label.textContent;
+      const done = () => {
+        label.textContent = 'Copied!';
+        setTimeout(() => { label.textContent = orig; }, 1800);
+      };
+      if (navigator.share) {
+        navigator.share({ title: 'Button Shortcuts — works with Yoto', text: 'A free tool to choose what your Yoto Player’s right-hand button plays.', url: SHARE_URL }).catch(() => {});
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(SHARE_URL).then(done).catch(() => window.prompt('Copy this link:', SHARE_URL));
+      } else {
+        window.prompt('Copy this link:', SHARE_URL);
+      }
+    }
+
+    // ───────── Wire up ─────────
+    function wire() {
+      $('signin-btn').addEventListener('click', startSignIn);
+      $('signout-btn').addEventListener('click', signOut);
+      $('forget-btn').addEventListener('click', () => {
+        state.devices.forEach((d) => ls.del(K_SAVED + d.deviceId));
+        state.lists = { day: [], night: [] };
+        renderAll();
+        showStatus('Saved choices cleared from this browser. Your player still has whatever you last saved to it.', 'success');
+      });
+      $('device-select').addEventListener('change', (e) => selectDevice(e.target.value));
+      document.querySelectorAll('.tab').forEach((t) => {
+        t.addEventListener('click', () => setMode(t.dataset.mode, false));
+        t.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); setMode(state.mode === 'day' ? 'night' : 'day', true); }
+        });
+      });
+      $('copy-btn').addEventListener('click', () => {
+        state.lists.night = clone(state.lists.day);
+        renderAll();
+        announce('Copied the Day list to Night.');
+      });
+      $('clear-btn').addEventListener('click', () => { state.lists[state.mode] = []; renderAll(); announce('Cleared ' + MODE_LABEL[state.mode] + '.'); });
+      $('card-search').addEventListener('input', (e) => { state.search = e.target.value; renderPicker(); });
+      $('reload-cards').addEventListener('click', () => { Object.keys(detailCache).forEach((k) => delete detailCache[k]); loadCards(); });
+      $('save-btn').addEventListener('click', save);
+      $('save-btn').disabled = true;
+      $('risk-ok').addEventListener('change', () => { if (!state.busy) $('save-btn').disabled = !$('risk-ok').checked; });
+      $('reset-btn').addEventListener('click', () => {
+        const mk = () => [{ kind: 'daily', cardId: DAILY.cardId, title: 'Yoto Daily', cover: '', chapters: [], chapterKey: DAILY.chapterKey, trackKey: DAILY.trackKey }];
+        state.lists = { day: mk(), night: mk() };
+        renderAll();
+        showStatus('Both modes now show Yoto Daily. Press Save shortcuts to apply it to your player.', 'info');
+      });
+      document.querySelectorAll('.js-share').forEach((b) => b.addEventListener('click', () => share(b)));
+    }
+
+    async function init() {
+      wire();
+      const r = await handleRedirect();
+      const signedIn = !!loadTokens();
+      if (signedIn) { showSignedIn(); }
+      else showSignedOut();
+      if (r && r.error) showStatus(r.error, 'error');
+      if (signedIn) {
+        if (r && r.ok) showStatus('You’re signed in.', 'success');
+        loadDevices();
+      }
+    }
+    init();
+  })();
+  </script>
+</body>
+</html>
