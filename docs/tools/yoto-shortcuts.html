@@ -381,6 +381,9 @@
       .builder-right .picker-list { max-height: 34rem; overflow-y: auto; }
       .detail-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 2rem; }
     }
+    .same-toggle { display: flex; gap: 0.55rem; align-items: center; margin: 0 0 0.9rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; }
+    .same-toggle input { width: 1.15rem; height: 1.15rem; accent-color: var(--accent); }
+    .tabs[hidden] { display: none; }
     .risk-check { display: flex; gap: 0.6rem; align-items: flex-start; margin: 0.75rem 0 1rem; padding: 0.75rem 0.9rem; border: 1px solid var(--border); border-radius: 8px; background: var(--ground); font-size: 0.92rem; line-height: 1.45; cursor: pointer; }
     .risk-check input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; flex: none; accent-color: var(--accent); }
     #save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -412,6 +415,20 @@
     </div>
   </div>
 
+  <!-- ── Support band (top) ── -->
+  <div class="coffee-band" id="support">
+    <div class="coffee-band-inner">
+      <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee, or shared it with another Yoto parent.</p>
+      <div class="coffee-actions">
+        <a class="coffee-btn" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
+                <a class="coffee-share-btn" href="https://venmo.com/juliana-wilhoit" target="_blank" rel="noopener">Venmo @juliana-wilhoit</a>
+                <a class="coffee-share-btn" href="https://paypal.me/mcmillanwilhoit" target="_blank" rel="noopener"><i class="ti ti-brand-paypal" aria-hidden="true"></i> PayPal</a>
+        <button type="button" class="coffee-share-btn js-share">&#8599; <span class="share-label">Share with a parent</span></button>
+      </div>
+    </div>
+  </div>
+
+
   <main id="main">
 
     <!-- ── Intro ── -->
@@ -425,10 +442,12 @@
       <p>Sign in with your own Yoto account, pick your player, choose your cards, and save. That's it.</p>
 
       <div class="detail-list">
+        <div class="detail-item"><i class="ti ti-player-track-next" aria-hidden="true"></i>
+          <div><strong>Kids can&rsquo;t skip ahead.</strong> A card started from the button plays straight through, and the dials won&rsquo;t jump to the next chapter. If you want variety, turn on shuffle for that card in the Yoto app.</div></div>
         <div class="detail-item"><i class="ti ti-alert-triangle" aria-hidden="true"></i>
-          <div><strong>Expect an "unverified app" warning.</strong> When you sign in, Yoto will warn you that this app isn't verified. That's expected: Yoto doesn't verify apps that change player settings. You can read exactly what it asks for on the sign-in screen, and you can revoke access any time from your Yoto account.</div></div>
+          <div><strong>Expect an "unverified app" warning.</strong> When you sign in, Yoto will warn you that this app isn't verified. That's expected: Yoto doesn't verify apps that change player settings. The sign-in screen lists exactly what it asks for.</div></div>
         <div class="detail-item"><i class="ti ti-shield-lock" aria-hidden="true"></i>
-          <div><strong>Everything stays in your browser.</strong> This page talks directly to Yoto. Nothing is sent to me, and there are no analytics or trackers. Your sign-in and your last choices are saved in this browser only, and the Sign out button clears them.</div></div>
+          <div><strong>Everything stays in your browser.</strong> This page talks directly to Yoto. Nothing is sent to me, and there are no analytics or trackers. Your sign-in and your last choices are saved in this browser only. Sign out clears your sign-in, and Forget saved choices clears your lists.</div></div>
         <div class="detail-item"><i class="ti ti-flask" aria-hidden="true"></i>
           <div><strong>It uses a feature Yoto calls beta.</strong> It worked on a 3rd-generation Yoto Player without the beta turned on. It may not work on every player.</div></div>
         <div class="detail-item"><i class="ti ti-eye-off" aria-hidden="true"></i>
@@ -479,7 +498,8 @@
 
         <div class="builder-grid">
         <div class="builder-left">
-        <div class="tabs" role="tablist" aria-label="Player mode">
+        <label class="same-toggle"><input type="checkbox" id="same-both"> <span>Use the same cards for Day and Night</span></label>
+        <div class="tabs" role="tablist" aria-label="Player mode" id="mode-tabs">
           <button type="button" class="tab" role="tab" id="tab-day" aria-controls="slot-panel" aria-selected="true" data-mode="day"><i class="ti ti-sun" aria-hidden="true"></i> Day <span class="count" id="count-day">0/4</span></button>
           <button type="button" class="tab" role="tab" id="tab-night" aria-controls="slot-panel" aria-selected="false" tabindex="-1" data-mode="night"><i class="ti ti-moon" aria-hidden="true"></i> Night <span class="count" id="count-night">0/4</span></button>
         </div>
@@ -520,10 +540,10 @@
             <li>Turn your player off and on, then wait about 30 seconds.</li>
             <li>With no card in, double-press the right button.</li>
           </ol>
-          <p style="margin-top:0.75rem;">Cards started this way play straight through. The dials won't skip chapters.</p>
+          <p style="margin-top:0.75rem;">Cards started this way play straight through, and the dials won&rsquo;t skip chapters. Turn on shuffle for a card in the Yoto app if you want variety.</p>
           <div class="coffee-band inline" id="support-after">
             <div class="coffee-band-inner">
-              <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee &mdash; or shared it with another Yoto parent.</p>
+              <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee, or shared it with another Yoto parent.</p>
               <div class="coffee-actions">
                 <a class="coffee-btn" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
                 <a class="coffee-share-btn" href="https://venmo.com/juliana-wilhoit" target="_blank" rel="noopener">Venmo @juliana-wilhoit</a>
@@ -535,25 +555,12 @@
         </div>
 
         <h3>Want to undo this?</h3>
-        <p>Use the button below to put Yoto Daily back on the button for Day and Night, then press Save.</p>
-        <div class="btn-row"><button type="button" class="btn btn-secondary btn-small" id="reset-btn"><i class="ti ti-restore" aria-hidden="true"></i> Fill both modes with Yoto Daily</button></div>
+        <p>There&rsquo;s no way to bring back Yoto&rsquo;s exact original setup, but you can put Yoto Daily back on the double press. Press the button below, then press Save.</p>
+        <div class="btn-row"><button type="button" class="btn btn-secondary btn-small" id="reset-btn"><i class="ti ti-restore" aria-hidden="true"></i> Go back to Yoto Daily</button></div>
       </section>
     </div>
 
   </main>
-
-  <!-- ── Support band (footer area) ── -->
-  <div class="coffee-band" id="support">
-    <div class="coffee-band-inner">
-      <p class="coffee-msg">If this saved you some fiddling, I'd love it if you bought me a coffee &mdash; or shared it with another Yoto parent.</p>
-      <div class="coffee-actions">
-        <a class="coffee-btn" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
-                <a class="coffee-share-btn" href="https://venmo.com/juliana-wilhoit" target="_blank" rel="noopener">Venmo @juliana-wilhoit</a>
-                <a class="coffee-share-btn" href="https://paypal.me/mcmillanwilhoit" target="_blank" rel="noopener"><i class="ti ti-brand-paypal" aria-hidden="true"></i> PayPal</a>
-        <button type="button" class="coffee-share-btn js-share">&#8599; <span class="share-label">Share with a parent</span></button>
-      </div>
-    </div>
-  </div>
 
   <footer class="site-footer">
     <div class="footer-inner">
@@ -813,7 +820,7 @@
     // ───────── State ─────────
     const state = {
       devices: [], deviceId: null, cards: [], cardsLoaded: false,
-      mode: 'day', lists: { day: [], night: [] }, search: '', busy: false
+      mode: 'day', lists: { day: [], night: [] }, same: true, emptyOk: false, search: '', busy: false
     };
     const detailCache = {};
     const MODE_LABEL = { day: 'Day', night: 'Night' };
@@ -870,6 +877,9 @@
         day: sanitizeList(saved && saved.day),
         night: sanitizeList(saved && saved.night)
       };
+      state.same = saved ? (saved.same !== undefined ? !!saved.same : JSON.stringify(state.lists.day) === JSON.stringify(state.lists.night)) : true;
+      $('same-both').checked = state.same;
+      if (state.same) state.mode = 'day';
       $('builder').hidden = false;
       $('save-card').hidden = false;
       $('after-save').hidden = true;
@@ -968,7 +978,8 @@
         $('count-' + m).textContent = state.lists[m].length + '/' + MAX_ITEMS;
       });
       $('slot-panel').setAttribute('aria-labelledby', 'tab-' + state.mode);
-      $('picker-mode').textContent = MODE_LABEL[state.mode];
+      $('mode-tabs').hidden = state.same;
+      $('picker-mode').textContent = state.same ? 'Day and Night' : MODE_LABEL[state.mode];
       $('copy-btn').hidden = state.mode !== 'night';
       $('clear-btn').disabled = state.lists[state.mode].length === 0;
     }
@@ -1094,7 +1105,17 @@
     async function save() {
       if (state.busy || !state.deviceId) return;
       if (!$('risk-ok').checked) { showStatus('Please tick the box to confirm you\u2019re using this at your own risk.', 'error'); return; }
-      const { day, night } = state.lists;
+      const day = state.lists.day;
+      const night = state.same ? clone(day) : state.lists.night;
+      if (!state.same && (!day.length || !night.length) && (day.length || night.length) && !state.emptyOk) {
+        const empty = day.length ? 'Night' : 'Day';
+        const copyB = el('button', { type: 'button', class: 'btn btn-secondary btn-small', text: 'Use the same cards for both' });
+        copyB.addEventListener('click', () => { state.same = true; $('same-both').checked = true; state.mode = 'day'; if (!day.length) state.lists.day = clone(night); clearStatus(); renderAll(); });
+        const anyway = el('button', { type: 'button', class: 'btn btn-secondary btn-small', text: 'Save anyway' });
+        anyway.addEventListener('click', () => { state.emptyOk = true; clearStatus(); save(); });
+        showStatus(empty + ' is empty, so the button won\u2019t play your cards in ' + empty + ' mode.', 'error', [copyB, anyway]);
+        return;
+      }
       if (!day.length && !night.length) {
         showStatus('Add at least one card to Day or Night before saving.', 'error');
         return;
@@ -1106,7 +1127,8 @@
       try {
         const body = JSON.stringify({ shortcuts: { modes: { day: { content: buildItems(day) }, night: { content: buildItems(night) } } } });
         await api('/device-v2/' + encodeURIComponent(state.deviceId) + '/shortcuts', { method: 'PUT', body });
-        setJSON(ls, K_SAVED + state.deviceId, { day, night, savedAt: Date.now() });
+        setJSON(ls, K_SAVED + state.deviceId, { day, night, same: state.same, savedAt: Date.now() });
+        state.emptyOk = false;
         showStatus('Saved to your player.', 'success');
         $('after-save').hidden = false;
         $('after-save').focus();
@@ -1151,6 +1173,13 @@
           if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); setMode(state.mode === 'day' ? 'night' : 'day', true); }
         });
       });
+      $('same-both').addEventListener('change', (e) => {
+        state.same = e.target.checked;
+        if (state.same) state.mode = 'day';
+        else if (!state.lists.night.length) state.lists.night = clone(state.lists.day);
+        renderAll();
+        announce(state.same ? 'Day and Night will use the same cards.' : 'Day and Night now have separate lists.');
+      });
       $('copy-btn').addEventListener('click', () => {
         state.lists.night = clone(state.lists.day);
         renderAll();
@@ -1166,7 +1195,7 @@
         const mk = () => [{ kind: 'daily', cardId: DAILY.cardId, title: 'Yoto Daily', cover: '', chapters: [], chapterKey: DAILY.chapterKey, trackKey: DAILY.trackKey }];
         state.lists = { day: mk(), night: mk() };
         renderAll();
-        showStatus('Both modes now show Yoto Daily. Press Save shortcuts to apply it to your player.', 'info');
+        showStatus('Day and Night now show Yoto Daily. Press Save shortcuts to apply it to your player.', 'info');
       });
       document.querySelectorAll('.js-share').forEach((b) => b.addEventListener('click', () => share(b)));
     }
