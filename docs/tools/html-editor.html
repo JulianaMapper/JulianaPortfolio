@@ -3,27 +3,30 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HTML Editor | PH360</title>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;700;900&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+<title>Paste-to-HTML Editor | Juliana McMillan-Wilhoit</title>
+<meta name="description" content="Paste AI-drafted or escaped HTML, preview it instantly, click any text to edit, then download as HTML, PDF, PowerPoint, or Word." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green-darkest: #1A4220;
-    --green-dark: #255B2C;
-    --green: #356B45;
-    --green-soft: #6B9276;
-    --green-pale: #A8C5AD;
+    --green-darkest: #2D5A49;
+    --green-dark: #376E5A;
+    --green: #376E5A;
+    --green-soft: #8DB8A0;
+    --green-pale: #C9DDD0;
     --surface: #FEFEFE;
-    --surface-warm: #F7F5F2;
-    --surface-mint: #EFF6EF;
-    --line: #E9E9E9;
-    --muted: #505050;
-    --text: #323232;
+    --surface-warm: #F7F5F0;
+    --surface-mint: #EEF3F0;
+    --line: #E0DDD8;
+    --muted: #4A5A54;
+    --text: #1C2826;
     --error: #8B3047;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
-    font-family: 'Outfit', sans-serif;
+    font-family: "DM Sans", system-ui, sans-serif;
     font-weight: 400;
     background: var(--surface-warm);
     color: var(--text);
@@ -33,6 +36,35 @@
     height: 100vh;
     overflow: hidden;
   }
+
+
+  /* SITE NAV (matches the other tool pages) */
+  .site-nav {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 28px;
+    background: var(--surface-warm);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-wordmark {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--green-dark); }
+  .nav-wordmark:focus-visible, .nav-links a:focus-visible { outline: 3px solid var(--green-soft); outline-offset: 2px; border-radius: 4px; }
 
   /* HEADER */
   header {
@@ -44,13 +76,13 @@
     background: var(--surface);
     border-bottom: 1px solid var(--line);
   }
-  header img { height: 30px; width: auto; }
   .title-block h1 {
-    font-family: 'Crimson Pro', serif;
-    font-weight: 900;
-    color: var(--green-dark);
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--text);
     font-size: 1.5rem;
-    line-height: 1.05;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
   }
   .title-block p {
     font-weight: 300;
@@ -64,7 +96,7 @@
     gap: 10px;
   }
   input[type="text"] {
-    font-family: 'Outfit', sans-serif;
+    font-family: "DM Sans", system-ui, sans-serif;
     font-size: 0.9rem;
     color: var(--text);
     background: var(--surface);
@@ -79,7 +111,7 @@
     border-color: var(--green);
   }
   .btn {
-    font-family: 'Outfit', sans-serif;
+    font-family: "DM Sans", system-ui, sans-serif;
     font-weight: 600;
     font-size: 0.9rem;
     border: none;
@@ -130,7 +162,7 @@
 
   /* FORMAT SELECT */
   select.format-sel {
-    font-family: 'Outfit', sans-serif;
+    font-family: "DM Sans", system-ui, sans-serif;
     font-weight: 600;
     font-size: 0.9rem;
     color: var(--green-dark);
@@ -267,16 +299,29 @@
   @media (max-width: 760px) {
     body { overflow: auto; height: auto; }
     .workspace { grid-template-columns: 1fr; }
+    .site-nav { flex-direction: column; gap: 0.75rem; }
     header, .toolbar { flex-wrap: wrap; }
-    .header-actions { width: 100%; margin-left: 0; }
+    header, .toolbar, .site-nav { padding-left: 16px; padding-right: 16px; }
+    .header-actions { width: 100%; margin-left: 0; flex-wrap: wrap; }
+    .header-actions .btn, .header-actions select.format-sel { flex: 1 1 auto; justify-content: center; }
+    .notice-banner { padding-left: 16px; padding-right: 16px; }
     .header-actions input[type="text"] { flex: 1 1 auto; width: auto; }
     .paste-target, .preview-frame, .preview-empty { min-height: 320px; }
   }
 </style>
+
 </head>
 <body>
 
-  <a href="../tools.html" style="display:inline-flex;align-items:center;gap:0.35rem;font-family:'DM Sans',system-ui,sans-serif;font-size:0.8rem;font-weight:600;color:#376E5A;text-decoration:none;padding:0.65rem 1.25rem 0;">&larr; Back to tools</a>
+  <nav class="site-nav">
+    <a href="../index.html" class="nav-wordmark">Juliana McMillan-Wilhoit</a>
+    <ul class="nav-links">
+      <li><a href="../work.html">Work</a></li>
+      <li><a href="../thinking.html">How I Think</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../tools.html" aria-current="page">Tools</a></li>
+    </ul>
+  </nav>
 
   <div class="notice-banner" id="noticeBanner" role="note">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -285,9 +330,8 @@
   </div>
 
   <header>
-    <img src="https://fandtlabs.com/wp-content//uploads/2025/09/PH360-WordMark.png" alt="PH360" />
     <div class="title-block">
-      <h1>HTML Editor</h1>
+      <h1>Paste-to-HTML Editor</h1>
       <p>Paste your content, preview it instantly, then click any text to edit it.</p>
     </div>
     <div class="header-actions">
@@ -305,6 +349,7 @@
         <option value="pptx">PowerPoint · picture (.pptx)</option>
         <option value="pptx-edit">PowerPoint · editable, beta (.pptx)</option>
         <option value="pdf">PDF (.pdf)</option>
+        <option value="docx">Word · native (.docx)</option>
       </select>
       <button class="btn btn-primary" id="downloadBtn" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg>
@@ -334,7 +379,7 @@
           <div class="inner">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
             <strong>Paste your content here (⌘V)</strong>
-            <span>Copy from anywhere, the rich formatting comes through and gets cleaned into HTML automatically.</span>
+            <span>Copy from anywhere — the rich formatting comes through and gets cleaned into HTML automatically.</span>
           </div>
         </div>
       </div>
@@ -353,7 +398,7 @@
         <span class="note">Your changes save when you Download, Copy, or Open in new tab.</span>
       </div>
       <iframe class="preview-frame" id="preview" title="HTML preview" sandbox="allow-scripts allow-same-origin" style="display:none;"></iframe>
-      <div class="preview-empty" id="previewEmpty">Paste content on the left, it renders here, then you can click any text to edit it.</div>
+      <div class="preview-empty" id="previewEmpty">Paste content on the left — it renders here, then you can click any text to edit it.</div>
     </section>
 
   </div>
@@ -377,10 +422,11 @@
        3. PREVIEW + EDIT (right pane) — the cleaned HTML renders in a
           sandboxed iframe with designMode on, so you can click any text
           and type. currentHtml() serializes those live edits back out.
-       4. EXPORT — Download as HTML, or (lazy-loading 3 CDN libraries):
+       4. EXPORT — Download as HTML, or (lazy-loading CDN libraries):
             • PowerPoint · picture   rasterize each slide → full-bleed image
             • PowerPoint · editable  rebuild each slide as native text+shapes
             • PDF                    one rasterized page per slide
+            • Word · native          rebuild content as real Word paragraphs/styles/tables
 
      Key state lives in three module-level vars: originalRaw (what was
      pasted), lastClean (the cleaned output shown), filenameTouched.
@@ -433,7 +479,7 @@
         doc.head.appendChild(aff);
       }
       doc.addEventListener('input', () => {
-        setStatus('Edited in preview, changes are captured. Download / Copy / Open to save them.', 'ok');
+        setStatus('Edited in preview — changes are captured. Download / Copy / Open to save them.', 'ok');
       });
     } catch (e) { /* cross-origin / unavailable — preview stays read-only */ }
   });
@@ -471,6 +517,18 @@
   // inside <pre>/<code>. Parsing and reading that block's textContent strips
   // all wrapper markup at once (and decodes one entity level for free).
   function unwrapCarrier(src) {
+    // A real, already-unescaped document pasted directly wins outright — there
+    // is no carrier to unwrap. This has to be checked FIRST: email HTML carries
+    // `mso-` CSS hacks and Outlook's `urn:schemas-microsoft-com` VML namespace,
+    // which would otherwise trip the Office-clipboard heuristic below and
+    // flatten the whole document to visible text ("No HTML found").
+    // A missing </html> is fine if the paste starts with the opener — hand-cut
+    // files often lose their closing tags, and browsers auto-close them.
+    if (!ESCAPED_DOC.test(src) && DOC_OPENER.test(src)
+        && (/<\/html\s*>/i.test(src) || /^\s*(<!DOCTYPE\s+html|<html[\s>])/i.test(src))) {
+      return { text: src, note: null };
+    }
+
     const looksOffice = /xmlns:o=|urn:schemas-microsoft-com|mso-|Word\.Document/i.test(src);
     const hasRealTags = /<(html|body|div|section|pre|code|p)\b/i.test(src);
     if (!hasRealTags) return { text: src, note: null }; // already plain text/markup
@@ -529,6 +587,15 @@
       const endIdx = htmlEndMatch.index + htmlEndMatch[0].length;
       return { html: text.slice(start, endIdx).trim(), mode: docStart !== -1 ? 'full document' : 'html element' };
     }
+    // Opener but no </html> (truncated file): take everything after the
+    // opener and put back the missing closers so every output is complete.
+    if (start !== -1) {
+      let html = text.slice(start).trim();
+      if (!/<\/body\s*>/i.test(html)) html += '\n</body>';
+      html += '\n</html>';
+      return { html, mode: docStart !== -1 ? 'full document' : 'html element',
+               note: 'added missing </body></html>' };
+    }
 
     // Fragment fallback: slice first structural tag → last closing tag, wrap it.
     const fragStart = text.search(/<(section|div|article|main|style|header|h1|table|ul|ol)\b/i);
@@ -549,6 +616,25 @@
   // plus human-readable `notes` describing what was done (shown in toolbar).
   function buildCleanFrom(src) {
     const notes = [];
+
+    // SOURCE VIEW: the paste is a rendered view OF the code — a syntax-
+    // highlighted editor, view-source, TextEdit — so its visible text is the
+    // document. Highlighters split `&lt;` from the tag name across spans, which
+    // hides it from ESCAPED_DOC, so test the visible text instead. Without
+    // this, a browser-style <html><body> wrapper is taken as the document and
+    // the preview shows the code as text.
+    const view = carrierVisibleText(src || '');
+    if (view && DOC_OPENER.test(view)) {
+      const v2 = unescapeToMarkup(view);
+      const x1 = extractHtml(v2.text);
+      if (x1.html && (x1.mode === 'full document' || x1.mode === 'html element')
+          && !ESCAPED_DOC.test(x1.html)) {
+        notes.push('rich copy of source code → took its visible text');
+        if (x1.note) notes.push(x1.note);
+        return { html: x1.html, mode: x1.mode, notes };
+      }
+    }
+
     const s1 = unwrapCarrier(src || '');
     if (s1.note) notes.push(s1.note);
 
@@ -556,6 +642,7 @@
     if (s2.levels > 0) notes.push('un-escaped ' + s2.levels + ' level' + (s2.levels > 1 ? 's' : ''));
 
     const s3 = extractHtml(s2.text);
+    if (s3.note) notes.push(s3.note);
 
     // RESCUE: some chat UIs ship the artifact as escaped text inside plain
     // paragraph markup (no <pre>/<code>), so the carrier's real tags drown
@@ -571,6 +658,7 @@
             && !ESCAPED_DOC.test(x2.html)) {
           notes.push('rescued escaped HTML from rich wrapper'
             + (r2.levels ? ' · un-escaped ' + r2.levels + ' level' + (r2.levels > 1 ? 's' : '') : ''));
+          if (x2.note) notes.push(x2.note);
           return { html: x2.html, mode: x2.mode, notes };
         }
       }
@@ -581,6 +669,8 @@
   // Matches an escaped document opener at any escaping depth:
   // &lt;!DOCTYPE, &amp;lt;html, &amp;amp;lt;!DOCTYPE, ...
   const ESCAPED_DOC = /&(amp;)*lt;\s*(!DOCTYPE\b|html[\s&>])/i;
+  // A real (unescaped) document opener.
+  const DOC_OPENER = /<!DOCTYPE\s+html|<html[\s>]/i;
 
   // The carrier's visible text, with <br> and block-level closers kept as
   // line breaks (textContent alone would glue lines together and break any
@@ -592,7 +682,8 @@
       .replace(/<\/(p|div|li|tr|h[1-6]|pre)\s*>/gi, '\n');
     try {
       const doc = new DOMParser().parseFromString(withBreaks, 'text/html');
-      return doc.body ? doc.body.textContent : '';
+      // Editors render indentation as &nbsp; — in source code it's a plain space.
+      return doc.body ? doc.body.textContent.replace(/\u00a0/g, ' ') : '';
     } catch (e) { return ''; }
   }
 
@@ -614,7 +705,7 @@
     } else if (result.notes.length) {
       setDetected('Detected: ' + result.notes.join(' · '), true);
     } else {
-      setDetected('Detected: clean HTML, passed through', true);
+      setDetected('Detected: clean HTML — passed through', true);
     }
 
     if (!lastClean) {
@@ -702,8 +793,9 @@
 
   // Swap the filename extension to match the chosen format.
   function nameForFormat(fmt) {
-    const base = (filenameInput.value || 'document').trim().replace(/\.(html?|pptx|pdf)$/i, '') || 'document';
+    const base = (filenameInput.value || 'document').trim().replace(/\.(html?|pptx|pdf|docx)$/i, '') || 'document';
     if (fmt && fmt.indexOf('pptx') === 0) return base + '.pptx';
+    if (fmt === 'docx') return base + '.docx';
     return base + (fmt === 'pdf' ? '.pdf' : '.html');
   }
   formatSel.addEventListener('change', () => {
@@ -724,20 +816,312 @@
     setStatus('Downloaded "' + name + '" (' + html.length.toLocaleString() + ' characters, including your edits).', 'ok');
   }
 
+  // ====================================================================
+  // WORD EXPORT (native) — rebuild the content as a REAL Word document
+  // using docx-js. Unlike the old embedded-HTML approach, this walks the
+  // rendered DOM and emits native OOXML: <h1-6> → Word Heading 1-6 styles
+  // (so the Navigation pane / TOC work), tables → native Word tables,
+  // <ul>/<ol> → real Word lists, links → real hyperlinks. The result opens
+  // correctly everywhere (Word, Pages, Google Docs, Quick Look) — not just
+  // desktop Word. Styling matches the F&T Labs brand (Crimson Pro headings,
+  // Outfit body, Forest Green palette, green footer bar).
+  //
+  // It's a semantic rebuild, so visual page design (gradients, absolute
+  // layout) is intentionally dropped in favor of clean, editable document
+  // structure. For a pixel-exact visual copy, use the PDF export instead.
+  // ====================================================================
+  async function convertBodyToDocxBlob(body) {
+    const d = window.docx;
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+      WidthType, BorderStyle, ShadingType, AlignmentType, VerticalAlign,
+      HeadingLevel, LevelFormat, ExternalHyperlink, ImageRun, UnderlineType,
+      HeightRule, PageNumber, Footer } = d;
+
+    const HL = { H1: HeadingLevel.HEADING_1, H2: HeadingLevel.HEADING_2, H3: HeadingLevel.HEADING_3,
+                 H4: HeadingLevel.HEADING_4, H5: HeadingLevel.HEADING_5, H6: HeadingLevel.HEADING_6 };
+    const INLINE = new Set(['SPAN','A','STRONG','B','EM','I','U','S','DEL','INS','CODE','KBD','SAMP','VAR',
+                            'SUP','SUB','MARK','SMALL','ABBR','TIME','FONT','LABEL','BR','Q','CITE','WBR']);
+    const CONTAINER = new Set(['DIV','SECTION','ARTICLE','MAIN','HEADER','FOOTER','ASIDE','NAV','FIGURE',
+                               'FIGCAPTION','DETAILS','SUMMARY','DL','DT','DD','BODY','FORM']);
+    const cellBorder = { style: BorderStyle.SINGLE, size: 4, color: 'B8B8B8' };
+    const cellBorders = { top: cellBorder, bottom: cellBorder, left: cellBorder, right: cellBorder };
+
+    // ---- inline runs ---------------------------------------------------
+    function runOpts(ctx) {
+      const o = {};
+      if (ctx.bold) o.bold = true;
+      if (ctx.italic) o.italics = true;
+      if (ctx.strike) o.strike = true;
+      if (ctx.sup) o.superScript = true;
+      if (ctx.sub) o.subScript = true;
+      if (ctx.mark) o.highlight = 'yellow';
+      if (ctx.underline) o.underline = { type: UnderlineType.SINGLE };
+      if (ctx.quote) { o.font = 'Crimson Pro'; o.italics = true; o.size = 26; o.color = '3D3D3D'; }
+      if (ctx.code) { o.font = 'Consolas'; o.size = 20; }
+      if (ctx.link) { o.color = '2B5938'; o.underline = { type: UnderlineType.SINGLE }; }
+      return o;
+    }
+    function runsFromNodes(nodes, ctx) {
+      const out = [];
+      Array.from(nodes).forEach((n) => {
+        if (n.nodeType === 3) {
+          let t = (n.textContent || '');
+          if (!ctx.pre) t = t.replace(/\s+/g, ' ');
+          if (t === '') return;
+          if (t.trim() === '' && !ctx.pre) { out.push(new TextRun(Object.assign({ text: ' ' }, runOpts(ctx)))); return; }
+          out.push(new TextRun(Object.assign({ text: t }, runOpts(ctx))));
+        } else if (n.nodeType === 1) {
+          const tag = n.tagName;
+          if (tag === 'BR') { out.push(new TextRun({ text: '', break: 1 })); return; }
+          if (tag === 'A') {
+            const href = n.getAttribute('href') || '';
+            const kids = runsFromNodes(n.childNodes, Object.assign({}, ctx, { link: true }));
+            if (/^(https?:|mailto:)/i.test(href)) {
+              out.push(new ExternalHyperlink({ link: href, children: kids.length ? kids : [new TextRun(Object.assign({ text: n.textContent || href }, runOpts(Object.assign({}, ctx, { link: true }))))] }));
+            } else { out.push.apply(out, kids); }
+            return;
+          }
+          const nc = Object.assign({}, ctx);
+          if (tag === 'STRONG' || tag === 'B') nc.bold = true;
+          else if (tag === 'EM' || tag === 'I' || tag === 'CITE') nc.italic = true;
+          else if (tag === 'U' || tag === 'INS') nc.underline = true;
+          else if (tag === 'S' || tag === 'DEL' || tag === 'STRIKE') nc.strike = true;
+          else if (tag === 'CODE' || tag === 'KBD' || tag === 'SAMP' || tag === 'VAR') nc.code = true;
+          else if (tag === 'SUP') nc.sup = true;
+          else if (tag === 'SUB') nc.sub = true;
+          else if (tag === 'MARK') nc.mark = true;
+          out.push.apply(out, runsFromNodes(n.childNodes, nc));
+        }
+      });
+      return out;
+    }
+
+    // ---- numbering pre-scan (each <ol> restarts at 1) ------------------
+    const olEls = Array.from(body.querySelectorAll('ol'));
+    const olRef = new Map();
+    const mkLevels = (fmt) => [0,1,2,3,4].map((l) => ({
+      level: l, format: fmt,
+      text: fmt === LevelFormat.BULLET ? ['•','◦','▪','•','◦'][l] : '%' + (l + 1) + '.',
+      alignment: AlignmentType.LEFT,
+      style: { paragraph: { indent: { left: 720 * (l + 1), hanging: 360 } } },
+    }));
+    const numConfig = [{ reference: 'bullet-list', levels: mkLevels(LevelFormat.BULLET) }];
+    olEls.forEach((el, i) => { const ref = 'ol-' + i; olRef.set(el, ref); numConfig.push({ reference: ref, levels: mkLevels(LevelFormat.DECIMAL) }); });
+
+    // ---- block builders ------------------------------------------------
+    async function addList(listEl, type, level, ref) {
+      const res = [];
+      const reference = type === 'ol' ? (ref || olRef.get(listEl) || 'ol-0') : 'bullet-list';
+      for (const li of Array.from(listEl.children)) {
+        if (li.tagName !== 'LI') continue;
+        const nested = Array.from(li.children).filter((c) => c.tagName === 'UL' || c.tagName === 'OL');
+        const inlineNodes = Array.from(li.childNodes).filter((n) => !(n.nodeType === 1 && (n.tagName === 'UL' || n.tagName === 'OL')));
+        const runs = runsFromNodes(inlineNodes, {});
+        res.push(new Paragraph({ numbering: { reference, level }, children: runs.length ? runs : [new TextRun('')] }));
+        for (const nl of nested) {
+          const t = nl.tagName === 'OL' ? 'ol' : 'ul';
+          res.push.apply(res, await addList(nl, t, level + 1, t === 'ol' ? olRef.get(nl) : 'bullet-list'));
+        }
+      }
+      return res;
+    }
+    async function buildTable(tableEl) {
+      const trs = Array.from(tableEl.querySelectorAll('tr'));
+      if (!trs.length) return null;
+      const colCount = Math.max.apply(null, trs.map((tr) => Array.from(tr.children).filter((c) => c.tagName === 'TD' || c.tagName === 'TH').length));
+      if (!colCount) return null;
+      const colW = Math.floor(9360 / colCount);
+      let bodyIdx = 0;
+      const rows = [];
+      for (const tr of trs) {
+        const cells = Array.from(tr.children).filter((c) => c.tagName === 'TD' || c.tagName === 'TH');
+        if (!cells.length) continue;
+        const isHeader = (tr.parentElement && tr.parentElement.tagName === 'THEAD') || cells.every((c) => c.tagName === 'TH');
+        const fill = isHeader ? '255B2C' : (bodyIdx % 2 === 0 ? 'FEFEFE' : 'F7F5F2');
+        if (!isHeader) bodyIdx++;
+        const tcs = [];
+        for (const cell of cells) {
+          let kids;
+          if (isHeader) {
+            kids = [new Paragraph({ children: [new TextRun({ text: (cell.textContent || '').replace(/\s+/g, ' ').trim(), font: 'Outfit', bold: true, color: 'FFFFFF', size: 22 })] })];
+          } else {
+            kids = await buildBlocks(cell);
+            if (!kids.length) kids = [new Paragraph({ children: [new TextRun((cell.textContent || '').replace(/\s+/g, ' ').trim())] })];
+          }
+          tcs.push(new TableCell({ width: { size: colW, type: WidthType.DXA }, shading: { fill, type: ShadingType.CLEAR }, verticalAlign: VerticalAlign.CENTER, borders: cellBorders, margins: { top: 80, bottom: 80, left: 160, right: 160 }, children: kids }));
+        }
+        while (tcs.length < colCount) tcs.push(new TableCell({ width: { size: colW, type: WidthType.DXA }, borders: cellBorders, children: [new Paragraph({ children: [new TextRun('')] })] }));
+        rows.push(new TableRow({ tableHeader: isHeader, children: tcs }));
+      }
+      if (!rows.length) return null;
+      return new Table({ columnWidths: Array(colCount).fill(colW), rows });
+    }
+    function buildQuote(el) {
+      const paras = Array.from(el.children).filter((c) => c.tagName === 'P');
+      const src = paras.length ? paras : [el];
+      const inner = src.map((p) => {
+        const runs = runsFromNodes(p.childNodes, { quote: true });
+        return new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 80 }, children: runs.length ? runs : [new TextRun({ text: (p.textContent || '').trim(), font: 'Crimson Pro', italics: true, color: '3D3D3D', size: 26 })] });
+      });
+      return new Table({ width: { size: 9360, type: WidthType.DXA }, rows: [new TableRow({ children: [new TableCell({
+        width: { size: 9360, type: WidthType.DXA },
+        borders: { top: { style: BorderStyle.SINGLE, color: '356B45', size: 12 }, bottom: { style: BorderStyle.SINGLE, color: '356B45', size: 12 }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
+        shading: { fill: 'F7F5F2', type: ShadingType.CLEAR }, margins: { top: 200, bottom: 200, left: 400, right: 400 }, children: inner,
+      })] })] });
+    }
+    function buildPre(el) {
+      const text = (el.textContent || '').replace(/\n+$/, '');
+      const lines = text.split('\n');
+      const runs = [];
+      lines.forEach((ln, i) => { if (i) runs.push(new TextRun({ break: 1 })); runs.push(new TextRun({ text: ln.length ? ln : ' ', font: 'Consolas', size: 18, color: '3D3D3D' })); });
+      const b = { style: BorderStyle.SINGLE, color: 'B8B8B8', size: 4, space: 6 };
+      return new Paragraph({ shading: { type: ShadingType.CLEAR, fill: 'F7F5F2' }, spacing: { before: 120, after: 120 }, indent: { left: 120, right: 120 }, border: { top: b, bottom: b, left: b, right: b }, children: runs });
+    }
+    function buildHr() {
+      return new Paragraph({ spacing: { before: 120, after: 120 }, border: { bottom: { style: BorderStyle.SINGLE, color: 'B8B8B8', size: 6, space: 1 } }, children: [new TextRun('')] });
+    }
+    async function buildImage(el) {
+      const src = el.getAttribute('src'); if (!src) return null;
+      try {
+        const resp = await fetch(src); if (!resp.ok) return null;
+        const u8 = new Uint8Array(await resp.arrayBuffer());
+        let type = null;
+        if (u8[0] === 0x89 && u8[1] === 0x50) type = 'png';
+        else if (u8[0] === 0xFF && u8[1] === 0xD8) type = 'jpg';
+        else if (u8[0] === 0x47 && u8[1] === 0x49) type = 'gif';
+        else if (u8[0] === 0x42 && u8[1] === 0x4D) type = 'bmp';
+        if (!type) return null;
+        let w = el.naturalWidth || parseInt(el.getAttribute('width'), 10) || 400;
+        let h = el.naturalHeight || parseInt(el.getAttribute('height'), 10) || 300;
+        if (!w || !h) { w = 400; h = 300; }
+        const maxW = 450; if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+        return new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 80, after: 80 }, children: [new ImageRun({ type, data: u8, transformation: { width: w, height: h }, altText: { title: el.alt || 'image', description: el.alt || 'image', name: 'image' } })] });
+      } catch (e) { return null; }
+    }
+    async function buildBlocks(container) {
+      const out = []; let buf = [];
+      const flush = () => { if (!buf.length) return; const runs = runsFromNodes(buf, {}); buf = []; if (runs.length) out.push(new Paragraph({ children: runs })); };
+      for (const node of Array.from(container.childNodes)) {
+        if (node.nodeType === 3) { if ((node.textContent || '').trim()) buf.push(node); continue; }
+        if (node.nodeType !== 1) continue;
+        const tag = node.tagName;
+        if (INLINE.has(tag)) { buf.push(node); continue; }
+        flush();
+        if (HL[tag]) { const runs = runsFromNodes(node.childNodes, {}); out.push(new Paragraph({ heading: HL[tag], children: runs.length ? runs : [new TextRun((node.textContent || '').trim())] })); }
+        else if (tag === 'P') { const runs = runsFromNodes(node.childNodes, {}); if (runs.length) out.push(new Paragraph({ children: runs })); }
+        else if (tag === 'UL') { out.push.apply(out, await addList(node, 'ul', 0, 'bullet-list')); }
+        else if (tag === 'OL') { out.push.apply(out, await addList(node, 'ol', 0, olRef.get(node))); }
+        else if (tag === 'TABLE') { const t = await buildTable(node); if (t) out.push(t); }
+        else if (tag === 'BLOCKQUOTE') { out.push(buildQuote(node)); }
+        else if (tag === 'PRE') { out.push(buildPre(node)); }
+        else if (tag === 'HR') { out.push(buildHr()); }
+        else if (tag === 'IMG') { const im = await buildImage(node); if (im) out.push(im); }
+        else if (CONTAINER.has(tag)) { out.push.apply(out, await buildBlocks(node)); }
+        else if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEMPLATE' || tag === 'SVG' || tag === 'IFRAME' || tag === 'HEAD') { /* skip non-content */ }
+        else if (Array.from(node.children).length) { out.push.apply(out, await buildBlocks(node)); }
+        else { const runs = runsFromNodes(node.childNodes, {}); if (runs.length) out.push(new Paragraph({ children: runs })); }
+      }
+      flush();
+      return out;
+    }
+
+    const children = await buildBlocks(body);
+    if (!children.length) throw new Error('No document content found to convert.');
+
+    // F&T brand heading hierarchy (overrides Word's built-in Heading styles).
+    const hStyle = (id, name, font, size, before, after, outline, extra) => ({
+      id, name, basedOn: 'Normal', next: 'Normal', quickFormat: true,
+      run: Object.assign({ font, bold: true, color: '255B2C', size }, extra || {}),
+      paragraph: { spacing: { before, after, line: 240 }, outlineLevel: outline, keepNext: true, keepLines: true },
+    });
+    const noneB = { style: BorderStyle.NONE };
+    function greenFooter() {
+      return new Footer({ children: [new Table({
+        width: { size: 12240, type: WidthType.DXA }, indent: { size: -1440, type: WidthType.DXA },
+        borders: { top: noneB, bottom: noneB, left: noneB, right: noneB, insideH: noneB, insideV: noneB },
+        rows: [new TableRow({ height: { value: 400, rule: HeightRule.ATLEAST }, children: [new TableCell({
+          width: { size: 12240, type: WidthType.DXA }, shading: { fill: '255B2C', type: ShadingType.CLEAR },
+          verticalAlign: VerticalAlign.CENTER, margins: { top: 60, bottom: 60, left: 200, right: 720 },
+          children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [
+            new TextRun({ text: 'Page ', font: 'Outfit', color: 'FFFFFF', size: 20 }),
+            new TextRun({ children: [PageNumber.CURRENT], font: 'Outfit', color: 'FFFFFF', size: 20 }),
+          ] })],
+        })] })],
+      })] });
+    }
+
+    const doc = new Document({
+      styles: {
+        default: { document: { run: { font: 'Outfit', color: '3D3D3D', size: 22 }, paragraph: { spacing: { after: 120, line: 276 } } } },
+        paragraphStyles: [
+          hStyle('Heading1', 'Heading 1', 'Crimson Pro', 48, 480, 240, 0),
+          hStyle('Heading2', 'Heading 2', 'Crimson Pro', 36, 360, 180, 1),
+          hStyle('Heading3', 'Heading 3', 'Outfit', 28, 240, 120, 2),
+          hStyle('Heading4', 'Heading 4', 'Outfit', 24, 200, 80, 3),
+          hStyle('Heading5', 'Heading 5', 'Outfit', 24, 160, 80, 4),
+          hStyle('Heading6', 'Heading 6', 'Outfit', 22, 160, 80, 5, { italics: true }),
+        ],
+      },
+      numbering: { config: numConfig },
+      sections: [{
+        properties: { page: { size: { width: 12240, height: 15840 }, margin: { top: 1440, right: 1440, bottom: 1440, left: 1440, header: 720, footer: 0 } } },
+        footers: { default: greenFooter() },
+        children,
+      }],
+    });
+    return await Packer.toBlob(doc);
+  }
+
+  async function exportDocx() {
+    if (!lastClean) { setStatus('Nothing to export — paste some content first.', 'err'); return; }
+    downloadBtn.disabled = true;
+    try {
+      setStatus('Preparing Word document — loading tools…', 'ok');
+      await loadScript(CDN.docx);
+      if (!window.docx || !window.docx.Packer) throw new Error('Word converter unavailable');
+
+      // Prefer the live (possibly-edited) preview DOM — it reflects edits and
+      // has images rendered (so they embed at their true size). Fall back to
+      // re-parsing the saved HTML if the iframe isn't reachable.
+      let srcBody = null;
+      try {
+        const idoc = frame.contentDocument;
+        if (frame.style.display !== 'none' && idoc && idoc.body) srcBody = idoc.body;
+      } catch (e) { /* cross-origin — fall through */ }
+      if (!srcBody) srcBody = new DOMParser().parseFromString(currentHtml(), 'text/html').body;
+
+      setStatus('Rebuilding as a native Word document…', 'ok');
+      const blob = await convertBodyToDocxBlob(srcBody);
+      const name = nameForFormat('docx');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      setStatus('Downloaded "' + name + '" — native Word document (real headings, tables, and lists; opens in Word, Pages & Google Docs). Visual page design is simplified; use PDF for a pixel-exact copy.', 'ok');
+    } catch (err) {
+      setStatus('Word export failed: ' + (err && err.message ? err.message : err) + ' — try Download as HTML.', 'err');
+    } finally {
+      downloadBtn.disabled = false;
+    }
+  }
+
   document.getElementById('downloadBtn').addEventListener('click', async () => {
-    if (!lastClean) { setStatus('Nothing to download: paste some content first.', 'err'); return; }
+    if (!lastClean) { setStatus('Nothing to download — paste some content first.', 'err'); return; }
     const fmt = formatSel.value;
     if (fmt === 'html') { triggerHtmlDownload(); return; }
+    if (fmt === 'docx') { await exportDocx(); return; }
     if (fmt === 'pptx-edit') { await exportEditablePptx(); return; }
     // pptx / pdf are picture-based — capture each slide, then build the file.
     await exportSlides(fmt);
   });
 
-  // ---- Lazy CDN loader (only fetched when PPTX/PDF is first used) -------
+  // ---- Lazy CDN loader (only fetched when PPTX/PDF/Word is first used) --
   const CDN = {
     html2canvas: 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js',
     pptxgen:     'https://cdn.jsdelivr.net/npm/pptxgenjs@4.0.1/dist/pptxgen.bundle.js',
     jspdf:       'https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js',
+    docx:        'https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js',
   };
   // Inject a <script> once and cache the load Promise per URL, so repeated
   // exports reuse the already-loaded library instead of re-fetching it.
@@ -820,7 +1204,7 @@
   async function exportSlides(fmt) {
     downloadBtn.disabled = true;
     try {
-      setStatus('Preparing ' + (fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ': loading tools…', 'ok');
+      setStatus('Preparing ' + (fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ' — loading tools…', 'ok');
       await loadScript(CDN.html2canvas);
       if (fmt === 'pptx') await loadScript(CDN.pptxgen);
       else await loadScript(CDN.jspdf);
@@ -851,9 +1235,9 @@
         });
         pdf.save(name);
       }
-      setStatus('Downloaded "' + name + '", ' + images.length + ' slide' + (images.length > 1 ? 's' : '') + ' (picture-based; matches the preview).', 'ok');
+      setStatus('Downloaded "' + name + '" — ' + images.length + ' slide' + (images.length > 1 ? 's' : '') + ' (picture-based; matches the preview).', 'ok');
     } catch (err) {
-      setStatus((fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ' export failed: ' + (err && err.message ? err.message : err) + '. Try Download as HTML.', 'err');
+      setStatus((fmt === 'pptx' ? 'PowerPoint' : 'PDF') + ' export failed: ' + (err && err.message ? err.message : err) + ' — try Download as HTML.', 'err');
     } finally {
       downloadBtn.disabled = false;
     }
@@ -972,10 +1356,10 @@
   }
 
   async function exportEditablePptx() {
-    if (!lastClean) { setStatus('Nothing to export: paste some content first.', 'err'); return; }
+    if (!lastClean) { setStatus('Nothing to export — paste some content first.', 'err'); return; }
     downloadBtn.disabled = true;
     try {
-      setStatus('Preparing editable PowerPoint: loading tools…', 'ok');
+      setStatus('Preparing editable PowerPoint — loading tools…', 'ok');
       await loadScript(CDN.pptxgen);
       const doc = frame.contentDocument, win = frame.contentWindow;
       if (!doc || !win) throw new Error('Preview not reachable.');
@@ -1047,32 +1431,32 @@
 
       const name = nameForFormat('pptx-edit');
       await pptx.writeFile({ fileName: name });
-      setStatus('Downloaded "' + name + '", ' + nodes.length + ' editable slide' + (nodes.length > 1 ? 's' : '') + ' (beta · text is editable; gradients/fonts may differ). For a pixel-exact copy use “PowerPoint · picture”.', 'ok');
+      setStatus('Downloaded "' + name + '" — ' + nodes.length + ' editable slide' + (nodes.length > 1 ? 's' : '') + ' (beta · text is editable; gradients/fonts may differ). For a pixel-exact copy use “PowerPoint · picture”.', 'ok');
     } catch (err) {
-      setStatus('Editable PowerPoint failed: ' + (err && err.message ? err.message : err) + '. Try “PowerPoint · picture”.', 'err');
+      setStatus('Editable PowerPoint failed: ' + (err && err.message ? err.message : err) + ' — try “PowerPoint · picture”.', 'err');
     } finally {
       downloadBtn.disabled = false;
     }
   }
 
   document.getElementById('openBtn').addEventListener('click', () => {
-    if (!lastClean) { setStatus('Nothing to open: paste some content first.', 'err'); return; }
+    if (!lastClean) { setStatus('Nothing to open — paste some content first.', 'err'); return; }
     // Open the REAL file (un-sandboxed) in a new tab — the true render, with edits.
     const blob = new Blob([currentHtml()], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const w = window.open(url, '_blank');
-    if (!w) { setStatus('Pop-up blocked: allow pop-ups, or use Download.', 'err'); URL.revokeObjectURL(url); return; }
+    if (!w) { setStatus('Pop-up blocked — allow pop-ups, or use Download.', 'err'); URL.revokeObjectURL(url); return; }
     setTimeout(() => URL.revokeObjectURL(url), 60000);
     setStatus('Opened the real file in a new tab. This is the true render.', 'ok');
   });
 
   document.getElementById('copyBtn').addEventListener('click', async () => {
-    if (!lastClean) { setStatus('Nothing to copy: paste some content first.', 'err'); return; }
+    if (!lastClean) { setStatus('Nothing to copy — paste some content first.', 'err'); return; }
     try {
       await navigator.clipboard.writeText(currentHtml());
       setStatus('HTML copied to clipboard (including your edits).', 'ok');
     } catch (err) {
-      setStatus('Copy blocked by the browser. Use Download instead.', 'err');
+      setStatus('Copy blocked by the browser — use Download instead.', 'err');
     }
   });
 
