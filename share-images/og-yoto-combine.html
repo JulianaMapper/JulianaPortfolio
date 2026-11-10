@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=block" rel="stylesheet">
+<style>
+:root{--ink:#1C2826;--body:#4A5A54;--accent:#376E5A;--light:#8DB8A0;--ground:#F7F5F0;--surface:#FEFEFE;--border:#E0DDD8;--hover:#2D5A49}
+*{box-sizing:border-box;margin:0}
+body{width:1200px;height:630px;overflow:hidden;background:var(--ground);font-family:"DM Sans",sans-serif;color:var(--ink);display:flex}
+.text{flex:1;padding:64px 48px 56px 72px;display:flex;flex-direction:column;justify-content:space-between}
+.text>div:first-child{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:24px}
+h1{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:58px;line-height:1.08;letter-spacing:-0.03em;max-width:640px}
+h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.sub{font-size:24px;line-height:1.45;color:var(--body);max-width:560px;margin-top:26px}
+.foot{display:flex;align-items:baseline;gap:12px;font-size:18px;color:var(--body);white-space:nowrap}
+.foot b{font-family:Fraunces,Georgia,serif;font-weight:600;color:var(--ink);font-size:20px}
+.foot span.dot{color:var(--light)}
+.foot .url{color:var(--accent);font-weight:600}
+.stage{width:440px;flex:none;background:var(--ink);display:flex;align-items:center;justify-content:center;position:relative}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 55% 48%,rgba(141,184,160,.22),transparent 60%)}
+.mcard{position:relative;width:282px;border-radius:26px;background:linear-gradient(165deg,#FEFEFE 0%,#ECE9E2 100%);box-shadow:0 30px 60px rgba(0,0,0,.45),inset 0 -5px 0 rgba(0,0,0,.06);padding:22px 22px 24px;transform:rotate(-3deg);margin-top:-18px}
+.count{display:flex;align-items:baseline;gap:10px;margin:0 0 14px}
+.count .from{font-family:Fraunces,Georgia,serif;font-size:30px;font-weight:600;color:#9AA39F;text-decoration:line-through;text-decoration-thickness:2px}
+.count .arrow{font-size:22px;color:var(--light);font-weight:700}
+.count .to{font-family:Fraunces,Georgia,serif;font-size:46px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;line-height:1}
+.count .lbl{font-size:15px;font-weight:600;color:var(--body);letter-spacing:.02em}
+.row{display:flex;align-items:center;gap:12px;padding:7px 0;border-top:1px solid #E0DDD8}
+.px{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;width:34px;height:34px;padding:3px;border-radius:6px;background:#1C2826;flex:none}
+.px i{display:block;border-radius:.5px}
+.px i.on{background:var(--c);box-shadow:0 0 3px var(--c)}
+.bar{flex:1;display:flex;align-items:center;gap:5px;height:12px}
+.seg{height:12px;border-radius:6px;background:#C9CFCB}
+.seg.j{background:var(--light)}
+.plus{font-size:13px;font-weight:700;color:var(--accent);line-height:1}
+.tag{position:absolute;bottom:38px;left:0;right:0;text-align:center;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--light);font-weight:600}
+</style></head><body>
+<div class="text">
+  <div>
+    <h1>Got more than<br>100 tracks? Fit them<br>on <em>one Yoto card</em></h1>
+    <p class="sub">Drop in your audio. Short tracks join up, every track gets an icon, and the card is made for&nbsp;you.</p>
+  </div>
+  <div class="foot"><b>Juliana McMillan-Wilhoit</b><span class="dot">&middot;</span><span>Free tool</span><span class="dot">&middot;</span><span class="url">julianamapper.com</span></div>
+</div>
+<div class="stage">
+  <div class="mcard">
+    <div class="count"><span class="from">150</span><span class="arrow">&rarr;</span><span class="to">100</span><span class="lbl">tracks</span></div>
+<div class="row"><span class="px" style="--c:#F28B82"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></span><span class="bar"><span class="seg" style="flex:1.0"></span></span></div>
+<div class="row"><span class="px" style="--c:#F2C94C"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="bar"><span class="seg j" style="flex:0.55"></span><span class="plus">+</span><span class="seg j" style="flex:0.45"></span></span></div>
+<div class="row"><span class="px" style="--c:#8DB8A0"><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="bar"><span class="seg" style="flex:0.8"></span></span></div>
+<div class="row"><span class="px" style="--c:#9FC5E8"><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="bar"><span class="seg j" style="flex:0.5"></span><span class="plus">+</span><span class="seg j" style="flex:0.5"></span></span></div>
+<div class="row"><span class="px" style="--c:#F6B26B"><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i></span><span class="bar"><span class="seg" style="flex:0.95"></span></span></div>
+<div class="row"><span class="px" style="--c:#93C47D"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></span><span class="bar"><span class="seg j" style="flex:0.6"></span><span class="plus">+</span><span class="seg j" style="flex:0.4"></span></span></div>
+  </div>
+  <div class="tag">Not made or endorsed by Yoto</div>
+</div>
+</body></html>
