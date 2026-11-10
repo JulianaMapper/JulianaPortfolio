@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23376E5A'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='40'%20font-weight='700'%20fill='%23F7F5F0'%20text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yoto Combine Tracks (Beta) | Juliana McMillan-Wilhoit</title>
+  <meta name="description" content="A free, independent beta tool that fits more than 100 audio files onto a Yoto Make Your Own card by joining short tracks together, then makes the card for you. Not made or endorsed by Yoto." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://julianamapper.com/tools/yoto-combine.html" />
+  <meta property="og:title" content="Yoto Combine Tracks (Beta)" />
+  <meta property="og:description" content="Got more than 100 tracks? This joins short ones together so they fit on one Yoto Make Your Own card, then makes the card for you. An independent tool by Juliana McMillan-Wilhoit. Not made or endorsed by Yoto." />
+  <meta property="og:image" content="https://julianamapper.com/assets/og-yoto.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://julianamapper.com/assets/og-yoto.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <style>
+    :root {
+      --ink:       #1C2826;
+      --body:      #4A5A54;
+      --accent:    #376E5A;
+      --light:     #8DB8A0;
+      --ground:    #F7F5F0;
+      --surface:   #FEFEFE;
+      --border:    #E0DDD8;
+      --hover:     #2D5A49;
+      --err-bg:    #fdeeee;
+      --err-ink:   #721c24;
+      --err-line:  #dc3545;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: "DM Sans", "Segoe UI", sans-serif;
+      line-height: 1.6;
+      padding-top: 58px;
+      overflow-x: hidden;
+    }
+
+    /* ── Header (shared chrome) ── */
+    .header-band {
+      background: #1C2826; padding: 0 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 58px; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    }
+    .header-name {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700; font-size: 1.125rem;
+      color: #F7F5F0; letter-spacing: -0.01em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link {
+      color: rgba(247,245,240,0.65); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s ease;
+    }
+    .nav-link:hover { color: #F7F5F0; }
+    .nav-link.active { color: #F7F5F0; border-bottom: 1px solid rgba(247,245,240,0.5); padding-bottom: 1px; }
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      color: #F7F5F0; font-size: 1.5rem; padding: 0.25rem; line-height: 1;
+    }
+    .header-band a:focus-visible, .header-band button:focus-visible,
+    .site-footer a:focus-visible { outline: 3px solid var(--light); outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Footer (shared chrome) ── */
+    .site-footer { background: #1C2826; padding: 3.5rem 2.5rem 2rem; }
+    .footer-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem; align-items: start;
+      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,245,240,0.12);
+    }
+    @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .footer-brand { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; color: #F7F5F0; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: rgba(247,245,240,0.6); font-weight: 400; line-height: 1.6; }
+    .footer-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,245,240,0.6); margin-bottom: 0.75rem; }
+    .footer-nav-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.25rem; }
+    .footer-nav-link { color: rgba(247,245,240,0.7); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s ease; }
+    .footer-nav-link:hover { color: #F7F5F0; }
+    .footer-contact-link { display: block; color: rgba(247,245,240,0.7); text-decoration: none; font-size: 0.875rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.2s ease; }
+    .footer-contact-link:hover { color: #F7F5F0; }
+    .footer-tagline-row { max-width: 960px; margin: 2rem auto 0; text-align: center; }
+    .footer-tagline { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1rem; font-style: italic; color: rgba(247,245,240,0.5); }
+
+    @media (max-width: 720px) {
+      .header-band { padding: 0 1.25rem; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: fixed; top: 58px; left: 0; right: 0;
+        background: #1C2826; flex-direction: column; align-items: flex-start;
+        gap: 0; padding: 0.5rem 1.25rem 1.25rem;
+        border-bottom: 1px solid rgba(254,254,254,0.15);
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { font-size: 0.85rem; padding: 0.7rem 0; width: 100%; }
+      .site-footer { padding: 3rem 1rem 2rem; }
+    }
+
+    /* ── Hero ── */
+    .page-hero {
+      background: var(--ink);
+      padding: 2.5rem 1rem 2rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .page-hero-inner { max-width: 860px; margin: 0 auto; }
+    @media (min-width: 1000px) { .page-hero-inner { max-width: 960px; } }
+    @media (min-width: 720px) { .page-hero { padding-left: 0; padding-right: 0; } .page-hero-inner { padding: 0 2.5rem; } }
+    .hero-eyebrow {
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--light); margin-bottom: 0.75rem;
+    }
+    .page-hero h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(1.75rem, 4.5vw, 2.4rem);
+      font-weight: 700; color: var(--surface);
+      letter-spacing: -0.03em; line-height: 1.12; margin: 0 0 1rem 0; text-wrap: balance;
+    }
+    .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.75); line-height: 1.7; margin: 0; max-width: 640px; }
+
+    /* ── Main ── */
+    main { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(28,40,38,0.05);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (min-width: 720px) {
+      main { padding: 3rem 2.5rem 4rem; }
+      .card { padding: 2rem 2.25rem; }
+    }
+    .card h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.25; margin: 0 0 0.75rem; color: var(--ink);
+    }
+    .card h3 { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 0.35rem; color: var(--ink); }
+    .card p { margin: 0 0 0.85rem; color: var(--body); font-size: 0.95rem; }
+    .card p strong, .card li strong { color: var(--ink); font-weight: 600; }
+    .card ol, .card ul { color: var(--body); font-size: 0.95rem; padding-left: 1.25rem; margin: 0 0 0.85rem; }
+    .card li { margin-bottom: 0.35rem; }
+    .card a { color: var(--accent); font-weight: 500; }
+    .card a:hover { color: var(--hover); }
+
+    .step-label {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--body); margin-bottom: 0.6rem;
+    }
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    .callout {
+      border-left: 3px solid var(--light);
+      background: rgba(55,110,90,0.06);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem; margin: 0 0 1rem;
+      font-size: 0.9rem; color: var(--body);
+    }
+    .callout p { margin: 0; font-size: 0.9rem; }
+    .callout.disclaimer { background: var(--ground); border-left-color: var(--accent); color: var(--ink); }
+    .callout.disclaimer p { color: var(--ink); font-weight: 500; }
+    .callout.warn { background: #fff8e6; border-left-color: #b7791f; }
+    .callout.warn p { color: #5c3d06; }
+
+    .detail-list { display: grid; gap: 0.75rem; margin: 0.25rem 0 0; }
+    .detail-item { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.9rem; color: var(--body); }
+    .detail-item i { color: var(--accent); font-size: 1.2rem; margin-top: 0.1rem; flex-shrink: 0; }
+    .detail-item strong { color: var(--ink); }
+
+    /* ── Buttons ── */
+    .btn {
+      font-family: "DM Sans", system-ui, sans-serif;
+      min-height: 44px;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.88rem; font-weight: 600;
+      border: 1.5px solid transparent; border-radius: 8px;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      text-decoration: none; line-height: 1.2;
+    }
+    .btn i { font-size: 1.05rem; }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(55,110,90,0.22); }
+    .btn-primary:hover:not(:disabled) { background: var(--hover); box-shadow: 0 6px 20px rgba(55,110,90,0.28); }
+    .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+    .btn-secondary:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .btn-small { min-height: 38px; padding: 0.4rem 0.8rem; font-size: 0.78rem; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn:focus-visible, .icon-btn:focus-visible, .tab:focus-visible, .link-btn:focus-visible,
+    input:focus-visible, select:focus-visible, a:focus-visible {
+      outline: 3px solid var(--accent); outline-offset: 2px;
+    }
+    .link-btn {
+      background: none; border: none; padding: 0.25rem 0; cursor: pointer;
+      font: inherit; font-size: 0.85rem; font-weight: 500; color: var(--accent);
+      text-decoration: underline;
+    }
+    .link-btn:hover { color: var(--hover); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+    /* ── Fields ── */
+    label.field-label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; }
+    .field, select.field {
+      font-family: inherit; font-size: 1rem; color: var(--ink);
+      width: 100%; min-height: 44px; padding: 0.55rem 0.75rem;
+      border: 1.5px solid #9AA39F; border-radius: 8px; background: var(--surface);
+    }
+    .field:hover { border-color: var(--accent); }
+    .hint { font-size: 0.82rem; color: var(--body); margin: 0.4rem 0 0; }
+
+    /* ── Status ── */
+    .status {
+      font-size: 0.9rem; font-weight: 500; padding: 0.7rem 1rem;
+      border-radius: 8px; margin-bottom: 1.25rem; display: none;
+    }
+    .status.show { display: block; }
+    .status.error   { background: var(--err-bg); color: var(--err-ink); border-left: 3px solid var(--err-line); }
+    .status.success { background: rgba(55,110,90,0.1); color: var(--hover); border-left: 3px solid var(--accent); }
+    .status.info    { background: rgba(55,110,90,0.06); color: var(--body); border-left: 3px solid var(--light); }
+    .status .link-btn { color: inherit; margin-left: 0.25rem; }
+
+    /* ── Session bar ── */
+    .session-bar {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; justify-content: space-between;
+      font-size: 0.85rem; color: var(--body); margin-bottom: 1rem;
+    }
+    .session-bar .who { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .session-bar .who i { color: var(--accent); }
+
+    /* ── Tabs ── */
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .tab {
+      font-family: inherit; font-size: 0.9rem; font-weight: 600;
+      min-height: 44px; padding: 0.5rem 1rem; cursor: pointer;
+      background: transparent; color: var(--body);
+      border: 1.5px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0;
+      display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: -1px;
+    }
+    .tab:hover { color: var(--accent); }
+    .tab[aria-selected="true"] {
+      color: var(--accent); background: var(--surface);
+      border-color: var(--border); border-bottom: 1px solid var(--surface);
+    }
+    .tab .count {
+      font-size: 0.72rem; font-weight: 700; background: rgba(55,110,90,0.1);
+      color: var(--accent); border-radius: 20px; padding: 0.05rem 0.5rem;
+    }
+
+    /* ── Slots ── */
+    .slots { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.6rem; }
+    .slot {
+      display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 0.75rem; align-items: center;
+      border: 1.5px solid var(--border); border-radius: 10px; padding: 0.7rem;
+      background: var(--surface);
+    }
+    .slot.empty { border-style: dashed; background: var(--ground); }
+    .slot-main { display: flex; gap: 0.75rem; align-items: center; min-width: 0; grid-column: 1 / -1; }
+    .slot-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(55,110,90,0.1); color: var(--accent);
+      font-size: 0.8rem; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .thumb {
+      width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0; object-fit: cover;
+      background: var(--ground); border: 1px solid var(--border);
+      display: inline-flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.3rem;
+    }
+    .slot-info { min-width: 0; flex: 1; }
+    .slot-title { font-weight: 600; font-size: 0.95rem; color: var(--ink); overflow-wrap: anywhere; line-height: 1.3; }
+    .slot-sub { font-size: 0.78rem; color: var(--body); }
+    .slot.empty .slot-title { font-weight: 500; color: var(--body); font-style: italic; }
+    .slot-extra { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; justify-content: space-between; }
+    .slot-extra select { min-height: 40px; font-size: 0.9rem; max-width: 100%; width: auto; flex: 1 1 180px; padding: 0.35rem 0.5rem; }
+    .slot-extra label { font-size: 0.8rem; font-weight: 600; color: var(--body); }
+    .slot-ctl { display: flex; gap: 0.35rem; margin-left: auto; }
+    .icon-btn {
+      width: 44px; height: 44px; border-radius: 8px; cursor: pointer;
+      border: 1.5px solid var(--border); background: var(--surface); color: var(--ink);
+      display: inline-flex; align-items: center; justify-content: center; font-size: 1.15rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .icon-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .icon-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .icon-btn.danger:hover:not(:disabled) { border-color: var(--err-line); color: var(--err-ink); }
+
+    .builder-tools { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; margin-bottom: 1.25rem; }
+
+    /* ── Picker ── */
+    .picker-list {
+      border: 1.5px solid var(--border); border-radius: 10px; background: var(--surface);
+      max-height: 380px; overflow-y: auto; margin-top: 0.75rem;
+      list-style: none; padding: 0;
+    }
+    .pick {
+      display: flex; gap: 0.75rem; align-items: center; padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .pick:last-child { border-bottom: none; }
+    .pick-title { flex: 1; min-width: 0; font-size: 0.92rem; font-weight: 500; overflow-wrap: anywhere; line-height: 1.3; }
+    .pick-title small { display: block; color: var(--body); font-weight: 400; font-size: 0.75rem; }
+    @media (max-width: 520px) {
+      .pick { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 0.75rem; }
+      .pick .btn { grid-column: 1 / -1; width: 100%; }
+    }
+    .empty-state { padding: 1.5rem 1rem; text-align: center; color: var(--body); font-size: 0.9rem; font-style: italic; }
+
+    .instructions { background: rgba(55,110,90,0.06); border: 1px solid rgba(55,110,90,0.25); border-radius: 12px; padding: 1.1rem 1.25rem; margin-top: 1.25rem; }
+    .instructions h3 { margin-top: 0; font-family: "Fraunces", Georgia, serif; font-size: 1.1rem; }
+    .instructions ol { margin-bottom: 0; }
+    [hidden] { display: none !important; }
+
+    /* ── Coffee band (modeled on the Library Events site, adapted to this palette) ── */
+    .coffee-band {
+      background: rgba(141,184,160,0.28);
+      border-top: 1px solid var(--light);
+      border-bottom: 1px solid var(--light);
+      padding: 1.25rem 1rem;
+    }
+    .coffee-band-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem 1.5rem; flex-wrap: wrap;
+    }
+    .coffee-msg {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.1rem; line-height: 1.4; color: var(--ink); margin: 0;
+      flex: 1 1 300px;
+    }
+    .coffee-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .coffee-btn, .coffee-share-btn {
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      min-height: 44px; padding: 0.6rem 1.1rem; border-radius: 8px;
+      border: 1.5px solid var(--accent); background: var(--accent); color: #fff;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    .coffee-btn:hover { background: var(--hover); border-color: var(--hover); color: #fff; }
+    .coffee-share-btn { background: transparent; color: var(--accent); }
+    .coffee-share-btn:hover { background: var(--accent); color: #fff; }
+    .coffee-btn:focus-visible, .coffee-share-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+    .card ol.slots, .card ul.picker-list { padding-left: 0; }
+    .card a.coffee-btn { color: #fff; font-weight: 600; }
+    .card a.coffee-btn:hover { color: #fff; }
+    .card a.coffee-share-btn { color: var(--accent); font-weight: 600; }
+    .card a.coffee-share-btn:hover { color: #fff; }
+    .coffee-band.inline { border: 1px solid var(--light); border-radius: 12px; margin-top: 1.25rem; padding: 1rem 1.1rem; }
+    @media (max-width: 640px) {
+      .coffee-msg { font-size: 1rem; }
+      .coffee-btn, .coffee-share-btn { flex: 1 1 auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; scroll-behavior: auto !important; }
+    }
+    @media (min-width: 1000px) {
+      main { max-width: 960px; }
+      .builder-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
+      .builder-right h3 { margin-top: 0 !important; }
+      .builder-right .picker-list { max-height: 34rem; overflow-y: auto; }
+      .detail-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 2rem; }
+    }
+    .caveats { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
+    .caveats summary { cursor: pointer; font-weight: 600; color: var(--ink); font-size: 0.95rem; list-style: none; display: flex; align-items: center; gap: 0.5rem; }
+    .caveats summary::-webkit-details-marker { display: none; }
+    .caveats summary::before { content: "+"; font-weight: 700; color: var(--accent); width: 1.1rem; }
+    .caveats[open] summary::before { content: "\2013"; }
+    .caveats .detail-list { margin-top: 0.9rem; }
+    .fine-print { font-size: 0.8rem; color: var(--body); line-height: 1.55; max-width: 720px; margin: 2rem 0 0; }
+    .same-toggle { display: flex; gap: 0.55rem; align-items: center; margin: 0 0 0.9rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; }
+    .same-toggle input { width: 1.15rem; height: 1.15rem; accent-color: var(--accent); }
+    .tabs[hidden] { display: none; }
+    .risk-check { display: flex; gap: 0.6rem; align-items: flex-start; margin: 0.75rem 0 1rem; padding: 0.75rem 0.9rem; border: 1px solid var(--border); border-radius: 8px; background: var(--ground); font-size: 0.92rem; line-height: 1.45; cursor: pointer; }
+    .risk-check input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; flex: none; accent-color: var(--accent); }
+    #save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .support-strip { background: rgba(55,110,90,0.08); border-bottom: 1px solid var(--border); }
+    .support-strip-inner { max-width: 860px; margin: 0 auto; padding: 0.6rem 1rem; font-size: 0.9rem; color: var(--body); }
+    @media (min-width: 720px) { .support-strip-inner { padding: 0.6rem 2.5rem; } }
+    @media (min-width: 1000px) { .support-strip-inner { max-width: 960px; } }
+    .support-strip a, .support-strip .link-btn { color: var(--accent); font-weight: 600; font-size: inherit; text-decoration: underline; padding: 0; }
+    .support-strip a:hover, .support-strip .link-btn:hover { color: var(--hover); }
+    .hero-link { display: inline-block; margin-top: 1rem; font-size: 0.9rem; font-weight: 600; color: var(--light); text-decoration: underline; }
+    .hero-link:hover { color: #fff; }
+    .hero-link:focus-visible { outline: 3px solid var(--light); outline-offset: 3px; border-radius: 4px; }
+    .support-strip a.sep-link { margin: 0 0.1rem; }
+
+    /* ── Combine Tracks ── */
+    .beta-badge { display: inline-block; vertical-align: middle; font-family: "DM Sans", system-ui, sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1; padding: 0.32rem 0.55rem; border-radius: 6px; background: var(--light); color: var(--ink); border: 1px solid var(--light); margin-left: 0.6rem; position: relative; top: -0.15em; }
+    .page-hero p { text-wrap: pretty; }
+    .helper { font-size: 0.92rem; color: var(--body); margin: 0 0 0.9rem; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    .drop {
+      border: 2px dashed #9AA39F; border-radius: 12px; background: var(--ground);
+      padding: 1.5rem 1rem; text-align: center; transition: border-color 0.2s, background 0.2s;
+    }
+    .drop.over { border-color: var(--accent); background: rgba(55,110,90,0.08); }
+    .drop .drop-icon { font-size: 2rem; color: var(--accent); display: block; margin-bottom: 0.35rem; }
+    .drop p { margin: 0 0 0.9rem; color: var(--ink); font-weight: 600; }
+    .drop .btn-row { justify-content: center; }
+    .drop .hint { margin-top: 0.8rem; }
+
+    .reading { margin-top: 1rem; }
+    .bar { height: 10px; border-radius: 6px; background: #ece9e3; overflow: hidden; margin: 0.4rem 0 0.5rem; }
+    .bar > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.25s ease; }
+    .bar-label { font-size: 0.9rem; color: var(--ink); font-weight: 600; margin: 0; }
+
+    .summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin: 0 0 1rem; }
+    @media (min-width: 720px) { .summary { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .stat { border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem 0.85rem; background: var(--surface); }
+    .stat b { display: block; font-family: "Fraunces", Georgia, serif; font-size: 1.5rem; line-height: 1.15; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .stat span { font-size: 0.8rem; color: var(--body); }
+    .stat.accent { border-color: var(--accent); background: rgba(55,110,90,0.06); }
+
+    .opts { display: grid; gap: 1rem; margin: 0 0 1.25rem; }
+    @media (min-width: 720px) { .opts { grid-template-columns: 3fr 2fr; } }
+
+    .card-plan { margin-top: 1.25rem; }
+    .card-plan h3 { margin: 0 0 0.15rem; font-family: "Fraunces", Georgia, serif; font-size: 1.1rem; }
+    .card-plan .sub { font-size: 0.85rem; color: var(--body); margin: 0 0 0.5rem; }
+    .card ol.tracks { list-style: none; margin: 0; padding: 0; border: 1.5px solid var(--border); border-radius: 10px; max-height: 26rem; overflow-y: auto; background: var(--surface); }
+    .trk { display: grid; grid-template-columns: 2.2rem 32px 1fr auto; gap: 0.6rem; align-items: center; padding: 0.45rem 0.75rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .trk:last-child { border-bottom: none; }
+    .trk .n { color: var(--body); font-variant-numeric: tabular-nums; font-size: 0.8rem; text-align: right; }
+    .trk .ic { width: 32px; height: 32px; border-radius: 6px; background: #1C2826; image-rendering: pixelated; display: block; }
+    .trk .ic.none { background: var(--ground); border: 1px dashed var(--border); }
+    .trk .t { min-width: 0; overflow-wrap: anywhere; line-height: 1.3; color: var(--ink); font-weight: 500; }
+    .trk .t small { display: block; color: var(--body); font-weight: 400; font-size: 0.76rem; }
+    .trk .len { color: var(--body); font-variant-numeric: tabular-nums; font-size: 0.82rem; white-space: nowrap; }
+    .tag { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.03em; border-radius: 20px; padding: 0.05rem 0.45rem; margin-right: 0.3rem; background: rgba(55,110,90,0.12); color: var(--hover); }
+    .tag.enc { background: #fff3d1; color: #5c3d06; }
+    .trk.done .n { color: var(--accent); font-weight: 700; }
+    .trk.fail { background: var(--err-bg); }
+    @media (max-width: 520px) { .trk { grid-template-columns: 1.8rem 28px 1fr; } .trk .len { grid-column: 3; } .trk .ic { width: 28px; height: 28px; } }
+
+    .run-card { border: 2px solid var(--accent); }
+    .run-card h2 { margin-bottom: 0.25rem; }
+    .run-card h2:focus { outline: none; }
+    .active-list { list-style: none; margin: 0.4rem 0 1rem; padding: 0; font-size: 0.88rem; color: var(--body); display: grid; gap: 0.2rem; }
+    .card ul.active-list { padding-left: 0; }
+    .active-list li { display: flex; gap: 0.45rem; align-items: flex-start; overflow-wrap: anywhere; }
+    .active-list i { color: var(--accent); margin-top: 0.15rem; flex: none; }
+    .done-list { margin: 0.5rem 0 1rem; }
+    .err-list { margin: 0.4rem 0 0; font-size: 0.88rem; color: var(--err-ink); }
+    details.diag { margin-top: 1.5rem; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 0.9rem 1.25rem; }
+    details.diag summary { cursor: pointer; font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+    details.diag pre {
+      margin: 0.4rem 0 0.75rem; padding: 0.75rem 0.9rem; border-radius: 8px; background: #1C2826; color: #F7F5F0;
+      font: 0.78rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 22rem; overflow: auto;
+    }
+    .mock-dl { font-size: 0.8rem; }
+    .cover-field { grid-column: 1 / -1; }
+    .cover-field .opt { font-weight: 400; color: var(--body); }
+    .cover-row { display: flex; gap: 1rem; align-items: center; }
+    .cover-thumb { width: 72px; height: 96px; border-radius: 8px; border: 1.5px dashed #9AA39F; background: var(--ground); display: flex; align-items: center; justify-content: center; color: var(--body); font-size: 1.6rem; overflow: hidden; flex: none; }
+    .cover-thumb.has { border: 1px solid var(--border); }
+    .cover-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cover-row .hint { margin-top: 0.35rem; }
+    dialog.consent { border: none; border-radius: 14px; padding: 0; max-width: 32rem; width: calc(100% - 2rem); box-shadow: 0 20px 60px rgba(28,40,38,0.35); color: var(--ink); background: var(--surface); }
+    dialog.consent::backdrop { background: rgba(28,40,38,0.55); }
+    .consent-body { padding: 1.4rem 1.4rem 1.2rem; }
+    .consent-body h2 { font-family: "Fraunces", Georgia, serif; font-size: 1.3rem; margin: 0 0 0.6rem; letter-spacing: -0.02em; }
+    .consent-body p { margin: 0 0 0.8rem; color: var(--body); font-size: 0.95rem; }
+    .consent-body ul { margin: 0 0 0.9rem; padding-left: 1.2rem; color: var(--body); font-size: 0.92rem; }
+    .consent-check { display: flex; gap: 0.65rem; align-items: flex-start; padding: 0.8rem 0.9rem; border: 1.5px solid var(--border); border-radius: 10px; background: var(--ground); font-size: 0.95rem; line-height: 1.45; cursor: pointer; margin: 0 0 1rem; }
+    .consent-check:has(input:checked) { border-color: var(--accent); background: rgba(55,110,90,0.07); }
+    .consent-check input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; flex: none; accent-color: var(--accent); }
+    .consent-body .btn-row { justify-content: flex-end; }
+    .thanks-body { text-align: center; }
+    .thanks-body .big { font-size: 2.4rem; line-height: 1; margin: 0 0 0.4rem; color: var(--accent); }
+    .thanks-body .tip-row { display: grid; gap: 0.5rem; margin: 0.4rem 0 0.9rem; }
+    .thanks-body .tip-row a { width: 100%; }
+    .thanks-body .btn-row { justify-content: center; }
+    .card a.btn-primary, dialog a.btn-primary { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <header class="header-band" role="banner">
+    <div style="display:flex;align-items:baseline;">
+      <a href="../index.html" class="header-name">Juliana McMillan-Wilhoit</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav" onclick="const n=document.getElementById('main-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);">&#9776;</button>
+    <nav class="nav-links" id="main-nav" aria-label="Main navigation">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../work.html" class="nav-link">Work</a>
+      <a href="../thinking.html" class="nav-link">How I Think</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../tools.html" class="nav-link active">Tools</a>
+      <a href="mailto:juliana@fandtlabs.com" class="nav-link" style="color:rgba(254,254,254,0.9);border:1px solid rgba(254,254,254,0.3);padding:0.3rem 0.75rem;border-radius:6px;">Contact</a>
+      <a href="../Juliana_McMillan-Wilhoit_Resume.pdf" download class="nav-link" style="color:rgba(254,254,254,0.9);background:rgba(254,254,254,0.1);padding:0.3rem 0.75rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.35rem;"><i class="ti ti-download" style="font-size:0.9rem;" aria-hidden="true"></i>Resume</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <h1>Fit more than 100 tracks on a Yoto card <span class="beta-badge">Beta</span></h1>
+      <p>A Make Your Own card holds 100 tracks. Pick your audio files and this page joins short ones together so they fit, adds an icon to every track, and makes the card in your Yoto account.</p>
+      <a class="hero-link" href="../tools.html">More free tools &rarr;</a>
+    </div>
+  </div>
+
+  <div class="support-strip">
+    <div class="support-strip-inner">
+      <span>If this made your day a little easier, I&rsquo;d love it if you <a href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener">bought me a coffee</a> (or tip by <a href="https://venmo.com/u/juliana-wilhoit" target="_blank" rel="noopener">Venmo</a> or <a href="https://paypal.me/mcmillanwilhoit" target="_blank" rel="noopener">PayPal</a>) or <button type="button" class="js-share link-btn"><span class="share-label">shared it with another Yoto parent</span></button>.</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <div id="status" class="status" role="status" aria-live="polite" tabindex="-1"></div>
+
+    <section class="card" id="not-configured" hidden aria-labelledby="nc-h">
+      <h2 id="nc-h">Not set up yet</h2>
+      <p>This tool isn't switched on yet. Check back soon.</p>
+    </section>
+
+    <section class="card" id="signin-card" hidden aria-labelledby="signin-h">
+      <h2 id="signin-h">Sign in with Yoto</h2>
+      <p>You'll go to Yoto's own sign-in page and come right back here. This page never sees your password.</p>
+      <p>This tool asks Yoto for permission to make Make Your Own cards in your account. One sign-in covers my other Yoto tools too.</p>
+      <p><strong>Your audio goes straight from your computer to Yoto.</strong> It never passes through my site, and nothing is sent to me.</p>
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" id="signin-btn"><i class="ti ti-login-2" aria-hidden="true"></i> Sign in with Yoto</button>
+      </div>
+    </section>
+
+    <div id="app" hidden>
+      <div class="session-bar">
+        <span class="who"><i class="ti ti-circle-check" aria-hidden="true"></i> <span id="who-text">Signed in with Yoto</span></span>
+        <span id="signout-wrap"><button type="button" class="link-btn" id="signout-btn">Sign out</button></span>
+      </div>
+
+      <div class="callout warn" id="mock-banner" hidden>
+        <p><strong>Practice mode.</strong> Your files are really read and joined, but nothing is sent to Yoto and no card is made. <a href="yoto-combine.html">Open the real page</a> to make a card in your library.</p>
+      </div>
+
+      <!-- Step 1 -->
+      <section class="card" aria-labelledby="s1-h" id="pick-card">
+        <div class="step-label"><span class="step-num" aria-hidden="true">1</span> <span id="s1-h">Choose your audio</span></div>
+        <p class="helper">Choose all the files for one book or album at once. They play in file-name order (1, 2, 3 &hellip; 10, 11), so name them the way they should play.</p>
+        <div class="drop" id="drop">
+          <i class="ti ti-file-music drop-icon" aria-hidden="true"></i>
+          <p>Drop audio files or a folder here</p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" id="pick-files"><i class="ti ti-files" aria-hidden="true"></i> Choose files</button>
+            <button type="button" class="btn btn-secondary" id="pick-folder"><i class="ti ti-folder" aria-hidden="true"></i> Choose a folder</button>
+          </div>
+          <p class="hint">MP3s are joined as they are, with no loss in quality. M4A, WAV, FLAC and other formats work too, but take longer.</p>
+          <input type="file" id="file-input" accept="audio/*,.mp3,.m4a,.m4b,.aac,.wav,.flac,.ogg,.opus,.aif,.aiff" multiple hidden>
+          <input type="file" id="folder-input" webkitdirectory multiple hidden>
+        </div>
+        <div class="reading" id="reading" hidden>
+          <p class="bar-label" id="reading-label">Reading your files…</p>
+          <div class="bar" role="progressbar" aria-labelledby="reading-label" aria-valuemin="0" aria-valuemax="100" id="reading-bar"><span></span></div>
+        </div>
+      </section>
+
+      <!-- Step 2 -->
+      <section class="card" aria-labelledby="s2-h" id="plan-card" hidden>
+        <div class="step-label"><span class="step-num" aria-hidden="true">2</span> <span id="s2-h">Check the plan</span></div>
+        <div class="summary" id="summary"></div>
+        <div id="plan-notes"></div>
+        <div class="opts">
+          <div>
+            <label class="field-label" for="card-title">Card name</label>
+            <input type="text" id="card-title" class="field" maxlength="90" autocomplete="off">
+            <p class="hint" id="title-hint"></p>
+          </div>
+          <div>
+            <label class="field-label" for="icon-mode">Track icons</label>
+            <select id="icon-mode" class="field">
+              <option value="match">Match the track names</option>
+              <option value="none">No icons</option>
+            </select>
+            <p class="hint" id="icon-hint">From Yoto&rsquo;s own icon library. Tracks with no match get a picture of their own; no two tracks on a card share one.</p>
+          </div>
+          <div class="cover-field">
+            <span class="field-label" id="cover-label">Cover art <span class="opt">(optional)</span></span>
+            <div class="cover-row">
+              <div class="cover-thumb" id="cover-thumb" aria-hidden="true"><i class="ti ti-photo"></i></div>
+              <div>
+                <div class="btn-row">
+                  <button type="button" class="btn btn-secondary btn-small" id="cover-pick" aria-describedby="cover-hint"><i class="ti ti-photo-plus" aria-hidden="true"></i> <span id="cover-pick-label">Choose an image</span></button>
+                  <button type="button" class="link-btn" id="cover-remove" hidden>Remove</button>
+                </div>
+                <p class="hint" id="cover-hint">A JPG or PNG, tall like a book cover. Without one, Yoto uses its plain cover.</p>
+              </div>
+            </div>
+            <input type="file" id="cover-input" accept="image/*" hidden>
+          </div>
+        </div>
+        <div id="plan-list"></div>
+        <div class="btn-row" style="margin-top:1rem;">
+          <button type="button" class="link-btn" id="start-over">Start over with different files</button>
+        </div>
+      </section>
+
+      <!-- Step 3 -->
+      <section class="card" aria-labelledby="s3-h" id="go-card" hidden>
+        <div class="step-label"><span class="step-num" aria-hidden="true">3</span> <span id="s3-h">Make the card</span></div>
+        <p class="helper" id="go-helper"></p>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="go-btn"><i class="ti ti-cards" aria-hidden="true"></i> <span id="go-label">Make my card</span></button>
+        </div>
+      </section>
+
+      <!-- Running / done -->
+      <section class="card run-card" id="run-card" hidden aria-labelledby="run-h">
+        <h2 id="run-h" tabindex="-1">Making your card</h2>
+        <p class="bar-label" id="run-label" role="status" aria-live="polite"></p>
+        <div class="bar" role="progressbar" aria-labelledby="run-label" aria-valuemin="0" aria-valuemax="100" id="run-bar"><span></span></div>
+        <div class="callout warn" id="run-keep"><p><strong>Keep this page open</strong> until it says it&rsquo;s done. Closing it stops the upload.</p></div>
+        <ul class="active-list" id="active-list"></ul>
+        <div id="run-result"></div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-secondary" id="run-cancel"><i class="ti ti-player-stop" aria-hidden="true"></i> Stop</button>
+          <button type="button" class="btn btn-primary" id="run-retry" hidden><i class="ti ti-refresh" aria-hidden="true"></i> Try the rest again</button>
+          <button type="button" class="btn btn-secondary" id="run-new" hidden><i class="ti ti-plus" aria-hidden="true"></i> Make another card</button>
+        </div>
+      </section>
+
+      <dialog class="consent" id="consent" aria-labelledby="consent-h">
+        <form method="dialog" class="consent-body" id="consent-form">
+          <h2 id="consent-h">Before you upload</h2>
+          <p>This puts your audio into your own Yoto account, the same as uploading it in the Yoto app. Only upload audio you have the right to use, like:</p>
+          <ul>
+            <li>your own recordings</li>
+            <li>audio you&rsquo;ve bought or downloaded for your family&rsquo;s own listening</li>
+            <li>audio that&rsquo;s free to share, or that you have permission to use</li>
+          </ul>
+          <label class="consent-check"><input type="checkbox" id="consent-box"> <span>I own this audio or have the right to put it on my family&rsquo;s Yoto cards, and it&rsquo;s for our own use.</span></label>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" id="consent-cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="consent-ok" value="ok" disabled><i class="ti ti-upload" aria-hidden="true"></i> Upload and make the card</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog class="consent" id="thanks" aria-labelledby="thanks-h">
+        <form method="dialog" class="consent-body thanks-body">
+          <p class="big" aria-hidden="true"><i class="ti ti-heart"></i></p>
+          <h2 id="thanks-h">Did this save you some time?</h2>
+          <p id="thanks-text">I made this for my own family and share it for free. If it helped, a small tip keeps it going.</p>
+          <div class="tip-row">
+            <a class="btn btn-primary" href="https://buymeacoffee.com/julianamapper" target="_blank" rel="noopener"><i class="ti ti-coffee" aria-hidden="true"></i> Buy me a coffee</a>
+            <a class="btn btn-secondary" href="https://venmo.com/u/juliana-wilhoit" target="_blank" rel="noopener">Tip by Venmo</a>
+            <a class="btn btn-secondary" href="https://paypal.me/mcmillanwilhoit" target="_blank" rel="noopener">Tip by PayPal</a>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="js-share link-btn"><span class="share-label">Share it with another Yoto parent</span></button>
+            <span aria-hidden="true">·</span>
+            <button type="submit" class="link-btn" value="later">Maybe later</button>
+          </div>
+        </form>
+      </dialog>
+
+      <details class="diag" id="diag">
+        <summary>Diagnostics (for the beta)</summary>
+        <p class="hint">What Yoto said to each request. It never includes your sign-in. If something goes wrong, copy this and send it to me.</p>
+        <div class="btn-row"><button type="button" class="btn btn-secondary btn-small" id="diag-copy"><i class="ti ti-copy" aria-hidden="true"></i> <span id="diag-copy-label">Copy diagnostics</span></button></div>
+        <pre id="diag-log" tabindex="0">(nothing yet)</pre>
+      </details>
+    </div>
+
+    <section class="card" aria-labelledby="intro-h" style="margin-top:1.5rem;">
+      <h2 id="intro-h">Good to know</h2>
+      <div class="detail-list">
+        <div class="detail-item"><i class="ti ti-arrows-join-2" aria-hidden="true"></i>
+          <div><strong>Only what has to be joined is joined.</strong> 150 files become 100 tracks: the shortest neighbors pair up and the rest stay as they are. A joined track is called &ldquo;Chapter 3 / Chapter 4&rdquo;. 100 files or fewer go on as they are.</div></div>
+        <div class="detail-item"><i class="ti ti-clock" aria-hidden="true"></i>
+          <div><strong>Yoto&rsquo;s limits:</strong> 100 tracks and 5 hours per card, and 60 minutes or 100&nbsp;MB per track. Over 5 hours, this makes two or more cards (&ldquo;Part 1 of 2&rdquo;). A single file over 60 minutes needs splitting before it can go on.</div></div>
+        <div class="detail-item"><i class="ti ti-adjustments-horizontal" aria-hidden="true"></i>
+          <div><strong>Quality only changes when it has to.</strong> MP3s are joined as they are. A track that would go over 100&nbsp;MB, or that joins non-MP3 files, is re-made as a mono MP3. Yoto turns every track into mono anyway, so it sounds the same on the player.</div></div>
+        <div class="detail-item"><i class="ti ti-shield-lock" aria-hidden="true"></i>
+          <div><strong>Everything stays between you and Yoto.</strong> Your files are read and joined in this browser and sent straight to Yoto. Nothing goes to me, and there are no analytics or trackers.</div></div>
+        <div class="detail-item"><i class="ti ti-cards" aria-hidden="true"></i>
+          <div><strong>Then link it to a card.</strong> The new playlist shows up under Make Your Own in the Yoto app. Open it and tap Link to Card to put it on a blank card.</div></div>
+        <div class="detail-item"><i class="ti ti-alert-triangle" aria-hidden="true"></i>
+          <div><strong>Only use audio you have the right to.</strong> Your own recordings, or audio you&rsquo;ve bought for your family&rsquo;s own use.</div></div>
+      </div>
+    </section>
+
+    <p class="fine-print">An independent tool by Juliana McMillan-Wilhoit. Not made or endorsed by Yoto. Provided free and as-is, with no warranty. It makes cards through Yoto&rsquo;s own API, which could change at any time. Use at your own risk. Re-encoding uses <a href="https://lame.sourceforge.io" target="_blank" rel="noopener">LAME</a> via <a href="https://github.com/zhuker/lamejs" target="_blank" rel="noopener">lamejs</a> (LGPL).</p>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Juliana McMillan-Wilhoit</div>
+        <div class="footer-brand-sub">Chief Product Officer &amp; Co-Founder, F&amp;T Labs<br />Northern Illinois</div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Pages</div>
+        <div class="footer-nav-links">
+          <a href="../index.html" class="footer-nav-link">Home</a>
+          <a href="../work.html" class="footer-nav-link">Work</a>
+          <a href="../thinking.html" class="footer-nav-link">How I Think</a>
+          <a href="../about.html" class="footer-nav-link">About</a>
+          <a href="../references.html" class="footer-nav-link">References</a>
+          <a href="../tools.html" class="footer-nav-link">Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-nav-label">Get in touch</div>
+        <a href="mailto:juliana@fandtlabs.com" class="footer-contact-link">Get in touch →</a>
+        <a href="https://linkedin.com/in/julianamapper" target="_blank" rel="noopener noreferrer" class="footer-contact-link">LinkedIn → julianamapper</a>
+      </div>
+    </div>
+    <div class="footer-tagline-row">
+      <div class="footer-tagline">An independent tool. Not made or endorsed by Yoto.</div>
+    </div>
+  </footer>
+
+  <script src="yoto-auth.js"></script>
+  <script src="yoto-combine-core.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    const Auth = window.YotoAuth;
+    const { ApiError, friendly } = Auth;
+    const YC = window.YotoCombine;
+    const NEEDS = ['user:content:view', 'user:content:manage'];
+
+    // Mock mode (?mock=1): reads, joins and re-encodes your files for real, but
+    // never signs in or talks to Yoto. Built tracks are kept on window.__combine.
+    const MOCK = new URLSearchParams(location.search).get('mock') === '1';
+    const LAME_URL = new URL('vendor/lamejs/lame.min.js', location.href).href;
+    const CONCURRENCY = 3;
+    const TRANSCODE_WAIT_MS = 15 * 60 * 1000;
+    const AUDIO_EXT = /\.(mp3|m4a|m4b|mp4|aac|wav|flac|ogg|oga|opus|aif|aiff|webm)$/i;
+
+    // ───────── Little helpers ─────────
+    const $ = (id) => document.getElementById(id);
+    function el(tag, attrs, children) {
+      const n = document.createElement(tag);
+      if (attrs) for (const k in attrs) {
+        if (k === 'class') n.className = attrs[k];
+        else if (k === 'text') n.textContent = attrs[k];
+        else if (k.slice(0, 2) === 'on') n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] === true) n.setAttribute(k, '');
+        else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+      }
+      (children || []).forEach((c) => c != null && n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c));
+      return n;
+    }
+    const icon = (name) => el('i', { class: 'ti ti-' + name, 'aria-hidden': 'true' });
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const pad2 = (n) => String(n).padStart(2, '0');
+    const clock = () => new Date().toTimeString().slice(0, 8);
+    function fmtDur(sec) {
+      sec = Math.round(sec || 0);
+      const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+      if (h) return h + ' h ' + pad2(m) + ' min';
+      return m + ':' + pad2(s);
+    }
+    function fmtLong(sec) {
+      sec = Math.round(sec || 0);
+      const h = Math.floor(sec / 3600), m = Math.round((sec % 3600) / 60);
+      return h ? h + ' h ' + m + ' min' : m + ' min';
+    }
+    const fmtMB = (b) => (b / 1e6 >= 10 ? Math.round(b / 1e6) : (b / 1e6).toFixed(1)) + ' MB';
+    const plural = (n, one, many) => n + ' ' + (n === 1 ? one : (many || one + 's'));
+
+    function showStatus(msg, type, actions) {
+      const s = $('status');
+      s.className = 'status show ' + (type || 'info');
+      s.textContent = msg;
+      (actions || []).forEach((a) => { s.appendChild(document.createTextNode(' ')); s.appendChild(a); });
+    }
+    function clearStatus() { $('status').className = 'status'; $('status').textContent = ''; }
+
+    const diag = [];
+    function logLine(t) {
+      diag.push(clock() + '  ' + t);
+      if (diag.length > 600) diag.shift();
+      $('diag-log').textContent = diag.join('\n');
+    }
+
+    async function call(path, opts) {
+      opts = opts || {};
+      if (MOCK) return mockApi(path, opts.method || 'GET', opts.body);
+      return Auth.api(path, {
+        method: opts.method || 'GET', body: opts.body,
+        trace: (t) => logLine(t.method + ' ' + t.path + ' -> ' + t.status + (t.ok ? '' : '   got: ' + (t.body || '(empty)')))
+      });
+    }
+
+    // ───────── State ─────────
+    const state = {
+      files: [],          // { file, path, title, duration, mp3 } in play order
+      skipped: [],        // names that weren't audio or couldn't be read
+      plan: null,         // YC.planCards result
+      titleEdited: false,
+      icons: null,        // Yoto's public icons, prepared for matching
+      iconsLoading: null,
+      cover: null,        // { blob, url, name, auto }
+      run: null
+    };
+    const running = () => !!(state.run && state.run.active);
+
+    // ───────── Step 1: reading files ─────────
+    function typeFor(name) {
+      const ext = (String(name).match(/\.([a-z0-9]+)$/i) || [])[1] || '';
+      return ({ mp3: 'audio/mpeg', m4a: 'audio/mp4', m4b: 'audio/mp4', mp4: 'audio/mp4', aac: 'audio/aac', wav: 'audio/wav',
+        flac: 'audio/flac', ogg: 'audio/ogg', oga: 'audio/ogg', opus: 'audio/ogg', aif: 'audio/aiff', aiff: 'audio/aiff', webm: 'audio/webm' })[ext.toLowerCase()] || 'application/octet-stream';
+    }
+
+    function mediaDuration(file) {
+      return new Promise((resolve) => {
+        const url = URL.createObjectURL(file);
+        const a = document.createElement('audio');
+        let done = false;
+        const finish = (d) => { if (done) return; done = true; clearTimeout(t); a.removeAttribute('src'); a.load(); URL.revokeObjectURL(url); resolve(d); };
+        const t = setTimeout(() => finish(0), 20000);
+        a.preload = 'metadata';
+        a.onloadedmetadata = () => {
+          if (isFinite(a.duration) && a.duration > 0) return finish(a.duration);
+          // Some files only learn their length after a seek to the end.
+          a.ondurationchange = () => { if (isFinite(a.duration) && a.duration > 0) finish(a.duration); };
+          try { a.currentTime = 1e7; } catch (e) { finish(0); }
+        };
+        a.onerror = () => finish(0);
+        a.src = url;
+      });
+    }
+
+    async function readOne(entry) {
+      const f = entry.file;
+      if (/\.mp3$/i.test(f.name) || f.type === 'audio/mpeg') {
+        const p = YC.parseMp3(new Uint8Array(await f.arrayBuffer()));
+        if (p.ok) return { duration: p.duration, mp3: { ok: true, ranges: p.ranges, bytes: p.bytes, sr: p.sr, ch: p.ch, layer: p.layer } };
+      }
+      return { duration: await mediaDuration(f), mp3: null };
+    }
+
+    async function takeFiles(list) {
+      if (running()) return;
+      clearStatus();
+      const all = list.map((x) => x.file ? x : { file: x, path: x.webkitRelativePath || x.name });
+      const audio = all.filter((x) => AUDIO_EXT.test(x.file.name) || /^audio\//.test(x.file.type || ''));
+      const IMG = /\.(jpe?g|png|gif|webp)$/i;
+      const images = all.filter((x) => IMG.test(x.file.name));
+      const notAudio = all.filter((x) => audio.indexOf(x) === -1 && !IMG.test(x.file.name) && !/^\./.test(x.file.name));
+      if (!audio.length) {
+        showStatus(all.length ? 'None of those look like audio files. Choose MP3, M4A, WAV or similar.' : 'No files were chosen.', 'error');
+        return;
+      }
+      audio.sort((a, b) => YC.naturalCompare(a.path, b.path));
+      state.files = []; state.skipped = notAudio.map((x) => ({ name: x.path, why: 'not an audio file' }));
+      state.plan = null; state.titleEdited = false;
+      clearCover();
+      $('plan-card').hidden = true; $('go-card').hidden = true; $('run-card').hidden = true;
+      $('reading').hidden = false;
+      logLine('--- reading ' + audio.length + ' files ---');
+      for (let i = 0; i < audio.length; i++) {
+        setBar('reading', i / audio.length, 'Reading ' + (i + 1) + ' of ' + audio.length + ': ' + audio[i].file.name);
+        try {
+          const r = await readOne(audio[i]);
+          if (r.duration > 0) state.files.push({ file: audio[i].file, path: audio[i].path, title: YC.cleanTitle(audio[i].path), duration: r.duration, mp3: r.mp3 });
+          else state.skipped.push({ name: audio[i].path, why: 'this browser couldn’t read it' });
+        } catch (e) {
+          state.skipped.push({ name: audio[i].path, why: 'this browser couldn’t read it' });
+        }
+      }
+      $('reading').hidden = true;
+      logLine('read ' + state.files.length + ' files, skipped ' + state.skipped.length);
+      if (!state.files.length) { showStatus('This browser couldn’t read any of those files. MP3 works everywhere; try converting them to MP3 first.', 'error'); return; }
+      $('card-title').value = YC.defaultCardTitle(state.files.map((f) => f.path)) || 'My audio';
+      // A folder with cover.jpg / folder.jpg / front.png (or just one picture) in it: use that as the cover.
+      const pick = images.find((x) => /(^|[\/\s_-])(cover|folder|front|artwork|art)[^\/]*$/i.test(x.path.replace(/\.[a-z]+$/i, ''))) || (images.length === 1 ? images[0] : null);
+      if (pick) await setCover(pick.file, true);
+      replan();
+      $('plan-card').hidden = false;
+      $('plan-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function setBar(prefix, frac, label) {
+      const pct = Math.max(0, Math.min(100, Math.round(frac * 100)));
+      $(prefix + '-bar').firstElementChild.style.width = pct + '%';
+      $(prefix + '-bar').setAttribute('aria-valuenow', String(pct));
+      $(prefix + '-label').textContent = label;
+    }
+
+    // Folders dropped from Finder / Explorer: walk them.
+    async function filesFromDrop(dt) {
+      const items = Array.from(dt.items || []);
+      const entries = items.map((it) => it.webkitGetAsEntry && it.webkitGetAsEntry()).filter(Boolean);
+      if (!entries.length) return Array.from(dt.files || []);
+      const out = [];
+      const readDir = (dir) => new Promise((resolve) => {
+        const r = dir.createReader(), acc = [];
+        const next = () => r.readEntries((batch) => { if (!batch.length) resolve(acc); else { acc.push.apply(acc, batch); next(); } }, () => resolve(acc));
+        next();
+      });
+      const walk = async (entry) => {
+        if (entry.isFile) {
+          const f = await new Promise((res) => entry.file(res, () => res(null)));
+          if (f) out.push({ file: f, path: entry.fullPath.replace(/^\//, '') });
+        } else if (entry.isDirectory) {
+          for (const e of await readDir(entry)) await walk(e);
+        }
+      };
+      for (const e of entries) await walk(e);
+      return out;
+    }
+
+    // ───────── Step 2: the plan ─────────
+    function cardTitles() {
+      const base = ($('card-title').value || '').trim() || 'My audio';
+      const n = state.plan ? state.plan.cards.length : 1;
+      return state.plan.cards.map((_, k) => n > 1 ? base + ' (Part ' + (k + 1) + ' of ' + n + ')' : base);
+    }
+
+    function replan() {
+      const items = state.files.map((f) => ({ title: f.title, duration: f.duration, bytes: f.file.size, mp3: f.mp3 }));
+      state.plan = YC.planCards(items);
+      assignIcons();
+      renderPlan();
+    }
+
+    function renderPlan() {
+      const p = state.plan, files = state.files;
+      const total = files.reduce((a, f) => a + f.duration, 0);
+      const notes = $('plan-notes'); notes.innerHTML = '';
+      const sum = $('summary'); sum.innerHTML = '';
+      const stat = (big, small, accent) => el('div', { class: 'stat' + (accent ? ' accent' : '') }, [el('b', { text: big }), el('span', { text: small })]);
+
+      if (p.tooLong.length) {
+        const ul = el('ul', { class: 'err-list' }, p.tooLong.map((i) => el('li', { text: files[i].path + ' (' + fmtDur(files[i].duration) + ')' })));
+        notes.appendChild(el('div', { class: 'callout warn' }, [
+          el('p', {}, [el('strong', { text: plural(p.tooLong.length, 'file is', 'files are') + ' longer than 60 minutes, ' }), 'which is the most Yoto allows for one track. Split ' + (p.tooLong.length === 1 ? 'it' : 'them') + ' into shorter files first (Audacity is a free app that can), then choose your files again.']),
+          ul
+        ]));
+        $('plan-list').innerHTML = ''; $('go-card').hidden = true;
+        sum.appendChild(stat(String(files.length), 'files')); sum.appendChild(stat(fmtLong(total), 'of audio'));
+        return;
+      }
+
+      const tracks = p.cards.reduce((a, c) => a + c.tracks.length, 0);
+      const joined = p.cards.reduce((a, c) => a + c.tracks.filter((t) => t.items.length > 1).length, 0);
+      const encoded = p.cards.reduce((a, c) => a + c.tracks.filter((t) => t.mode === 'encode').length, 0);
+      sum.appendChild(stat(String(files.length), plural(files.length, 'file').replace(/^\d+ /, '') + ', ' + fmtLong(total)));
+      sum.appendChild(stat(String(tracks), 'tracks', true));
+      sum.appendChild(stat(String(p.cards.length), p.cards.length === 1 ? 'card' : 'cards', p.cards.length > 1));
+      sum.appendChild(stat(String(joined), joined === 1 ? 'track joins files' : 'tracks join files'));
+
+      const said = [];
+      if (files.length <= 100 && p.cards.length === 1) said.push('These fit on one card as they are, so nothing needs joining.');
+      if (p.cards.length > 1) said.push('That’s more than the 5 hours one card holds, so it’s split across ' + p.cards.length + ' cards in order.');
+      if (encoded) {
+        const big = p.cards.reduce((a, c) => a + c.tracks.filter((t) => t.mode === 'encode' && t.items.every((i) => files[i].mp3)).length, 0);
+        const why = big === encoded ? 'they’d be over Yoto’s 100 MB limit for one track' : big ? 'they join files that aren’t MP3s, or would be over Yoto’s 100 MB limit' : 'they join files that aren’t MP3s';
+        said.push(plural(encoded, 'track') + ' will be re-made as a mono MP3 because ' + why + '. Yoto plays every track in mono anyway, so they’ll sound the same on the player.');
+      }
+      said.forEach((t) => notes.appendChild(el('div', { class: 'callout' }, [el('p', { text: t })])));
+      if (state.skipped.length) {
+        notes.appendChild(el('div', { class: 'callout warn' }, [
+          el('p', { text: 'Left out (' + state.skipped.length + '): ' + state.skipped.slice(0, 6).map((s) => s.name.split('/').pop() + ' (' + s.why + ')').join(', ') + (state.skipped.length > 6 ? ', …' : '') })
+        ]));
+      }
+      $('title-hint').textContent = p.cards.length > 1 ? 'Each card gets “(Part 1 of ' + p.cards.length + ')” and so on after this name.' : '';
+      renderTrackList();
+      renderCover();
+
+      $('go-card').hidden = false;
+      $('go-label').textContent = MOCK ? 'Practice run' : p.cards.length > 1 ? 'Make my ' + p.cards.length + ' cards' : 'Make my card';
+      $('go-helper').textContent = 'This uploads ' + plural(tracks, 'track') + ' (about ' + fmtMB(p.cards.reduce((a, c) => a + c.tracks.reduce((b, t) => b + t.bytes, 0), 0)) + ') to your Yoto account' +
+        (encoded ? ', after re-making ' + plural(encoded, 'track') + ' in this browser' : '') + '. Keep this page open while it works.';
+    }
+
+    function renderTrackList() {
+      const p = state.plan, titles = cardTitles();
+      const wrap = $('plan-list'); wrap.innerHTML = '';
+      p.cards.forEach((card, k) => {
+        const dur = card.tracks.reduce((a, t) => a + t.duration, 0);
+        const box = el('div', { class: 'card-plan' });
+        box.appendChild(el('h3', { text: titles[k] }));
+        box.appendChild(el('p', { class: 'sub', text: plural(card.tracks.length, 'track') + ' · ' + fmtLong(dur) }));
+        const ol = el('ol', { class: 'tracks', 'aria-label': 'Tracks on ' + titles[k] });
+        card.tracks.forEach((t, j) => {
+          const ic = card.icons && card.icons[j];
+          const sub = [];
+          if (t.items.length > 1) sub.push(el('span', { class: 'tag', text: t.items.length + ' files joined' }));
+          if (t.mode === 'encode') sub.push(el('span', { class: 'tag enc', text: 're-made at ' + t.kbps + ' kbps' }));
+          const li = el('li', { class: 'trk', id: 'trk-' + k + '-' + j }, [
+            el('span', { class: 'n', text: String(j + 1) }),
+            ic ? el('img', { class: 'ic', src: ic.url, alt: ic.title, title: ic.title, width: '32', height: '32', loading: 'lazy' }) : el('span', { class: 'ic none', 'aria-hidden': 'true' }),
+            el('span', { class: 't' }, [t.title].concat(sub.length ? [el('small', {}, sub)] : [])),
+            el('span', { class: 'len', text: fmtDur(t.duration) })
+          ]);
+          ol.appendChild(li);
+        });
+        box.appendChild(ol);
+        wrap.appendChild(box);
+      });
+    }
+
+    // ───────── Icons ─────────
+    const STOP = new Set(('the and for with from into onto that this then than what when where who why how was were are has had have not but you your our his her its they them their '
+      + 'chapter chapters part parts track tracks disc book volume vol intro introduction prologue epilogue outro end episode act scene story stories audio audiobook unabridged read reading').split(' '));
+    const stem = (w) => w.length > 4 && /ies$/.test(w) ? w.slice(0, -3) + 'y' : (w.length > 3 && /[^s]s$/.test(w) ? w.slice(0, -1) : w);
+    const words = (s) => String(s || '').toLowerCase().replace(/[^a-z\s]/g, ' ').split(/\s+/).filter((w) => w.length >= 3 && !STOP.has(w)).map(stem);
+    // Test uploads, palettes and number tiles in Yoto's library: never picked.
+    const JUNK = /test|palette|_myo_|^numbers?\s*-|^\d+$/i;
+
+    async function loadIcons() {
+      if (state.icons) return state.icons;
+      if (!state.iconsLoading) {
+        state.iconsLoading = call('/media/displayIcons/user/yoto').then((d) => {
+          const list = ((d && d.displayIcons) || []).filter((i) => i && i.mediaId && i.url && !JUNK.test(i.title || ''));
+          const seen = new Set();
+          state.icons = list.filter((i) => !seen.has(i.mediaId) && seen.add(i.mediaId)).map((i) => ({
+            id: i.mediaId, url: i.url, title: i.title || '',
+            tw: new Set(words(i.title)), tags: new Set((i.publicTags || []).map((t) => stem(String(t).toLowerCase())))
+          }));
+          logLine(MOCK ? 'icons: ' + state.icons.length + ' practice placeholders (the real page uses Yoto’s library)' : 'icons: ' + state.icons.length + ' from Yoto’s library');
+          return state.icons;
+        }).catch((e) => { state.iconsLoading = null; logLine('icons failed: ' + (e && e.message)); return null; });
+      }
+      return state.iconsLoading;
+    }
+
+    function seededOrder(arr, seedText) {
+      let h = 2166136261;
+      for (let i = 0; i < seedText.length; i++) { h ^= seedText.charCodeAt(i); h = Math.imul(h, 16777619); }
+      const rnd = () => { h = Math.imul(h ^ (h >>> 15), 2246822507) ^ Math.imul(h ^ (h >>> 13), 3266489909); return ((h ^= h >>> 16) >>> 0) / 4294967296; };
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+      return a;
+    }
+
+    // Best word matches first, each icon used once per card; the rest get a
+    // shuffled pick of the library (the same pick each time for the same files).
+    function assignIcons() {
+      const p = state.plan;
+      if (!p) return;
+      const mode = $('icon-mode').value;
+      p.cards.forEach((card, k) => {
+        card.icons = null;
+        if (mode === 'none' || !state.icons || !state.icons.length) return;
+        const icons = state.icons, out = new Array(card.tracks.length).fill(null), used = new Set();
+        const cands = [];
+        card.tracks.forEach((t, j) => {
+          const ws = Array.from(new Set([].concat.apply([], t.items.map((i) => words(state.files[i].title)))));
+          if (!ws.length) return;
+          icons.forEach((ic, x) => {
+            let s = 0;
+            ws.forEach((w) => { if (ic.tw.has(w)) s += 3; else if (ic.tags.has(w)) s += 1; });
+            if (s) cands.push([s, j, x]);
+          });
+        });
+        cands.sort((a, b) => b[0] - a[0] || a[1] - b[1]);
+        cands.forEach(([, j, x]) => { if (!out[j] && !used.has(x)) { out[j] = icons[x]; used.add(x); } });
+        const pool = seededOrder(icons.map((_, x) => x), (state.files[0] ? state.files[0].path : '') + '#' + k).filter((x) => !used.has(x));
+        let q = 0;
+        for (let j = 0; j < out.length; j++) if (!out[j] && q < pool.length) out[j] = icons[pool[q++]];
+        card.icons = out;
+      });
+    }
+
+    // ───────── Cover art ─────────
+    // Yoto takes PNG, JPEG or GIF. Anything else (WebP, a huge photo) is redrawn as a JPEG here.
+    async function prepareCover(file) {
+      if (/^image\/(png|jpeg|gif)$/.test(file.type) && file.size <= 4e6) return file;
+      let bmp;
+      try { bmp = await createImageBitmap(file); }
+      catch (e) { throw new Error('This browser can’t open that image. Use a JPG or PNG.'); }
+      const scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+      const c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(bmp.width * scale)); c.height = Math.max(1, Math.round(bmp.height * scale));
+      const g = c.getContext('2d');
+      g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
+      g.drawImage(bmp, 0, 0, c.width, c.height);
+      return new Promise((res, rej) => c.toBlob((b) => b ? res(b) : rej(new Error('Couldn’t prepare that image.')), 'image/jpeg', 0.9));
+    }
+    async function setCover(file, auto) {
+      try {
+        const blob = await prepareCover(file);
+        clearCover();
+        state.cover = { blob, url: URL.createObjectURL(blob), name: file.name, auto: !!auto };
+      } catch (e) { if (!auto) showStatus(e.message, 'error'); }
+      renderCover();
+    }
+    function clearCover() {
+      if (state.cover && state.cover.url) URL.revokeObjectURL(state.cover.url);
+      state.cover = null;
+      renderCover();
+    }
+    function renderCover() {
+      const th = $('cover-thumb'), c = state.cover;
+      th.innerHTML = '';
+      th.classList.toggle('has', !!c);
+      th.appendChild(c ? el('img', { src: c.url, alt: '' }) : icon('photo'));
+      $('cover-remove').hidden = !c;
+      $('cover-pick-label').textContent = c ? 'Change image' : 'Choose an image';
+      const parts = state.plan && state.plan.cards.length > 1;
+      $('cover-hint').textContent = c
+        ? (c.auto ? 'Found in your folder: ' : '') + c.name + (parts ? '. Every part gets this cover.' : '.')
+        : 'A JPG or PNG, tall like a book cover. Without one, Yoto uses its plain cover.';
+    }
+    async function uploadCover(blob, title) {
+      const slug = (String(title || 'cover').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)) || 'cover';
+      const path = '/media/coverImage/user/me/upload?autoConvert=true&filename=' + encodeURIComponent(slug);
+      if (MOCK) {
+        await sleep(200);
+        (window.__combine = window.__combine || { built: [], cards: [] }).cover = blob;
+        return 'https://example.invalid/cover/' + slug;
+      }
+      let res;
+      try {
+        res = await fetch(Auth.API_BASE + path, { method: 'POST', headers: { Authorization: 'Bearer ' + await Auth.accessToken(), 'Content-Type': blob.type || 'image/jpeg' }, body: blob });
+      } catch (e) { throw new ApiError('network', 0); }
+      const text = await res.text();
+      logLine('POST (cover upload) ' + fmtMB(blob.size) + ' -> ' + res.status + (res.ok ? '' : '   got: ' + text.slice(0, 200)));
+      if (!res.ok) throw new ApiError(res.status === 401 ? 'signin' : res.status === 403 ? 'forbidden' : res.status >= 500 ? 'server' : 'rejected', res.status, text.slice(0, 160));
+      let j = {}; try { j = JSON.parse(text); } catch (e) {}
+      const url = j.coverImage && j.coverImage.mediaUrl;
+      if (!url) throw new Error('Yoto didn’t say where it put the cover.');
+      return url;
+    }
+
+    // ───────── Step 3: building, uploading, making the card ─────────
+    // Re-encoding happens one track at a time in a worker, so the page stays responsive.
+    let encodeChain = Promise.resolve();
+    function encodeTrack(files, kbps, onStep) {
+      const job = encodeChain.then(() => doEncode(files, kbps, onStep));
+      encodeChain = job.catch(() => {});
+      return job;
+    }
+    let workerUrl = null;
+    function makeWorker() {
+      if (!workerUrl) {
+        const src = 'importScripts(' + JSON.stringify(LAME_URL) + ');\n' +
+          'var enc=null,out=[];\n' +
+          'function i16(f){var o=new Int16Array(f.length);for(var i=0;i<f.length;i++){var s=f[i];s=s<-1?-1:s>1?1:s;o[i]=s<0?s*32768:s*32767;}return o;}\n' +
+          'onmessage=function(e){var m=e.data;try{\n' +
+          ' if(m.type==="start"){enc=new lamejs.Mp3Encoder(1,m.sr,m.kbps);out=[];postMessage({type:"ack"});}\n' +
+          ' else if(m.type==="pcm"){var L=m.l,B=1152*16;for(var i=0;i<L.length;i+=B){var b=enc.encodeBuffer(i16(L.subarray(i,i+B)));if(b.length)out.push(new Uint8Array(b));}postMessage({type:"ack"});}\n' +
+          ' else if(m.type==="end"){var f=enc.flush();if(f.length)out.push(new Uint8Array(f));postMessage({type:"done",parts:out});out=[];}\n' +
+          '}catch(err){postMessage({type:"error",message:String(err&&err.message||err)});}};\n';
+        workerUrl = URL.createObjectURL(new Blob([src], { type: 'text/javascript' }));
+      }
+      return new Worker(workerUrl);
+    }
+    async function doEncode(files, kbps, onStep) {
+      const SR = 44100;
+      const w = makeWorker();
+      const reply = () => new Promise((res, rej) => {
+        w.onmessage = (e) => e.data.type === 'error' ? rej(new Error('The MP3 encoder failed: ' + e.data.message)) : res(e.data);
+        w.onerror = (ev) => { ev.preventDefault && ev.preventDefault(); rej(new Error('The MP3 encoder couldn’t start' + (ev.message ? ': ' + ev.message : '.'))); };
+      });
+      try {
+        let r = reply(); w.postMessage({ type: 'start', sr: SR, kbps }); await r;
+        for (let i = 0; i < files.length; i++) {
+          if (onStep) onStep(i, files.length);
+          const buf = await files[i].file.arrayBuffer();
+          let audio;
+          try { audio = await new OfflineAudioContext(1, 1, SR).decodeAudioData(buf); }
+          catch (e) { throw new Error('This browser couldn’t decode ' + files[i].file.name + '. Try converting it to MP3 first.'); }
+          const n = audio.length, chs = audio.numberOfChannels;
+          const mono = new Float32Array(n);
+          for (let c = 0; c < chs; c++) { const d = audio.getChannelData(c); for (let s = 0; s < n; s++) mono[s] += d[s] / chs; }
+          r = reply(); w.postMessage({ type: 'pcm', l: mono }, [mono.buffer]); await r;
+        }
+        r = reply(); w.postMessage({ type: 'end' });
+        const d = await r;
+        return new Blob(d.parts, { type: 'audio/mpeg' });
+      } finally { w.terminate(); }
+    }
+
+    // The bytes for one planned track, and their type.
+    async function buildTrack(t, onStep) {
+      const files = t.items.map((i) => state.files[i]);
+      if (t.mode === 'as-is') return { blob: files[0].file, type: files[0].file.type || typeFor(files[0].file.name) };
+      if (t.mode === 'join') {
+        const parts = [];
+        files.forEach((f) => f.mp3.ranges.forEach((r) => parts.push(f.file.slice(r[0], r[1]))));
+        return { blob: new Blob(parts, { type: 'audio/mpeg' }), type: 'audio/mpeg' };
+      }
+      return { blob: await encodeTrack(files, t.kbps, onStep), type: 'audio/mpeg' };
+    }
+
+    async function uploadToYoto(built, label, setLine) {
+      const got = await call('/media/transcode/audio/uploadUrl');
+      const up = got && got.upload;
+      if (!up || !up.uploadUrl || !up.uploadId) throw new Error('Yoto didn’t give an upload address.');
+      setLine('Uploading ' + label + ' (' + fmtMB(built.blob.size) + ')');
+      if (!MOCK) {
+        let put;
+        try { put = await fetch(up.uploadUrl, { method: 'PUT', body: built.blob, headers: { 'Content-Type': built.type } }); }
+        catch (e) { throw Object.assign(new Error('The upload to Yoto didn’t go through. Check your connection.'), { retry: true }); }
+        logLine('PUT (audio upload) ' + label + ' ' + fmtMB(built.blob.size) + ' -> ' + put.status);
+        if (!put.ok) throw Object.assign(new Error('Yoto rejected the upload of ' + label + ' (' + put.status + ').'), { retry: put.status >= 500 });
+      } else {
+        await sleep(150 + Math.random() * 250);
+        (window.__combine = window.__combine || { built: [], cards: [] }).built.push({ label, blob: built.blob, type: built.type });
+      }
+      setLine('Yoto is preparing ' + label);
+      const until = Date.now() + TRANSCODE_WAIT_MS;
+      let wait = 2000;
+      while (Date.now() < until) {
+        const t = await call('/media/upload/' + encodeURIComponent(up.uploadId) + '/transcoded?loudnorm=false');
+        const tr = t && t.transcode;
+        if (tr && tr.transcodedSha256) return { sha: tr.transcodedSha256, info: tr.transcodedInfo || {} };
+        await sleep(wait); wait = Math.min(wait + 1000, 6000);
+      }
+      throw Object.assign(new Error('Yoto took too long to prepare ' + label + '.'), { retry: true });
+    }
+
+    let wakeLock = null;
+    async function lockScreen() { try { if (navigator.wakeLock) wakeLock = await navigator.wakeLock.request('screen'); } catch (e) {} }
+    function unlockScreen() { try { if (wakeLock) wakeLock.release(); } catch (e) {} wakeLock = null; }
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && running()) lockScreen(); });
+    window.addEventListener('beforeunload', (e) => { if (running()) { e.preventDefault(); e.returnValue = ''; } });
+
+    // Asked once per visit, before the first upload.
+    let consented = false;
+    function askConsent() {
+      if (running() || !state.plan || !state.plan.cards.length) return;
+      if (consented) return startRun();
+      const d = $('consent');
+      $('consent-box').checked = false; $('consent-ok').disabled = true; d.returnValue = '';
+      $('consent-ok').lastChild.textContent = state.plan.cards.length > 1 ? ' Upload and make the cards' : ' Upload and make the card';
+      if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+    }
+
+    function startRun() {
+      if (running() || !state.plan || !state.plan.cards.length) return;
+      if (!MOCK && Auth.missingScopes(NEEDS).length) {
+        showStatus('Your sign-in is missing permission to make cards. Sign in again and approve everything it asks for.', 'error', [
+          el('button', { type: 'button', class: 'btn btn-primary btn-small', onclick: signIn }, ['Sign in again'])
+        ]);
+        return;
+      }
+      clearStatus();
+      const titles = cardTitles();
+      state.run = {
+        active: true, stopped: false,
+        titles, iconsByCard: state.plan.cards.map((c) => c.icons ? c.icons.map((i) => i && i.id) : null),
+        results: state.plan.cards.map((c) => new Array(c.tracks.length).fill(null)),
+        errors: [], cardIds: new Array(state.plan.cards.length).fill(null),
+        cover: state.cover ? state.cover.blob : null, coverUrl: null
+      };
+      $('card-title').disabled = true; $('icon-mode').disabled = true; $('go-btn').disabled = true;
+      $('cover-pick').disabled = true; $('cover-remove').disabled = true;
+      $('drop').setAttribute('aria-disabled', 'true');
+      $('pick-files').disabled = true; $('pick-folder').disabled = true; $('start-over').disabled = true;
+      $('run-card').hidden = false; $('run-result').innerHTML = '';
+      $('run-h').textContent = state.plan.cards.length > 1 ? 'Making your cards' : 'Making your card';
+      $('run-h').focus();
+      runJobs();
+    }
+
+    async function runJobs() {
+      const run = state.run, plan = state.plan;
+      run.active = true; run.stopped = false; run.errors = [];
+      $('run-cancel').hidden = false; $('run-retry').hidden = true; $('run-new').hidden = true; $('run-keep').hidden = false;
+      lockScreen();
+      const jobs = [];
+      plan.cards.forEach((c, k) => c.tracks.forEach((t, j) => { if (!run.results[k][j]) jobs.push({ k, j, t }); }));
+      const total = plan.cards.reduce((a, c) => a + c.tracks.length, 0);
+      const doneCount = () => run.results.reduce((a, r) => a + r.filter(Boolean).length, 0);
+      const active = new Map();
+      const renderActive = () => {
+        const ul = $('active-list'); ul.innerHTML = '';
+        active.forEach((text) => ul.appendChild(el('li', {}, [icon('loader-2'), text])));
+        const d = doneCount();
+        setBar('run', d / (total + plan.cards.length), d < total ? d + ' of ' + total + ' tracks are on Yoto' : 'All ' + total + ' tracks are on Yoto. Making the card…');
+      };
+      renderActive();
+      logLine('--- making ' + plan.cards.length + ' card(s), ' + jobs.length + ' track(s) to upload ---');
+
+      const worker = async (slot) => {
+        while (jobs.length && !run.stopped) {
+          const job = jobs.shift();
+          const label = '“' + job.t.title + '”';
+          const setLine = (text) => { active.set(slot, text); renderActive(); };
+          for (let attempt = 1; ; attempt++) {
+            try {
+              setLine((job.t.mode === 'join' ? 'Joining ' : job.t.mode === 'encode' ? 'Waiting to re-make ' : 'Reading ') + label);
+              const built = await buildTrack(job.t, (i, n) => setLine('Re-making ' + label + (n > 1 ? ' (file ' + (i + 1) + ' of ' + n + ')' : '')));
+              if (built.blob.size > 100 * 1000 * 1000) throw new Error(label + ' came out at ' + fmtMB(built.blob.size) + ', over Yoto’s 100 MB limit.');
+              const r = await uploadToYoto(built, label, setLine);
+              run.results[job.k][job.j] = {
+                key: '01', title: job.t.title, trackUrl: 'yoto:#' + r.sha, type: 'audio',
+                duration: Math.round(r.info.duration || job.t.duration), fileSize: r.info.fileSize || built.blob.size,
+                channels: r.info.channels || 'mono', format: r.info.format || 'aac'
+              };
+              const li = $('trk-' + job.k + '-' + job.j); if (li) li.classList.add('done');
+              break;
+            } catch (e) {
+              const signin = e instanceof ApiError && e.kind === 'signin';
+              const retryable = !signin && (e.retry || (e instanceof ApiError && (e.kind === 'network' || e.kind === 'server' || e.kind === 'rate')));
+              logLine('track ' + (job.j + 1) + ' attempt ' + attempt + ' failed: ' + (e && e.message));
+              if (retryable && attempt < 3 && !run.stopped) { setLine('Trying ' + label + ' again…'); await sleep(attempt * 4000); continue; }
+              run.errors.push({ k: job.k, j: job.j, msg: e instanceof ApiError ? friendly(e) : (e && e.message) || 'Something went wrong.' });
+              const li = $('trk-' + job.k + '-' + job.j); if (li) li.classList.add('fail');
+              if (signin) { run.stopped = true; jobs.length = 0; }
+              break;
+            }
+          }
+          active.delete(slot); renderActive();
+        }
+      };
+      await Promise.all(Array.from({ length: CONCURRENCY }, (_, s) => worker(s)));
+      active.clear(); renderActive();
+
+      // The cover goes up once and is used on every part.
+      let coverOk = true;
+      if (run.cover && !run.coverUrl && !run.stopped) {
+        $('run-label').textContent = 'Uploading the cover art…';
+        try { run.coverUrl = await uploadCover(run.cover, run.titles[0]); }
+        catch (e) { coverOk = false; run.errors.push({ k: 0, j: -1, msg: 'The cover art didn’t upload: ' + (e instanceof ApiError ? friendly(e) : e.message) }); }
+      }
+
+      // Make each card whose tracks are all up.
+      for (let k = 0; k < plan.cards.length && !run.stopped && coverOk; k++) {
+        if (run.cardIds[k] || run.results[k].some((r) => !r)) continue;
+        try {
+          run.cardIds[k] = await createCard(k);
+        } catch (e) {
+          run.errors.push({ k, j: -1, msg: 'Making “' + run.titles[k] + '” failed: ' + (e instanceof ApiError ? friendly(e) : e.message) });
+        }
+      }
+      finishRun();
+    }
+
+    async function createCard(k) {
+      const run = state.run, plan = state.plan;
+      const icons = run.iconsByCard[k];
+      const chapters = plan.cards[k].tracks.map((t, j) => {
+        const display = icons && icons[j] ? { icon16x16: 'yoto:#' + icons[j] } : null;
+        const track = Object.assign({}, run.results[k][j], display ? { display } : {});
+        return Object.assign({ key: pad2(j + 1), title: t.title, tracks: [track] }, display ? { display } : {});
+      });
+      const sum = (key) => chapters.reduce((a, ch) => a + (Number(ch.tracks[0][key]) || 0), 0);
+      const body = JSON.stringify({ title: run.titles[k], content: { chapters }, metadata: Object.assign({ media: { duration: sum('duration'), fileSize: sum('fileSize') } }, run.coverUrl ? { cover: { imageL: run.coverUrl } } : {}) });
+      $('run-label').textContent = 'Making “' + run.titles[k] + '”…';
+      const res = await call('/content', { method: 'POST', body });
+      const id = (res && (res.cardId || (res.card && res.card.cardId))) || 'made';
+      logLine('made card ' + id + ': ' + run.titles[k] + ' (' + chapters.length + ' tracks)');
+      return id;
+    }
+
+    function finishRun() {
+      const run = state.run, plan = state.plan;
+      run.active = false;
+      unlockScreen();
+      $('run-cancel').hidden = true; $('run-keep').hidden = true;
+      const made = run.cardIds.filter(Boolean).length, all = plan.cards.length;
+      const out = $('run-result'); out.innerHTML = '';
+      const total = plan.cards.reduce((a, c) => a + c.tracks.length, 0);
+      const up = run.results.reduce((a, r) => a + r.filter(Boolean).length, 0);
+      setBar('run', (up + made) / (total + all), made === all ? 'Done.' : up + ' of ' + total + ' tracks are on Yoto.');
+      if (made === all && MOCK) {
+        $('run-h').textContent = 'Practice run finished';
+        out.appendChild(el('p', {}, ['Everything worked, but this was practice: ', el('strong', { text: 'nothing was sent to Yoto' }), ', so there’s no new card in your library. ', el('a', { href: 'yoto-combine.html', text: 'Open the real page' }), ' to make one.']));
+        $('run-new').hidden = false;
+        showStatus('Practice run finished. Nothing was sent to Yoto.', 'info');
+        showThanks();
+      } else if (made === all) {
+        $('run-h').textContent = all > 1 ? 'Your cards are ready' : 'Your card is ready';
+        out.appendChild(el('ul', { class: 'done-list' }, run.titles.map((t, k) => el('li', {}, [el('strong', { text: t }), ': ' + plural(plan.cards[k].tracks.length, 'track') + ', ' + fmtLong(plan.cards[k].tracks.reduce((a, x) => a + x.duration, 0))]))));
+        out.appendChild(el('p', { text: 'Find ' + (all > 1 ? 'them' : 'it') + ' under Make Your Own in the Yoto app. Open ' + (all > 1 ? 'each one' : 'it') + ' and tap Link to Card to put ' + (all > 1 ? 'it' : 'it') + ' on a blank card.' }));
+        $('run-new').hidden = false;
+        showStatus(all > 1 ? 'All ' + all + ' cards are ready in your Yoto account.' : '“' + run.titles[0] + '” is ready in your Yoto account.', 'success');
+        showThanks();
+      } else {
+        $('run-h').textContent = run.stopped && !run.errors.length ? 'Stopped' : 'Not finished yet';
+        if (made) out.appendChild(el('p', {}, ['Made: ', el('strong', { text: run.titles.filter((_, k) => run.cardIds[k]).join(', ') }), '.']));
+        if (run.errors.length) {
+          out.appendChild(el('p', { text: 'These didn’t go through. The tracks that did are kept, so trying again only sends the rest:' }));
+          out.appendChild(el('ul', { class: 'err-list' }, run.errors.slice(0, 8).map((e) => el('li', { text: (e.j >= 0 ? 'Track ' + (e.j + 1) + (all > 1 ? ' on card ' + (e.k + 1) : '') + ': ' : '') + e.msg }))));
+        } else out.appendChild(el('p', { text: 'The tracks already uploaded are kept. Press Try the rest again to carry on.' }));
+        $('run-retry').hidden = false;
+        $('run-new').hidden = false;
+      }
+    }
+
+    // After a card is made: a thank-you with tip links. Shown a beat later so the "ready" message lands first.
+    function showThanks() {
+      setTimeout(() => {
+        const d = $('thanks');
+        if (!d || d.open) return;
+        if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+      }, 900);
+    }
+
+    function resetAll() {
+      state.files = []; state.skipped = []; state.plan = null; state.run = null;
+      ['plan-card', 'go-card', 'run-card'].forEach((id) => { $(id).hidden = true; });
+      $('card-title').disabled = false; $('icon-mode').disabled = false; $('go-btn').disabled = false;
+      $('cover-pick').disabled = false; $('cover-remove').disabled = false;
+      clearCover();
+      $('pick-files').disabled = false; $('pick-folder').disabled = false; $('start-over').disabled = false;
+      $('drop').removeAttribute('aria-disabled');
+      $('file-input').value = ''; $('folder-input').value = '';
+      $('pick-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ───────── Mock Yoto ─────────
+    let mockN = 0;
+    async function mockApi(path, method, body) {
+      await sleep(60);
+      if (path === '/media/displayIcons/user/yoto') {
+        const names = ['Lion', 'Moon', 'Sun', 'Rainbow', 'Cat', 'Dog', 'Bear', 'Bunny', 'Frog', 'Fish', 'Owl', 'Tree', 'Flower', 'Star', 'Rocket', 'Train', 'Boat', 'Car', 'Apple', 'Cake', 'Heart', 'Cloud', 'Snowman', 'Book', 'Music notes', 'Crown', 'Castle', 'Dragon', 'Egg', 'Caterpillar', 'Butterfly', 'Pig', 'Duck', 'Horse', 'Truck', 'Bee', 'Snail', 'Whale', 'Robot', 'Kite'];
+        const hues = [12, 40, 60, 100, 140, 180, 210, 250, 290, 330];
+        const many = [];
+        for (let r = 0; r < 4; r++) names.forEach((n, i) => {
+          const hue = hues[(i + r * 3) % hues.length];
+          const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect width="16" height="16" fill="#1C2826"/><circle cx="8" cy="8" r="' + (4 + r) + '" fill="hsl(' + hue + ',70%,60%)"/><text x="8" y="11" font-size="7" text-anchor="middle" fill="#fff" font-family="sans-serif">' + n[0] + '</text></svg>';
+          many.push({ mediaId: 'mock' + r + '_' + i, title: r ? n + ' V' + (r + 1) : n, publicTags: [n.toLowerCase().split(' ')[0]], url: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg) });
+        });
+        return { displayIcons: many };
+      }
+      if (path === '/media/transcode/audio/uploadUrl') return { upload: { uploadUrl: 'https://example.invalid/upload', uploadId: 'mockUp' + (++mockN) } };
+      if (path.indexOf('/media/upload/') === 0) { await sleep(200); return { transcode: { transcodedSha256: 'mocksha' + path.split('/')[3], transcodedInfo: { duration: 60, fileSize: 40000, channels: 'mono', format: 'opus' } } }; }
+      if (path === '/content' && method === 'POST') {
+        (window.__combine = window.__combine || { built: [], cards: [] }).cards.push(JSON.parse(body));
+        return { card: { cardId: 'mockCard' + (++mockN) } };
+      }
+      return {};
+    }
+
+    // ───────── Session ─────────
+    function signIn() {
+      clearStatus();
+      // Yoto sends you straight back to this page, so it must be on the app's Allowed Callback URLs.
+      Auth.startSignIn().then((r) => { if (r && r.error) showStatus(r.error, 'error'); });
+    }
+    function showSignedOut() {
+      $('app').hidden = true;
+      $('not-configured').hidden = Auth.isConfigured();
+      $('signin-card').hidden = !Auth.isConfigured();
+    }
+    function showSignedIn() {
+      $('not-configured').hidden = true; $('signin-card').hidden = true; $('app').hidden = false;
+      const name = Auth.displayName(), who = $('who-text');
+      who.textContent = '';
+      if (!name) who.textContent = 'Signed in with Yoto';
+      else { who.appendChild(document.createTextNode('Signed in as ')); who.appendChild(el('strong', { text: name })); }
+      loadIcons().then(() => { if (state.plan && state.plan.cards.length) { assignIcons(); renderTrackList(); } });
+    }
+
+    const SHARE_URL = location.origin + location.pathname;
+    function share(btn) {
+      const label = btn.querySelector('.share-label'), orig = label.textContent;
+      const done = () => { label.textContent = 'Copied!'; setTimeout(() => { label.textContent = orig; }, 1800); };
+      if (navigator.share) navigator.share({ title: 'Yoto Combine Tracks (beta)', text: 'A free tool that fits more than 100 tracks onto a Yoto Make Your Own card.', url: SHARE_URL }).catch(() => {});
+      else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(SHARE_URL).then(done).catch(() => window.prompt('Copy this link:', SHARE_URL));
+      else window.prompt('Copy this link:', SHARE_URL);
+    }
+
+    function wire() {
+      $('signin-btn').addEventListener('click', signIn);
+      $('signout-btn').addEventListener('click', () => {
+        if (running()) { showStatus('Wait for the upload to finish, or press Stop, before signing out.', 'error'); return; }
+        Auth.signOut(); showSignedOut();
+        showStatus('You’re signed out. Your sign-in has been cleared from this browser.', 'success');
+      });
+      $('pick-files').addEventListener('click', () => $('file-input').click());
+      $('pick-folder').addEventListener('click', () => $('folder-input').click());
+      $('file-input').addEventListener('change', (e) => takeFiles(Array.from(e.target.files || [])));
+      $('folder-input').addEventListener('change', (e) => takeFiles(Array.from(e.target.files || [])));
+      const drop = $('drop');
+      ['dragenter', 'dragover'].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); if (!running()) drop.classList.add('over'); }));
+      ['dragleave', 'drop'].forEach((t) => drop.addEventListener(t, () => drop.classList.remove('over')));
+      drop.addEventListener('drop', async (e) => { e.preventDefault(); if (running()) return; takeFiles(await filesFromDrop(e.dataTransfer)); });
+      // A file dropped beside the box shouldn't make the browser navigate away.
+      window.addEventListener('dragover', (e) => e.preventDefault());
+      window.addEventListener('drop', (e) => e.preventDefault());
+      let retitle = null;
+      $('card-title').addEventListener('input', () => { clearTimeout(retitle); retitle = setTimeout(() => { if (state.plan && state.plan.cards.length) { assignIcons(); renderTrackList(); } }, 400); });
+      $('icon-mode').addEventListener('change', () => { if (state.plan && state.plan.cards.length) { assignIcons(); renderTrackList(); } });
+      $('start-over').addEventListener('click', resetAll);
+      $('cover-pick').addEventListener('click', () => $('cover-input').click());
+      $('cover-input').addEventListener('change', (e) => { const f = e.target.files && e.target.files[0]; if (f) setCover(f, false); e.target.value = ''; });
+      $('cover-remove').addEventListener('click', clearCover);
+      $('go-btn').addEventListener('click', askConsent);
+      $('consent-box').addEventListener('change', (e) => { $('consent-ok').disabled = !e.target.checked; });
+      $('consent-cancel').addEventListener('click', () => $('consent').close('cancel'));
+      $('consent').addEventListener('close', () => {
+        if ($('consent').returnValue === 'ok' && $('consent-box').checked) { consented = true; startRun(); }
+        else $('go-btn').focus();
+      });
+      $('run-cancel').addEventListener('click', () => { if (state.run) { state.run.stopped = true; $('run-label').textContent = 'Stopping after the tracks already on their way…'; } });
+      $('run-retry').addEventListener('click', () => { clearStatus(); runJobs(); });
+      $('run-new').addEventListener('click', () => { clearStatus(); resetAll(); });
+      $('diag-copy').addEventListener('click', () => {
+        const text = 'Yoto Combine Tracks diagnostics' + (MOCK ? ' (MOCK)' : '') + '\n' + navigator.userAgent + '\n\n' + diag.join('\n');
+        const label = $('diag-copy-label');
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { label.textContent = 'Copied!'; setTimeout(() => { label.textContent = 'Copy diagnostics'; }, 1800); }).catch(() => window.prompt('Copy this:', text));
+        else window.prompt('Copy this:', text);
+      });
+      document.querySelectorAll('.js-share').forEach((b) => b.addEventListener('click', () => share(b)));
+    }
+
+    async function init() {
+      wire();
+      if (MOCK) {
+        showSignedIn();
+        $('who-text').textContent = 'Mock mode: files are really read and joined, but nothing is sent to Yoto.';
+        $('signout-wrap').hidden = true;
+        $('mock-banner').hidden = false;
+        $('go-label').textContent = 'Practice run';
+        logLine('mock mode: practice icons and a pretend Yoto. Nothing is sent anywhere.');
+        return;
+      }
+      const q = new URLSearchParams(location.search);
+      const back = q.has('signedin');
+      if (back) history.replaceState(null, '', location.pathname);
+      const r = await Auth.handleRedirect();
+      let signedIn = Auth.isSignedIn();
+      const missing = signedIn ? Auth.missingScopes(NEEDS) : [];
+      if (missing.length) signedIn = false;
+      if (signedIn) showSignedIn(); else showSignedOut();
+      if (r && r.error) showStatus(r.error, 'error');
+      else if (missing.length) showStatus('Your saved sign-in is missing a permission this tool needs. Please sign in again.', 'error');
+      else if (signedIn && (back || (r && r.ok))) showStatus('You’re signed in.', 'success');
+    }
+    init();
+  })();
+  </script>
+</body>
+</html>
